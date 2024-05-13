@@ -4,6 +4,8 @@ export const SIZE = {
   size_14: 14,
   size_16: 16,
   size_18: 18,
+  size_20: 20,
+  size_22: 22,
 };
 
 export const TYPE = {
