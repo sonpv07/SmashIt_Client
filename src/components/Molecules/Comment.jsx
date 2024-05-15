@@ -11,7 +11,7 @@ import StarRating from "react-native-star-rating-widget";
 import { COLORS } from "../../theme/colors";
 import Icon from "react-native-vector-icons/Feather";
 
-export default function Comment() {
+export default function Comment({ data }) {
   const [rating, setRating] = useState(5);
 
   return (
