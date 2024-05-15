@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import Input from "../src/components/Atoms/Input";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,7 +21,6 @@ export default function App() {
   if (!isLoaded) {
     return null;
   }
-
   return (
     <View style={styles.container} onLayout={handleOnLayout}>
       <Text>ASBDJSAKBDJKH</Text>
@@ -29,9 +29,8 @@ export default function App() {
           fontFamily: "quicksand-regular",
           fontWeight: 700,
         }}
-      >
-        Open up App.js to start working on your app!
-      </Text>
+      ></Text>
+      <Input placeholder={"Text here"}/>
       <StatusBar style="auto" />
     </View>
   );
