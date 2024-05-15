@@ -12,14 +12,9 @@ import { COLORS } from "../../theme/colors";
 import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-// TODO:
+// TODO: Wait For API than continue
 
 export default function OwnedCourtCard({ data }) {
-  const [isLoaded] = useFonts({
-    "quicksand-medium": require("../../assets/fonts/Quicksand-Medium.ttf"),
-    "quicksand-semibold": require("../../assets/fonts/Quicksand-SemiBold.ttf"),
-  });
-
   return (
     <View style={styles.container}>
       <View style={styles.upperSection}>
