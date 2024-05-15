@@ -13,8 +13,8 @@ export const TYPE = {
 };
 
 export const WEIGHT = {
-  weight_400: 400,
-  weight_500: 500,
-  weight_600: 600,
-  weight_700: 700,
+  weight_400: "400",
+  weight_500: "500",
+  weight_600: "600",
+  weight_700: "700",
 };
