@@ -8,7 +8,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [isLoaded] = useFonts({
-    "quicksand-regular": require("./src/assets/fonts/Quicksand-Regular.ttf"),
+    "quicksand-regular": require("../src/assets/fonts/Quicksand-Medium.ttf"),
   });
 
   const handleOnLayout = useCallback(async () => {
