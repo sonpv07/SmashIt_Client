@@ -6,13 +6,15 @@ import { useCallback } from "react";
 import OwnedCourtCard from "../src/components/Molecules/OwnedCourtCard";
 import Comment from "../src/components/Molecules/Comment";
 import FontLoader from "../src/components/FontLoader";
+import FinancialActivities from "../src/components/Molecules/FinancialActivities";
 
 export default function App() {
   return (
     <FontLoader>
       <View style={styles.container}>
         <StatusBar style="auto" />
-        <OwnedCourtCard />
+        <FinancialActivities />
+        {/* <OwnedCourtCard /> */}
         {/* <Comment /> */}
       </View>
     </FontLoader>
@@ -24,6 +26,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    paddingHorizontal: 12,
+    paddingHorizontal: 15,
   },
 });
