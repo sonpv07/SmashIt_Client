@@ -7,15 +7,18 @@ import OwnedCourtCard from "../src/components/Molecules/OwnedCourtCard";
 import Comment from "../src/components/Molecules/Comment";
 import FontLoader from "../src/components/FontLoader";
 import FinancialActivities from "../src/components/Molecules/FinancialActivities";
+import PackageItem from "../src/components/Molecules/PackageItem";
 
 export default function App() {
   return (
     <FontLoader>
       <View style={styles.container}>
         <StatusBar style="auto" />
-        <FinancialActivities />
+        {/* <FinancialActivities /> */}
         {/* <OwnedCourtCard /> */}
         {/* <Comment /> */}
+
+        <PackageItem />
       </View>
     </FontLoader>
   );
