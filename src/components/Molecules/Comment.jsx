@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
 
   normalText: {
-    fontFamily: "quicksand-medium",
+    fontFamily: "quicksand-regular",
     fontSize: SIZE.size_12,
     fontWeight: WEIGHT.weight_400,
     lineHeight: 18,

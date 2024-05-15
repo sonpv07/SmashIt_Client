@@ -12,8 +12,8 @@ export default function App() {
     <FontLoader>
       <View style={styles.container}>
         <StatusBar style="auto" />
-        {/* <OwnedCourtCard /> */}
-        <Comment />
+        <OwnedCourtCard />
+        {/* <Comment /> */}
       </View>
     </FontLoader>
   );

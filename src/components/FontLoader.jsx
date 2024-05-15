@@ -8,6 +8,9 @@ const FontLoader = ({ children }) => {
   const [fontsLoaded, error] = useFonts({
     "quicksand-medium": require("../assets/fonts/Quicksand-Medium.ttf"),
     "quicksand-semibold": require("../assets/fonts/Quicksand-SemiBold.ttf"),
+    "quicksand-light": require("../assets/fonts/Quicksand-Light.ttf"),
+    "quicksand-regular": require("../assets/fonts/Quicksand-Regular.ttf"),
+    "quicksand-bold": require("../assets/fonts/Quicksand-Bold.ttf"),
   });
 
   if (!fontsLoaded) {
