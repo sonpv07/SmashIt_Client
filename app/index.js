@@ -3,12 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
+import OwnedCourt from "../src/components/Molecules/OwnedCourtCard";
+import OwnedCourtCard from "../src/components/Molecules/OwnedCourtCard";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [isLoaded] = useFonts({
-    "quicksand-regular": require("./src/assets/fonts/Quicksand-Medium.ttf"),
+    "quicksand-regular": require("../src/assets/fonts/Quicksand-Medium.ttf"),
   });
 
   const handleOnLayout = useCallback(async () => {
@@ -23,17 +25,8 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={handleOnLayout}>
-      <Text>ASBDJSAKBDJKH</Text>
-      <Text
-        style={{
-          fontFamily: "quicksand-regular",
-          fontSize: 16,
-          // fontWeight: "bold",
-        }}
-      >
-        Open up App.js to start working on your app!
-      </Text>
       <StatusBar style="auto" />
+      <OwnedCourtCard />
     </View>
   );
 }
