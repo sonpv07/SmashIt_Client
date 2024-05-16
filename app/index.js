@@ -6,6 +6,7 @@ import { useCallback } from "react";
 
 import FontLoader from "../src/components/FontLoader";
 import CourtBackground from "../src/components/Organisms/CourtBackground";
+import PackageItem from "../src/components/Organisms/PackageItem";
 
 export default function App() {
   return (
@@ -15,10 +16,10 @@ export default function App() {
         {/* <FinancialActivities /> */}
         {/* <OwnedCourtCard /> */}
         {/* <Comment /> */}
-        {/* <PackageItem /> */}
+        <PackageItem />
         {/* <PackageDescription /> */}
         {/* <CourtInfo /> */}
-        <CourtBackground />
+        {/* <CourtBackground /> */}
       </View>
     </FontLoader>
   );

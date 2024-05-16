@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
 
   imageSection: {
     width: "100%",
-    height: 156,
     position: "relative",
     borderRadius: 6,
     overflow: "hidden",
@@ -113,7 +112,8 @@ const styles = StyleSheet.create({
 
   image: {
     width: "100%",
-    height: "100%",
+    height: undefined,
+    aspectRatio: 28 / 13,
   },
 
   overlay: {

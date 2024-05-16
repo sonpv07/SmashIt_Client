@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     position: "relative",
     borderRadius: 6,
     overflow: "hidden",
-    marginBottom: 10,
   },
 
   image: {
