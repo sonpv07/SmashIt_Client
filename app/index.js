@@ -3,13 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
-import OwnedCourtCard from "../src/components/Molecules/OwnedCourtCard";
-import Comment from "../src/components/Molecules/Comment";
+
 import FontLoader from "../src/components/FontLoader";
-import FinancialActivities from "../src/components/Molecules/FinancialActivities";
-import PackageItem from "../src/components/Molecules/PackageItem";
-import PackageDescription from "../src/components/Molecules/PackageDescription";
-import CourtInfo from "../src/components/Molecules/CourtInfo";
+import CourtBackground from "../src/components/Organisms/CourtBackground";
 
 export default function App() {
   return (
@@ -21,7 +17,8 @@ export default function App() {
         {/* <Comment /> */}
         {/* <PackageItem /> */}
         {/* <PackageDescription /> */}
-        <CourtInfo />
+        {/* <CourtInfo /> */}
+        <CourtBackground />
       </View>
     </FontLoader>
   );
