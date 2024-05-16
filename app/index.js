@@ -9,6 +9,7 @@ import FontLoader from "../src/components/FontLoader";
 import FinancialActivities from "../src/components/Molecules/FinancialActivities";
 import PackageItem from "../src/components/Molecules/PackageItem";
 import PackageDescription from "../src/components/Molecules/PackageDescription";
+import CourtInfo from "../src/components/Molecules/CourtInfo";
 
 export default function App() {
   return (
@@ -16,10 +17,11 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style="auto" />
         {/* <FinancialActivities /> */}
-        <OwnedCourtCard />
+        {/* <OwnedCourtCard /> */}
         {/* <Comment /> */}
         {/* <PackageItem /> */}
         {/* <PackageDescription /> */}
+        <CourtInfo />
       </View>
     </FontLoader>
   );
