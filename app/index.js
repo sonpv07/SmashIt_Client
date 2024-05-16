@@ -16,10 +16,10 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style="auto" />
         {/* <FinancialActivities /> */}
-        {/* <OwnedCourtCard /> */}
+        <OwnedCourtCard />
         {/* <Comment /> */}
         {/* <PackageItem /> */}
-        <PackageDescription />
+        {/* <PackageDescription /> */}
       </View>
     </FontLoader>
   );

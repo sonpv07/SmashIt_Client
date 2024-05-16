@@ -24,7 +24,10 @@ export default function FinancialActivities({ data }) {
       </View>
       <View style={styles.rightSection}>
         <Text
-          style={[styles.moneyText, { fontWeight: 600, color: COLORS.red }]}
+          style={[
+            styles.moneyText,
+            { fontFamily: "quicksand-semibold", color: COLORS.red },
+          ]}
         >
           + 100.000d
         </Text>

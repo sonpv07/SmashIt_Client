@@ -9,8 +9,13 @@ import React from "react";
 import { COLORS } from "../../theme/colors";
 import { SIZE, WEIGHT } from "../../theme/fonts";
 import Icon from "react-native-vector-icons/FontAwesome";
+import * as Progress from "react-native-progress";
 
-export default function PackageItem() {
+export default function PackageItem({ data }) {
+  // TODO: Add Progress Bar for user who has bought the package
+
+  const isBought = true;
+
   return (
     <View style={styles.container}>
       <View style={styles.imageSection}>
@@ -36,13 +41,48 @@ export default function PackageItem() {
       </View>
 
       <View style={styles.bottomSection}>
-        <View style={styles.priceSection}>
-          <Text style={styles.oldPrice}>150.000d </Text>
-          <Text style={styles.newPrice}>100.000d / tháng</Text>
-        </View>
+        {isBought ? (
+          <View style={styles.progressSection}>
+            <View style={styles.progressTextSection}>
+              <Text
+                style={[
+                  styles.progessText,
+                  { fontFamily: "quicksand-regular" },
+                ]}
+              >
+                Đã sử dụng
+              </Text>
+              <Text
+                style={[
+                  styles.progessText,
+                  {
+                    fontFamily: "quicksand-semibold",
+                    color: COLORS.darkGreenText,
+                  },
+                ]}
+              >
+                50%
+              </Text>
+            </View>
+            <Progress.Bar
+              progress={0.3}
+              width={165}
+              height={8}
+              borderRadius={10}
+              borderColor="white"
+              unfilledColor="#D9D9D9"
+              color={COLORS.darkGreenText}
+            />
+          </View>
+        ) : (
+          <View style={styles.priceSection}>
+            <Text style={styles.oldPrice}>150.000d </Text>
+            <Text style={styles.newPrice}>100.000d / tháng</Text>
+          </View>
+        )}
 
         <TouchableWithoutFeedback>
-          <View style={styles.buttonSection}>
+          <View style={[styles.buttonSection, isBought && { marginTop: 10 }]}>
             <Text style={[styles.ribbonText, { color: COLORS.orangeText }]}>
               Xem thêm
             </Text>
@@ -50,6 +90,7 @@ export default function PackageItem() {
               name="arrow-circle-right"
               size={14}
               color={COLORS.orangeText}
+              style={{ marginTop: 2 }}
             />
           </View>
         </TouchableWithoutFeedback>
@@ -122,14 +163,13 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: SIZE.size_14,
     fontFamily: "quicksand-semibold",
-    fontWeight: WEIGHT.weight_600,
     lineHeight: 18,
   },
 
   bottomSection: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "center",
   },
 
   priceSection: {
@@ -149,7 +189,20 @@ const styles = StyleSheet.create({
     fontSize: SIZE.size_14,
     color: COLORS.darkGreenText,
     fontFamily: "quicksand-semibold",
-    fontWeight: WEIGHT.weight_600,
+    lineHeight: 18,
+  },
+
+  progressSection: {},
+
+  progressTextSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 5,
+  },
+
+  progessText: {
+    fontSize: SIZE.size_12,
     lineHeight: 18,
   },
 

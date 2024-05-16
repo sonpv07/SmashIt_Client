@@ -94,13 +94,11 @@ const styles = StyleSheet.create({
   boldText: {
     fontSize: SIZE.size_14,
     fontFamily: "quicksand-semibold",
-    fontWeight: WEIGHT.weight_600,
   },
 
   normalText: {
     fontFamily: "quicksand-regular",
     fontSize: SIZE.size_12,
-    fontWeight: WEIGHT.weight_400,
     lineHeight: 18,
   },
 

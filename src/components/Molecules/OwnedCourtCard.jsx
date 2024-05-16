@@ -116,9 +116,8 @@ const styles = StyleSheet.create({
   },
 
   normalText: {
-    fontFamily: "quicksand-regular",
+    fontFamily: "quicksand-medium",
     fontSize: 14,
-    fontWeight: WEIGHT.weight_500,
     lineHeight: 18,
   },
 
@@ -132,7 +131,6 @@ const styles = StyleSheet.create({
   boldText: {
     fontFamily: "quicksand-semibold",
     fontSize: 12,
-    fontWeight: WEIGHT.weight_600,
     lineHeight: 18,
   },
 
@@ -189,9 +187,8 @@ const styles = StyleSheet.create({
   },
 
   buttonTextActive: {
-    fontFamily: "quicksand-semibold",
+    fontFamily: "quicksand-bold",
     fontSize: 14,
-    fontWeight: WEIGHT.weight_700,
     lineHeight: 18,
     color: COLORS.greyText,
   },
