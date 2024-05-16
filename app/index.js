@@ -8,6 +8,7 @@ import Comment from "../src/components/Molecules/Comment";
 import FontLoader from "../src/components/FontLoader";
 import FinancialActivities from "../src/components/Molecules/FinancialActivities";
 import PackageItem from "../src/components/Molecules/PackageItem";
+import PackageDescription from "../src/components/Molecules/PackageDescription";
 
 export default function App() {
   return (
@@ -17,8 +18,8 @@ export default function App() {
         {/* <FinancialActivities /> */}
         {/* <OwnedCourtCard /> */}
         {/* <Comment /> */}
-
-        <PackageItem />
+        {/* <PackageItem /> */}
+        <PackageDescription />
       </View>
     </FontLoader>
   );
