@@ -74,7 +74,7 @@ export default function OwnedCourtCard({ data }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 336,
+    width: "100%",
     height: 241,
     flexShrink: 0,
     borderRadius: 6,
