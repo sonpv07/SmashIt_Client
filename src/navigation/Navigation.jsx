@@ -6,18 +6,22 @@ import Login from "../screens/Auth/Login";
 import Signup from "../screens/Auth/Signup";
 import Home from "../screens/Home";
 import BottomTabs from "./BottomTabs";
+import SplashScreen_User from "../screens/SplashScreen/SplashScreen_User";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
   const isLogin = true;
+
+  const firstRegister = true;
+
   const role = "user";
 
   return (
     // NOT LOGIN SCREEN
 
     <NavigationContainer>
-      {!isLogin && (
+      {!isLogin && !firstRegister && (
         <Stack.Navigator
           initialRouteName="Login"
           screenOptions={{
@@ -48,7 +52,7 @@ export default function Navigation() {
 
       {/* ALREADY LOGIN SCREEN */}
 
-      {isLogin && (
+      {isLogin && !firstRegister && (
         <Stack.Navigator
           initialRouteName="BottomTab"
           screenOptions={{
@@ -58,6 +62,53 @@ export default function Navigation() {
           <Stack.Screen
             name="BottomTab"
             component={BottomTabs}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="SplashScreen_User"
+            component={SplashScreen_User}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
+      )}
+
+      {firstRegister && (
+        <Stack.Navigator
+          initialRouteName="SplashScreen_User"
+          screenOptions={{
+            animation: "default",
+          }}
+        >
+          <Stack.Screen
+            name="SplashScreen_User"
+            component={SplashScreen_User}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
             options={{
               title: "",
               animation: "slide_from_right",
