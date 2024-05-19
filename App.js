@@ -11,14 +11,18 @@ import CategoryList from "./src/components/Organisms/CategoryList";
 import MyVoucherCard from "./src/components/Organisms/MyVoucherCard";
 import NotificationInfo from "./src/components/Organisms/NotificationInfo";
 import BlogPost from "./src/components/Organisms/BlogPost";
+import Login from "./src/screens/Auth/Login";
+import { NativeBaseProvider } from "native-base";
+import Signup from "./src/screens/Auth/Signup";
 
 export default function App() {
   return (
-    <FontLoader>
-      <SafeAreaView style={styles.safeContainer}>
-        <BlogPost />
-      </SafeAreaView>
-    </FontLoader>
+    <NativeBaseProvider>
+      <FontLoader>
+        <Signup />
+        <StatusBar style="light" />
+      </FontLoader>
+    </NativeBaseProvider>
   );
 }
 

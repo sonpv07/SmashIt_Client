@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     height: 200,
     marginBottom: 10,
     marginRight: 12,
+    borderRadius: 8,
   },
   timeStamp: {
     marginRight: 20,

@@ -8,6 +8,8 @@ import voucher from "../assets/icons/voucher.png";
 import rating from "../assets/icons/rating.png";
 import feed from "../assets/icons/feed.png";
 import like from "../assets/icons/like.png";
+import eye from "../assets/icons/eye.png";
+import eye_hide from "../assets/icons/eye_hide.png";
 
 export default {
   cash,
@@ -20,4 +22,6 @@ export default {
   rating,
   feed,
   like,
+  eye,
+  eye_hide,
 };
