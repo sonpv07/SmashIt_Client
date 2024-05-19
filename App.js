@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 
 import FontLoader from "./src/components/FontLoader";
 import Navigation from "./src/navigation/Navigation";
@@ -11,6 +10,8 @@ import CategoryList from "./src/components/Organisms/CategoryList";
 import MyVoucherCard from "./src/components/Organisms/MyVoucherCard";
 import NotificationInfo from "./src/components/Organisms/NotificationInfo";
 import BlogPost from "./src/components/Organisms/BlogPost";
+import HeaderBar from "./src/components/Atoms/HeaderBar";
+import RegisterCourt from "./src/screens/CourtOwner/RegisterCourt/RegisterCourt";
 
 export default function App() {
   return (
