@@ -13,14 +13,15 @@ export default function PaymentMethod() {
 
       <View style={{ gap: 20 }}>
         <InputField
-          inputType={"normal"}
-          primaryText={"Số tài khoản ngân hàng"}
-          placeholderText={"Số tài khoản"}
-        />
-        <InputField
           inputType={"dropdown"}
           primaryText={"Chọn ngân hàng"}
           placeholderText={"Ngân hàng"}
+        />
+
+        <InputField
+          inputType={"normal"}
+          primaryText={"Số tài khoản ngân hàng"}
+          placeholderText={"Số tài khoản"}
         />
       </View>
     </View>

@@ -5,7 +5,14 @@ import InputField from "../../../components/Molecules/InputField";
 import StepDot from "../../../components/Molecules/StepDot";
 import { COLORS } from "../../../theme/colors";
 
-export default function Prepresentative() {
+export default function Prepresentative({
+  name,
+  setName,
+  phone,
+  setPhone,
+  email,
+  setEmail,
+}) {
   return (
     <View style={styles.container}>
       <Text style={styles.descriptionText}>
@@ -18,17 +25,24 @@ export default function Prepresentative() {
           inputType={"normal"}
           primaryText={"Họ và tên chủ sân"}
           placeholderText={"Họ và tên"}
+          inputData={name}
+          setInputData={setName}
         />
         <InputField
           inputType={"normal"}
           primaryText={"Số điện thoại chủ sân"}
           placeholderText={"Số điện thoại"}
+          inputData={phone}
+          setInputData={setPhone}
+          valueType={"phone"}
         />
         <InputField
           inputType={"normal"}
           primaryText={"Địa chỉ email"}
           secondaryText={"không bắt buộc"}
           placeholderText={"Địa chỉ email"}
+          inputData={email}
+          setInputData={setEmail}
         />
       </View>
     </View>

@@ -26,9 +26,11 @@ export default function App() {
   const isTrue = true;
   return (
     <FontLoader>
-      <SafeAreaView style={styles.safeContainer}>
-        <BlogPost />
-      </SafeAreaView>
+      <View style={styles.safeContainer}>
+        <Navigation />
+        {/* <RegisterCourt /> */}
+        <StatusBar hidden />
+      </View>
     </FontLoader>
   );
 }

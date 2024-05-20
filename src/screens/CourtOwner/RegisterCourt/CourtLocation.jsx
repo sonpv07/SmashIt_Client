@@ -2,10 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { SIZE } from "../../../theme/fonts";
 import InputField from "../../../components/Molecules/InputField";
+import { COLORS } from "../../../theme/colors";
 
 // TODO: Change to Input with Icon
 
-export default function CourtLocation() {
+export default function CourtLocation({ courtAddress, setCourtAddress }) {
   return (
     <View style={styles.container}>
       <Text style={styles.descriptionText}>
@@ -15,13 +16,19 @@ export default function CourtLocation() {
 
       <View>
         <InputField
+          inputType={"icon"}
+          iconFamily={"Feather"}
+          iconName={"map"}
+          iconSize={20}
+          iconBackgroundColor={COLORS.darkGreenText}
+          iconColor={COLORS.white}
           primaryText={"Địa điểm kinh doanh"}
           placeholderText={"Địa điểm sân"}
         />
       </View>
 
       <View style={styles.locationSection}>
-        <View>
+        <View style={styles.locationItem}>
           <Text style={styles.primaryText}>41 Bình Trưng Tây</Text>
           <Text style={styles.secondayText}>
             41 Đường 41, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh
@@ -59,7 +66,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingRight: 50,
     paddingLeft: 8,
-    gap: 40,
+    gap: 20,
+  },
+
+  locationItem: {
+    paddingBottom: 20,
+    borderBottomColor: "#E8E8E8",
+    borderBottomWidth: 1,
   },
 
   primaryText: {
