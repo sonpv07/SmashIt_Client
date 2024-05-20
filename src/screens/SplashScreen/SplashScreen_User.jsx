@@ -15,6 +15,8 @@ import { COLORS } from "../../theme/colors";
 import { METRICS } from "../../theme/metrics";
 import { SIZE } from "../../theme/fonts";
 import { useNavigation } from "@react-navigation/native";
+import StepDot from "../../components/Molecules/StepDot";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SplashScreen_User = ({ navigation }) => {
   const [step, setStep] = useState(0);
@@ -50,7 +52,7 @@ const SplashScreen_User = ({ navigation }) => {
             "Kết bạn và giao đấu với những người cùng chung đam mê thể thao",
         };
       default:
-        navigation.navigate("Home");
+        navigation.navigate("BottomTab");
         break;
     }
   };
@@ -59,7 +61,7 @@ const SplashScreen_User = ({ navigation }) => {
     if (step < 2) {
       setStep(step + 1);
     } else {
-      navigation.navigate("Home");
+      navigation.navigate("BottomTab");
     }
   };
   return (
@@ -67,29 +69,9 @@ const SplashScreen_User = ({ navigation }) => {
       <View style={styles.imageOutline}>
         <Image style={styles.image} source={steps(step).image} />
       </View>
-      <View
-        style={{
-          height: 20,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <FlatList
-          data={[0, 1, 2]}
-          style={{ height: "100%" }}
-          renderItem={(item, index) => {
-            <View
-              style={{
-                backgroundColor:
-                  step === index ? COLORS.darkGreenText : COLORS.greyText,
-                width: step === index ? 14 : 10,
-                height: step === index ? 14 : 10,
-                borderRadius: step === index ? 7 : 5,
-              }}
-            />;
-          }}
-        />
+
+      <View style={{ marginTop: 53, marginBottom: 53 }}>
+        <StepDot isRemarkable={true} currentStep={step + 1} quantity={3} />
       </View>
       <View style={{ gap: 20 }}>
         <Text style={styles.title}>{steps(step).title}</Text>
@@ -101,10 +83,30 @@ const SplashScreen_User = ({ navigation }) => {
           handlePress(step);
         }}
       >
-        <Text style={[{ color: COLORS.white, fontSize: SIZE.size_16 }]}>
-          Tiếp tục
-        </Text>
-        <Icon name="chevron-right" size={15} color={"white"} />
+        <LinearGradient
+          colors={["#FF8A00", "#E0BC3C"]}
+          start={{ x: 0.01, y: 0.01 }}
+          end={{ x: 1, y: 0.965 }}
+          style={styles.gradient}
+        >
+          <Text
+            style={[
+              {
+                color: COLORS.white,
+                fontSize: SIZE.size_18,
+                fontFamily: "quicksand-bold",
+              },
+            ]}
+          >
+            Tiếp tục
+          </Text>
+          <Icon
+            name="chevron-right"
+            size={15}
+            color={"white"}
+            style={{ position: "absolute", right: 10 }}
+          />
+        </LinearGradient>
       </TouchableOpacity>
     </View>
   );
@@ -114,11 +116,10 @@ const styles = StyleSheet.create({
   outline: {
     width: METRICS.screenWidth,
     height: METRICS.screenHeight,
-    paddingHorizontal: 15,
     display: "flex",
     alignItems: "center",
     gap: 20,
-    backgroundColor:'white'
+    backgroundColor: "white",
   },
   imageOutline: {
     width: "100%",
@@ -132,23 +133,35 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "quicksand-bold",
     textAlign: "center",
-    fontSize: 34,
+    fontSize: 32,
+    paddingHorizontal: 15,
+    letterSpacing: -0.3,
   },
   content: {
-    fontFamily: "quicksand-semibold",
+    fontFamily: "quicksand-medium",
     textAlign: "center",
     fontSize: SIZE.size_14,
+    paddingHorizontal: 35,
+    lineHeight: 21,
   },
   btn: {
     width: "80%",
-    aspectRatio: 5,
-    display: "flex",
+    aspectRatio: 5.2,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "pink",
     borderRadius: 10,
     gap: 10,
+    overflow: "hidden",
+  },
+
+  gradient: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   dot: {
     width: 10,
