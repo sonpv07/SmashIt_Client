@@ -16,9 +16,11 @@ import RegisterCourt from "./src/screens/CourtOwner/RegisterCourt/RegisterCourt"
 export default function App() {
   return (
     <FontLoader>
-      <SafeAreaView style={styles.safeContainer}>
-        <BlogPost />
-      </SafeAreaView>
+      <View style={styles.safeContainer}>
+        <Navigation />
+        {/* <RegisterCourt /> */}
+        <StatusBar hidden />
+      </View>
     </FontLoader>
   );
 }
