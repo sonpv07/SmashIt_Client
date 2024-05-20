@@ -36,6 +36,8 @@ export default function InputField({
   const [tempTime, setTempTime] = useState(new Date());
 
   const handlePickTime = (value) => {
+    setIsOpenDatePicker(false);
+
     if (value.type === "set") {
       const date = new Date(value.nativeEvent.timestamp);
 
@@ -51,8 +53,6 @@ export default function InputField({
 
       setInputData(formattedDate);
     }
-
-    setIsOpenDatePicker(false);
   };
 
   return (
