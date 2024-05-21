@@ -7,13 +7,15 @@ import Signup from "../screens/Auth/Signup";
 import Home from "../screens/Home";
 import BottomTabs from "./BottomTabs";
 import SplashScreen_User from "../screens/SplashScreen/SplashScreen_User";
+import PackageDetail from "../screens/CourtOwner/Packages/PackageDetail";
+import Pakage from "../screens/CourtOwner/Packages/Pakage";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
   const isLogin = true;
 
-  const firstRegister = true;
+  const firstRegister = false;
 
   const role = "user";
 
@@ -87,6 +89,26 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+
+          <Stack.Screen
+            name="Pakage"
+            component={Pakage}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="PackageDetail"
+            component={PackageDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       )}
 
@@ -107,8 +129,8 @@ export default function Navigation() {
             }}
           />
           <Stack.Screen
-            name="Home"
-            component={Home}
+            name="BottomTab"
+            component={BottomTabs}
             options={{
               title: "",
               animation: "slide_from_right",
