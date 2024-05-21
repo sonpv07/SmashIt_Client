@@ -10,11 +10,21 @@ import { COLORS } from "../../theme/colors";
 import { SIZE, WEIGHT } from "../../theme/fonts";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as Progress from "react-native-progress";
+import { formatNumber } from "../../utils";
 
-export default function PackageItem({ data }) {
-  // TODO: Add Progress Bar for user who has bought the package
+// TODO: Add Progress Bar for user who has bought the package
 
-  const isBought = true;
+export default function PackageItem({
+  isBought,
+  name,
+  fixPrice,
+  discountPrice,
+  pakageType,
+  ribbonText,
+  usePercent,
+  navigation,
+}) {
+  const percent = usePercent / 100;
 
   return (
     <View style={styles.container}>
@@ -24,20 +34,21 @@ export default function PackageItem({ data }) {
           source={require("../../assets/images/Court.png")}
         />
         <View style={styles.overlay}></View>
-        <View style={styles.ribbon}>
-          <Text style={styles.ribbonText}>Bán chạy nhất</Text>
-        </View>
+        {ribbonText && (
+          <View style={styles.ribbon}>
+            <Text style={styles.ribbonText}>Bán chạy nhất</Text>
+          </View>
+        )}
+
         <View style={styles.level}>
           <Text style={[styles.ribbonText, { fontSize: 14 }]}>
-            Gói sân cơ bản
+            {pakageType}
           </Text>
         </View>
       </View>
 
       <View style={styles.nameSection}>
-        <Text style={styles.nameText}>
-          Cung cấp tính năng cơ bản cho việc quản lý lịch đặt sân cầu lông.
-        </Text>
+        <Text style={styles.nameText}>{name}</Text>
       </View>
 
       <View style={styles.bottomSection}>
@@ -61,11 +72,11 @@ export default function PackageItem({ data }) {
                   },
                 ]}
               >
-                50%
+                {usePercent}%
               </Text>
             </View>
             <Progress.Bar
-              progress={0.3}
+              progress={percent}
               width={165}
               height={8}
               borderRadius={10}
@@ -76,12 +87,18 @@ export default function PackageItem({ data }) {
           </View>
         ) : (
           <View style={styles.priceSection}>
-            <Text style={styles.oldPrice}>150.000d </Text>
-            <Text style={styles.newPrice}>100.000d / tháng</Text>
+            <Text style={styles.oldPrice}>{formatNumber(fixPrice)}đ </Text>
+            <Text style={styles.newPrice}>
+              {formatNumber(discountPrice)}đ / tháng
+            </Text>
           </View>
         )}
 
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            navigation.navigate("PackageDetail");
+          }}
+        >
           <View style={[styles.buttonSection, isBought && { marginTop: 10 }]}>
             <Text style={[styles.ribbonText, { color: COLORS.orangeText }]}>
               Xem thêm
