@@ -10,9 +10,13 @@ import { SIZE, WEIGHT } from "../../theme/fonts";
 import StarRating from "react-native-star-rating-widget";
 import { COLORS } from "../../theme/colors";
 import Icon from "react-native-vector-icons/Feather";
+import moment from "moment";
+import "moment/locale/vi";
 
-export default function Comment({ data }) {
-  const [rating, setRating] = useState(5);
+export default function Comment({ name, date, starRating, comment }) {
+  const [rating, setRating] = useState(starRating);
+
+  const formatDate = moment("20111031").locale("vi").fromNow();
 
   return (
     <View style={styles.container}>
@@ -20,13 +24,13 @@ export default function Comment({ data }) {
       <View style={styles.rightSection}>
         <View style={styles.infoSection}>
           <View style={styles.nameAndDate}>
-            <Text style={styles.boldText}>Nguyễn Văn A</Text>
-            <Text style={styles.normalText}>1 ngày trước</Text>
+            <Text style={styles.boldText}>{name}</Text>
+            <Text style={styles.normalText}>{formatDate}</Text>
           </View>
 
           <StarRating
             rating={rating}
-            onChange={setRating}
+            onChange={() => {}}
             starSize={14}
             color={COLORS.orangeText}
             starStyle={{
