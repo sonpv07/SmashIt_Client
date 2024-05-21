@@ -4,6 +4,8 @@ import { SIZE } from "../../../theme/fonts";
 import Divider from "../../../components/Atoms/Divider";
 import ChipList from "../../../components/Organisms/ChipList";
 import { COLORS } from "../../../theme/colors";
+import { formatNumber } from "../../../utils";
+import VectorIcon from "../../../components/Atoms/VectorIcon";
 
 export default function CourtOverview() {
   const serviceList = [
@@ -36,6 +38,42 @@ export default function CourtOverview() {
         <Text style={styles.address}>
           41 Đường 41, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh
         </Text>
+      </View>
+
+      <Divider color={"#E8E8E8"} orientation={"horizontal"} />
+
+      <View
+        style={[
+          styles.section,
+          {
+            flexDirection: "row",
+            justifyContent: "space-between",
+          },
+        ]}
+      >
+        <View style={styles.courtInfoItem}>
+          <Text style={styles.itemSecondaryText}>Ngày thường</Text>
+          <Text style={styles.itemPrimaryText}>
+            {formatNumber(100000)}đ{" "}
+            <Text style={{ color: "#5B5B5B" }}>/ giờ</Text>
+          </Text>
+        </View>
+        <View style={styles.courtInfoItem}>
+          <Text style={styles.itemSecondaryText}>Ngày lễ, cuối tuần</Text>
+          <Text style={styles.itemPrimaryText}>
+            {formatNumber(150000)}đ{" "}
+            <Text style={{ color: "#5B5B5B" }}>/ giờ</Text>
+          </Text>
+        </View>
+        <View style={styles.courtInfoItem}>
+          <Text style={styles.itemSecondaryText}>Lượt đánh giá</Text>
+          <View style={styles.ratingSection}>
+            <VectorIcon.AntDesign name="star" color={"#F49831"} size={16} />
+            <Text style={[styles.itemPrimaryText, { color: COLORS.black }]}>
+              5.0 <Text style={{ color: "#5B5B5B" }}>(1711)</Text>
+            </Text>
+          </View>
+        </View>
       </View>
 
       <Divider color={"#E8E8E8"} orientation={"horizontal"} />
@@ -96,5 +134,26 @@ const styles = StyleSheet.create({
     fontSize: SIZE.size_14,
     fontFamily: "quicksand-regular",
     flex: 1,
+  },
+
+  courtInfoItem: {
+    gap: 5,
+  },
+
+  itemPrimaryText: {
+    fontSize: SIZE.size_14,
+    fontFamily: "quicksand-semibold",
+    color: COLORS.darkGreenText,
+  },
+
+  itemSecondaryText: {
+    fontSize: SIZE.size_10,
+    fontFamily: "quicksand-medium",
+  },
+
+  ratingSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
 });
