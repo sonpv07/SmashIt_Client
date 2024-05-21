@@ -19,12 +19,13 @@ import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <FontLoader>
-        <RolePick />
-        <ExpoStatusBar style="light" />
-      </FontLoader>
-    </NativeBaseProvider>
+    <FontLoader>
+      <View style={styles.safeContainer}>
+        <Navigation />
+        {/* <RegisterCourt /> */}
+        <StatusBar hidden />
+      </View>
+    </FontLoader>
   );
 }
 
