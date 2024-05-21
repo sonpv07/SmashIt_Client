@@ -8,6 +8,7 @@ import applogo from "../assets/images/applogo.png";
 import background from "../assets/images/background.png";
 import google from "../assets/images/google.png";
 import loginbg from "../assets/images/loginbg.png";
+import rolebg from "../assets/images/rolebg.png";
 export default {
   vnpay,
   momo,
@@ -19,4 +20,5 @@ export default {
   background,
   google,
   loginbg,
+  rolebg,
 };

@@ -9,21 +9,35 @@ const CustomButton = ({
   height,
   color,
   icon,
+  borderColor,
+  handlePress,
+  fontFamily,
 }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
+      onPress={handlePress}
       style={[
         styles.buttonContainer,
         {
           width: width,
           backgroundColor: backgroundColor,
           height: height,
+          borderColor: borderColor,
+          borderWidth: borderColor ? 1 : 0,
         },
       ]}
     >
       {icon && <Image source={icon} resizeMode="contain" style={styles.icon} />}
-      <Text style={[styles.textButton, { color: color ? color : "#1F1F1F" }]}>
+      <Text
+        style={[
+          styles.textButton,
+          {
+            color: color ? color : "#1F1F1F",
+            fontFamily: fontFamily ? fontFamily : "quicksand-semibold",
+          },
+        ]}
+      >
         {title}
       </Text>
     </TouchableOpacity>
@@ -42,7 +56,6 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: SIZE.size_16,
-    fontFamily: "quicksand-semibold",
   },
   icon: {
     width: 24,
