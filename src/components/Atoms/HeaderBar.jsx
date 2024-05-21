@@ -8,7 +8,6 @@ import TopContent from "./TopContent";
 export default function HeaderBar({ text, goBack, isGoBack }) {
   return (
     <View>
-      <TopContent />
       <View style={styles.container}>
         {isGoBack && (
           <TouchableWithoutFeedback onPress={() => goBack()}>
