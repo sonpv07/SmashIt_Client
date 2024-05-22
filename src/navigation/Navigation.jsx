@@ -9,6 +9,8 @@ import BottomTabs from "./BottomTabs";
 import SplashScreen_User from "../screens/SplashScreen/SplashScreen_User";
 import PackageDetail from "../screens/CourtOwner/Packages/PackageDetail";
 import Pakage from "../screens/CourtOwner/Packages/Pakage";
+import CourtCodeManagement from "../screens/CourtOwner/MyCourt/CourtCodeManagement";
+import CreateBooking from "../screens/CourtOwner/MyCourt/CreateBooking";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
@@ -72,15 +74,6 @@ export default function Navigation() {
           />
 
           <Stack.Screen
-            name="SplashScreen_User"
-            component={SplashScreen_User}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
             name="Home"
             component={Home}
             options={{
@@ -103,6 +96,26 @@ export default function Navigation() {
           <Stack.Screen
             name="PackageDetail"
             component={PackageDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="CourtCodeManagement"
+            component={CourtCodeManagement}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="CreateBooking"
+            component={CreateBooking}
             options={{
               title: "",
               animation: "slide_from_right",
