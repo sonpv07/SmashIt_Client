@@ -1,15 +1,83 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import { COLORS } from "../theme/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HeaderBar from "../components/Atoms/HeaderBar";
+import backgroundHomeImage from "../assets/images/backgroundHome.png";
+import InputIcon from "../components/Atoms/InputIcon";
+import Icon from "react-native-vector-icons/FontAwesome6";
+import { SIZE } from "../theme/fonts";
+import Carousel from "../components/Organisms/Carousel";
+import Title_MoreInfo from "../components/Atoms/Title_MoreInfo";
+import CourtBackground from "../components/Organisms/CourtBackground";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function Home() {
+  const fullName = "Minh Anh";
+  const suggestCourt = [1,2,3,5];
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate("Search");
+  }
+
   return (
-    <View style={styles.container}>
-      <HeaderBar text={"Trang Chu"} />
-      <Text style={styles.text}>Home</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      {/* <HeaderBar text={"Trang Chu"} /> */}
+      <View>
+        <View style={styles.imageOutline}>
+          <Image style={styles.image} source={backgroundHomeImage} />
+        </View>
+        <View style={[styles.header]}>
+          <View style={styles.location}>
+            <Icon name="location-arrow" size={14} color={COLORS.white} />
+            <Text style={[styles.header_Text, { fontSize: SIZE.size_14 }]}>
+              Thành phố Thủ Đức
+            </Text>
+          </View>
+          <Text style={[styles.header_Text, { fontSize: SIZE.size_20 }]}>
+            Xin chào {fullName}, hãy tìm sân yêu thích của bạn
+          </Text>
+
+          <Pressable onPress={() => {handlePress()}} style={styles.searchInput}>
+            <InputIcon
+              icon={"search"}
+              iconColor={COLORS.orangeText}
+              placeholder={"Search here..."}
+              backgroundColor={"white"}
+              
+            />
+          </Pressable>
+        </View>
+      </View>
+      <View style={styles.discount}>
+        <Text style={[styles.title, { marginTop: 50 }]}>
+          Ưu đãi hấp dẫn
+        </Text>
+        <Carousel />
+      </View>
+      <View style={styles.suggest}>
+        <Title_MoreInfo title={"Đề xuất dành cho bạn"} />
+        <ScrollView > 
+          {
+            suggestCourt.map((court, index) => {
+              return (
+                <View key={index} style={styles.suggestCourts}><CourtBackground /></View>
+              )
+            })
+          }
+        </ScrollView>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -17,9 +85,62 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    gap: 20,
+  },
+  header: {
+    position: "absolute",
+    padding: 12,
+    height: "116%",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  imageOutline: {
+    width: "100%",
+    aspectRatio: 1.7,
+    objectFit: "cover",
+    position: "relative",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+  header_Text: {
+    color: COLORS.white,
+    fontSize: SIZE.size_14,
+    fontFamily: "quicksand-bold",
+  },
+  location: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
   },
   text: {
     color: COLORS.black,
     fontSize: 18,
   },
+  searchInput: {
+    elevation: 10,
+    shadowColor: "#000",
+  },
+  title: {
+    fontFamily: "quicksand-bold",
+    fontSize: SIZE.size_16,
+  },
+  discount: {
+    marginTop: 10,
+    paddingHorizontal: 12,
+    marginBottom: 35,
+  },
+  carousel: {
+    marginBottom: 35,
+  },
+  suggest: {
+    paddingHorizontal: 12,
+    marginBottom: 30,
+  },
+  suggestCourts: {
+    gap: 20,
+    marginTop: 10,
+  }
 });

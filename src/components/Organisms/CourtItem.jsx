@@ -8,10 +8,17 @@ const CourtItem = () => {
   return (
     <View style={styles.outline}>
       <View style={styles.courtImage}>
-        <View>
-          <Image style={styles.courtImage} source={{ uri: 'https://klgccwebsecurestoreprd01.blob.core.windows.net/klgccweb-prod/node/club-facility/images/2021-08/Badminton%20Court.jpg' }}/>
+        <View style={styles.court}>
+          <Image
+            style={styles.courtImage}
+            source={{
+              uri: "https://klgccwebsecurestoreprd01.blob.core.windows.net/klgccweb-prod/node/club-facility/images/2021-08/Badminton%20Court.jpg",
+            }}
+          />
         </View>
-        <Text></Text>
+          <View style={styles.courtNo}>
+            <Text style={styles.courtNo_Text}>03 sân trống</Text>
+          </View>
       </View>
       <View style={styles.courtInfo}>
         <View style={styles.courtTitle}>
@@ -54,13 +61,34 @@ const styles = StyleSheet.create({
     backgroundColor: "cyan",
     borderRadius: 10,
   },
+  court: {
+    position: 'relative'
+  },
+  courtNo: {
+    backgroundColor: COLORS.orangeText,
+    position: 'absolute',
+    paddingBottom: 3,
+    paddingHorizontal: 5,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 10,
+    borderRadius: 10
+  },
+  courtNo_Text: {
+    fontFamily: "quicksand-bold",
+    fontSize: SIZE.size_10,
+    color: COLORS.white,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   courtInfo: {
     width: "63%",
     height: "100%",
     paddingHorizontal: 8,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     paddingVertical: 4,
   },
   courtTitle: {
@@ -82,7 +110,7 @@ const styles = StyleSheet.create({
   courtDetails: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: 'space-between'
+    justifyContent: "space-between",
   },
   courtDetails_Text: {
     color: COLORS.darkGreenText,
@@ -93,7 +121,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: "100%",
     width: 1,
-    borderColor: COLORS.greyBackground
+    borderColor: COLORS.greyBackground,
   },
 });
 

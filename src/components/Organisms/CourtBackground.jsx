@@ -1,13 +1,19 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SIZE } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function CourtBackground() {
+  const navigation = useNavigation();
+  const handlePress = () => {
+    navigation.navigate("CourtDetail");
+  }
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={handlePress} style={styles.container}>
       <View style={styles.imageSection}>
         <ImageBackground
           style={styles.image}
@@ -50,7 +56,7 @@ export default function CourtBackground() {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

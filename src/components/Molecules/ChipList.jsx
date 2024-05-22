@@ -12,7 +12,7 @@ const ChipList = () => {
     "Tăng Nhơn Phú B",
   ];
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipList}>
+    <ScrollView contentContainerStyle={{gap: 10}} horizontal showsHorizontalScrollIndicator={false} style={styles.chipList}>
         {data.map((locate, index )=> {
             return <Chip key={index} text={locate} />
         })}

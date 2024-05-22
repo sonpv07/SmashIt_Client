@@ -7,13 +7,16 @@ import Signup from "../screens/Auth/Signup";
 import Home from "../screens/Home";
 import BottomTabs from "./BottomTabs";
 import SplashScreen_User from "../screens/SplashScreen/SplashScreen_User";
+import SearchCourt from "../screens/User/Court/SearchCourt";
+import BookedHistory from "../screens/User/Booking/BookedHistory";
+import CourtDetail from "../screens/User/Court/CourtDetail";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
   const isLogin = true;
 
-  const firstRegister = true;
+  const firstRegister = false;
 
   const role = "user";
 
@@ -87,6 +90,33 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name="Search"
+            component={SearchCourt}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="BookedHistory"
+            component={BookedHistory}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="CourtDetail"
+            component={CourtDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       )}
 
@@ -117,6 +147,8 @@ export default function Navigation() {
           />
         </Stack.Navigator>
       )}
+
+
     </NavigationContainer>
   );
 }

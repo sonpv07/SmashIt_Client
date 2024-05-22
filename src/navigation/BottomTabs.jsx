@@ -14,11 +14,12 @@ import MyProfile from "../screens/User/Settings/MyProfile";
 import NotificationManagement from "../screens/Notification/NotificationManagement";
 import SearchCourt from "../screens/User/Court/SearchCourt";
 import Trading from "../screens/Trading/Trading";
+import BookedHistory from "../screens/User/Booking/BookedHistory";
 
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
 
-  const role = "courtowner";
+  const role = "user";
 
   return (
     <Tab.Navigator screenOptions={{ tabBarStyle: { height: 66 } }}>
@@ -75,8 +76,8 @@ export default function BottomTabs() {
 
       {role === "user" && (
         <Tab.Screen
-          name="Booking"
-          component={SearchCourt}
+          name="BookedHistory"
+          component={BookedHistory}
           options={{
             headerShown: false,
             tabBarLabel: () => null,
