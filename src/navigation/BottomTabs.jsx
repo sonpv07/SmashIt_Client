@@ -11,10 +11,11 @@ import { SIZE } from "../theme/fonts";
 import MyCourt from "../screens/CourtOwner/MyCourt/MyCourt";
 import CourtOwnerProfile from "../screens/CourtOwner/Settings/CourtOwnerProfile";
 import MyProfile from "../screens/User/Settings/MyProfile";
-import NotificationManagement from "../screens/Notification/NotificationManagement";
+// import NotificationManagement from "../screens/Notification/NotificationManagement";
 import SearchCourt from "../screens/User/Court/SearchCourt";
 import Trading from "../screens/Trading/Trading";
 import BookedHistory from "../screens/User/Booking/BookedHistory";
+import NotificationLayout from "../screens/Notification/NotificationLayout";
 
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
@@ -135,8 +136,8 @@ export default function BottomTabs() {
       )}
 
       <Tab.Screen
-        name="Notification"
-        component={NotificationManagement}
+        name="Thông báo"
+        component={NotificationLayout}
         options={{
           headerShown: false,
           tabBarLabel: () => null,

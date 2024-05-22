@@ -33,32 +33,31 @@ const feeds = [
     title: "anhddp đã thích bài viết của bạn",
     desc: "Nếu bạn thích cầu lông và muốn gặp gỡ những người đồng đội mới, hãy tham gia ngay!...",
     timeStamp: "02 Th4, 16:10",
-    id: 1,
+    id: 5,
   },
   {
     title: "anhddp đã thích bài viết của bạn",
     desc: "Nếu bạn thích cầu lông và muốn gặp gỡ những người đồng đội mới, hãy tham gia ngay!...",
     timeStamp: "02 Th4, 16:10",
-    id: 2,
+    id: 6,
   },
   {
     title: "anhddp đã thích bài viết của bạn",
     desc: "Nếu bạn thích cầu lông và muốn gặp gỡ những người đồng đội mới, hãy tham gia ngay!...",
     timeStamp: "02 Th4, 16:10",
-    id: 3,
+    id: 7,
   },
   {
     title: "anhddp đã thích bài viết của bạn",
     desc: "Nếu bạn thích cầu lông và muốn gặp gỡ những người đồng đội mới, hãy tham gia ngay!...",
     timeStamp: "02 Th4, 16:10",
-    id: 4,
+    id: 8,
   },
 ];
 
-const NotificationInfo = () => {
+const NotificationInfo = ({ notificationList, icon }) => {
   return (
-    <SafeAreaView>
-      <Text>Bảng tin</Text>
+    <View>
       <FlatList
         data={feeds}
         keyExtractor={(item) => item.id}
@@ -84,13 +83,20 @@ const NotificationInfo = () => {
         )}
         contentContainerStyle={{ marginLeft: 15 }}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default NotificationInfo;
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: SIZE.size_20,
+    fontFamily: "quicksand-semibold",
+    marginBottom: 20,
+    marginLeft: 20,
+    marginTop: 20,
+  },
   feedContainer: {
     flexDirection: "row",
     alignItems: "flex-start",

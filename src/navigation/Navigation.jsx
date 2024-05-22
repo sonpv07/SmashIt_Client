@@ -14,6 +14,9 @@ import PackageDetail from "../screens/CourtOwner/Packages/PackageDetail";
 import Pakage from "../screens/CourtOwner/Packages/Pakage";
 import CourtCodeManagement from "../screens/CourtOwner/MyCourt/CourtCodeManagement";
 import CreateBooking from "../screens/CourtOwner/MyCourt/CreateBooking";
+import NotificationLayout from "../screens/Notification/NotificationLayout";
+import NotificationDetail from "../screens/Notification/notification-detail/NotificationDetail";
+import Notification from "../screens/Notification/Notification";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
@@ -146,6 +149,15 @@ export default function Navigation() {
           <Stack.Screen
             name="CourtDetail"
             component={CourtDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="NotificationDetail"
+            component={NotificationDetail}
             options={{
               title: "",
               animation: "slide_from_right",

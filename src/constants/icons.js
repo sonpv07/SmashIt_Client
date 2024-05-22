@@ -13,6 +13,8 @@ import eye_hide from "../assets/icons/eye_hide.png";
 import order_light from "../assets/icons/Order_light.png";
 import group_light from "../assets/icons/group_light.png";
 import paper_light from "../assets/icons/paper_light.png";
+import more from "../assets/icons/more.png";
+import goback from "../assets/icons/goback.png";
 
 export default {
   cash,
@@ -30,4 +32,6 @@ export default {
   order_light,
   group_light,
   paper_light,
+  more,
+  goback,
 };
