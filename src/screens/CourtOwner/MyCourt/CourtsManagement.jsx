@@ -3,7 +3,7 @@ import React from "react";
 import OwnedCourtCard from "../../../components/Organisms/OwnedCourtCard";
 import Divider from "../../../components/Atoms/Divider";
 
-export default function CourtsManagement() {
+export default function CourtsManagement({ navigation }) {
   const courtList = [
     {
       id: 1,
@@ -42,6 +42,7 @@ export default function CourtsManagement() {
               bookedSlot={item.bookedSlot}
               totalSlot={item.totalSlot}
               courtCode={item.id}
+              navigation={navigation}
             />
           );
         }}
