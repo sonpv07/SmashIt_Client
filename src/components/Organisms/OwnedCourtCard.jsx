@@ -11,12 +11,24 @@ import { SIZE, WEIGHT } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
 import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { formatNumber } from "../../utils";
 
 // TODO: Wait For API than continue
 
-export default function OwnedCourtCard({ data }) {
+export default function OwnedCourtCard({
+  navigation,
+  courtCode,
+  isActive,
+  revenue,
+  bookedSlot,
+  totalSlot,
+}) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.5}
+      onPress={() => navigation.navigate("CourtCodeManagement")}
+    >
       <View style={styles.upperSection}>
         <Image
           style={styles.upperSectionImage}
@@ -24,10 +36,23 @@ export default function OwnedCourtCard({ data }) {
         />
         <View style={styles.upperSectionInfor}>
           <View style={styles.inforItemStatus}>
-            <Text style={[styles.boldText, { fontSize: 14 }]}>Sân 1</Text>
-            <View style={styles.itemStatusInActive}>
-              <Text style={[styles.boldText, { color: COLORS.greyText }]}>
-                Đã đóng
+            <Text style={[styles.boldText, { fontSize: 14 }]}>
+              Sân {courtCode}
+            </Text>
+            <View
+              style={
+                isActive ? styles.itemStatusActive : styles.itemStatusInActive
+              }
+            >
+              <Text
+                style={[
+                  styles.boldText,
+                  isActive
+                    ? { color: COLORS.chipGreenText }
+                    : { color: COLORS.greyText },
+                ]}
+              >
+                {isActive ? "Hoạt động" : "Đã đóng"}
               </Text>
             </View>
           </View>
@@ -35,14 +60,14 @@ export default function OwnedCourtCard({ data }) {
           <View style={[styles.inforItem, { marginBottom: 10 }]}>
             <Text style={styles.normalText}>Doanh thu</Text>
             <Text style={[styles.normalText, { color: COLORS.darkGreenText }]}>
-              12.000.000d
+              {formatNumber(revenue)}d
             </Text>
           </View>
 
           <View style={styles.inforItem}>
             <Text style={styles.normalText}>Khung giờ đã đặt </Text>
             <Text style={[styles.normalText, { color: COLORS.darkGreenText }]}>
-              12/20
+              {bookedSlot}/{totalSlot}
             </Text>
           </View>
         </View>
@@ -63,12 +88,18 @@ export default function OwnedCourtCard({ data }) {
           </View>
         </View>
         <View>
-          <TouchableOpacity style={styles.buttonInactive}>
-            <Text style={styles.buttonTextInactive}>Mở Sân</Text>
-          </TouchableOpacity>
+          {isActive ? (
+            <TouchableOpacity style={styles.buttonActive}>
+              <Text style={styles.buttonTextActive}>Đóng sân</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.buttonInactive}>
+              <Text style={styles.buttonTextInactive}>Mở Sân</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

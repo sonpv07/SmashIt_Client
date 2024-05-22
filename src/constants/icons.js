@@ -10,6 +10,9 @@ import feed from "../assets/icons/feed.png";
 import like from "../assets/icons/like.png";
 import eye from "../assets/icons/eye.png";
 import eye_hide from "../assets/icons/eye_hide.png";
+import order_light from "../assets/icons/Order_light.png";
+import group_light from "../assets/icons/group_light.png";
+import paper_light from "../assets/icons/paper_light.png";
 
 export default {
   cash,
@@ -24,4 +27,7 @@ export default {
   like,
   eye,
   eye_hide,
+  order_light,
+  group_light,
+  paper_light,
 };

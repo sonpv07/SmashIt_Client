@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { COLORS } from "../../theme/colors";
 import { SIZE } from "../../theme/fonts";
 
-export default function PackageDescription({ data }) {
+export default function PackageDescription({ packageTitle, packageText }) {
   return (
     <View style={styles.container}>
       <View style={styles.iconSection}>
@@ -19,12 +19,8 @@ export default function PackageDescription({ data }) {
         />
       </View>
       <View style={styles.textSection}>
-        <Text style={styles.title}>Chiến lược quảng bá toàn diện</Text>
-        <Text style={styles.description}>
-          Cung cấp chiến lược marketing toàn diện bao gồm quảng cáo trực tuyến
-          và ngoại tuyến. Nâng cao nhận thức về thương hiệu trong cộng đồng cầu
-          lông và đối tượng khách hàng.
-        </Text>
+        <Text style={styles.title}>{packageTitle}</Text>
+        <Text style={styles.description}>{packageText}</Text>
       </View>
     </View>
   );

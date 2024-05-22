@@ -7,14 +7,12 @@ import {
 } from "react-native";
 import React from "react";
 import { COLORS } from "../../theme/colors";
-import { SIZE, WEIGHT } from "../../theme/fonts";
-import Icon from "react-native-vector-icons/FontAwesome";
-import * as Progress from "react-native-progress";
+import { SIZE } from "../../theme/fonts";
 import { formatNumber } from "../../utils";
+import VectorIcon from "../Atoms/VectorIcon";
+import Chip from "../Atoms/Chip";
 
-// TODO: Add Progress Bar for user who has bought the package
-
-export default function PackageItem({
+export default function PackageDetailCard({
   isBought,
   name,
   fixPrice,
@@ -36,7 +34,7 @@ export default function PackageItem({
         <View style={styles.overlay}></View>
         {ribbonText && (
           <View style={styles.ribbon}>
-            <Text style={styles.ribbonText}>Bán chạy nhất</Text>
+            <Text style={styles.ribbonText}>{ribbonText}</Text>
           </View>
         )}
 
@@ -48,69 +46,48 @@ export default function PackageItem({
       </View>
 
       <View style={styles.nameSection}>
+        <Text
+          style={[
+            styles.nameText,
+            { fontSize: SIZE.size_12, color: "#7B7B7B", marginBottom: 10 },
+          ]}
+        >
+          Ưu đãi đến từ Smashh It
+        </Text>
         <Text style={styles.nameText}>{name}</Text>
       </View>
 
       <View style={styles.bottomSection}>
         {isBought ? (
-          <View style={styles.progressSection}>
-            <View style={styles.progressTextSection}>
-              <Text
-                style={[
-                  styles.progessText,
-                  { fontFamily: "quicksand-regular" },
-                ]}
-              >
-                Đã sử dụng
-              </Text>
-              <Text
-                style={[
-                  styles.progessText,
-                  {
-                    fontFamily: "quicksand-semibold",
-                    color: COLORS.darkGreenText,
-                  },
-                ]}
-              >
-                {usePercent}%
+          <Chip
+            backgroundColor={COLORS.orangeBackground}
+            borderColor={COLORS.orangeBackground}
+            textColor={COLORS.orangeText}
+            text={"Gói đề xuất"}
+            textFamily={"quicksand-semibold"}
+            borderRadius={5}
+          />
+        ) : (
+          <>
+            <View style={styles.priceSection}>
+              <Text style={styles.oldPrice}>{formatNumber(fixPrice)}đ </Text>
+              <Text style={styles.newPrice}>
+                {formatNumber(discountPrice)}đ / tháng
               </Text>
             </View>
-            <Progress.Bar
-              progress={percent}
-              width={165}
-              height={8}
-              borderRadius={10}
-              borderColor="white"
-              unfilledColor="#D9D9D9"
-              color={COLORS.darkGreenText}
-            />
-          </View>
-        ) : (
-          <View style={styles.priceSection}>
-            <Text style={styles.oldPrice}>{formatNumber(fixPrice)}đ </Text>
-            <Text style={styles.newPrice}>
-              {formatNumber(discountPrice)}đ / tháng
-            </Text>
-          </View>
-        )}
 
-        <TouchableWithoutFeedback
-          onPress={() => {
-            navigation.navigate("PackageDetail");
-          }}
-        >
-          <View style={[styles.buttonSection, isBought && { marginTop: 10 }]}>
-            <Text style={[styles.ribbonText, { color: COLORS.orangeText }]}>
-              Xem thêm
-            </Text>
-            <Icon
-              name="arrow-circle-right"
-              size={14}
-              color={COLORS.orangeText}
-              style={{ marginTop: 2 }}
-            />
-          </View>
-        </TouchableWithoutFeedback>
+            <View>
+              <Chip
+                backgroundColor={COLORS.orangeBackground}
+                borderColor={COLORS.orangeBackground}
+                textColor={COLORS.orangeText}
+                text={"Gói đề xuất"}
+                textFamily={"quicksand-semibold"}
+                borderRadius={5}
+              />
+            </View>
+          </>
+        )}
       </View>
     </View>
   );
@@ -124,7 +101,7 @@ const styles = StyleSheet.create({
     position: "relative",
     borderRadius: 6,
     overflow: "hidden",
-    marginBottom: 10,
+    marginBottom: 15,
   },
 
   image: {

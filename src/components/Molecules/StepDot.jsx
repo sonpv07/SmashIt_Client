@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { COLORS } from "../../theme/colors";
 
-export default function StepDot({ quantity, currentStep }) {
+export default function StepDot({ quantity, currentStep, isRemarkable }) {
   const dots = Array.from({ length: quantity }, (item, index) => index);
 
   return (
@@ -16,6 +16,12 @@ export default function StepDot({ quantity, currentStep }) {
               currentStep === index + 1 && {
                 backgroundColor: COLORS.darkGreenText,
               },
+
+              currentStep === index + 1 &&
+                isRemarkable && {
+                  width: 10,
+                  height: 10,
+                },
             ]}
           ></View>
         );
@@ -28,6 +34,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     gap: 10,
+    alignItems: "center",
   },
 
   dot: {

@@ -48,3 +48,7 @@ export const getIconFamily = (family, name, size, color) => {
       return <VectorIcon.AntDesign name={name} size={size} color={color} />;
   }
 };
+
+export const formatNumber = (number) => {
+  return new Intl.NumberFormat("de-DE").format(number);
+};

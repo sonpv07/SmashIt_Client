@@ -22,7 +22,11 @@ export default function BottomTabs() {
   const role = "user";
 
   return (
-    <Tab.Navigator screenOptions={{ tabBarStyle: { height: 66 } }}>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: { width: "100%", height: undefined, aspectRatio: 5.5 },
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}

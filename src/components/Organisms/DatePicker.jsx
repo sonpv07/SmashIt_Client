@@ -22,8 +22,22 @@ import { SIZE, WEIGHT } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
 const { width, height } = Dimensions.get("window");
 
-export default function DatePickerSlider({ action }) {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+export default function DatePickerSlider({
+  action,
+  setChosenDate,
+  chosenDate,
+}) {
+  const [currentIndex, setCurrentIndex] = React.useState(
+    format(chosenDate, "d")
+  );
+
+  const checkIsToday = (day) => {
+    if (format(day, "d") === format(new Date(), "d")) {
+      return "H.nay";
+    } else {
+      return formatDayOfWeek(format(day, "E"));
+    }
+  };
 
   const formatDayOfWeek = (dayOfWeek) => {
     switch (dayOfWeek) {
@@ -86,50 +100,90 @@ export default function DatePickerSlider({ action }) {
                 key={format(day, "d")}
                 onPress={() => {
                   getIndex(format(day, "d"));
-                  action(day.toISOString());
+                  // action(day.toISOString());
+                  setChosenDate(day.toISOString());
                 }}
                 style={{
                   width: 42,
                   height: 75,
-                  borderRadius: 15,
                   borderWidth: 1,
-                  borderColor: currentIndex === format(day, "d") ? COLORS.darkGreenText : COLORS.greyBackground,
+                  borderColor:
+                    currentIndex === format(day, "d")
+                      ? COLORS.darkGreenText
+                      : COLORS.greyBackground,
                   justifyContent: "center",
                   alignItems: "center",
+                  borderRadius: 10,
+                  overflow: "hidden",
                 }}
               >
-                <View style={{height: 22.5, alignContent: 'center', justifyContent: 'center'}}>
-                  <Text style={{ fontSize: SIZE.size_10, fontWeight: WEIGHT.weight_500 }}>{txt}</Text>
+                <View
+                  style={{
+                    height: 22.5,
+                    alignContent: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: SIZE.size_10,
+                      fontFamily: "quicksand-medium",
+                    }}
+                  >
+                    {checkIsToday(day)}
+                  </Text>
                 </View>
-                <View 
+                <View
                   style={{
                     // display: "flex",
                     // flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: currentIndex === format(day, "d") ? COLORS.darkGreenText : COLORS.white,     
-                    width: 42, 
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor:
+                      currentIndex === format(day, "d")
+                        ? COLORS.darkGreenText
+                        : format(day, "E") === "Sat" ||
+                          format(day, "E") === "Sun"
+                        ? "rgba(42, 144, 131, 0.1)"
+                        : "#F1F1F1",
+                    width: "100%",
                     height: 52.5,
-                    borderBottomRightRadius: 15,
-                    borderBottomLeftRadius: 15,
-                  }}>
-                  <Text 
-                    style={{ 
-                      fontSize: SIZE.size_14, 
-                      fontWeight: WEIGHT.weight_600,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: SIZE.size_14,
+                      fontFamily: "quicksand-semibold",
                       alignItems: "baseline",
                       // backgroundColor: 'pink',
-                      justifyContent: 'center',
-                      color: currentIndex === format(day, "d") ? COLORS.white : COLORS.black,
-                    }}>{format(day, "d")}</Text>
-                  <Text 
-                    style={{ 
-                      fontSize: SIZE.size_10, 
-                      fontWeight: WEIGHT.weight_500,
-                      color: currentIndex === format(day, "d") ? COLORS.white : COLORS.black
-                    }}>Th{format(item[0], "M")}</Text>
+                      justifyContent: "center",
+                      color:
+                        currentIndex === format(day, "d")
+                          ? COLORS.white
+                          : format(day, "E") === "Sat" ||
+                            format(day, "E") === "Sun"
+                          ? COLORS.darkGreenText
+                          : COLORS.black,
+                    }}
+                  >
+                    {format(day, "d")}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: SIZE.size_10,
+                      fontFamily: "quicksand-medium",
+                      color:
+                        currentIndex === format(day, "d")
+                          ? COLORS.white
+                          : format(day, "E") === "Sat" ||
+                            format(day, "E") === "Sun"
+                          ? COLORS.darkGreenText
+                          : COLORS.black,
+                    }}
+                  >
+                    Th{format(item[0], "M")}
+                  </Text>
                 </View>
-                
               </TouchableOpacity>
             );
           })}
