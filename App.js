@@ -6,23 +6,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "./src/theme/colors";
 
 export default function App() {
-  const courtName = "Sân cầu lông Nhật Thiện";
-  const slot = 2;
-  const numCourt = 1;
-  const stars = "5.0";
-  const book = "100";
-  const courtAddress =
-    "606/16 Nguyễn Xiển, Long Th ạnh Mỹ, Thủ Đức, Thành phố Hồ Chí Minh";
-  const courtDistance = "1.1km";
-  const courtNo = "San 1";
-  const timeSlot = 0;
-  const courtprice = "100.000";
-  const isTrue = true;
   return (
     <FontLoader>
-      <SafeAreaView style={styles.safeContainer}>
+      <View style={styles.safeContainer}>
         <Navigation />
-      </SafeAreaView>
+        {/* <RegisterCourt /> */}
+        <StatusBar hidden />
+      </View>
     </FontLoader>
   );
 }
@@ -31,7 +21,7 @@ const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
     backgroundColor: COLORS.white,
-    marginTop: 50,
+    // marginTop: 50,
     // paddingHorizontal: 10
   },
 
