@@ -16,6 +16,7 @@ import { formatNumber } from "../../utils";
 // TODO: Wait For API than continue
 
 export default function OwnedCourtCard({
+  navigation,
   courtCode,
   isActive,
   revenue,
@@ -23,7 +24,11 @@ export default function OwnedCourtCard({
   totalSlot,
 }) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      activeOpacity={0.5}
+      onPress={() => navigation.navigate("CourtCodeManagement")}
+    >
       <View style={styles.upperSection}>
         <Image
           style={styles.upperSectionImage}
@@ -47,7 +52,7 @@ export default function OwnedCourtCard({
                     : { color: COLORS.greyText },
                 ]}
               >
-                Đã đóng
+                {isActive ? "Hoạt động" : "Đã đóng"}
               </Text>
             </View>
           </View>
