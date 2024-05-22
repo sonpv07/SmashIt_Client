@@ -8,7 +8,7 @@ import TopContent from "./TopContent";
 export default function HeaderBar({ text, goBack, isGoBack }) {
   return (
     <View>
-      <TopContent />
+      {/* <TopContent /> */}
       <View style={styles.container}>
         {isGoBack && (
           <TouchableWithoutFeedback onPress={() => goBack()}>
@@ -29,7 +29,7 @@ export default function HeaderBar({ text, goBack, isGoBack }) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 66,
+    height: 50,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: COLORS.white,

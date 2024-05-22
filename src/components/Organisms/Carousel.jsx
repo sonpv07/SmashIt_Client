@@ -22,18 +22,21 @@ const Carousel = () => {
           data={data}
           horizontal
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{gap: 20}}
           onScroll={(e) => {
             const x = e.nativeEvent.contentOffset.x;
             setCurrentIndex((x / width).toFixed(0));
           }}
+          style={styles.roll}
           renderItem={({ item, index }) => {
             return (
               <View
                 style={{
                   width: width,
+                  // flex: 1,
                   height: currentIndex == index ? height / 4 + 15 : height / 4,
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignItems: "flex-start",
                 }}
               >
                 <ImageComponent key={index} image={item} />
@@ -65,21 +68,27 @@ const Carousel = () => {
 const styles = StyleSheet.create({
   layout: {
     backgroundColor: "#fff",
-    // marginVertical: 5,
-    width: width,
+    width: '100%',
     height: undefined,
     aspectRatio: 1.6,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   outline: {
-
     // backgroundColor: "pink",
     width: "100%",
+    // paddingHorizontal: 10,
     justifyContent: "center",
     alignItems: "center",
   },
+  roll: {
+    // flex: 1,
+    // width: '100%',
+    // height: '100%'
+  },
   dots: {
     flexDirection: "row",
-    width: width,
+    width: '100%',
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 10,

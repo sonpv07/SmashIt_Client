@@ -1,48 +1,62 @@
-import React, { useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import React from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { COLORS } from "../../theme/colors";
+import Icon from "react-native-vector-icons/AntDesign";
 import { SIZE } from "../../theme/fonts";
 
-const InputComponent = (props) => {
-  // const [input, setInput] = useState("as");
+const SearchInput = () => {
   return (
-    <View style={[styles.outline, { backgroundColor: props.backgroundColor }]}>
-      <View style={styles.search}>
-        <Icon name={"search"} size={28} color={COLORS.orangeText} />
+    <View style={styles.outline}>
+      <View style={styles.inputOutline}>
+        <TextInput style={styles.input} placeholder="Tìm sân gần đây..." />
       </View>
-      <TextInput
-        style={[styles.input, { fontSize: SIZE.size_14 }]}
-        placeholder={props.placeholder}
-      />
+
+      <TouchableOpacity style={styles.search}>
+        <Icon name="search1" size={30} color={COLORS.white} />
+      </TouchableOpacity>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   outline: {
     width: "100%",
-    borderRadius: 10,
+    aspectRatio: 7,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.darkGreenText,
     display: "flex",
     flexDirection: "row",
-    aspectRatio: 7 / 1,
+    // alignItems: 'center',
+
   },
-  search: {
-    width: undefined,
-    aspectRatio: 1,
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+  inputOutline: {
+    height: '100%',
+    borderTopLeftRadius: 10, 
+    borderBottomLeftRadius: 10,
+    aspectRatio: 6,
+    justifyContent: 'center',
+    paddingHorizontal: 12
   },
   input: {
-    width: "90%",
-    paddingVertical: 10,
+    fontFamily: 'quicksand-bold',
+    fontSize: SIZE.size_14,
+  },
+  search: {
     height: "100%",
-    paddingRight: 10,
-    overflow: "hidden",
-
-    marginRight: 20,
+    aspectRatio: 1.21,
+    borderTopRightRadius: 12, 
+    borderBottomRightRadius: 12,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.darkGreenText
   },
 });
 
-export default InputComponent;
+export default SearchInput;
