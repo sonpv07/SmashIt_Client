@@ -25,7 +25,11 @@ export default function MyCourt({ navigation, router }) {
 
   const tabItem = [
     { id: 1, name: "Tổng quan", component: <CourtOverview /> },
-    { id: 2, name: "Các sân", component: <CourtsManagement /> },
+    {
+      id: 2,
+      name: "Các sân",
+      component: <CourtsManagement navigation={navigation} />,
+    },
     { id: 3, name: "Nhận xét", component: <CourtFeedback /> },
   ];
 
@@ -35,11 +39,7 @@ export default function MyCourt({ navigation, router }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <HeaderBar
-        text={"Địa điểm của tôi"}
-        isGoBack={true}
-        goBack={() => navigation.goBack()}
-      />
+      <HeaderBar text={"Địa điểm của tôi"} />
       <View style={styles.container}>
         <Image
           style={styles.image}
