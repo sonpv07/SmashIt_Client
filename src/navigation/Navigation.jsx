@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "../screens/Auth/Login";
@@ -17,15 +17,19 @@ import CreateBooking from "../screens/CourtOwner/MyCourt/CreateBooking";
 import NotificationLayout from "../screens/Notification/NotificationLayout";
 import NotificationDetail from "../screens/Notification/notification-detail/NotificationDetail";
 import Notification from "../screens/Notification/Notification";
+import RolePick from "../screens/SplashScreen/RolePick";
+import { AuthContext } from "../context/AuthContext";
+import RegisterCourt from "../screens/CourtOwner/RegisterCourt/RegisterCourt";
+import FinancialBook from "../screens/CourtOwner/RevenueExpenditure/FinancialBook";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
-  const isLogin = true;
+  // const isLogin = false;
 
-  const firstRegister = false;
+  const { isLogin, firstRegister, chosenRole } = useContext(AuthContext);
 
-  const role = "user";
+  console.log(chosenRole);
 
   return (
     // NOT LOGIN SCREEN
@@ -33,7 +37,7 @@ export default function Navigation() {
     <NavigationContainer>
       {!isLogin && !firstRegister && (
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName="RolePick"
           screenOptions={{
             animation: "default",
           }}
@@ -51,6 +55,16 @@ export default function Navigation() {
           <Stack.Screen
             name="Signup"
             component={Signup}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="RolePick"
+            component={RolePick}
             options={{
               title: "",
               animation: "slide_from_right",
@@ -173,12 +187,26 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+
+          <Stack.Screen
+            name="FinancialBook"
+            component={FinancialBook}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       )}
 
       {firstRegister && (
         <Stack.Navigator
-          initialRouteName="SplashScreen_User"
+          initialRouteName={
+            chosenRole === "player"
+              ? "SplashScreen_User"
+              : "SplashScreen_CourtOwner"
+          }
           screenOptions={{
             animation: "default",
           }}
@@ -192,9 +220,19 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+          {/* <Stack.Screen
+            name="SplashScreen_CourtOwner"
+            component={SplashScreen_CourtOwner}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          /> */}
+
           <Stack.Screen
-            name="BottomTab"
-            component={BottomTabs}
+            name="RegisterCourt"
+            component={RegisterCourt}
             options={{
               title: "",
               animation: "slide_from_right",

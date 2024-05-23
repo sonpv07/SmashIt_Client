@@ -19,6 +19,41 @@ import StepDot from "../../../components/Molecules/StepDot";
 import { useNavigation } from "@react-navigation/native";
 
 const CourtDetail = () => {
+  const serviceList = [
+    "Wi-fi",
+    "Tổ chức giải đấu",
+    "Giữ xe miễn phí",
+    "Quầy giữ đồ",
+    "Chăm sóc y tế",
+    "Canteen",
+  ];
+
+  const commentList = [
+    {
+      id: 1,
+      name: "NNN",
+      comment:
+        "  App tuyệt nhất chưa từng thấy, nó giúp tôi đặt sân nhanh chóng và dễ dàng",
+      starRating: 2,
+      date: "20111031",
+    },
+    {
+      id: 2,
+      name: "NNN",
+      comment:
+        "  App tuyệt nhất chưa từng thấy, nó giúp tôi đặt sân nhanh chóng và dễ dàng",
+      starRating: 3,
+      date: "20111031",
+    },
+  ];
+
+  const conditionList = [
+    "Đặt sân theo giờ cố định và thông báo trước để tránh xung đột về thời gian.",
+    "Tuân theo giờ đã đặt và không sử dụng sân lâu hơn thời gian đã định",
+    "Mặc trang phục thích hợp và giày thể thao không làm hỏng bề mặt sân.",
+    "Giữ sân sạch sẽ và không làm hỏng hạng mục cầu lông hoặc cơ sở vật chất.",
+  ];
+
   const courtImageList = [1, 1, 1, 1];
   const feedback = [1, 1, 1, 1, 1];
   const [favorite, setFavorite] = useState(true);
@@ -26,7 +61,7 @@ const CourtDetail = () => {
   const [step, setStep] = useState(1);
   const navigator = useNavigation();
   return (
-    <View>
+    <View style={{ flex: 1, marginBottom: 20 }}>
       <ScrollView style={styles.container}>
         <View style={styles.courtImagesContainer}>
           <View style={{ position: "relative" }}>
@@ -53,7 +88,7 @@ const CourtDetail = () => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              navigator.navigate("Home");
+              navigator.goBack();
             }}
             style={styles.goBack}
           >
@@ -68,23 +103,31 @@ const CourtDetail = () => {
             <Icon />
             <Text style={styles.title}>Sân cầu lông Quân Đội</Text>
           </View>
-          <Text style={styles.content}>
+          <Text style={styles.mediumText}>
             606/16 Nguyễn Xiển, Long Thạnh Mỹ, Thủ Đức, Thành phố Hồ Chí Minh
           </Text>
           <View style={styles.courtMoreDetail}>
             <View style={styles.rating}>
               <StarRating
                 rating={4}
-                starSize={18}
+                onChange={() => {}}
+                starSize={15}
                 starStyle={{
                   marginHorizontal: 1,
+                  marginTop: 1.5,
                 }}
               />
-              <Text style={styles.content}>5.0</Text>
+              <Text style={[styles.mediumText, { fontSize: SIZE.size_12 }]}>
+                5.0
+              </Text>
             </View>
-            <Text style={styles.content}>(100 lượt đặt)</Text>
+            <Text style={[styles.mediumText, { fontSize: SIZE.size_12 }]}>
+              (100 lượt đặt)
+            </Text>
             <View style={styles.hr} />
-            <Text style={styles.content}>Cách bạn 5.6km</Text>
+            <Text style={[styles.mediumText, { fontSize: SIZE.size_12 }]}>
+              Cách bạn 5.6km
+            </Text>
             <TouchableOpacity
               onPress={() => {
                 setFavorite(!favorite);
@@ -93,8 +136,14 @@ const CourtDetail = () => {
               <Icon name={heart} size={20} color={"red"} />
             </TouchableOpacity>
           </View>
-          <Text style={{ fontFamily: "quicksand-medium", color: "#E74B3D" }}>
-            <Text style={[styles.title, { color: "#E74B3D" }]}>Đóng cửa. </Text>
+          <Text
+            style={{
+              fontFamily: "quicksand-medium",
+              color: "#E74B3D",
+              fontSize: SIZE.size_12,
+            }}
+          >
+            <Text style={{ fontFamily: "quicksand-bold" }}>Đóng cửa. </Text>
             Bạn có thể đặt trước cho lượt chơi sau 05:00
           </Text>
         </View>
@@ -107,7 +156,7 @@ const CourtDetail = () => {
                 source={{ uri: "https://avatar.iran.liara.run/public/boy" }}
               />
             </View>
-            <View>
+            <View style={{ gap: 5 }}>
               <Text style={{ fontFamily: "quicksand-semibold" }}>
                 Nguyễn Văn A (Chủ sân)
               </Text>
@@ -118,37 +167,47 @@ const CourtDetail = () => {
         <View style={styles.infrastructure}>
           <Text style={styles.title}>Cơ sở vật chất</Text>
           <View style={styles.chip}>
-            <ChipList />
+            <ChipList
+              dataList={serviceList}
+              borderColor={"#D9D9D9"}
+              textFamily={"quicksand-regular"}
+            />
           </View>
         </View>
         <View style={styles.rule}>
-          <Text style={styles.title}>Quy định sử dụng sân</Text>
-          <View>
-            <Text style={styles.content}>
-              Đặt sân theo giờ cố định và thông báo trước để tránh xung đột về
-              thời gian. Tuân theo giờ đã đặt và không sử dụng sân lâu hơn thời
-              gian đã định. Mặc trang phục thích hợp và giày thể thao không làm
-              hỏng bề mặt sân. Giữ sân sạch sẽ và không làm hỏng hạng mục cầu
-              lông hoặc cơ sở vật chất. Người chơi chịu trách nhiệm nếu làm hỏng
-              bề mặt sân và phải đền bù theo quy định của sân.
-            </Text>
+          <Text style={[styles.title, { marginBottom: 10 }]}>
+            Quy định sử dụng sân
+          </Text>
+          <View style={{ flex: 1, gap: 5, paddingHorizontal: 5 }}>
+            {conditionList.map((data, index) => {
+              return (
+                <View key={index} style={{ flexDirection: "row", gap: 8 }}>
+                  <Text>{"\u2022"}</Text>
+
+                  <Text style={styles.conditionText}>{data}</Text>
+                </View>
+              );
+            })}
           </View>
         </View>
         <View style={styles.feedback}>
-          <Text style={styles.title}>Nhận xét (10)</Text>
-          {feedback.map((comment, index) => {
+          <Text style={[styles.title]}>Nhận xét ({commentList.length})</Text>
+          {commentList.map((comment, index) => {
             return (
-              <View key={index} style={{ gap: 15 }}>
-                <Comment />
-                <View style={styles.hr} />
+              <View key={index} style={{ gap: 15, flex: 1 }}>
+                <Comment
+                  comment={comment.comment}
+                  date={comment.date}
+                  name={comment.name}
+                  starRating={comment.starRating}
+                />
+                {/* <View style={styles.hr} /> */}
               </View>
             );
           })}
         </View>
       </ScrollView>
-      <View>
-
-      </View>
+      <View></View>
     </View>
   );
 };
@@ -159,7 +218,9 @@ const styles = StyleSheet.create({
     height: METRICS.screenHeight,
     display: "flex",
     flexDirection: "column",
+    flex: 1,
   },
+
   courtImagesContainer: {
     width: "100%",
     aspectRatio: 1.6,
@@ -214,7 +275,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 4,
     justifyContent: "center",
-    alignItems: "center",
   },
   hr: {
     borderWidth: 1,
@@ -227,7 +287,14 @@ const styles = StyleSheet.create({
     fontSize: SIZE.size_16,
   },
   content: {
-    fontFamily: "quicksand-medium",
+    fontFamily: "quicksand-regular",
+    fontSize: SIZE.size_12,
+  },
+
+  conditionText: {
+    fontSize: SIZE.size_14,
+    fontFamily: "quicksand-regular",
+    flex: 1,
   },
 
   courtOwner: {
@@ -273,13 +340,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     gap: 15,
+    flex: 1,
   },
   comment: {
     marginBottom: 10,
   },
-  bottomTab: {
-    
-  }
+
+  mediumText: {
+    fontFamily: "quicksand-medium",
+    fontSize: SIZE.size_14,
+  },
+  bottomTab: {},
 });
 
 export default CourtDetail;

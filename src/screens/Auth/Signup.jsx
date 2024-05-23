@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import images from "../../constants/images";
 import { SIZE } from "../../theme/fonts";
 import FormInput from "../../components/Atoms/FormInput";
 import CustomButton from "../../components/Atoms/CustomButton";
 import { Checkbox } from "native-base";
+import { AuthContext } from "../../context/AuthContext";
 
 const Signup = ({ navigation }) => {
   const [form, setForm] = useState({
@@ -21,6 +22,14 @@ const Signup = ({ navigation }) => {
     firstName: "",
   });
   const [toggleRemember, setToggleRemember] = useState(false);
+
+  const { isLogin, setIsLogin, setFirstRegister, firstRegister, chosenRole } =
+    useContext(AuthContext);
+
+  const handleNavigate = () => {
+    setFirstRegister(true);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -84,6 +93,9 @@ const Signup = ({ navigation }) => {
               height={52}
               width={"100%"}
               color="white"
+              handlePress={() => {
+                handleNavigate();
+              }}
             />
           </View>
         </View>

@@ -14,6 +14,8 @@ const Chip = ({
   action,
   chipType,
   borderRadius,
+  chosenData,
+  setChosenData,
 }) => {
   const [status, setStatus] = useState(false);
   // const isChosenBg =
@@ -31,17 +33,25 @@ const Chip = ({
     <View style={[styles.outline]}>
       {chipType === "button" ? (
         <TouchableOpacity
+          onPress={() => setChosenData(text)}
           style={[
             styles.chip,
             {
-              backgroundColor: backgroundColor,
+              backgroundColor:
+                chosenData === text ? COLORS.darkGreenText : backgroundColor,
               borderColor: borderColor,
               borderRadius: borderRadius ? borderRadius : 20,
             },
           ]}
           // onPress={() => setStatus(!status)}
         >
-          <Text style={{ color: textColor, fontFamily: textFamily }}>
+          <Text
+            style={{
+              color: chosenData === text ? COLORS.white : textColor,
+              fontFamily:
+                chosenData === text ? "quicksand-semibold" : textFamily,
+            }}
+          >
             {text}
           </Text>
 

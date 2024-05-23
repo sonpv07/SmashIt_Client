@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -15,10 +15,15 @@ import { COLORS } from "../../theme/colors";
 import { METRICS } from "../../theme/metrics";
 import { SIZE } from "../../theme/fonts";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import { AuthContext } from "../../context/AuthContext";
+import StepDot from "../../components/Molecules/StepDot";
 
 const SplashScreen_User = ({ navigation }) => {
   const [step, setStep] = useState(1);
-  const navigate = useNavigation();
+
+  const { isLogin, setIsLogin, setFirstRegister, firstRegister } =
+    useContext(AuthContext);
 
   const steps = (step) => {
     switch (step) {
@@ -53,7 +58,8 @@ const SplashScreen_User = ({ navigation }) => {
     if (step < 3) {
       setStep(step + 1);
     } else {
-      navigation.navigate("BottomTab");
+      setFirstRegister(false);
+      setIsLogin(true);
     }
   };
 
@@ -64,27 +70,13 @@ const SplashScreen_User = ({ navigation }) => {
       </View>
       <View
         style={{
-          height: 20,
           width: "100%",
           alignItems: "center",
           justifyContent: "center",
+          paddingVertical: 53,
         }}
       >
-        <FlatList
-          data={[0, 1, 2]}
-          style={{ height: "100%" }}
-          renderItem={(item, index) => {
-            <View
-              style={{
-                backgroundColor:
-                  step === index ? COLORS.darkGreenText : COLORS.greyText,
-                width: step === index ? 14 : 10,
-                height: step === index ? 14 : 10,
-                borderRadius: step === index ? 7 : 5,
-              }}
-            />;
-          }}
-        />
+        <StepDot currentStep={step} isRemarkable={true} quantity={3} />
       </View>
       <View style={{ gap: 20 }}>
         <Text style={styles.title}>{steps(step).title}</Text>
@@ -133,6 +125,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
     backgroundColor: "white",
+    flex: 1,
   },
   imageOutline: {
     width: "100%",
@@ -167,6 +160,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     gap: 10,
     overflow: "hidden",
+    position: "relative",
+    bottom: 0,
   },
 
   gradient: {

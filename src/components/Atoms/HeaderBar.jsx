@@ -4,24 +4,45 @@ import { COLORS } from "../../theme/colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SIZE } from "../../theme/fonts";
 import TopContent from "./TopContent";
+import VectorIcon from "./VectorIcon";
 
-export default function HeaderBar({ text, goBack, isGoBack }) {
+export default function HeaderBar({ text, goBack, isGoBack, type }) {
   return (
     <View>
-      {/* <TopContent /> */}
-      <View style={styles.container}>
-        {isGoBack && (
-          <TouchableWithoutFeedback onPress={() => goBack()}>
-            <AntDesign
-              name="arrowleft"
-              size={18}
-              style={{ position: "absolute", left: 20 }}
-            />
-          </TouchableWithoutFeedback>
-        )}
+      {type === "dateTime" ? (
+        <View style={styles.container}>
+          {isGoBack && (
+            <TouchableWithoutFeedback onPress={goBack}>
+              <AntDesign
+                name="arrowleft"
+                size={18}
+                style={{ position: "absolute", left: 20 }}
+              />
+            </TouchableWithoutFeedback>
+          )}
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Text style={styles.text}>
+              {text}{" "}
+              <Text style={{ color: COLORS.darkGreenText }}>Tháng 3, 2024</Text>
+            </Text>
 
-        <Text style={styles.text}>{text}</Text>
-      </View>
+            <VectorIcon.AntDesign name="caretdown" size={14} />
+          </View>
+        </View>
+      ) : (
+        <View style={styles.container}>
+          {isGoBack && (
+            <TouchableWithoutFeedback onPress={goBack}>
+              <AntDesign
+                name="arrowleft"
+                size={18}
+                style={{ position: "absolute", left: 20 }}
+              />
+            </TouchableWithoutFeedback>
+          )}
+          <Text style={styles.text}>{text}</Text>
+        </View>
+      )}
     </View>
   );
 }

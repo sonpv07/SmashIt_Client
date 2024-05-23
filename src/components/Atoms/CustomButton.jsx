@@ -12,6 +12,7 @@ const CustomButton = ({
   borderColor,
   handlePress,
   fontFamily,
+  action,
 }) => {
   return (
     <TouchableOpacity
