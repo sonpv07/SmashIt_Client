@@ -89,8 +89,9 @@ const styles = StyleSheet.create({
   },
   header: {
     position: "absolute",
+    top: '10%',
     padding: 12,
-    height: "116%",
+    height: "106%",
     display: "flex",
     justifyContent: "space-between",
   },

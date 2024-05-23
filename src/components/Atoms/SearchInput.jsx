@@ -18,7 +18,7 @@ const SearchInput = () => {
       </View>
 
       <TouchableOpacity style={styles.search}>
-        <Icon name="search1" size={30} color={COLORS.white} />
+        <Icon name="search1" size={24} color={COLORS.white} />
       </TouchableOpacity>
     </View>
   );

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   suggestLocation: {
-    marginTop: 5,
+    marginTop: 3,
     paddingHorizontal: 12,
     backgroundColor: COLORS.white,
     paddingBottom: 15,
