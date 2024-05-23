@@ -18,7 +18,7 @@ import CreateBooking from "../screens/CourtOwner/MyCourt/CreateBooking";
 import RolePick from "../screens/SplashScreen/RolePick";
 import { AuthContext } from "../context/AuthContext";
 import RegisterCourt from "../screens/CourtOwner/RegisterCourt/RegisterCourt";
-// import FinancialBook from "../screens/CourtOwner/RevenueExpenditure/FinancialBook";
+import FinancialBook from "../screens/CourtOwner/RevenueExpenditure/FinancialBook";
 import BlogNoti from "../screens/Notification/notification-detail/BlogNoti";
 import BookingNoti from "../screens/Notification/notification-detail/BookingNoti";
 import OfferNoti from "../screens/Notification/notification-detail/OfferNoti";
@@ -175,79 +175,6 @@ export default function Navigation() {
             }}
           />
 
-          <Stack.Screen
-            name="BlogNoti"
-            component={BlogNoti}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="BookingNoti"
-            component={BookingNoti}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="OfferNoti"
-            component={OfferNoti}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="RatingNoti"
-            component={RatingNoti}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="CreatePost"
-            component={CreatePost}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="CourtOwner"
-            component={CourtOwner}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="FavoriteCourt"
-            component={BookedHistory}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
-
-          <Stack.Screen
-            name="FinancialBook"
-            component={FinancialBook}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
           <Stack.Screen
             name="BlogNoti"
             component={BlogNoti}

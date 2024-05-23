@@ -12,22 +12,25 @@ import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import Login from "./src/screens/Auth/Login";
 import Signup from "./src/screens/Auth/Signup";
 import CourtOwner from "./src/screens/SplashScreen/CourtOwner";
+import { AuthProvider } from "./src/context/AuthContext";
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <FontLoader>
-        <View style={styles.safeContainer}>
-          {/* <TopContent /> */}
-          {/* <CourtCodeManagement /> */}
-          <Navigation />
-          {/* <Signup /> */}
-          {/* <NotificationDetail /> */}
-          {/* <CourtOwner /> */}
-          <ExpoStatusBar style="dark" />
-        </View>
-      </FontLoader>
-    </NativeBaseProvider>
+    <AuthProvider>
+      <NativeBaseProvider>
+        <FontLoader>
+          <View style={styles.safeContainer}>
+            {/* <TopContent /> */}
+            {/* <CourtCodeManagement /> */}
+            <Navigation />
+            {/* <Signup /> */}
+            {/* <NotificationDetail /> */}
+            {/* <CourtOwner /> */}
+            <ExpoStatusBar style="dark" />
+          </View>
+        </FontLoader>
+      </NativeBaseProvider>
+    </AuthProvider>
   );
 }
 
