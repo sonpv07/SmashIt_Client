@@ -16,11 +16,12 @@ export default function App() {
     <NativeBaseProvider>
       <FontLoader>
         <View style={styles.safeContainer}>
+          <ExpoStatusBar style="dark" />
           {/* <TopContent /> */}
           {/* <CourtCodeManagement /> */}
           <Navigation />
           {/* <NotificationDetail /> */}
-          <ExpoStatusBar style="dark" />
+          
         </View>
       </FontLoader>
     </NativeBaseProvider>
