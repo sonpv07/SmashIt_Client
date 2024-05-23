@@ -6,7 +6,28 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../../theme/fonts";
 import icons from "../../../constants/icons";
 
-const NotificationDetail = ({ notificationList, icon, navigation, title }) => {
+const ratings = [
+  {
+    title: "Trải nghiệm chơi của bạn như thế nào?",
+    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+    timeStamp: "02 Th4, 16:10",
+    id: 1,
+  },
+  {
+    title: "Trải nghiệm chơi của bạn như thế nào?",
+    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+    timeStamp: "02 Th4, 16:10",
+    id: 2,
+  },
+  {
+    title: "Trải nghiệm chơi của bạn như thế nào?",
+    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+    timeStamp: "02 Th4, 16:10",
+    id: 3,
+  },
+];
+
+const RatingNoti = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -16,14 +37,14 @@ const NotificationDetail = ({ notificationList, icon, navigation, title }) => {
         >
           <Image source={icons.goback} style={styles.goback} />
         </TouchableOpacity>
-        <Text style={styles.title}>Bảng tin</Text>
+        <Text style={styles.title}>Đánh giá</Text>
       </View>
-      <NotificationInfo notificationList={notificationList} icon={icon} />
+      <NotificationInfo list={ratings} icon={icons.rating} />
     </SafeAreaView>
   );
 };
 
-export default NotificationDetail;
+export default RatingNoti;
 
 const styles = StyleSheet.create({
   container: {
