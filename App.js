@@ -5,24 +5,25 @@ import Navigation from "./src/navigation/Navigation";
 
 import { COLORS } from "./src/theme/colors";
 
-import TopContent from "./src/components/Atoms/TopContent";
-
 import { NativeBaseProvider } from "native-base";
-import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
-import NotificationDetail from "./src/screens/Notification/notification-detail/NotificationDetail";
+import TopContent from "./src/components/Atoms/TopContent";
+import { AuthProvider } from "./src/context/AuthContext";
 
 export default function App() {
   return (
     <NativeBaseProvider>
-      <FontLoader>
-        <View style={styles.safeContainer}>
-          {/* <TopContent /> */}
-          {/* <CourtCodeManagement /> */}
-          <Navigation />
-          {/* <NotificationDetail /> */}
-          <ExpoStatusBar style="dark" />
-        </View>
-      </FontLoader>
+      <AuthProvider>
+        <FontLoader>
+          <View style={styles.safeContainer}>
+            <TopContent />
+            {/* <CourtCodeManagement /> */}
+            <Navigation />
+            {/* <Package /> */}
+            {/* <PackageDetail /> */}
+            <StatusBar hidden />
+          </View>
+        </FontLoader>
+      </AuthProvider>
     </NativeBaseProvider>
   );
 }
