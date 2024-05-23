@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import SearchInput from "../../../components/Atoms/SearchInput";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import { COLORS } from "../../../theme/colors";
@@ -7,9 +7,19 @@ import { SIZE } from "../../../theme/fonts";
 import ChipList from "../../../components/Molecules/ChipList";
 import CourtItem from "../../../components/Organisms/CourtItem";
 
-export default function SearchCourt() {
+export default function SearchCourt({ navigation }) {
+  const searchCourt = [1, 2, 3, 4, 5];
 
-  const searchCourt = [1,2,3,4,5,];
+  const dataAddress = [
+    "Long Thạnh Mỹ",
+    "Long Phước",
+    "Linh Đông",
+    "An Khánh",
+    "Bình Trưng Đông",
+    "Tăng Nhơn",
+  ];
+
+  const [chosenData, setChosenData] = useState(null);
 
   return (
     <View style={styles.container}>
@@ -38,26 +48,34 @@ export default function SearchCourt() {
           </View>
         </View>
         <View style={styles.suggestLocation_List}>
-          <ChipList />
+          <ChipList
+            isHorizontal={true}
+            dataList={dataAddress}
+            borderColor={"#D9D9D9"}
+            chipType={"button"}
+            chosenData={chosenData}
+            setChosenData={setChosenData}
+            textFamily={"quicksand-regular"}
+          />
         </View>
       </View>
       <View style={styles.searchCourt}>
-        <Text style={[styles.title, {fontSize: SIZE.size_16}]}>Gợi ý kết quả tìm kiếm</Text>
+        <Text style={[styles.title, { fontSize: SIZE.size_16 }]}>
+          Gợi ý kết quả tìm kiếm
+        </Text>
         <ScrollView
           // contentContainerStyle={{gap: 20}}
           style={styles.result}
           showsVerticalScrollIndicator={false}
         >
-          {
-            searchCourt.map((court, index) => {
-              return (
-                <View key={index} style={styles.court}>
-                  <CourtItem/>
-                  <View style={styles.hr}/>
-                </View>
-              )
-            })
-          }
+          {searchCourt.map((court, index) => {
+            return (
+              <View key={index} style={styles.court}>
+                <CourtItem navigation={navigation} />
+                <View style={styles.hr} />
+              </View>
+            );
+          })}
         </ScrollView>
       </View>
     </View>
@@ -65,11 +83,14 @@ export default function SearchCourt() {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   search: {
     paddingHorizontal: 12,
     backgroundColor: COLORS.white,
     paddingBottom: 15,
+    marginTop: 20,
   },
   suggestLocation: {
     marginTop: 3,
@@ -97,6 +118,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   searchCourt: {
+    flex: 1,
     marginTop: 5,
     paddingVertical: 10,
     backgroundColor: COLORS.white,
@@ -104,15 +126,15 @@ const styles = StyleSheet.create({
   },
   result: {
     marginTop: 20,
-    height: 600,
-  }, 
+    height: 400,
+    flex: 1,
+  },
   court: {
-    
-  }, 
+    flex: 1,
+  },
   hr: {
-    borderWidth: 1, 
+    borderWidth: 1,
     borderColor: COLORS.greyBackground,
     marginVertical: 20,
-
-  }
+  },
 });

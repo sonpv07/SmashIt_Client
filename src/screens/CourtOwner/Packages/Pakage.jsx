@@ -7,6 +7,7 @@ import MyPackage from "./MyPackage";
 import { SIZE } from "../../../theme/fonts";
 import PackageItem from "../../../components/Organisms/PackageItem";
 import { FlatList } from "react-native";
+import { COLORS } from "../../../theme/colors";
 
 export default function Pakage({ navigation, router }) {
   const [tab, setTab] = useState(1);
@@ -23,7 +24,7 @@ export default function Pakage({ navigation, router }) {
   ];
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar
         text={"Gói ưu đãi"}
         isGoBack={true}

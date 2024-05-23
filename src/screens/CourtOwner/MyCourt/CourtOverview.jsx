@@ -95,7 +95,7 @@ export default function CourtOverview() {
         <Text style={[styles.title, { marginBottom: 15 }]}>
           Quy định sử dụng sân
         </Text>
-        <View style={{ flex: 1, gap: 5 }}>
+        <View style={{ flex: 1, gap: 5, paddingHorizontal: 5 }}>
           {conditionList.map((data, index) => {
             return (
               <View key={index} style={{ flexDirection: "row", gap: 8 }}>

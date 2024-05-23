@@ -9,7 +9,7 @@ export default function CourtFeedback() {
       id: 1,
       name: "NNN",
       comment:
-        "  App tuyệt nhất chưa từng thấy, nó giúp tôi đặt sân nhanh chóng và dễ dàng",
+        "App tuyệt nhất chưa từng thấy, nó giúp tôi đặt sân nhanh chóng và dễ dàng",
       starRating: 2,
       date: "20111031",
     },
@@ -17,7 +17,7 @@ export default function CourtFeedback() {
       id: 2,
       name: "NNN",
       comment:
-        "  App tuyệt nhất chưa từng thấy, nó giúp tôi đặt sân nhanh chóng và dễ dàng",
+        "App tuyệt nhất chưa từng thấy, nó giúp tôi đặt sân nhanh chóng và dễ dàng",
       starRating: 3,
       date: "20111031",
     },
