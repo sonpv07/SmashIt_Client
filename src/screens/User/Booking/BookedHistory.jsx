@@ -4,9 +4,11 @@ import TopContent from "../../../components/Atoms/TopContent";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import HistoryCourt from "../../../components/Organisms/HistoryCourt";
 import { COLORS } from "../../../theme/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const BookedHistory = () => {
   const bookedHistory = [1, 2, 3, 4, 5, 6, 7];
+  const navigation = useNavigation();
 
   const courts = {
     name: "Sân cầu lông Quân Đội",
@@ -18,7 +20,7 @@ const BookedHistory = () => {
   };
   return (
     <View>
-      <HeaderBar text={"Lịch sử đặt sân"} />
+      <HeaderBar isGoBack={true} goBack={() => navigation.goBack()} text={"Lịch sử đặt sân"} />
       <ScrollView style={styles.bookedCourt}>
         {bookedHistory.map((court, index) => {
           return (

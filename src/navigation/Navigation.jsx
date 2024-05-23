@@ -117,6 +117,15 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name="FavoriteCourt"
+            component={BookedHistory}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       )}
 
