@@ -1,12 +1,17 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { SIZE, WEIGHT } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
 
-const CourtItem = () => {
+const CourtItem = ({ navigation }) => {
   return (
-    <View style={styles.outline}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("CourtDetail");
+      }}
+      style={styles.outline}
+    >
       <View style={styles.courtImage}>
         <View style={styles.court}>
           <Image
@@ -16,18 +21,23 @@ const CourtItem = () => {
             }}
           />
         </View>
-          <View style={styles.courtNo}>
-            <Text style={styles.courtNo_Text}>03 sân trống</Text>
-          </View>
+        <View style={styles.courtNo}>
+          <Text style={styles.courtNo_Text}>03 sân trống</Text>
+        </View>
       </View>
       <View style={styles.courtInfo}>
         <View style={styles.courtTitle}>
           <View>
             <Text style={styles.courtName}>Sân cầu lông Quân Đội</Text>
           </View>
-          <View>
-            <Text style={styles.courtName}>
-              <Icon name="star" size={20} color={COLORS.orangeText} /> 4.9
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text
+              style={[
+                styles.courtName,
+                { fontSize: SIZE.size_12, fontFamily: "quicksand-bold" },
+              ]}
+            >
+              <Icon name="star" size={16} color={COLORS.orangeText} /> 4.9
             </Text>
           </View>
         </View>
@@ -44,7 +54,7 @@ const CourtItem = () => {
           <Text style={styles.courtDetails_Text}>89.000đ/giờ</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -57,30 +67,30 @@ const styles = StyleSheet.create({
   },
   courtImage: {
     height: "100%",
-    aspectRatio: 1,
+    aspectRatio: 116 / 111,
     backgroundColor: "cyan",
     borderRadius: 10,
   },
   court: {
-    position: 'relative'
+    position: "relative",
   },
   courtNo: {
     backgroundColor: COLORS.orangeText,
-    position: 'absolute',
+    position: "absolute",
     paddingBottom: 3,
     paddingHorizontal: 5,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     margin: 10,
-    borderRadius: 10
+    borderRadius: 10,
   },
   courtNo_Text: {
     fontFamily: "quicksand-bold",
     fontSize: SIZE.size_10,
     color: COLORS.white,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   courtInfo: {
     width: "63%",
@@ -88,8 +98,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
     paddingVertical: 4,
+    gap: 10,
   },
   courtTitle: {
     width: "100%",
@@ -102,10 +112,12 @@ const styles = StyleSheet.create({
   courtName: {
     display: "flex",
     fontSize: SIZE.size_14,
-    fontWeight: WEIGHT.weight_600,
+    fontFamily: "quicksand-semibold",
   },
   courtAddress: {
     fontSize: SIZE.size_12,
+    fontFamily: "quicksand-regular",
+    lineHeight: 22,
   },
   courtDetails: {
     display: "flex",
@@ -115,7 +127,7 @@ const styles = StyleSheet.create({
   courtDetails_Text: {
     color: COLORS.darkGreenText,
     fontSize: SIZE.size_16,
-    fontWeight: WEIGHT.weight_600,
+    fontFamily: "quicksand-semibold",
   },
   hr: {
     borderWidth: 1,

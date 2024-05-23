@@ -10,6 +10,9 @@ const ChipList = ({
   textFamily,
   action,
   chipType,
+  isHorizontal,
+  chosenData,
+  setChosenData,
 }) => {
   // const data = [
   //   "Long Thạnh Mỹ",
@@ -21,12 +24,21 @@ const ChipList = ({
   // ];
   return (
     <ScrollView
-      contentContainerStyle={{
-        flexDirection: "row",
-        flexWrap: "wrap",
-        columnGap: 5,
-        rowGap: 10,
-      }}
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
+      horizontal={isHorizontal}
+      contentContainerStyle={
+        !isHorizontal
+          ? {
+              flexDirection: "row",
+              flexWrap: "wrap",
+              columnGap: 5,
+              rowGap: 10,
+            }
+          : {
+              gap: 10,
+            }
+      }
     >
       {dataList.map((item, index) => (
         <View key={index}>
@@ -38,6 +50,8 @@ const ChipList = ({
             textColor={textColor}
             action={action}
             chipType={chipType}
+            chosenData={chosenData}
+            setChosenData={setChosenData}
           />
         </View>
       ))}

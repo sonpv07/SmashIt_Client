@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import images from "../../constants/images";
 import CustomButton from "../../components/Atoms/CustomButton";
+import { AuthContext } from "../../context/AuthContext";
 
 const roleList = [
   {
@@ -14,10 +15,13 @@ const roleList = [
   },
 ];
 
-const RolePick = () => {
-  const [chosenRole, setChosenRole] = useState("");
+const RolePick = ({ navigation }) => {
+  // const [chosenRole, setChosenRole] = useState("");
+
+  const { chosenRole, setChosenRole } = useContext(AuthContext);
 
   const handleChooseRole = (role) => {
+    console.log(role);
     setChosenRole(role);
   };
 
@@ -25,7 +29,7 @@ const RolePick = () => {
     if (!chosenRole) {
       return;
     } else {
-      //   navigation.navigate("Login");
+      navigation.navigate("Login");
     }
   };
 

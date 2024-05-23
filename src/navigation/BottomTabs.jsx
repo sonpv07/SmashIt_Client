@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -16,11 +16,13 @@ import SearchCourt from "../screens/User/Court/SearchCourt";
 import Trading from "../screens/Trading/Trading";
 import BookedHistory from "../screens/User/Booking/BookedHistory";
 import NotificationLayout from "../screens/Notification/NotificationLayout";
+import { AuthContext } from "../context/AuthContext";
+import Settings from "../screens/User/Settings/Settings";
 
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
 
-  const role = "user";
+  const { isLogin, firstRegister, chosenRole } = useContext(AuthContext);
 
   return (
     <Tab.Navigator
@@ -53,7 +55,7 @@ export default function BottomTabs() {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Trade"
         component={Trading}
         options={{
@@ -77,12 +79,12 @@ export default function BottomTabs() {
             </View>
           ),
         }}
-      />
+      /> */}
 
-      {role === "user" && (
+      {chosenRole === "player" && (
         <Tab.Screen
-          name="BookedHistory"
-          component={BookedHistory}
+          name="Search"
+          component={SearchCourt}
           options={{
             headerShown: false,
             tabBarLabel: () => null,
@@ -107,7 +109,7 @@ export default function BottomTabs() {
         />
       )}
 
-      {role === "courtowner" && (
+      {chosenRole === "courtOwner" && (
         <Tab.Screen
           name="BookingManagement"
           component={MyCourt}
@@ -160,61 +162,32 @@ export default function BottomTabs() {
           ),
         }}
       />
-      {role === "courtowner" && (
-        <Tab.Screen
-          name="Court Owner Account"
-          component={CourtOwnerProfile}
-          options={{
-            headerShown: false,
-            tabBarLabel: () => null,
-            tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <FontAwesome
-                  name="user-o"
-                  size={22}
-                  color={focused ? "#2C9889" : "#676767"}
-                />
-                <Text
-                  style={[
-                    styles.text,
-                    focused ? { color: "#2C9889" } : { color: "#676767" },
-                  ]}
-                >
-                  Tài khoản
-                </Text>
-              </View>
-            ),
-          }}
-        />
-      )}
 
-      {role === "user" && (
-        <Tab.Screen
-          name="User Account"
-          component={MyProfile}
-          options={{
-            headerShown: false,
-            tabBarLabel: () => null,
-            tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <FontAwesome
-                  name="user-o"
-                  size={22}
-                  color={focused ? "#2C9889" : "#676767"}
-                />
-                <Text
-                  style={[
-                    styles.text,
-                    focused ? { color: "#2C9889" } : { color: "#676767" },
-                  ]}
-                >
-                  Tài khoản
-                </Text>
-              </View>
-            ),
-          }}
-        />
-      )}
+      <Tab.Screen
+        name="Setting"
+        component={Settings}
+        options={{
+          headerShown: false,
+          tabBarLabel: () => null,
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <FontAwesome
+                name="user-o"
+                size={22}
+                color={focused ? "#2C9889" : "#676767"}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  focused ? { color: "#2C9889" } : { color: "#676767" },
+                ]}
+              >
+                Tài khoản
+              </Text>
+            </View>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
