@@ -6,7 +6,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../../theme/fonts";
 import icons from "../../../constants/icons";
 
-const NotificationDetail = ({ notificationList, icon, navigation, title }) => {
+const bookings = [
+  {
+    title: "Đã đặt sân thành công!",
+    desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
+    timeStamp: "02 Th4, 16:10",
+    id: 1,
+  },
+  {
+    title: "Đã đặt sân thành công!",
+    desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
+    timeStamp: "02 Th4, 16:10",
+    id: 2,
+  },
+];
+
+const BookingNoti = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -16,14 +31,14 @@ const NotificationDetail = ({ notificationList, icon, navigation, title }) => {
         >
           <Image source={icons.goback} style={styles.goback} />
         </TouchableOpacity>
-        <Text style={styles.title}>Thong bao</Text>
+        <Text style={styles.title}>Thông tin đặt sân</Text>
       </View>
-      <NotificationInfo notificationList={notificationList} icon={icon} />
+      <NotificationInfo list={bookings} icon={icons.booking} />
     </SafeAreaView>
   );
 };
 
-export default NotificationDetail;
+export default BookingNoti;
 
 const styles = StyleSheet.create({
   container: {

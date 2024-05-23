@@ -1,12 +1,26 @@
-import { TouchableOpacity } from "react-native";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import NotificationInfo from "../../../components/Organisms/NotificationInfo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../../theme/fonts";
 import icons from "../../../constants/icons";
+import NotificationInfo from "../../../components/Organisms/NotificationInfo";
 
-const NotificationDetail = ({ notificationList, icon, navigation, title }) => {
+const offers = [
+  {
+    title: "Cơ hội nhận 50% giảm giá đặt sân",
+    desc: "Do Dang ơi! Nhớ điền đầy đủ thông tin để nhận ưu đãi về phiếu giảm giá đặt sân 50% nhé ",
+    timeStamp: "02 Th4, 16:10",
+    id: 1,
+  },
+  {
+    title: "Cơ hội nhận 50% giảm giá đặt sân",
+    desc: "Do Dang ơi! Nhớ điền đầy đủ thông tin để nhận ưu đãi về phiếu giảm giá đặt sân 50% nhé ",
+    timeStamp: "02 Th4, 16:10",
+    id: 2,
+  },
+];
+
+const OfferNoti = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -16,14 +30,14 @@ const NotificationDetail = ({ notificationList, icon, navigation, title }) => {
         >
           <Image source={icons.goback} style={styles.goback} />
         </TouchableOpacity>
-        <Text style={styles.title}>Thong bao</Text>
+        <Text style={styles.title}>Khuyến mãi</Text>
       </View>
-      <NotificationInfo notificationList={notificationList} icon={icon} />
+      <NotificationInfo list={offers} icon={icons.voucher} />
     </SafeAreaView>
   );
 };
 
-export default NotificationDetail;
+export default OfferNoti;
 
 const styles = StyleSheet.create({
   container: {

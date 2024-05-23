@@ -60,11 +60,15 @@ const Notification = ({ navigation }) => {
     const icon = notificationIcons.find((item) => item.type === type);
     return icon ? icon.icon : null;
   };
+
+  const handleNavigateToDetail = (route) => {
+    navigation.navigate(route);
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.notificationContainer}
-        onPress={() => navigation.navigate("NotificationDetail")}
+        onPress={() => handleNavigateToDetail("OfferNoti")}
       >
         <Image source={icons.voucher} style={styles.icon} />
         <View style={styles.notiContent}>
@@ -76,7 +80,10 @@ const Notification = ({ navigation }) => {
         </View>
         <Image source={icons.more} style={styles.more} />
       </TouchableOpacity>
-      <View style={styles.notificationContainer}>
+      <TouchableOpacity
+        style={styles.notificationContainer}
+        onPress={() => handleNavigateToDetail("BookingNoti")}
+      >
         <Image source={icons.booking} style={styles.icon} />
         <View style={styles.notiContent}>
           <Text style={styles.title}>Thông tin đặt sân</Text>
@@ -85,8 +92,11 @@ const Notification = ({ navigation }) => {
           </Text>
         </View>
         <Image source={icons.more} style={styles.more} />
-      </View>
-      <View style={styles.notificationContainer}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.notificationContainer}
+        onPress={() => handleNavigateToDetail("BlogNoti")}
+      >
         <Image source={icons.feed} style={styles.icon} />
         <View style={styles.notiContent}>
           <Text style={styles.title}>Bảng tin</Text>
@@ -95,8 +105,11 @@ const Notification = ({ navigation }) => {
           </Text>
         </View>
         <Image source={icons.more} style={styles.more} />
-      </View>
-      <View style={styles.notificationContainer}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.notificationContainer}
+        onPress={() => handleNavigateToDetail("RatingNoti")}
+      >
         <Image source={icons.rating} style={styles.icon} />
         <View style={styles.notiContent}>
           <Text style={styles.title}>Đánh giá</Text>
@@ -105,7 +118,7 @@ const Notification = ({ navigation }) => {
           </Text>
         </View>
         <Image source={icons.more} style={styles.more} />
-      </View>
+      </TouchableOpacity>
       <View style={styles.latestNotification}>
         <Text style={styles.recent}>Thông báo gần đây</Text>
         <View style={styles.recentContainer}>

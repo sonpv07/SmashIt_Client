@@ -4,6 +4,7 @@ import icons from "../../constants/icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../theme/fonts";
 import images from "../../constants/images";
+import CreateBlog from "./CreateBlog";
 
 const feeds = [
   {
@@ -37,20 +38,18 @@ const feeds = [
 
 const BlogPost = () => {
   return (
-    <SafeAreaView>
+    <View>
       <FlatList
         data={feeds}
         renderItem={({ item, index }) => (
           <>
             <View style={styles.feedContainer}>
-              <View style={styles.left}>
-                <Image source={item.avatar} />
-                <View style={[styles.postLine]} />
-              </View>
-
               <View style={styles.feedContent}>
                 <View style={styles.postHeader}>
-                  <Text style={styles.username}>{item.userName}</Text>
+                  <View style={styles.userInfo}>
+                    <Image source={item.avatar} style={styles.avatar} />
+                    <Text style={styles.username}>{item.userName}</Text>
+                  </View>
                   <Text style={styles.timeStamp}>{item.timeStamp}</Text>
                 </View>
                 <Text style={styles.feedDesc}>{item.desc}</Text>
@@ -67,8 +66,9 @@ const BlogPost = () => {
           </>
         )}
         contentContainerStyle={{ marginLeft: 12 }}
+        ListHeaderComponent={CreateBlog}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -83,9 +83,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  userInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginBottom: 5,
+  },
+  avatar: {
+    width: 28,
+    height: 28,
+  },
   feedContent: {
     flex: 1,
-    marginLeft: 13,
+    // marginLeft: 13,
     // width: "100%",
   },
   username: {
