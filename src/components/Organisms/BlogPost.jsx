@@ -36,7 +36,7 @@ const feeds = [
   },
 ];
 
-const BlogPost = () => {
+const BlogPost = ({ navigation }) => {
   return (
     <View>
       <FlatList
@@ -66,7 +66,7 @@ const BlogPost = () => {
           </>
         )}
         contentContainerStyle={{ marginLeft: 12 }}
-        ListHeaderComponent={CreateBlog}
+        ListHeaderComponent={<CreateBlog navigation={navigation} />}
       />
     </View>
   );

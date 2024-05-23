@@ -12,6 +12,8 @@ const CustomButton = ({
   borderColor,
   handlePress,
   fontFamily,
+  px,
+  py,
 }) => {
   return (
     <TouchableOpacity
@@ -25,6 +27,8 @@ const CustomButton = ({
           height: height,
           borderColor: borderColor,
           borderWidth: borderColor ? 1 : 0,
+          paddingHorizontal: px,
+          paddingVertical: py,
         },
       ]}
     >

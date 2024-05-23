@@ -9,7 +9,9 @@ import TopContent from "./src/components/Atoms/TopContent";
 
 import { NativeBaseProvider } from "native-base";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
-import NotificationDetail from "./src/screens/Notification/notification-detail/NotificationDetail";
+import Login from "./src/screens/Auth/Login";
+import Signup from "./src/screens/Auth/Signup";
+import CourtOwner from "./src/screens/SplashScreen/CourtOwner";
 
 export default function App() {
   return (
@@ -19,7 +21,9 @@ export default function App() {
           {/* <TopContent /> */}
           {/* <CourtCodeManagement /> */}
           <Navigation />
+          {/* <Signup /> */}
           {/* <NotificationDetail /> */}
+          {/* <CourtOwner /> */}
           <ExpoStatusBar style="dark" />
         </View>
       </FontLoader>

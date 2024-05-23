@@ -3,10 +3,10 @@ import React from "react";
 import BlogPost from "../../components/Organisms/BlogPost";
 import CreateBlog from "../../components/Organisms/CreateBlog";
 
-const NewsFeed = () => {
+const NewsFeed = ({ navigation }) => {
   return (
     <View>
-      <BlogPost />
+      <BlogPost navigation={navigation} />
     </View>
   );
 };

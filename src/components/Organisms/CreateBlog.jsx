@@ -1,14 +1,24 @@
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import icons from "../../constants/icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../theme/fonts";
 import images from "../../constants/images";
 
-const CreateBlog = () => {
+const CreateBlog = ({ navigation }) => {
   return (
     <>
-      <View style={styles.feedContainer}>
+      <TouchableOpacity
+        style={styles.feedContainer}
+        onPress={() => navigation.navigate("CreatePost")}
+      >
         <View style={styles.feedContent}>
           <View style={styles.postHeader}>
             <View style={styles.userInfo}>
@@ -18,7 +28,7 @@ const CreateBlog = () => {
           </View>
           <Text style={styles.write}>Hãy viết cảm nghĩ của bạn...</Text>
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={styles.divider}></View>
     </>
   );
