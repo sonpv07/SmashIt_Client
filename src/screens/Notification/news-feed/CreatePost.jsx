@@ -1,10 +1,18 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
-import { TextField } from "native-base";
+// import { TextField } from "native-base";
 import icons from "../../../constants/icons";
 import CustomButton from "../../../components/Atoms/CustomButton";
 import { SIZE } from "../../../theme/fonts";
+import images from "../../../constants/images";
 
 const CreatePost = ({ navigation }) => {
   return (
@@ -29,7 +37,24 @@ const CreatePost = ({ navigation }) => {
           handlePress={() => navigation.goBack()}
         />
       </View>
-      <View style={styles.postContainer}></View>
+      <View style={styles.postContainer}>
+        <View style={styles.header}>
+          <View style={styles.userInfo}>
+            <Image source={images.avatar} style={styles.avatar} />
+            <Text style={styles.userName}>anhddp</Text>
+          </View>
+          <Text>0/100</Text>
+        </View>
+        <TextInput
+          placeholder="Hãy viết cảm nghĩ của bạn"
+          style={styles.input}
+          multiline={true}
+        />
+        <View style={styles.iconContainer}>
+          <Image source={icons.uploadImg} style={styles.actionIcon} />
+          <Image source={icons.uploadVideo} style={styles.actionIcon} />
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -60,5 +85,41 @@ const styles = StyleSheet.create({
   goback: {
     width: 28,
     height: 28,
+  },
+  postContainer: {
+    marginTop: 30,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+  },
+  userInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  avatar: {
+    width: 35,
+    height: 35,
+  },
+  userName: {
+    fontSize: SIZE.size_14,
+    fontFamily: "quicksand-bold",
+  },
+  input: {
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+  iconContainer: {
+    flexDirection: "row",
+    paddingHorizontal: 20,
+    marginTop: 15,
+    gap: 20,
+  },
+  actionIcon: {
+    width: 23,
+    height: 23,
   },
 });
