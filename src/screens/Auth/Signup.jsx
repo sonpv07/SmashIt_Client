@@ -1,4 +1,11 @@
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import images from "../../constants/images";
 import { SIZE } from "../../theme/fonts";
@@ -6,7 +13,7 @@ import FormInput from "../../components/Atoms/FormInput";
 import CustomButton from "../../components/Atoms/CustomButton";
 import { Checkbox } from "native-base";
 
-const Signup = () => {
+const Signup = ({ navigation }) => {
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -92,10 +99,16 @@ const Signup = () => {
           width={"100%"}
           icon={images.google}
         />
-        <View style={styles.registerLink}>
-          <Text style={styles.notHave}>Đã có tài khoản?</Text>
+      </View>
+
+      <View style={styles.registerLink}>
+        <Text style={styles.notHave}>Đã có tài khoản?</Text>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Login")}
+        >
           <Text style={styles.regNow}>Đăng nhập ngay</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -183,7 +196,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // borderWidth: 1,
     // borderColor: "red",
-    marginVertical: 20,
+    marginVertical: 30,
   },
   leftDiv: {
     width: 120,
@@ -202,10 +215,11 @@ const styles = StyleSheet.create({
     fontFamily: "quicksand-regular",
   },
   registerLink: {
+    position: "absolute",
+    bottom: 40,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 25,
   },
   notHave: {
     marginRight: 10,

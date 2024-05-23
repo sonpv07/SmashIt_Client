@@ -10,6 +10,13 @@ import SplashScreen_User from "../screens/SplashScreen/SplashScreen_User";
 import SearchCourt from "../screens/User/Court/SearchCourt";
 import BookedHistory from "../screens/User/Booking/BookedHistory";
 import CourtDetail from "../screens/User/Court/CourtDetail";
+import PackageDetail from "../screens/CourtOwner/Packages/PackageDetail";
+import Pakage from "../screens/CourtOwner/Packages/Pakage";
+import CourtCodeManagement from "../screens/CourtOwner/MyCourt/CourtCodeManagement";
+import CreateBooking from "../screens/CourtOwner/MyCourt/CreateBooking";
+import NotificationLayout from "../screens/Notification/NotificationLayout";
+import NotificationDetail from "../screens/Notification/notification-detail/NotificationDetail";
+import Notification from "../screens/Notification/Notification";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
@@ -73,17 +80,48 @@ export default function Navigation() {
           />
 
           <Stack.Screen
-            name="SplashScreen_User"
-            component={SplashScreen_User}
+            name="Home"
+            component={Home}
             options={{
               title: "",
               animation: "slide_from_right",
               headerShown: false,
             }}
           />
+
           <Stack.Screen
-            name="Home"
-            component={Home}
+            name="Pakage"
+            component={Pakage}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="PackageDetail"
+            component={PackageDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="CourtCodeManagement"
+            component={CourtCodeManagement}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="CreateBooking"
+            component={CreateBooking}
             options={{
               title: "",
               animation: "slide_from_right",
@@ -111,6 +149,15 @@ export default function Navigation() {
           <Stack.Screen
             name="CourtDetail"
             component={CourtDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="NotificationDetail"
+            component={NotificationDetail}
             options={{
               title: "",
               animation: "slide_from_right",
@@ -146,8 +193,8 @@ export default function Navigation() {
             }}
           />
           <Stack.Screen
-            name="Home"
-            component={Home}
+            name="BottomTab"
+            component={BottomTabs}
             options={{
               title: "",
               animation: "slide_from_right",
@@ -156,8 +203,6 @@ export default function Navigation() {
           />
         </Stack.Navigator>
       )}
-
-
     </NavigationContainer>
   );
 }

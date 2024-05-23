@@ -13,6 +13,7 @@ const Chip = ({
   textFamily,
   action,
   chipType,
+  borderRadius,
 }) => {
   const [status, setStatus] = useState(false);
   // const isChosenBg =
@@ -32,7 +33,11 @@ const Chip = ({
         <TouchableOpacity
           style={[
             styles.chip,
-            { backgroundColor: backgroundColor, borderColor: borderColor },
+            {
+              backgroundColor: backgroundColor,
+              borderColor: borderColor,
+              borderRadius: borderRadius ? borderRadius : 20,
+            },
           ]}
           // onPress={() => setStatus(!status)}
         >
@@ -50,7 +55,11 @@ const Chip = ({
         <View
           style={[
             styles.chip,
-            { backgroundColor: backgroundColor, borderColor: borderColor },
+            {
+              backgroundColor: backgroundColor,
+              borderColor: borderColor,
+              borderRadius: borderRadius ? borderRadius : 20,
+            },
           ]}
         >
           <Text style={{ color: textColor, fontFamily: textFamily }}>
@@ -79,7 +88,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     fontSize: SIZE.size_14,
-    borderRadius: 20,
     borderWidth: 1,
   },
 

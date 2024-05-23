@@ -1,12 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-export default function NotificationManagement() {
+const CreatePost = () => {
   return (
     <View>
-      <Text>NotificationManagement</Text>
+      <Text>CreatePost</Text>
     </View>
   );
-}
+};
+
+export default CreatePost;
 
 const styles = StyleSheet.create({});
