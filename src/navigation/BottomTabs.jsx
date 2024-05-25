@@ -22,7 +22,7 @@ import Settings from "../screens/User/Settings/Settings";
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
 
-  const { isLogin, firstRegister, chosenRole } = useContext(AuthContext);
+  const { firstRegister, chosenRole } = useContext(AuthContext);
 
   return (
     <Tab.Navigator

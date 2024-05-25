@@ -1,4 +1,6 @@
 import VectorIcon from "../components/Atoms/VectorIcon";
+import moment from "moment";
+import "moment/locale/vi";
 
 export const getIconFamily = (family, name, size, color) => {
   switch (family) {
@@ -51,4 +53,13 @@ export const getIconFamily = (family, name, size, color) => {
 
 export const formatNumber = (number) => {
   return new Intl.NumberFormat("de-DE").format(number);
+};
+
+export const formatDate = (date) => {
+  const formattedDate = moment(date).locale("vi").format("dddd, DD/MM/YYYY");
+
+  const capitalizedDate =
+    formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+
+  return capitalizedDate;
 };

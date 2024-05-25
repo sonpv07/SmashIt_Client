@@ -13,32 +13,19 @@ const ChipList = ({
   isHorizontal,
   chosenData,
   setChosenData,
+  borderRadius,
+  listStyle,
+  chipStyle,
 }) => {
-  // const data = [
-  //   "Long Thạnh Mỹ",
-  //   "Long Phước",
-  //   "Linh Đông",
-  //   "An Khánh",
-  //   "Bình Trưng Đông",
-  //   "Tăng Nhơn Phú B",
-  // ];
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
       horizontal={isHorizontal}
-      contentContainerStyle={
-        !isHorizontal
-          ? {
-              flexDirection: "row",
-              flexWrap: "wrap",
-              columnGap: 5,
-              rowGap: 10,
-            }
-          : {
-              gap: 10,
-            }
-      }
+      contentContainerStyle={[
+        isHorizontal ? styles.horizontal : styles.vertical,
+        listStyle,
+      ]}
     >
       {dataList.map((item, index) => (
         <View key={index}>
@@ -48,10 +35,12 @@ const ChipList = ({
             backgroundColor={backgroundColor}
             textFamily={textFamily}
             textColor={textColor}
+            borderRadius={borderRadius}
             action={action}
             chipType={chipType}
             chosenData={chosenData}
             setChosenData={setChosenData}
+            chipStyle={chipStyle}
           />
         </View>
       ))}
@@ -63,6 +52,16 @@ const styles = StyleSheet.create({
   chipList: {
     display: "flex",
     flexDirection: "row",
+  },
+
+  vertical: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    columnGap: 5,
+    rowGap: 10,
+  },
+  horizontal: {
+    gap: 10,
   },
 });
 

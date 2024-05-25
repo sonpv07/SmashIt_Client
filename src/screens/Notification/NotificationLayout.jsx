@@ -32,7 +32,7 @@ const NotificationLayout = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <View style={styles.container}>
         <Text style={styles.title}>Thông báo</Text>
         <View style={styles.tabContainer}>
           {tabs.map((item) => (
@@ -57,7 +57,7 @@ const NotificationLayout = ({ navigation }) => {
         <View style={styles.contentContainer}>
           {React.createElement(activeTab.component, { navigation })}
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

@@ -3,8 +3,8 @@ import React from "react";
 
 export default function Divider({ orientation, color, dividerStyle }) {
   const dividerStyles = [
-    { width: orientation === "horizontal" ? "100%" : 1 },
-    { height: orientation === "vertical" ? "100%" : 1 },
+    orientation === "horizontal" ? styles.horizontal : styles.vertical,
+
     { backgroundColor: color ? color : "#E8E8E8" },
     dividerStyle,
   ];
@@ -12,4 +12,13 @@ export default function Divider({ orientation, color, dividerStyle }) {
   return <View style={dividerStyles} />;
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  horizontal: {
+    width: "100%",
+    height: 1,
+  },
+  vertical: {
+    width: 1,
+    alignSelf: "stretch",
+  },
+});

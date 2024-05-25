@@ -14,13 +14,20 @@ import PackageDetail from "../screens/CourtOwner/Packages/PackageDetail";
 import Pakage from "../screens/CourtOwner/Packages/Pakage";
 import CourtCodeManagement from "../screens/CourtOwner/MyCourt/CourtCodeManagement";
 import CreateBooking from "../screens/CourtOwner/MyCourt/CreateBooking";
-import NotificationLayout from "../screens/Notification/NotificationLayout";
-import NotificationDetail from "../screens/Notification/notification-detail/NotificationDetail";
-import Notification from "../screens/Notification/Notification";
+
 import RolePick from "../screens/SplashScreen/RolePick";
 import { AuthContext } from "../context/AuthContext";
 import RegisterCourt from "../screens/CourtOwner/RegisterCourt/RegisterCourt";
 import FinancialBook from "../screens/CourtOwner/RevenueExpenditure/FinancialBook";
+import BlogNoti from "../screens/Notification/notification-detail/BlogNoti";
+import BookingNoti from "../screens/Notification/notification-detail/BookingNoti";
+import OfferNoti from "../screens/Notification/notification-detail/OfferNoti";
+import { StarRatingDisplay } from "react-native-star-rating-widget";
+import RatingNoti from "../screens/Notification/notification-detail/RatingNoti";
+import CreatePost from "../screens/Notification/news-feed/CreatePost";
+import CourtOwner from "../screens/SplashScreen/CourtOwner";
+import Revenue from "../screens/CourtOwner/RevenueExpenditure/Revenue";
+import UpdateCourt from "../screens/CourtOwner/MyCourt/UpdateCourt";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
@@ -78,7 +85,7 @@ export default function Navigation() {
 
       {isLogin && !firstRegister && (
         <Stack.Navigator
-          initialRouteName="BottomTab"
+          initialRouteName="CourtOwner"
           screenOptions={{
             animation: "default",
           }}
@@ -169,9 +176,55 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+
           <Stack.Screen
-            name="NotificationDetail"
-            component={NotificationDetail}
+            name="BlogNoti"
+            component={BlogNoti}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="BookingNoti"
+            component={BookingNoti}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="OfferNoti"
+            component={OfferNoti}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="RatingNoti"
+            component={RatingNoti}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="CreatePost"
+            component={CreatePost}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="CourtOwner"
+            component={CourtOwner}
             options={{
               title: "",
               animation: "slide_from_right",
@@ -191,6 +244,26 @@ export default function Navigation() {
           <Stack.Screen
             name="FinancialBook"
             component={FinancialBook}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="EditCourt"
+            component={UpdateCourt}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="CourtRevenue"
+            component={Revenue}
             options={{
               title: "",
               animation: "slide_from_right",

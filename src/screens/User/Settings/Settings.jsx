@@ -77,7 +77,7 @@ export default function Settings() {
           isNew: false,
         },
         {
-          navigate: "FinancialBook",
+          navigate: "CourtRevenue",
           icon: "map-pin",
           name: "Quản lí doanh thu sân",
           isNew: true,
@@ -88,7 +88,12 @@ export default function Settings() {
           name: "Quản lí sản phẩm",
           isNew: false,
         },
-        { navigate: "", icon: "box", name: "Sổ thu chi", isNew: true },
+        {
+          navigate: "FinancialBook",
+          icon: "box",
+          name: "Sổ thu chi",
+          isNew: true,
+        },
       ],
     },
     {

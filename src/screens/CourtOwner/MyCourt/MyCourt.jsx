@@ -39,7 +39,16 @@ export default function MyCourt({ navigation, router }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <HeaderBar text={"Địa điểm của tôi"} />
+      <HeaderBar
+        text={"Địa điểm của tôi"}
+        actionText={"Chỉnh sửa"}
+        actionStyle={{
+          fontFamily: "quicksand-bold",
+          fontSize: SIZE.size_16,
+          color: "#9A9A9A",
+        }}
+        action={() => navigation.navigate("EditCourt")}
+      />
       <View style={styles.container}>
         <Image
           style={styles.image}

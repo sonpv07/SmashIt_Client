@@ -16,6 +16,7 @@ const Chip = ({
   borderRadius,
   chosenData,
   setChosenData,
+  chipStyle,
 }) => {
   const [status, setStatus] = useState(false);
   // const isChosenBg =
@@ -42,6 +43,7 @@ const Chip = ({
               borderColor: borderColor,
               borderRadius: borderRadius ? borderRadius : 20,
             },
+            chipStyle,
           ]}
           // onPress={() => setStatus(!status)}
         >
@@ -70,6 +72,7 @@ const Chip = ({
               borderColor: borderColor,
               borderRadius: borderRadius ? borderRadius : 20,
             },
+            chipStyle,
           ]}
         >
           <Text style={{ color: textColor, fontFamily: textFamily }}>

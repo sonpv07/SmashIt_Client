@@ -14,7 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { METRICS } from "../../theme/metrics";
 import { COLORS } from "../../theme/colors";
 
-export default function InputImage() {
+export default function InputImage({ style, data, setData, allowMultiple }) {
   const [image, setImage] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,18 +36,18 @@ export default function InputImage() {
         await ImagePicker.requestMediaLibraryPermissionsAsync();
         result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
+          allowsEditing: allowMultiple ? false : true,
           aspect: [330, 192],
           quality: 1,
+          allowsMultipleSelection: allowMultiple ? true : false,
         });
       }
 
       if (!result.canceled) {
-        setImage(result.assets[0].uri);
+        setData((prevData) => [
+          ...prevData,
+          ...result.assets.map((item) => item.uri),
+        ]);
       }
     } catch (error) {
       console.log(error);
@@ -57,7 +57,7 @@ export default function InputImage() {
   return (
     <>
       <TouchableOpacity
-        style={styles.imagePicker}
+        style={[styles.imagePicker, style]}
         onPress={() => {
           StatusBar.setHidden(true);
           setIsModalOpen(true);
