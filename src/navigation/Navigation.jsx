@@ -26,6 +26,8 @@ import { StarRatingDisplay } from "react-native-star-rating-widget";
 import RatingNoti from "../screens/Notification/notification-detail/RatingNoti";
 import CreatePost from "../screens/Notification/news-feed/CreatePost";
 import CourtOwner from "../screens/SplashScreen/CourtOwner";
+import Rewards from "../screens/User/Settings/Rewards";
+import MyProfile from "../screens/User/Settings/MyProfile";
 
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
@@ -242,6 +244,24 @@ export default function Navigation() {
           <Stack.Screen
             name="FinancialBook"
             component={FinancialBook}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Rewards"
+            component={Rewards}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="MyProfile"
+            component={MyProfile}
             options={{
               title: "",
               animation: "slide_from_right",

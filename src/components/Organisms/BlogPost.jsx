@@ -65,7 +65,7 @@ const BlogPost = ({ navigation }) => {
             )}
           </>
         )}
-        contentContainerStyle={{ marginLeft: 12 }}
+        contentContainerStyle={{ marginLeft: 12, paddingBottom: 40 }}
         ListHeaderComponent={<CreateBlog navigation={navigation} />}
       />
     </View>

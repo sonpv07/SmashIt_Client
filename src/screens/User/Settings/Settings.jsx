@@ -23,7 +23,7 @@ export default function Settings() {
     {
       title: "Ưu đãi tiết kiệm",
       data: [
-        { navigate: "", icon: "award", name: "Tích điểm", isNew: true },
+        { navigate: "Rewards", icon: "award", name: "Tích điểm", isNew: true },
         { navigate: "", icon: "tag", name: "Kho voucher", isNew: true },
       ],
     },
@@ -114,12 +114,15 @@ export default function Settings() {
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.account}>
           <Text style={styles.name}>Nguyễn Minh Anh</Text>
-          <View style={styles.avatar}>
+          <TouchableOpacity
+            style={styles.avatar}
+            onPress={() => navigation.navigate("MyProfile")}
+          >
             <Image
               style={styles.avatarImage}
               source={{ uri: "https://avatar.iran.liara.run/public/boy" }}
             />
-          </View>
+          </TouchableOpacity>
         </View>
         <View>
           {chosenRole === "player" &&

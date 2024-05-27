@@ -9,6 +9,9 @@ import background from "../assets/images/background.png";
 import google from "../assets/images/google.png";
 import loginbg from "../assets/images/loginbg.png";
 import rolebg from "../assets/images/rolebg.png";
+import avatar2 from "../assets/images/avatar2.jpg";
+import coin from "../assets/images/coin.png";
+
 export default {
   vnpay,
   momo,
@@ -21,4 +24,6 @@ export default {
   google,
   loginbg,
   rolebg,
+  avatar2,
+  coin,
 };
