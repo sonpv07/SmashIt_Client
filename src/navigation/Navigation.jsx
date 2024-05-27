@@ -29,6 +29,9 @@ import CourtOwner from "../screens/SplashScreen/CourtOwner";
 import Rewards from "../screens/User/Settings/Rewards";
 import MyProfile from "../screens/User/Settings/MyProfile";
 
+import RewardDetail from "../screens/User/Settings/RewardDetail";
+import RewardHistory from "../screens/User/Settings/RewardHistory";
+
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -250,6 +253,16 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+
+          <Stack.Screen
+            name="MyProfile"
+            component={MyProfile}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
           <Stack.Screen
             name="Rewards"
             component={Rewards}
@@ -260,8 +273,17 @@ export default function Navigation() {
             }}
           />
           <Stack.Screen
-            name="MyProfile"
-            component={MyProfile}
+            name="RewardHistory"
+            component={RewardHistory}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="RewardDetail"
+            component={RewardDetail}
             options={{
               title: "",
               animation: "slide_from_right",

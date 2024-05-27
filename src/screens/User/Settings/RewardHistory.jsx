@@ -6,6 +6,8 @@ import icons from "../../../constants/icons";
 import { render } from "react-native-web";
 import images from "../../../constants/images";
 import { SIZE } from "../../../theme/fonts";
+import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "expo-router";
 
 const history = [
   {
@@ -72,12 +74,17 @@ const pointIcons = {
 };
 
 const RewardHistory = () => {
+  const navigation = useNavigation();
   const getIcon = (type) => {
     return pointIcons[type] || null;
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <HeaderBar isGoBack={true} text={"Lịch sử tích điểm"} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <HeaderBar
+        isGoBack={true}
+        text={"Lịch sử tích điểm"}
+        goBack={() => navigation.goBack()}
+      />
       <ScrollView contentContainerStyle={styles.historyContainer}>
         {history.map((item, index) => (
           <>

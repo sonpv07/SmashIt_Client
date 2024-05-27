@@ -17,6 +17,7 @@ import { CheckIcon, Icon, Select } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { set } from "date-fns";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MyProfile() {
   const [accountInfo, setAccountInfo] = useState({
@@ -35,6 +36,8 @@ export default function MyProfile() {
   });
 
   const [editMode, setEditMode] = useState(false);
+
+  const navigation = useNavigation();
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
@@ -61,7 +64,9 @@ export default function MyProfile() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.greenBg}>
-          <Image source={icons.goback_white} style={styles.goback} />
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image source={icons.goback_white} style={styles.goback} />
+          </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.update}>{editMode ? "Lưu" : "Sửa hồ sơ"}</Text>
           </TouchableOpacity>

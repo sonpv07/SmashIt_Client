@@ -26,14 +26,14 @@ const termList = [
 
 const RewardDetail = () => {
   const { width } = useWindowDimensions();
-  //   const navigate = useNavigation();
+  const navigate = useNavigation();
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <HeaderBar
           text={"Thông tin ưu đãi"}
           isGoBack={true}
-          // goBack={() => navigate.goBack()}
+          goBack={() => navigate.goBack()}
         />
         <View style={styles.vchContainer}>
           <Image
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingBottom: 80,
+    backgroundColor: "white",
   },
   footerButton: {
     position: "absolute",

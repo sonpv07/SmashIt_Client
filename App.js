@@ -27,12 +27,11 @@ export default function App() {
           <View style={styles.safeContainer}>
             {/* <TopContent /> */}
             {/* <CourtCodeManagement /> */}
-            {/* <Navigation /> */}
+            <Navigation />
             {/* <Signup /> */}
             {/* <NotificationDetail /> */}
             {/* <CourtOwner /> */}
             {/* <MyProfile /> */}
-            <Languages />
             <ExpoStatusBar style="dark" />
           </View>
         </FontLoader>

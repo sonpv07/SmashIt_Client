@@ -57,20 +57,23 @@ const myVouchers = [
 ];
 
 const Rewards = ({}) => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { width } = useWindowDimensions();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.greenBg}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={icons.goback_white} style={styles.goback} />
           </TouchableOpacity>
           <Text style={styles.title}>Ưu đãi tiết kiệm</Text>
         </View>
         <View style={styles.pointPadding}>
-          <View style={styles.pointContainer}>
+          <TouchableOpacity
+            style={styles.pointContainer}
+            onPress={() => navigation.navigate("RewardHistory")}
+          >
             <View style={styles.pointSide}>
               <Image source={images.coin} />
               <View>
@@ -79,7 +82,7 @@ const Rewards = ({}) => {
               </View>
             </View>
             <VectorIcon.FontAwesome5 name="chevron-right" size={15} />
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.exchangeContainer}>
           <Text style={styles.changePoint}>Đổi điểm nhận ưu đãi</Text>
@@ -87,7 +90,10 @@ const Rewards = ({}) => {
             data={vouchers}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <View style={[styles.vchContainer, { width: width - 30 }]}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("RewardDetail")}
+                style={[styles.vchContainer, { width: width - 30 }]}
+              >
                 <Image
                   source={item.image}
                   style={[styles.vchImage, { width: width - 30 }]}
@@ -103,7 +109,7 @@ const Rewards = ({}) => {
                     <Text style={styles.pnPoints}>{item.points}</Text>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             )}
             horizontal
             showsHorizontalScrollIndicator={false}
