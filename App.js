@@ -10,21 +10,23 @@ import TopContent from "./src/components/Atoms/TopContent";
 import { NativeBaseProvider } from "native-base";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import NotificationDetail from "./src/screens/Notification/notification-detail/NotificationDetail";
+import { AuthProvider } from "./src/context/AuthContext";
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <FontLoader>
-        <View style={styles.safeContainer}>
-          <ExpoStatusBar style="dark" />
-          {/* <TopContent /> */}
-          {/* <CourtCodeManagement /> */}
-          <Navigation />
-          {/* <NotificationDetail /> */}
-          
-        </View>
-      </FontLoader>
-    </NativeBaseProvider>
+    <AuthProvider>
+      <NativeBaseProvider>
+        <FontLoader>
+          <View style={styles.safeContainer}>
+            <ExpoStatusBar style="dark" />
+            <TopContent />
+            {/* <CourtCodeManagement /> */}
+            <Navigation />
+            {/* <NotificationDetail /> */}
+          </View>
+        </FontLoader>
+      </NativeBaseProvider>
+    </AuthProvider>
   );
 }
 
