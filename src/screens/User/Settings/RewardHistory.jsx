@@ -105,7 +105,13 @@ const RewardHistory = () => {
                 >
                   +
                 </Text>
-                <Image source={images.coin} style={styles.coin} />
+                <View style={styles.iconSmall}>
+                  <Image
+                    source={icons.bad_white}
+                    style={{ width: 12, height: 12 }}
+                    resizeMode="contain"
+                  />
+                </View>
                 <Text style={styles.points}>{item.points}</Text>
               </View>
             </View>
@@ -141,12 +147,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: SIZE.size_16,
+    fontSize: SIZE.size_14,
     fontFamily: "quicksand-semibold",
     marginBottom: 5,
   },
   desc: {
-    fontSize: SIZE.size_14,
+    fontSize: SIZE.size_12,
     fontFamily: "quicksand-medium",
     marginBottom: 8,
   },
@@ -173,5 +179,12 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: "#E5E5E5",
     marginVertical: 20,
+  },
+  iconSmall: {
+    borderRadius: 100,
+    backgroundColor: "#2A9083",
+    padding: 3,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

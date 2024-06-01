@@ -38,37 +38,33 @@ const feeds = [
 
 const BlogPost = ({ navigation }) => {
   return (
-    <View>
-      <FlatList
-        data={feeds}
-        renderItem={({ item, index }) => (
-          <>
-            <View style={styles.feedContainer}>
-              <View style={styles.feedContent}>
-                <View style={styles.postHeader}>
-                  <View style={styles.userInfo}>
-                    <Image source={item.avatar} style={styles.avatar} />
-                    <Text style={styles.username}>{item.userName}</Text>
-                  </View>
-                  <Text style={styles.timeStamp}>{item.timeStamp}</Text>
+    <FlatList
+      data={feeds}
+      renderItem={({ item, index }) => (
+        <>
+          <View style={styles.feedContainer}>
+            <View style={styles.feedContent}>
+              <View style={styles.postHeader}>
+                <View style={styles.userInfo}>
+                  <Image source={item.avatar} style={styles.avatar} />
+                  <Text style={styles.username}>{item.userName}</Text>
                 </View>
-                <Text style={styles.feedDesc}>{item.desc}</Text>
-                <Image source={item.image} style={styles.postImage} />
-                <View style={styles.likeContainer}>
-                  <Image source={icons.like} resizeMode="contain" />
-                  <Text style={styles.likeCount}>{item.likes} Likes</Text>
-                </View>
+                <Text style={styles.timeStamp}>{item.timeStamp}</Text>
+              </View>
+              <Text style={styles.feedDesc}>{item.desc}</Text>
+              <Image source={item.image} style={styles.postImage} />
+              <View style={styles.likeContainer}>
+                <Image source={icons.like} resizeMode="contain" />
+                <Text style={styles.likeCount}>{item.likes} Likes</Text>
               </View>
             </View>
-            {index !== feeds.length - 1 && (
-              <View style={styles.bottomDivider} />
-            )}
-          </>
-        )}
-        contentContainerStyle={{ marginLeft: 12, paddingBottom: 40 }}
-        ListHeaderComponent={<CreateBlog navigation={navigation} />}
-      />
-    </View>
+          </View>
+          {index !== feeds.length - 1 && <View style={styles.bottomDivider} />}
+        </>
+      )}
+      contentContainerStyle={{ marginLeft: 12, paddingBottom: 40 }}
+      ListHeaderComponent={<CreateBlog navigation={navigation} />}
+    />
   );
 };
 

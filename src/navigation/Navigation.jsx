@@ -31,7 +31,8 @@ import MyProfile from "../screens/User/Settings/MyProfile";
 
 import RewardDetail from "../screens/User/Settings/RewardDetail";
 import RewardHistory from "../screens/User/Settings/RewardHistory";
-
+import MyVoucherDetail from "../screens/User/Settings/MyVoucherDetail";
+import CourtRating from "../screens/Notification/notification-detail/CourtRating";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -284,6 +285,24 @@ export default function Navigation() {
           <Stack.Screen
             name="RewardDetail"
             component={RewardDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="MyVoucherDetail"
+            component={MyVoucherDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="CourtRating"
+            component={CourtRating}
             options={{
               title: "",
               animation: "slide_from_right",

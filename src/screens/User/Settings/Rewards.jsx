@@ -73,9 +73,17 @@ const Rewards = ({}) => {
           <TouchableOpacity
             style={styles.pointContainer}
             onPress={() => navigation.navigate("RewardHistory")}
+            activeOpacity={1}
           >
             <View style={styles.pointSide}>
-              <Image source={images.coin} />
+              <View style={styles.iconBadminton}>
+                <Image
+                  source={icons.bad_white}
+                  style={{ width: 22, height: 22 }}
+                  resizeMode="contain"
+                />
+              </View>
+
               <View>
                 <Text style={styles.mpTitle}>SmashIt Point của bạn</Text>
                 <Text style={styles.mpPoint}>50 điểm</Text>
@@ -96,16 +104,19 @@ const Rewards = ({}) => {
               >
                 <Image
                   source={item.image}
-                  style={[styles.vchImage, { width: width - 30 }]}
+                  style={[styles.vchImage, { width: width - 29 }]}
                 />
                 <Text style={styles.vchTitle}>{item.title}</Text>
                 <View style={styles.pointNeed}>
                   <Text style={styles.pn}>Điểm cần đạt</Text>
                   <View style={styles.mp}>
-                    <Image
-                      source={images.coin}
-                      style={{ width: 16, height: 16, gap: 8 }}
-                    />
+                    <View style={styles.iconSmall}>
+                      <Image
+                        source={icons.bad_white}
+                        style={{ width: 12, height: 12 }}
+                        resizeMode="contain"
+                      />
+                    </View>
                     <Text style={styles.pnPoints}>{item.points}</Text>
                   </View>
                 </View>
@@ -140,7 +151,11 @@ const Rewards = ({}) => {
         <Text style={styles.mvTitle}>Kho khuyến mãi của tôi</Text>
         <View style={styles.myVoucher}>
           {myVouchers.map((item, index) => (
-            <View style={[styles.vchContainer, { width: width - 30 }]}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("MyVoucherDetail")}
+              activeOpacity={1}
+              style={[styles.vchContainer, { width: width - 30 }]}
+            >
               <Image
                 source={item.image}
                 style={[styles.vchImage, { width: width - 30 }]}
@@ -152,7 +167,7 @@ const Rewards = ({}) => {
                   <Text style={styles.expiryDate}>{item.expiryDate}</Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
@@ -208,10 +223,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
   },
-
+  iconBadminton: {
+    borderRadius: 100,
+    backgroundColor: "#2A9083",
+    padding: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  iconSmall: {
+    borderRadius: 100,
+    backgroundColor: "#2A9083",
+    padding: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   mpTitle: {
     fontSize: SIZE.size_14,
-    fontFamily: "quicksand-regular",
+    fontFamily: "quicksand-medium",
   },
   mpPoint: {
     fontSize: SIZE.size_16,

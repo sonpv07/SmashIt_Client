@@ -24,14 +24,14 @@ const termList = [
   "Phiếu ưu đãi này sẽ hết giá trị sử dụng nếu như sử dụng sau ngày 11/4/2024",
 ];
 
-const RewardDetail = () => {
+const MyVoucherDetail = () => {
   const { width } = useWindowDimensions();
   const navigate = useNavigation();
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <HeaderBar
-          text={"Thông tin ưu đãi"}
+          text={"Thông tin khuyến mãi"}
           isGoBack={true}
           goBack={() => navigate.goBack()}
         />
@@ -47,16 +47,6 @@ const RewardDetail = () => {
             </Text>
           </View>
           <View style={styles.expiry}>
-            <View style={styles.eLeft}>
-              <View style={styles.iconSmall}>
-                <Image
-                  source={icons.bad_white}
-                  style={{ width: 12, height: 12 }}
-                  resizeMode="contain"
-                />
-              </View>
-              <Text style={styles.lText}>1.000</Text>
-            </View>
             <Text style={styles.eRight}>Hết hạn vào 11/4/2024</Text>
           </View>
           <View style={[styles.divider, { width }]}></View>
@@ -90,23 +80,13 @@ const RewardDetail = () => {
         style={[styles.footerButton, { width: width - 40 }]}
         activeOpacity={1}
       >
-        <Text style={styles.footerButtonText}>Đổi ngay với</Text>
-        <View style={styles.eLeft}>
-          <View style={styles.iconSmall}>
-            <Image
-              source={icons.bad_white}
-              style={{ width: 12, height: 12 }}
-              resizeMode="contain"
-            />
-          </View>
-          <Text style={styles.cText}>1.000</Text>
-        </View>
+        <Text style={styles.footerButtonText}>Sử dụng ngay</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
-export default RewardDetail;
+export default MyVoucherDetail;
 
 const styles = StyleSheet.create({
   vchContainer: {

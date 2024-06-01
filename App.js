@@ -18,6 +18,7 @@ import Rewards from "./src/screens/User/Settings/Rewards";
 import RewardDetail from "./src/screens/User/Settings/RewardDetail";
 import RewardHistory from "./src/screens/User/Settings/RewardHistory";
 import Languages from "./src/screens/User/Settings/Languages";
+import CourtRating from "./src/screens/Notification/notification-detail/CourtRating";
 
 export default function App() {
   return (
@@ -27,7 +28,7 @@ export default function App() {
           <View style={styles.safeContainer}>
             {/* <TopContent /> */}
             {/* <CourtCodeManagement /> */}
-            <Navigation />
+            <CourtRating />
             {/* <Signup /> */}
             {/* <NotificationDetail /> */}
             {/* <CourtOwner /> */}

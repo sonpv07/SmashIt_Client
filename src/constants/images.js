@@ -11,6 +11,7 @@ import loginbg from "../assets/images/loginbg.png";
 import rolebg from "../assets/images/rolebg.png";
 import avatar2 from "../assets/images/avatar2.jpg";
 import coin from "../assets/images/coin.png";
+import map from "../assets/images/map.png";
 
 export default {
   vnpay,
@@ -26,4 +27,5 @@ export default {
   rolebg,
   avatar2,
   coin,
+  map,
 };

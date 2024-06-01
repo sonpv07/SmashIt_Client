@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -65,7 +66,7 @@ const Notification = ({ navigation }) => {
     navigation.navigate(route);
   };
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <TouchableOpacity
         style={styles.notificationContainer}
         onPress={() => handleNavigateToDetail("OfferNoti")}
@@ -143,7 +144,7 @@ const Notification = ({ navigation }) => {
           ))}
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -153,6 +154,7 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     backgroundColor: "white",
+    // paddingBottom: 30,
   },
   notificationContainer: {
     flexDirection: "row",

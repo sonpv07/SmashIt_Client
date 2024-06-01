@@ -32,6 +32,7 @@ const NotificationLayout = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* <ScrollView> */}
       <View style={styles.container}>
         <Text style={styles.title}>Thông báo</Text>
         <View style={styles.tabContainer}>
@@ -58,6 +59,7 @@ const NotificationLayout = ({ navigation }) => {
           {React.createElement(activeTab.component, { navigation })}
         </View>
       </View>
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    // paddingBottom: 40,
   },
   tabContainer: {
     flexDirection: "row",
