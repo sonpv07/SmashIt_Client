@@ -16,7 +16,7 @@ const HistoryCourt = ({
     <View style={styles.outline}>
       <View style={styles.info}>
         <Text style={styles.info_Text}>{name}</Text>
-        <View>
+        <View style={{flexDirection: "row", gap: 15}}>
           <View style={styles.directionRow} >
             <View style={styles.bullet} />
             <Text style={styles.info_Text}>{numOfCourt} sân</Text>
@@ -27,12 +27,12 @@ const HistoryCourt = ({
           </View>
           
         </View>
-        <Text style={[styles.info_Text, { color: COLORS.greyText }]}>
+        <Text style={[styles.info_Text, { color: COLORS.greyText, fontFamily: "quicksand-medium" }]}>
           {bookingTime}
         </Text>
         <TouchableOpacity style={{}}>
           <View style={styles.directionRow}>
-            <Text style={[styles.info_Text, { color: COLORS.orangeText }]}>
+            <Text style={[styles.info_Text, { color: COLORS.orangeText, fontSize: SIZE.size_12 }]}>
               Đặt lại
             </Text>
             <View style={styles.arrow}>
@@ -45,7 +45,7 @@ const HistoryCourt = ({
         <Text style={[styles.info_Text, { color: COLORS.darkGreenText }]}>
           {price}đ
         </Text>
-        <Text>{paymentMethod}</Text>
+        <Text style={{fontFamily: "quicksand-regular", fontSize: SIZE.size_12}}>{paymentMethod}</Text>
       </View>
     </View>
   );
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   info_Text: {
     // fontFamily: TYPE.quicksand,
     fontSize: SIZE.size_14,
-    fontWeight: WEIGHT.weight_600,
+    fontFamily: "quicksand-semibold"
   },
   bullet: {
     height: 6,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: 'center',
-    gap: 10,
+    gap: 5,
   },
   arrow: {
     width: 20,

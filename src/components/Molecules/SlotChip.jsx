@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../../theme/colors";
 
 const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot }) => {
-  const [timeRange, setTimeRange] = useState({ start: "5:00", end: "7:00" });
+  const [timeRange, setTimeRange] = useState({ start: "6:00", end: "23:00" });
   const [timeSlots, setTimeSlots] = useState([]);
 
   const handleChooseSlot = (choice) => {

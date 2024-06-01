@@ -50,7 +50,7 @@ export default function HeaderBar({ text, goBack, isGoBack, type }) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 50,
+    height: 66,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: COLORS.white,

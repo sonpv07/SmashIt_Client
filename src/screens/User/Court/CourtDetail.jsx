@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import courtImages from "../../../assets/images/courtImages.jpg";
-import Icon from "react-native-vector-icons/AntDesign";
 import { COLORS } from "../../../theme/colors";
 import { SIZE } from "../../../theme/fonts";
 import { METRICS } from "../../../theme/metrics";
@@ -17,8 +16,11 @@ import StarRating from "react-native-star-rating-widget";
 import ChipList from "../../../components/Molecules/ChipList";
 import StepDot from "../../../components/Molecules/StepDot";
 import { useNavigation } from "@react-navigation/native";
+import VectorIcon from "../../../components/Atoms/VectorIcon";
 
 const CourtDetail = () => {
+  const navigation = useNavigation();
+
   const serviceList = [
     "Wi-fi",
     "Tổ chức giải đấu",
@@ -92,7 +94,7 @@ const CourtDetail = () => {
             }}
             style={styles.goBack}
           >
-            <Icon name="leftcircle" size={30} color={COLORS.white} />
+            <VectorIcon.AntDesign name="leftcircle" size={30} color={COLORS.white} />
           </TouchableOpacity>
           <View style={styles.dots}>
             <StepDot currentStep={step} quantity={4} />
@@ -100,7 +102,7 @@ const CourtDetail = () => {
         </View>
         <View style={styles.courtDetail}>
           <View>
-            <Icon />
+            <VectorIcon.AntDesign />
             <Text style={styles.title}>Sân cầu lông Quân Đội</Text>
           </View>
           <Text style={styles.mediumText}>
@@ -133,7 +135,7 @@ const CourtDetail = () => {
                 setFavorite(!favorite);
               }}
             >
-              <Icon name={heart} size={20} color={"red"} />
+              <VectorIcon.AntDesign name={heart} size={20} color={"red"} />
             </TouchableOpacity>
           </View>
           <Text
@@ -183,7 +185,6 @@ const CourtDetail = () => {
               return (
                 <View key={index} style={{ flexDirection: "row", gap: 8 }}>
                   <Text>{"\u2022"}</Text>
-
                   <Text style={styles.conditionText}>{data}</Text>
                 </View>
               );
@@ -207,7 +208,18 @@ const CourtDetail = () => {
           })}
         </View>
       </ScrollView>
-      <View></View>
+      <View style={styles.bottomTab}>
+        <View style={styles.bookingInfo}>
+          <Text style={styles.price}><Text style={styles.oldPrice}>110.000đ</Text> <Text style={styles.newPrice}>90.000đ</Text>/giờ</Text>
+          <Text style={styles.voucher}>Đã áp dụng voucher</Text>
+        </View>
+        <View style={styles.bookingButton}>
+          <TouchableOpacity onPress={() => {navigation.navigate("BookingCourt")}} style={styles.button}>
+            <VectorIcon.Feather name="calendar" color={COLORS.white} size={20} />
+            <Text style={styles.button_Text}>Đặt sân</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
@@ -219,8 +231,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     flex: 1,
+    position: "relative",
   },
-
   courtImagesContainer: {
     width: "100%",
     aspectRatio: 1.6,
@@ -252,7 +264,6 @@ const styles = StyleSheet.create({
     bottom: 10,
     alignItems: "center",
   },
-
   courtDetail: {
     width: "100%",
     aspectRatio: 2.5,
@@ -290,13 +301,11 @@ const styles = StyleSheet.create({
     fontFamily: "quicksand-regular",
     fontSize: SIZE.size_12,
   },
-
   conditionText: {
     fontSize: SIZE.size_14,
     fontFamily: "quicksand-regular",
     flex: 1,
   },
-
   courtOwner: {
     backgroundColor: COLORS.white,
     paddingHorizontal: 12,
@@ -350,7 +359,61 @@ const styles = StyleSheet.create({
     fontFamily: "quicksand-medium",
     fontSize: SIZE.size_14,
   },
-  bottomTab: {},
+  bottomTab: {
+    position: "absolute",
+    height: 85,
+    backgroundColor: COLORS.white,
+    width: "100%",
+    bottom: -20,
+    display: "flex",
+    flexDirection: "row",
+    elevation: 10,
+    paddingHorizontal: 12,
+  },
+  bookingInfo: {
+    width: "60%",
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 10,
+
+  },
+  price: {
+    fontFamily: 'quicksand-semibold',
+    color: COLORS.greyText,
+  },
+  oldPrice: {
+    textDecorationLine: 'line-through'
+  },
+  newPrice: {
+    fontFamily: 'quicksand-bold',
+    color: COLORS.darkGreenText,
+    fontSize: SIZE.size_18,
+  },
+  voucher: {
+    fontFamily: 'quicksand-semibold',
+    color: COLORS.greyText,
+  },
+  bookingButton: {
+    width: "40%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  button: {
+    paddingHorizontal: 25,
+    paddingVertical: 15,
+    borderRadius: 10,
+    backgroundColor: COLORS.orangeText,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button_Text: {
+    fontFamily: "quicksand-bold",
+    fontSize: SIZE.size_18,
+    color: COLORS.white,
+  },
 });
 
 export default CourtDetail;
