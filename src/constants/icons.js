@@ -15,6 +15,8 @@ import group_light from "../assets/icons/group_light.png";
 import paper_light from "../assets/icons/paper_light.png";
 import more from "../assets/icons/more.png";
 import goback from "../assets/icons/goback.png";
+import uploadImg from "../assets/icons/uploadImg.png";
+import uploadVideo from "../assets/icons/uploadVideo.png";
 
 export default {
   cash,
@@ -34,4 +36,6 @@ export default {
   paper_light,
   more,
   goback,
+  uploadImg,
+  uploadVideo,
 };

@@ -1,9 +1,14 @@
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
 const FinancialBook = () => {
   return (
-    <div>FinancialBook</div>
-  )
-}
+    <View>
+      <Text>FinancialBook</Text>
+    </View>
+  );
+};
 
-export default FinancialBook
+export default FinancialBook;
+
+const styles = StyleSheet.create({});

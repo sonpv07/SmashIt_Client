@@ -23,7 +23,7 @@ import BookingCourt from "../screens/User/Booking/BookingCourt";
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
 
-  const { isLogin, firstRegister, chosenRole } = useContext(AuthContext);
+  const { firstRegister, chosenRole } = useContext(AuthContext);
 
   return (
     <Tab.Navigator
