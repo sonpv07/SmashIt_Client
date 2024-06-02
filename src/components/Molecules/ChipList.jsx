@@ -13,6 +13,7 @@ const ChipList = ({
   isHorizontal,
   chosenData,
   setChosenData,
+  fontSize,
 }) => {
   // const data = [
   //   "Long Thạnh Mỹ",
@@ -52,6 +53,7 @@ const ChipList = ({
             chipType={chipType}
             chosenData={chosenData}
             setChosenData={setChosenData}
+            fontSize={fontSize}
           />
         </View>
       ))}

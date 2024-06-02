@@ -18,6 +18,7 @@ import BookedHistory from "../screens/User/Booking/BookedHistory";
 import NotificationLayout from "../screens/Notification/NotificationLayout";
 import { AuthContext } from "../context/AuthContext";
 import Settings from "../screens/User/Settings/Settings";
+import BookingCourt from "../screens/User/Booking/BookingCourt";
 
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
@@ -84,7 +85,7 @@ export default function BottomTabs() {
       {chosenRole === "player" && (
         <Tab.Screen
           name="Search"
-          component={SearchCourt}
+          component={BookingCourt}
           options={{
             headerShown: false,
             tabBarLabel: () => null,
