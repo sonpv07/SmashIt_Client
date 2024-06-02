@@ -32,7 +32,7 @@ const suggestedReviews = [
 const starPos = [1, 2, 3, 4, 5];
 
 const CourtRating = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const { width } = useWindowDimensions();
   const [reviews, setReviews] = useState([]);
   const [star, setStar] = useState(0);
