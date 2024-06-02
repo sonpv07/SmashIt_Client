@@ -19,6 +19,7 @@ import RewardDetail from "./src/screens/User/Settings/RewardDetail";
 import RewardHistory from "./src/screens/User/Settings/RewardHistory";
 import Languages from "./src/screens/User/Settings/Languages";
 import CourtRating from "./src/screens/Notification/notification-detail/CourtRating";
+import MyVouchers from "./src/screens/User/Settings/MyVouchers";
 
 export default function App() {
   return (

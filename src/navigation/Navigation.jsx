@@ -36,6 +36,7 @@ import RewardDetail from "../screens/User/Settings/RewardDetail";
 import RewardHistory from "../screens/User/Settings/RewardHistory";
 import MyVoucherDetail from "../screens/User/Settings/MyVoucherDetail";
 import CourtRating from "../screens/Notification/notification-detail/CourtRating";
+import MyVouchers from "../screens/User/Settings/MyVouchers";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -323,6 +324,15 @@ export default function Navigation() {
           <Stack.Screen
             name="CourtRating"
             component={CourtRating}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="MyVouchers"
+            component={MyVouchers}
             options={{
               title: "",
               animation: "slide_from_right",

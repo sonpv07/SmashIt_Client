@@ -24,7 +24,12 @@ export default function Settings() {
       title: "Ưu đãi tiết kiệm",
       data: [
         { navigate: "Rewards", icon: "award", name: "Tích điểm", isNew: true },
-        { navigate: "", icon: "tag", name: "Kho voucher", isNew: true },
+        {
+          navigate: "MyVouchers",
+          icon: "tag",
+          name: "Kho voucher",
+          isNew: true,
+        },
       ],
     },
     {
