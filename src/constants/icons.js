@@ -17,6 +17,11 @@ import more from "../assets/icons/more.png";
 import goback from "../assets/icons/goback.png";
 import uploadImg from "../assets/icons/uploadImg.png";
 import uploadVideo from "../assets/icons/uploadVideo.png";
+import goback_white from "../assets/icons/goback-white.png";
+import book from "../assets/icons/book.png";
+import rates from "../assets/icons/rates.png";
+import bad_white from "../assets/icons/bad_white.png";
+import badIcon from "../assets/icons/badIcon.png";
 
 export default {
   cash,
@@ -38,4 +43,9 @@ export default {
   goback,
   uploadImg,
   uploadVideo,
+  goback_white,
+  book,
+  rates,
+  bad_white,
+  badIcon,
 };

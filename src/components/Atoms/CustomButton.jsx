@@ -15,6 +15,7 @@ const CustomButton = ({
   action,
   px,
   py,
+  isDisable,
 }) => {
   return (
     <TouchableOpacity

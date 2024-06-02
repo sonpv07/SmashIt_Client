@@ -1,14 +1,26 @@
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import icons from "../../constants/icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../theme/fonts";
+import VectorIcon from "../Atoms/VectorIcon";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-const NotificationInfo = ({ list, icon }) => {
+const NotificationInfo = ({ list, icon, navigateTo }) => {
+  const navigation = useNavigation();
+  const route = useRoute();
   return (
     <FlatList
       data={list}
-      keyExtractor={(item) => item.id.toString()} // Ensure keyExtractor returns a string
+      keyExtractor={(item) => item.id.toString()}
       renderItem={({ item, index }) => (
         <>
           <View style={styles.feedContainer}>
@@ -20,7 +32,24 @@ const NotificationInfo = ({ list, icon }) => {
             <View style={styles.feedContent}>
               <Text style={styles.feedTitle}>{item.title}</Text>
               <Text style={styles.feedDesc}>{item.desc}</Text>
-              <Text style={styles.timeStamp}>{item.timeStamp}</Text>
+              <View style={styles.notiFooter}>
+                <Text style={styles.timeStamp}>{item.timeStamp}</Text>
+                <TouchableOpacity
+                  style={styles.footerMore}
+                  activeOpacity={0.7}
+                  onPress={() => navigation.navigate(navigateTo)}
+                >
+                  <Text style={styles.moreText}>
+                    {route.name === "RatingNoti" ? "Đánh giá" : "Xem"}
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="chevron-right"
+                    size={18}
+                    style={{ marginTop: 4 }}
+                    color={"#8C8C8C"}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
           {index !== list.length - 1 && <View style={styles.bottomDivider} />}
@@ -73,5 +102,19 @@ const styles = StyleSheet.create({
   },
   flatListContentContainer: {
     paddingBottom: 20, // Add bottom padding to ensure last item is not cut off
+  },
+  notiFooter: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  footerMore: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  moreText: {
+    fontFamily: "quicksand-semibold",
+    fontSize: SIZE.size_12,
+    color: "#8C8C8C",
   },
 });

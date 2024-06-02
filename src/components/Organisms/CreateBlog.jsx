@@ -11,8 +11,10 @@ import icons from "../../constants/icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../theme/fonts";
 import images from "../../constants/images";
+import { useNavigation } from "@react-navigation/native";
 
-const CreateBlog = ({ navigation }) => {
+const CreateBlog = ({}) => {
+  const navigation = useNavigation();
   return (
     <>
       <TouchableOpacity

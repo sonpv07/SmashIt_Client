@@ -13,9 +13,6 @@ const ChipList = ({
   isHorizontal,
   chosenData,
   setChosenData,
-  borderRadius,
-  listStyle,
-  chipStyle,
 }) => {
   return (
     <ScrollView
@@ -40,7 +37,6 @@ const ChipList = ({
             chipType={chipType}
             chosenData={chosenData}
             setChosenData={setChosenData}
-            chipStyle={chipStyle}
           />
         </View>
       ))}

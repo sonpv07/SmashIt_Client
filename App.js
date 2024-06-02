@@ -12,6 +12,12 @@ import Login from "./src/screens/Auth/Login";
 import Signup from "./src/screens/Auth/Signup";
 import CourtOwner from "./src/screens/SplashScreen/CourtOwner";
 import { AuthProvider } from "./src/context/AuthContext";
+import MyProfile from "./src/screens/User/Settings/MyProfile";
+import Rewards from "./src/screens/User/Settings/Rewards";
+import RewardDetail from "./src/screens/User/Settings/RewardDetail";
+import RewardHistory from "./src/screens/User/Settings/RewardHistory";
+import Languages from "./src/screens/User/Settings/Languages";
+import CourtRating from "./src/screens/Notification/notification-detail/CourtRating";
 
 export default function App() {
   return (

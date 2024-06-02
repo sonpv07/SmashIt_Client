@@ -19,7 +19,7 @@ const BookedHistory = () => {
     paymentMethod: "Thanh toán tại sân",
   };
   return (
-    <View>
+    <View style={{flex: 1}}>
       <HeaderBar isGoBack={true} goBack={() => navigation.goBack()} text={"Lịch sử đặt sân"} />
       <ScrollView style={styles.bookedCourt}>
         {bookedHistory.map((court, index) => {
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     paddingHorizontal: 12,
     paddingVertical: 20,
+    flex: 1
   },
   hr: {
     borderWidth: 1,

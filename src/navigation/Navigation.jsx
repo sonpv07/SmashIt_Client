@@ -19,6 +19,9 @@ import RolePick from "../screens/SplashScreen/RolePick";
 import { AuthContext } from "../context/AuthContext";
 import RegisterCourt from "../screens/CourtOwner/RegisterCourt/RegisterCourt";
 import FinancialBook from "../screens/CourtOwner/RevenueExpenditure/FinancialBook";
+import FavoriteCourts from "../screens/User/Court/FavoriteCourts";
+import BookingCourt from "../screens/User/Booking/BookingCourt";
+import Payment from "../screens/User/Payment/Payment";
 import BlogNoti from "../screens/Notification/notification-detail/BlogNoti";
 import BookingNoti from "../screens/Notification/notification-detail/BookingNoti";
 import OfferNoti from "../screens/Notification/notification-detail/OfferNoti";
@@ -28,7 +31,13 @@ import CreatePost from "../screens/Notification/news-feed/CreatePost";
 import CourtOwner from "../screens/SplashScreen/CourtOwner";
 import Revenue from "../screens/CourtOwner/RevenueExpenditure/Revenue";
 import UpdateCourt from "../screens/CourtOwner/MyCourt/UpdateCourt";
+import Rewards from "../screens/User/Settings/Rewards";
+import MyProfile from "../screens/User/Settings/MyProfile";
 
+import RewardDetail from "../screens/User/Settings/RewardDetail";
+import RewardHistory from "../screens/User/Settings/RewardHistory";
+import MyVoucherDetail from "../screens/User/Settings/MyVoucherDetail";
+import CourtRating from "../screens/Notification/notification-detail/CourtRating";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -36,7 +45,7 @@ export default function Navigation() {
 
   const { isLogin, firstRegister, chosenRole } = useContext(AuthContext);
 
-  console.log(chosenRole);
+  console.log(isLogin);
 
   return (
     // NOT LOGIN SCREEN
@@ -176,6 +185,15 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name="Payment"
+            component={Payment}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
 
           <Stack.Screen
             name="BlogNoti"
@@ -233,7 +251,25 @@ export default function Navigation() {
           />
           <Stack.Screen
             name="FavoriteCourt"
-            component={BookedHistory}
+            component={FavoriteCourts}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="BookingCourt"
+            component={BookingCourt}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="FinancialBook"
+            component={FinancialBook}
             options={{
               title: "",
               animation: "slide_from_right",
@@ -242,8 +278,53 @@ export default function Navigation() {
           />
 
           <Stack.Screen
-            name="FinancialBook"
-            component={FinancialBook}
+            name="MyProfile"
+            component={MyProfile}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Rewards"
+            component={Rewards}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="RewardHistory"
+            component={RewardHistory}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="RewardDetail"
+            component={RewardDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="MyVoucherDetail"
+            component={MyVoucherDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="CourtRating"
+            component={CourtRating}
             options={{
               title: "",
               animation: "slide_from_right",

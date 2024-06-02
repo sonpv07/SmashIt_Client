@@ -17,6 +17,7 @@ const Chip = ({
   chosenData,
   setChosenData,
   chipStyle,
+  fontSize,
 }) => {
   const [status, setStatus] = useState(false);
   // const isChosenBg =
@@ -75,7 +76,13 @@ const Chip = ({
             chipStyle,
           ]}
         >
-          <Text style={{ color: textColor, fontFamily: textFamily }}>
+          <Text
+            style={{
+              color: textColor,
+              fontFamily: textFamily,
+              fontSize: fontSize,
+            }}
+          >
             {text}
           </Text>
 
@@ -98,8 +105,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   chip: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     fontSize: SIZE.size_14,
     borderWidth: 1,
   },
