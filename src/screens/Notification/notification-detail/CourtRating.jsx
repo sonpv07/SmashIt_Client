@@ -35,6 +35,7 @@ const CourtRating = () => {
   // const navigation = useNavigation();
   const { width } = useWindowDimensions();
   const [reviews, setReviews] = useState([]);
+  const [star, setStar] = useState(0);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -89,7 +90,7 @@ const CourtRating = () => {
             <Text style={styles.ratingText}>Điểm đánh giá</Text>
             <View style={styles.rating}>
               {starPos.map((pos) => (
-                <TouchableOpacity key={pos}>
+                <TouchableOpacity key={pos} onPress={() => console.log(pos)}>
                   <MaterialCommunityIcons
                     name="star"
                     size={50}
@@ -100,7 +101,10 @@ const CourtRating = () => {
             </View>
             <View style={styles.suggestContainer}>
               {suggestedReviews.map((review) => (
-                <TouchableOpacity style={styles.suggestItem}>
+                <TouchableOpacity
+                  style={styles.suggestItem}
+                  activeOpacity={0.7}
+                >
                   <Text style={styles.suggestedReviewText}>{review}</Text>
                 </TouchableOpacity>
               ))}

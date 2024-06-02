@@ -28,7 +28,7 @@ export default function App() {
           <View style={styles.safeContainer}>
             {/* <TopContent /> */}
             {/* <CourtCodeManagement /> */}
-            <CourtRating />
+            <Navigation />
             {/* <Signup /> */}
             {/* <NotificationDetail /> */}
             {/* <CourtOwner /> */}

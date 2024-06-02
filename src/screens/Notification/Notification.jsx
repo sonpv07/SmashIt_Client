@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 12,
     justifyContent: "space-between",
-    marginBottom: 25,
+    marginBottom: 30,
   },
   notiContent: {
     flex: 1,
