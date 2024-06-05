@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { LogBox, StatusBar, StyleSheet, Text, View } from "react-native";
 
 import FontLoader from "./src/components/FontLoader";
 import Navigation from "./src/navigation/Navigation";
@@ -20,6 +20,9 @@ import Languages from "./src/screens/User/Settings/Languages";
 import CourtRating from "./src/screens/Notification/notification-detail/CourtRating";
 
 export default function App() {
+  LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
+  LogBox.ignoreAllLogs(); //Ignore all log notifications
+
   return (
     <NativeBaseProvider>
       <AuthProvider>

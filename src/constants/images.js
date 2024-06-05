@@ -13,6 +13,7 @@ import avatar2 from "../assets/images/avatar2.jpg";
 import coin from "../assets/images/coin.png";
 import map from "../assets/images/map.png";
 
+import financial from "../assets/images/financial.png";
 export default {
   vnpay,
   momo,
@@ -28,4 +29,5 @@ export default {
   avatar2,
   coin,
   map,
+  financial,
 };

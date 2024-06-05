@@ -5,8 +5,6 @@ import { ScrollView } from "react-native";
 import PackageItem from "../../../components/Organisms/PackageItem";
 
 const PackageList = ({ navigation }) => {
-  console.log(navigation);
-
   const pakageList = [
     {
       id: 1,

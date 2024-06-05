@@ -43,6 +43,7 @@ export default function CourtsManagement({ navigation }) {
               totalSlot={item.totalSlot}
               courtCode={item.id}
               navigation={navigation}
+              action={"ABCD"}
             />
           );
         }}

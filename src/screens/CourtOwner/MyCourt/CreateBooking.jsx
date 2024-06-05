@@ -1,11 +1,15 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import { COLORS } from "../../../theme/colors";
 import InputField from "../../../components/Molecules/InputField";
 import { SIZE } from "../../../theme/fonts";
+import SlotChip from "../../../components/Molecules/SlotChip";
+import VectorIcon from "../../../components/Atoms/VectorIcon";
 
 export default function CreateBooking({ navigation }) {
+  const [chosenSlot, setChosenSlot] = useState(null);
+
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar
@@ -30,9 +34,67 @@ export default function CreateBooking({ navigation }) {
           placeholderText={"Hình thức thanh toán"}
           primaryText={"Hình thức thanh toán"}
         />
+        <InputField
+          inputType={"dropdown"}
+          placeholderText={"Vị trí sân"}
+          primaryText={"Vị trí sân"}
+          inputData={"Sân 1"}
+          setInputData={""}
+        />
+
+        <View style={{ flex: 1 }}>
+          <Text
+            style={{
+              fontSize: SIZE.size_14,
+              fontFamily: "quicksand-semibold",
+              marginBottom: 7,
+            }}
+          >
+            Chọn khung giờ đặt
+          </Text>
+          <SlotChip chosenSlot={chosenSlot} setChosenSlot={setChosenSlot} />
+        </View>
       </View>
 
       <View style={styles.buttonSection}>
+        <View style={styles.noteSection}>
+          <View style={styles.noteItem}>
+            <View
+              style={[
+                styles.noteIcon,
+                {
+                  backgroundColor: "rgba(42,144,131,0.1)",
+                },
+              ]}
+            >
+              <VectorIcon.AntDesign
+                name="clockcircleo"
+                size={12}
+                color={COLORS.darkGreenText}
+              />
+            </View>
+            <Text style={styles.noteText}>Khung giờ còn trống</Text>
+          </View>
+
+          <View style={styles.noteItem}>
+            <View
+              style={[
+                styles.noteIcon,
+                {
+                  backgroundColor: COLORS.orangeBackground,
+                },
+              ]}
+            >
+              <VectorIcon.AntDesign
+                name="clockcircleo"
+                size={12}
+                color={COLORS.orangeText}
+              />
+            </View>
+            <Text style={styles.noteText}>Đang đặt</Text>
+          </View>
+        </View>
+
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Tạo lịch</Text>
         </TouchableOpacity>
@@ -68,5 +130,30 @@ const styles = StyleSheet.create({
     fontSize: SIZE.size_16,
     fontFamily: "quicksand-semibold",
     color: "white",
+  },
+
+  noteSection: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 40,
+    position: "relative",
+    bottom: 20,
+  },
+
+  noteItem: {
+    gap: 10,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  noteText: {
+    fontSize: SIZE.size_12,
+    fontFamily: "quicksand-regular",
+  },
+
+  noteIcon: {
+    padding: 8,
+    borderRadius: 8,
   },
 });

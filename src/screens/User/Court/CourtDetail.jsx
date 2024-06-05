@@ -94,7 +94,11 @@ const CourtDetail = () => {
             }}
             style={styles.goBack}
           >
-            <VectorIcon.AntDesign name="leftcircle" size={30} color={COLORS.white} />
+            <VectorIcon.AntDesign
+              name="leftcircle"
+              size={30}
+              color={COLORS.white}
+            />
           </TouchableOpacity>
           <View style={styles.dots}>
             <StepDot currentStep={step} quantity={4} />
@@ -210,12 +214,24 @@ const CourtDetail = () => {
       </ScrollView>
       <View style={styles.bottomTab}>
         <View style={styles.bookingInfo}>
-          <Text style={styles.price}><Text style={styles.oldPrice}>110.000đ</Text> <Text style={styles.newPrice}>90.000đ</Text>/giờ</Text>
+          <Text style={styles.price}>
+            <Text style={styles.oldPrice}>110.000đ</Text>{" "}
+            <Text style={styles.newPrice}>90.000đ</Text>/giờ
+          </Text>
           <Text style={styles.voucher}>Đã áp dụng voucher</Text>
         </View>
         <View style={styles.bookingButton}>
-          <TouchableOpacity onPress={() => {navigation.navigate("BookingCourt")}} style={styles.button}>
-            <VectorIcon.Feather name="calendar" color={COLORS.white} size={20} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("BookingCourt");
+            }}
+            style={styles.button}
+          >
+            <VectorIcon.Feather
+              name="calendar"
+              color={COLORS.white}
+              size={20}
+            />
             <Text style={styles.button_Text}>Đặt sân</Text>
           </TouchableOpacity>
         </View>
@@ -232,6 +248,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1,
     position: "relative",
+    marginBottom: 40,
   },
   courtImagesContainer: {
     width: "100%",
@@ -372,25 +389,24 @@ const styles = StyleSheet.create({
   },
   bookingInfo: {
     width: "60%",
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
     gap: 10,
-
   },
   price: {
-    fontFamily: 'quicksand-semibold',
+    fontFamily: "quicksand-semibold",
     color: COLORS.greyText,
   },
   oldPrice: {
-    textDecorationLine: 'line-through'
+    textDecorationLine: "line-through",
   },
   newPrice: {
-    fontFamily: 'quicksand-bold',
+    fontFamily: "quicksand-bold",
     color: COLORS.darkGreenText,
     fontSize: SIZE.size_18,
   },
   voucher: {
-    fontFamily: 'quicksand-semibold',
+    fontFamily: "quicksand-semibold",
     color: COLORS.greyText,
   },
   bookingButton: {
@@ -403,11 +419,11 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     backgroundColor: COLORS.orangeText,
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     gap: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   button_Text: {
     fontFamily: "quicksand-bold",

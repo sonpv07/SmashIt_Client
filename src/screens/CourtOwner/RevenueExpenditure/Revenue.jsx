@@ -129,8 +129,9 @@ export default function Revenue({ navigation }) {
           </View>
 
           <FlatList
+            showsVerticalScrollIndicator={false}
             data={bookedList}
-            style={{ flex: 1 }}
+            style={{ flex: 1, marginTop: 30 }}
             contentContainerStyle={{ gap: 20, marginBottom: 20 }}
             renderItem={({ item, index }) => {
               return (

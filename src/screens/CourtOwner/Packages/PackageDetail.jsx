@@ -48,7 +48,7 @@ export default function PackageDetail({ navigation }) {
   ];
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar
         text={"Chi tiết gói ưu đãi"}
         isGoBack={true}
@@ -56,7 +56,11 @@ export default function PackageDetail({ navigation }) {
       />
 
       <ScrollView
-        style={{ flex: 1, marginTop: 30, marginBottom: 40 }}
+        style={{
+          flex: 1,
+          marginTop: 30,
+          marginBottom: 40,
+        }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.container}
       >

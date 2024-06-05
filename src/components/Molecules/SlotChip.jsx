@@ -95,6 +95,19 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot }) => {
                     : slot.isChoose
                     ? COLORS.orangeBackground
                     : "rgba(42,144,131,0.1)",
+
+                  borderWidth:
+                    chosenSlot?.start === slot.start &&
+                    chosenSlot?.end === slot.end
+                      ? 1
+                      : 0,
+
+                  borderColor:
+                    chosenSlot?.start === slot.start &&
+                    chosenSlot?.end === slot.end &&
+                    slot.isOccupied
+                      ? COLORS.darkGreyBorder
+                      : COLORS.darkGreenText,
                 },
               ]}
             >
@@ -129,9 +142,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
-    marginHorizontal: 10,
     width: "100%",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   slot: {
     width: "30%",

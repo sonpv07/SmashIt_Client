@@ -16,8 +16,9 @@ import { COLORS } from "../../theme/colors";
 import { METRICS } from "../../theme/metrics";
 import { SIZE } from "../../theme/fonts";
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "react-native-svg";
 import images from "../../constants/images";
+import { LinearGradient } from "expo-linear-gradient";
+import StepDot from "../../components/Molecules/StepDot";
 
 const CourtOwner = ({ navigation }) => {
   const [step, setStep] = useState(1);
@@ -54,7 +55,6 @@ const CourtOwner = ({ navigation }) => {
             "Công cụ hỗ trợ tổ chức và quản lý giải đấu lần đầu được ra mắt!",
         };
       default:
-        navigation.navigate("BottomTab");
         break;
     }
   };
@@ -63,43 +63,34 @@ const CourtOwner = ({ navigation }) => {
     if (step < 4) {
       setStep(step + 1);
     } else {
-      navigation.navigate("BottomTab");
+      navigation.navigate("RegisterCourt");
     }
   };
 
   return (
-    <View style={styles.outline}>
-      <View style={styles.imageOutline}>
-        <Image style={styles.image} source={steps(step).images} />
-      </View>
-      <View
-        style={{
-          height: 20,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <FlatList
-          data={[0, 1, 2]}
-          style={{ height: "100%" }}
-          renderItem={(item, index) => {
-            <View
-              style={{
-                backgroundColor:
-                  step === index ? COLORS.darkGreenText : COLORS.greyText,
-                width: step === index ? 14 : 10,
-                height: step === index ? 14 : 10,
-                borderRadius: step === index ? 7 : 5,
-              }}
-            />;
+    <View style={{ flex: 1 }}>
+      <View style={styles.outline}>
+        <View style={styles.imageOutline}>
+          <Image style={styles.image} source={steps(step).images} />
+        </View>
+
+        <View
+          style={{
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingVertical: 53,
           }}
-        />
+        >
+          <StepDot currentStep={step} isRemarkable={true} quantity={4} />
+        </View>
+
+        <View style={{ gap: 20 }}>
+          <Text style={styles.title}>{steps(step).title}</Text>
+          <Text style={styles.content}>{steps(step).content}</Text>
+        </View>
       </View>
-      <View style={{ gap: 20 }}>
-        <Text style={styles.title}>{steps(step).title}</Text>
-        <Text style={styles.content}>{steps(step).content}</Text>
-      </View>
+
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
@@ -169,6 +160,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     width: "80%",
+    alignSelf: "center",
     aspectRatio: 5.2,
     flexDirection: "row",
     justifyContent: "center",
@@ -177,6 +169,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     gap: 10,
     overflow: "hidden",
+    position: "absolute",
+    bottom: 20,
   },
 
   gradient: {

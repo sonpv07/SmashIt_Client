@@ -33,6 +33,8 @@ import Revenue from "../screens/CourtOwner/RevenueExpenditure/Revenue";
 import UpdateCourt from "../screens/CourtOwner/MyCourt/UpdateCourt";
 import Rewards from "../screens/User/Settings/Rewards";
 import MyProfile from "../screens/User/Settings/MyProfile";
+import Welcome from "../screens/SplashScreen/Welcome";
+import Home_CourtOwner from "../screens/CourtOwner/Home_CourtOwner";
 
 import RewardDetail from "../screens/User/Settings/RewardDetail";
 import RewardHistory from "../screens/User/Settings/RewardHistory";
@@ -53,7 +55,7 @@ export default function Navigation() {
     <NavigationContainer>
       {!isLogin && !firstRegister && (
         <Stack.Navigator
-          initialRouteName="RolePick"
+          initialRouteName="Welcome"
           screenOptions={{
             animation: "default",
           }}
@@ -87,6 +89,26 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
+
+          <Stack.Screen
+            name="RegisterCourt"
+            component={RegisterCourt}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       )}
 
@@ -94,7 +116,7 @@ export default function Navigation() {
 
       {isLogin && !firstRegister && (
         <Stack.Navigator
-          initialRouteName="CourtOwner"
+          initialRouteName="BottomTab"
           screenOptions={{
             animation: "default",
           }}
@@ -112,6 +134,16 @@ export default function Navigation() {
           <Stack.Screen
             name="Home"
             component={Home}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="Home_CourtOwner"
+            component={Home_CourtOwner}
             options={{
               title: "",
               animation: "slide_from_right",
@@ -374,19 +406,9 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
-          {/* <Stack.Screen
-            name="SplashScreen_CourtOwner"
-            component={SplashScreen_CourtOwner}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          /> */}
-
           <Stack.Screen
-            name="RegisterCourt"
-            component={RegisterCourt}
+            name="SplashScreen_CourtOwner"
+            component={CourtOwner}
             options={{
               title: "",
               animation: "slide_from_right",

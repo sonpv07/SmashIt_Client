@@ -5,8 +5,9 @@ import CustomButton from "../../components/Atoms/CustomButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { SIZE } from "../../theme/fonts";
+import { COLORS } from "../../theme/colors";
 
-const Welcome = ({}) => {
+const Welcome = ({ navigation }) => {
   const [isNew, setIsNew] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
@@ -29,14 +30,20 @@ const Welcome = ({}) => {
       </View>
       <View style={styles.buttonContainer}>
         <CustomButton
-          title={"Đăng nhập"}
+          title={"Bắt Đầu"}
           backgroundColor={"#2A9083"}
           color={"white"}
           height={60}
+          handlePress={() => navigation.navigate("RolePick")}
         />
-        <View style={styles.buttonSpacing}>
-          <CustomButton title={"Đăng kí"} borderColor={"#2A9083"} height={60} />
-        </View>
+        {/* <View style={styles.buttonSpacing}>
+          <CustomButton
+            title={"Đăng kí"}
+            borderColor={"#2A9083"}
+            height={60}
+            handlePress={() => navigation.navigate("RolePick")}
+          />
+        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -48,6 +55,8 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     width: "100%",
+    backgroundColor: COLORS.white,
+    flex: 1,
   },
   logoContainer: {
     marginTop: 20,
@@ -85,6 +94,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     // alignItems: "center",
+    position: "absolute",
+    bottom: 20,
     paddingHorizontal: 19,
+    width: "100%",
   },
 });

@@ -18,7 +18,7 @@ const Login = ({ navigation }) => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [toggleRemember, setToggleRemember] = useState(false);
 
-  const { isLogin, setIsLogin, setFirstRegister, firstRegister } =
+  const { isLogin, setIsLogin, chosenRole, setFirstRegister, firstRegister } =
     useContext(AuthContext);
 
   return (
@@ -84,7 +84,13 @@ const Login = ({ navigation }) => {
         <Text style={styles.notHave}>Chưa có tài khoản?</Text>
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => navigation.navigate("Signup")}
+          onPress={() => {
+            if (chosenRole === "player") {
+              navigation.navigate("Signup");
+            } else {
+              navigation.navigate("RegisterCourt");
+            }
+          }}
         >
           <Text style={styles.regNow}>Đăng kí ngay</Text>
         </TouchableOpacity>

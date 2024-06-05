@@ -64,7 +64,7 @@ export default function CourtCodeManagement({ navigation }) {
               >
                 <VectorIcon.AntDesign name="clockcircleo" size={12} />
               </View>
-              <Text style={styles.noteText}>Khung giờ còn trống</Text>
+              <Text style={styles.noteText}>Khách đã đặt</Text>
             </View>
 
             <View style={styles.noteItem}>
@@ -72,17 +72,17 @@ export default function CourtCodeManagement({ navigation }) {
                 style={[
                   styles.noteIcon,
                   {
-                    backgroundColor: COLORS.orangeBackground,
+                    backgroundColor: "rgba(42,144,131,0.1)",
                   },
                 ]}
               >
                 <VectorIcon.AntDesign
                   name="clockcircleo"
                   size={12}
-                  color={COLORS.orangeText}
+                  color={COLORS.darkGreenText}
                 />
               </View>
-              <Text style={styles.noteText}>Khách đã đặt</Text>
+              <Text style={styles.noteText}>Khung giờ còn trống</Text>
             </View>
           </View>
         )}

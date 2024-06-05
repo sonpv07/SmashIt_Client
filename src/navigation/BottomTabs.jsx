@@ -19,6 +19,7 @@ import NotificationLayout from "../screens/Notification/NotificationLayout";
 import { AuthContext } from "../context/AuthContext";
 import Settings from "../screens/User/Settings/Settings";
 import BookingCourt from "../screens/User/Booking/BookingCourt";
+import Home_CourtOwner from "../screens/CourtOwner/Home_CourtOwner";
 
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
@@ -33,7 +34,7 @@ export default function BottomTabs() {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={chosenRole === "player" ? Home : Home_CourtOwner}
         options={{
           headerShown: false,
           tabBarLabel: () => null,
@@ -85,7 +86,7 @@ export default function BottomTabs() {
       {chosenRole === "player" && (
         <Tab.Screen
           name="Search"
-          component={BookingCourt}
+          component={SearchCourt}
           options={{
             headerShown: false,
             tabBarLabel: () => null,

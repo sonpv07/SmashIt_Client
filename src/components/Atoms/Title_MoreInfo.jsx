@@ -1,20 +1,31 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import { COLORS } from '../../theme/colors';
-import { SIZE, WEIGHT } from '../../theme/fonts';
+import { COLORS } from "../../theme/colors";
+import { SIZE, WEIGHT } from "../../theme/fonts";
 
-const Title_MoreInfo = ({title}) => {
+const Title_MoreInfo = ({ title, navigation }) => {
   return (
     <View style={styles.outline}>
-      <Text style={[{fontSize: SIZE.size_16},styles.text]}>{title}</Text>
-      <TouchableOpacity style={styles.directionRow}>
-        <Text style={[styles.text, {color: COLORS.orangeText, fontSize: SIZE.size_12}]}>Xem thêm</Text>
-        <View style={styles.arrow}><Icon name="arrowright" color={COLORS.orangeText} size={14} /></View>
-      </TouchableOpacity>
+      <Text style={[{ fontSize: SIZE.size_16 }, styles.text]}>{title}</Text>
+      {navigation && (
+        <TouchableOpacity style={styles.directionRow} onPress={navigation}>
+          <Text
+            style={[
+              styles.text,
+              { color: COLORS.orangeText, fontSize: SIZE.size_12 },
+            ]}
+          >
+            Xem thêm
+          </Text>
+          <View style={styles.arrow}>
+            <Icon name="arrowright" color={COLORS.orangeText} size={14} />
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   outline: {
@@ -23,16 +34,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     padding: 4,
+    marginBottom: 15,
   },
   text: {
     // fontFamily: TYPE.quicksand,
     // fontWeight: WEIGHT.weight_600,
-    fontFamily: "quicksand-semibold"
+    fontFamily: "quicksand-semibold",
   },
   directionRow: {
     display: "flex",
     flexDirection: "row",
-    alignItems: 'center',
+    alignItems: "center",
     gap: 10,
   },
   arrow: {
@@ -43,6 +55,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-})
+});
 
-export default Title_MoreInfo
+export default Title_MoreInfo;

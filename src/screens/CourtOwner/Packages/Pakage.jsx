@@ -12,8 +12,6 @@ import { COLORS } from "../../../theme/colors";
 export default function Pakage({ navigation, router }) {
   const [tab, setTab] = useState(1);
 
-  console.log(navigation);
-
   const tabItem = [
     {
       id: 1,

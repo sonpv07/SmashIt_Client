@@ -21,7 +21,6 @@ const RolePick = ({ navigation }) => {
   const { chosenRole, setChosenRole } = useContext(AuthContext);
 
   const handleChooseRole = (role) => {
-    console.log(role);
     setChosenRole(role);
   };
 
@@ -68,16 +67,17 @@ const RolePick = ({ navigation }) => {
             />
           ))}
         </View>
-        <View style={styles.roleButton}>
-          <CustomButton
-            title={"Bắt đầu"}
-            backgroundColor={chosenRole ? "#2A9083" : "rgba(42,144,131,0.2)"}
-            color={"white"}
-            width={360}
-            height={52}
-            handlePress={() => handleNavigate()}
-          />
-        </View>
+      </View>
+
+      <View style={styles.roleButton}>
+        <CustomButton
+          title={"Bắt đầu"}
+          backgroundColor={chosenRole ? "#2A9083" : "rgba(42,144,131,0.2)"}
+          color={"white"}
+          width={360}
+          height={52}
+          handlePress={() => handleNavigate()}
+        />
       </View>
     </View>
   );
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     width: "100%",
+    position: "relative",
   },
   bgContainer: {
     width: "100%",
@@ -129,6 +130,9 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   roleButton: {
-    marginTop: 30,
+    // marginTop: 30,
+    position: "absolute",
+    bottom: 20,
+    alignSelf: "center",
   },
 });

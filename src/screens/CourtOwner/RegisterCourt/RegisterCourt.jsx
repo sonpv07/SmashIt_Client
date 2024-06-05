@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { COLORS } from "../../../theme/colors";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import Prepresentative from "./Prepresentative";
@@ -17,11 +17,15 @@ import CourtService from "./CourtService";
 import PaymentMethod from "./PaymentMethod";
 import StepDot from "../../../components/Molecules/StepDot";
 import { SIZE } from "../../../theme/fonts";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function RegisterCourt({ navigation, route }) {
   const [step, setStep] = useState(1);
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  const { isLogin, setIsLogin, setFirstRegister, firstRegister } =
+    useContext(AuthContext);
 
   // Form Data Start
 
@@ -56,6 +60,16 @@ export default function RegisterCourt({ navigation, route }) {
     if (step < 5) {
       setStep(step + 1);
     } else {
+      setFirstRegister(false);
+      setIsLogin(true);
+    }
+  };
+
+  const handleGoBack = () => {
+    if (step === 1) {
+      return navigation.goBack();
+    } else {
+      return setStep(step - 1);
     }
   };
 
@@ -108,11 +122,7 @@ export default function RegisterCourt({ navigation, route }) {
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <HeaderBar
-        text={getHeaderText()}
-        goBack={step > 1 ? () => setStep(step - 1) : ""}
-        isGoBack={step > 1}
-      />
+      <HeaderBar text={getHeaderText()} goBack={handleGoBack} isGoBack={true} />
       <View style={styles.container}>
         <ScrollView
           style={{ flex: 1 }}

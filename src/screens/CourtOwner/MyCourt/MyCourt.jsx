@@ -47,6 +47,8 @@ export default function MyCourt({ navigation, router }) {
           fontSize: SIZE.size_16,
           color: "#9A9A9A",
         }}
+        isGoBack={true}
+        goBack={() => navigation.goBack()}
         action={() => navigation.navigate("EditCourt")}
       />
       <View style={styles.container}>

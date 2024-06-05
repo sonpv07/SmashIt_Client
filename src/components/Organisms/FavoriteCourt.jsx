@@ -11,7 +11,7 @@ const FavoriteCourt = ({
   courtDistance,
   courtPrice,
 }) => {
-    const [isFavorite, setIsFavorite] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(true);
   const isFavoriteColor = isFavorite === true ? "#EE5C37" : "white";
   const isFavoriteName = isFavorite === true ? "heart" : "hearto";
 
@@ -22,14 +22,18 @@ const FavoriteCourt = ({
       </View>
       <View style={styles.courtInfo}>
         <Text style={styles.courtName}>{courtName}</Text>
-        <View style={styles.courtAddress}>
-          <Text>{courtAddress}</Text>
+        <View>
+          <Text style={styles.courtAddress}>{courtAddress}</Text>
         </View>
         <View style={styles.courtDistance_Price}>
-          <Text style={styles.courtDistance_Text}>{courtDistance}</Text>
+          <Text style={styles.courtDistance_Text}>{courtDistance} km</Text>
           <View style={styles.hr} />
           <Text style={styles.courtDistance_Text}>{courtPrice}đ</Text>
-          <TouchableOpacity onPress={() => {setIsFavorite(!isFavorite)}}>
+          <TouchableOpacity
+            onPress={() => {
+              setIsFavorite(!isFavorite);
+            }}
+          >
             <Icon name={isFavoriteName} size={20} color={"#EE5C37"} />
           </TouchableOpacity>
         </View>
@@ -41,7 +45,7 @@ const FavoriteCourt = ({
 const styles = StyleSheet.create({
   outline: {
     aspectRatio: 3,
-    width: '100%',
+    width: "100%",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -78,11 +82,11 @@ const styles = StyleSheet.create({
   },
   courtName: {
     fontSize: SIZE.size_14,
-    fontWeight: WEIGHT.weight_600,
+    fontFamily: "quicksand-semibold",
   },
   courtAddress: {
     fontSize: SIZE.size_12,
-    fontWeight: WEIGHT.weight_500,
+    fontFamily: "quicksand-regular",
   },
   courtDistance_Price: {
     display: "flex",
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
   courtDistance_Text: {
     color: COLORS.darkGreenText,
     fontSize: SIZE.size_16,
-    fontWeight: WEIGHT.weight_600,
+    fontFamily: "quicksand-semibold",
   },
   hr: {
     borderWidth: 1,

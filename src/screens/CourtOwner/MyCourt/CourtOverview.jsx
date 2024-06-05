@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SIZE } from "../../../theme/fonts";
 import Divider from "../../../components/Atoms/Divider";
 // import ChipList from "../../../components/Organisms/ChipList";
@@ -7,15 +7,18 @@ import ChipList from "../../../components/Molecules/ChipList";
 import { COLORS } from "../../../theme/colors";
 import { formatNumber } from "../../../utils";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
+import { useIsFocused } from "@react-navigation/native";
+import { useRef } from "react";
 
 export default function CourtOverview() {
   const serviceList = [
     "Wi-fi",
-    "Tổ chức giải đấu",
+    "Canteen",
+    "Canteen",
     "Giữ xe miễn phí",
     "Quầy giữ đồ",
     "Chăm sóc y tế",
-    "Canteen",
+    "Tổ chức giải đấu",
   ];
 
   const conditionList = [
@@ -25,9 +28,22 @@ export default function CourtOverview() {
     "Giữ sân sạch sẽ và không làm hỏng hạng mục cầu lông hoặc cơ sở vật chất.",
   ];
 
+  const isFocus = useIsFocused();
+  const scrollViewRef = useRef(null);
+
+  useEffect(() => {
+    if (isFocus) {
+      if (scrollViewRef.current) {
+        scrollViewRef.current.scrollTo({ y: 0, animated: true });
+      }
+    }
+  }, [isFocus]);
+
   return (
     <ScrollView
+      ref={scrollViewRef}
       style={{ flex: 1 }}
+      scrollsToTop={isFocus}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.container}
     >
@@ -86,6 +102,7 @@ export default function CourtOverview() {
           borderColor={"rgba(217, 217, 217, 0.5)"}
           backgroundColor={COLORS.white}
           textFamily={"quicksand-regular"}
+          chipStyle={{ paddingVertical: 10, paddingHorizontal: 12 }}
         />
       </View>
 

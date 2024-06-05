@@ -112,6 +112,8 @@ export default function InputField({
           iconName={"caretdown"}
           iconSize={18}
           placeholder={placeholderText}
+          inputValue={inputData}
+          setInputValue={setInputData}
         />
       )}
 

@@ -19,6 +19,7 @@ export default function SelectField({
   text,
   action,
   inputValue,
+  setInputValue,
 }) {
   return (
     <TouchableOpacity style={[styles.outline]} onPress={action}>

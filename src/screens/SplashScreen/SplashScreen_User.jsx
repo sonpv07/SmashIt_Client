@@ -64,24 +64,27 @@ const SplashScreen_User = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.outline}>
-      <View style={styles.imageOutline}>
-        <Image style={styles.image} source={steps(step).images} />
+    <View style={{ flex: 1 }}>
+      <View style={styles.outline}>
+        <View style={styles.imageOutline}>
+          <Image style={styles.image} source={steps(step).images} />
+        </View>
+        <View
+          style={{
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingVertical: 53,
+          }}
+        >
+          <StepDot currentStep={step} isRemarkable={true} quantity={3} />
+        </View>
+        <View style={{ gap: 20 }}>
+          <Text style={styles.title}>{steps(step).title}</Text>
+          <Text style={styles.content}>{steps(step).content}</Text>
+        </View>
       </View>
-      <View
-        style={{
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          paddingVertical: 53,
-        }}
-      >
-        <StepDot currentStep={step} isRemarkable={true} quantity={3} />
-      </View>
-      <View style={{ gap: 20 }}>
-        <Text style={styles.title}>{steps(step).title}</Text>
-        <Text style={styles.content}>{steps(step).content}</Text>
-      </View>
+
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
@@ -153,6 +156,7 @@ const styles = StyleSheet.create({
   btn: {
     width: "80%",
     aspectRatio: 5.2,
+    alignSelf: "center",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -160,8 +164,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     gap: 10,
     overflow: "hidden",
-    position: "relative",
-    bottom: 0,
+    position: "absolute",
+    bottom: 20,
   },
 
   gradient: {

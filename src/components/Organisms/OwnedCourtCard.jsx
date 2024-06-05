@@ -22,6 +22,7 @@ export default function OwnedCourtCard({
   revenue,
   bookedSlot,
   totalSlot,
+  action,
 }) {
   return (
     <TouchableOpacity
@@ -88,15 +89,16 @@ export default function OwnedCourtCard({
           </View>
         </View>
         <View>
-          {isActive ? (
-            <TouchableOpacity style={styles.buttonActive}>
-              <Text style={styles.buttonTextActive}>Đóng sân</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity style={styles.buttonInactive}>
-              <Text style={styles.buttonTextInactive}>Mở Sân</Text>
-            </TouchableOpacity>
-          )}
+          {action &&
+            (isActive ? (
+              <TouchableOpacity style={styles.buttonActive}>
+                <Text style={styles.buttonTextActive}>Đóng sân</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.buttonInactive}>
+                <Text style={styles.buttonTextInactive}>Mở Sân</Text>
+              </TouchableOpacity>
+            ))}
         </View>
       </View>
     </TouchableOpacity>
@@ -106,14 +108,12 @@ export default function OwnedCourtCard({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 241,
     flexShrink: 0,
     borderRadius: 6,
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "#E8E8E8",
-    paddingHorizontal: 20,
-    paddingVertical: 24,
+    padding: 20,
   },
 
   divider: {
