@@ -39,6 +39,8 @@ export default function FinancialBook({ navigation }) {
     weekdaysShort: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
   });
 
+  const [chosenFilter, setChosenFilter] = useState(0);
+
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar
@@ -47,7 +49,10 @@ export default function FinancialBook({ navigation }) {
         goBack={() => navigation.goBack()}
       />
       <View style={styles.container}>
-        <TimeFilter />
+        <TimeFilter
+          chosenFilter={chosenFilter}
+          setChosenFilter={setChosenFilter}
+        />
 
         <View style={styles.costDetailSection}>
           <View style={styles.overviewCost}>
@@ -91,7 +96,10 @@ export default function FinancialBook({ navigation }) {
             style={{
               marginTop: 30,
               flex: 1,
-              maxHeight: METRICS.screenHeight * 0.35,
+              maxHeight:
+                chosenFilter === 0
+                  ? METRICS.screenHeight * 0.35
+                  : METRICS.screenHeight * 0.48,
             }}
             data={financialData}
             showsVerticalScrollIndicator={false}

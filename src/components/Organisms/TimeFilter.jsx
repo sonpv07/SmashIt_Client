@@ -16,11 +16,10 @@ import { METRICS } from "../../theme/metrics";
 import { eachYearOfInterval, getDaysInMonth } from "date-fns";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
+import VectorIcon from "../Atoms/VectorIcon";
 
-export default function TimeFilter() {
+export default function TimeFilter({ chosenFilter, setChosenFilter }) {
   const [isChosen, setIsChosen] = useState("Năm");
-
-  const [chosenFilter, setChosenFilter] = useState(1);
 
   const [startDate, setStartDate] = useState(null);
 
@@ -74,13 +73,25 @@ export default function TimeFilter() {
     if (value.type === "set") {
       const date = new Date(value.nativeEvent.timestamp);
       const updatedTime = moment.utc(date).add(7, "hours");
-      setStartDate(date);
 
-      console.log(updatedTime);
-
-      // setInputData(formattedDate);
+      if (isStart) {
+        setStartDate(date);
+      } else {
+        setEndDate(date);
+      }
     }
   };
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getUTCDate();
+    const month = date.getUTCMonth() + 1; // Months are zero-based, so add 1
+    const year = date.getUTCFullYear();
+
+    const monthString = `Th${month}`;
+
+    return `${day} ${monthString}, ${year}`;
+  }
 
   const getYearRange = () => {
     const years = ["Tất cả"];
@@ -144,8 +155,6 @@ export default function TimeFilter() {
   };
 
   const getFilter = () => {
-    console.log(isChosen);
-
     switch (isChosen) {
       case "Năm":
         return <YearList />;
@@ -488,8 +497,6 @@ export default function TimeFilter() {
     );
   };
 
-  console.log(startDate);
-
   return (
     <View style={styles.container}>
       <View style={styles.titleSection}>
@@ -584,9 +591,61 @@ export default function TimeFilter() {
       )}
 
       {chosenFilter === 1 && (
-        <View>
-          <TouchableOpacity onPress={() => setIsOpenStart(true)}>
-            <Text>Click</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <TouchableOpacity
+            style={[
+              styles.pickDate,
+              startDate && { backgroundColor: COLORS.orangeBackground },
+            ]}
+            onPress={() => setIsOpenStart(true)}
+          >
+            <Text
+              style={[
+                styles.title,
+                { color: startDate ? COLORS.orangeText : COLORS.black },
+              ]}
+            >
+              {startDate ? formatDate(startDate) : "Từ"}
+            </Text>
+            <VectorIcon.FontAwesome
+              name="calendar-minus-o"
+              size={18}
+              color={startDate ? COLORS.orangeText : COLORS.black}
+            />
+          </TouchableOpacity>
+
+          <VectorIcon.AntDesign name="arrowright" color={"8C8C8C"} size={14} />
+
+          <TouchableOpacity
+            style={[
+              styles.pickDate,
+              endDate && { backgroundColor: COLORS.orangeBackground },
+            ]}
+            onPress={() => {
+              if (startDate) {
+                setIsOpenEnd(true);
+              }
+            }}
+          >
+            <Text
+              style={[
+                styles.title,
+                { color: endDate ? COLORS.orangeText : COLORS.black },
+              ]}
+            >
+              {endDate ? formatDate(endDate) : "Đến"}
+            </Text>
+            <VectorIcon.FontAwesome
+              name="calendar-minus-o"
+              size={18}
+              color={endDate ? COLORS.orangeText : COLORS.black}
+            />
           </TouchableOpacity>
 
           {isOpenStart && (
@@ -596,7 +655,7 @@ export default function TimeFilter() {
             />
           )}
 
-          {isOpenEnd && (
+          {isOpenEnd && startDate && (
             <RNDateTimePicker
               value={new Date()}
               onChange={(value) => handlePickTime(value, false)}
@@ -605,17 +664,28 @@ export default function TimeFilter() {
         </View>
       )}
 
-      <View style={{ alignItems: "center", marginTop: 15 }}>
-        <Text style={styles.title}>
-          Thống kê{" "}
-          {chosenQuarter &&
-            chosenQuarter !== "Tất cả" &&
-            `Quý ${chosenQuarter}, `}
-          {chosenDay && chosenDay !== "Tất cả" && `ngày ${chosenDay} `}
-          {chosenMonth && chosenMonth !== "Tất cả" && `tháng ${chosenMonth} `}
-          {chosenYear && chosenYear !== "Tất cả" && `năm ${chosenYear}`}
-        </Text>
-      </View>
+      {chosenFilter === 0 && (
+        <View style={{ alignItems: "center", marginTop: 15 }}>
+          <Text style={styles.title}>
+            Thống kê{" "}
+            {chosenQuarter &&
+              chosenQuarter !== "Tất cả" &&
+              `Quý ${chosenQuarter}, `}
+            {chosenDay && chosenDay !== "Tất cả" && `ngày ${chosenDay} `}
+            {chosenMonth && chosenMonth !== "Tất cả" && `tháng ${chosenMonth} `}
+            {chosenYear && chosenYear !== "Tất cả" && `năm ${chosenYear}`}
+          </Text>
+        </View>
+      )}
+
+      {chosenFilter === 1 && (
+        <View style={{ alignItems: "center", marginTop: 15 }}>
+          <Text style={styles.title}>
+            Thống kê {startDate ? `từ ${formatDate(startDate)} ` : ""}
+            {endDate ? `đến ${formatDate(endDate)}` : ""}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -633,5 +703,17 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "quicksand-semibold",
     fontSize: SIZE.size_14,
+  },
+
+  pickDate: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 17,
+    paddingVertical: 13,
+    gap: 10,
+    backgroundColor: "#F1F1F1",
+    width: "45%",
+    justifyContent: "center",
+    borderRadius: 8,
   },
 });
