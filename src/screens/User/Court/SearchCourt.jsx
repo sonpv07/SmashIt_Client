@@ -1,14 +1,18 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchInput from "../../../components/Atoms/SearchInput";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import { COLORS } from "../../../theme/colors";
 import { SIZE } from "../../../theme/fonts";
 import ChipList from "../../../components/Molecules/ChipList";
 import CourtItem from "../../../components/Organisms/CourtItem";
+import CourtService from "../../../services/CourtService";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function SearchCourt({ navigation }) {
   const searchCourt = [1, 2, 3, 4, 5];
+
+  const isFocus = useIsFocused();
 
   const dataAddress = [
     "Long Thạnh Mỹ",
@@ -20,6 +24,22 @@ export default function SearchCourt({ navigation }) {
   ];
 
   const [chosenData, setChosenData] = useState(null);
+
+  const [courtList, setCourtList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await CourtService.getAllCourt();
+
+      console.log("res", res);
+
+      if (res && res.length > 0) {
+        setCourtList(res);
+      }
+    };
+
+    fetchData();
+  }, [isFocus]);
 
   return (
     <View style={styles.container}>
