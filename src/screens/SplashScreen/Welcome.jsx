@@ -12,17 +12,13 @@ const Welcome = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image
-          source={images.applogo}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <Image source={images.logo1} style={styles.logo} resizeMode="contain" />
       </View>
-      <View style={styles.blobContainer}>
+      {/* <View style={styles.blobContainer}>
         <Image source={images.blob} style={styles.blob} resizeMode="contain" />
-      </View>
+      </View> */}
       <View style={styles.textContainer}>
-        <Text style={styles.welcomeText}>Chào mừng bạn đến với SmashIt</Text>
+        <Text style={styles.welcomeText}>Chào mừng bạn đến với Smash It</Text>
         <Text style={styles.welcomeDesc}>Ứng dụng số một cho người</Text>
         <Text style={styles.welcomeDesc}>
           có sở thích về cầu lông và hơn thế nữa
@@ -55,7 +51,7 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     width: "100%",
-    backgroundColor: COLORS.white,
+    backgroundColor: "rgba(42, 144, 131, 0.38)",
     flex: 1,
   },
   logoContainer: {
@@ -64,6 +60,12 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     alignItems: "center",
   },
+
+  logo: {
+    width: 500,
+    height: 500,
+  },
+
   blobContainer: {
     marginTop: 32,
     alignItems: "center",

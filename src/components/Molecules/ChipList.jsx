@@ -17,8 +17,6 @@ const ChipList = ({
   borderRadius,
   chipStyle,
 }) => {
-  console.log(chipStyle);
-
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}

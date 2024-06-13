@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Switch,
   ScrollView,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useCallback, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,8 +19,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { set } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function MyProfile() {
+  const { signOut } = useContext(AuthContext);
+
   const [accountInfo, setAccountInfo] = useState({
     fullName: "Do dang phuc Anh",
     phoneNumber: "0123456789",
@@ -187,7 +192,9 @@ export default function MyProfile() {
             <VectorIcon.FontAwesome5 name="chevron-right" size={15} />
           </View>
           <View style={styles.divider}></View>
-          <Text style={styles.logout}>Đăng xuất</Text>
+          <TouchableOpacity activeOpacity={0.5} onPress={signOut}>
+            <Text style={styles.logout}>Đăng xuất</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

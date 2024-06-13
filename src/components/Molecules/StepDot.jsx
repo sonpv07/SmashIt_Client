@@ -4,11 +4,9 @@ import { COLORS } from "../../theme/colors";
 
 export default function StepDot({ quantity, currentStep, isRemarkable }) {
   const dots = Array.from({ length: quantity }, (item, index) => index);
-  console.log(currentStep);
   return (
     <View style={styles.container}>
       {dots.map((item, index) => {
-        
         return (
           <View
             key={index}

@@ -1,6 +1,14 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { SIZE } from "../../theme/fonts";
+import { COLORS } from "../../theme/colors";
 
 const CustomButton = ({
   title,
@@ -18,10 +26,10 @@ const CustomButton = ({
   isDisable,
 }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       activeOpacity={0.7}
       onPress={handlePress}
-      style={[
+      style={({ pressed }) => [
         styles.buttonContainer,
         {
           width: width,
@@ -32,6 +40,8 @@ const CustomButton = ({
           paddingHorizontal: px,
           paddingVertical: py,
         },
+
+        pressed && { backgroundColor: COLORS.orangeText },
       ]}
     >
       {icon && <Image source={icon} resizeMode="contain" style={styles.icon} />}
@@ -46,7 +56,7 @@ const CustomButton = ({
       >
         {title}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -22,6 +22,11 @@ import book from "../assets/icons/book.png";
 import rates from "../assets/icons/rates.png";
 import bad_white from "../assets/icons/bad_white.png";
 import badIcon from "../assets/icons/badIcon.png";
+import menu from "../assets/icons/menu.png";
+import court from "../assets/icons/court.png";
+import tournament from "../assets/icons/tournament.png";
+import water from "../assets/icons/water.png";
+import ads from "../assets/icons/ads.png";
 
 export default {
   cash,
@@ -48,4 +53,9 @@ export default {
   rates,
   bad_white,
   badIcon,
+  menu,
+  tournament,
+  ads,
+  court,
+  water,
 };

@@ -4,6 +4,7 @@ import { SIZE } from "../../../theme/fonts";
 import InputField from "../../../components/Molecules/InputField";
 import StepDot from "../../../components/Molecules/StepDot";
 import { COLORS } from "../../../theme/colors";
+import FormInput from "../../../components/Atoms/FormInput";
 
 export default function Prepresentative({
   name,
@@ -12,6 +13,10 @@ export default function Prepresentative({
   setPhone,
   email,
   setEmail,
+  password,
+  setPassword,
+  rePassword,
+  setRePassword,
 }) {
   return (
     <View style={styles.container}>
@@ -43,6 +48,20 @@ export default function Prepresentative({
           placeholderText={"Địa chỉ email"}
           inputData={email}
           setInputData={setEmail}
+        />
+
+        <FormInput
+          label="Mật khẩu"
+          placeholder="Nhập mật khẩu"
+          value={password}
+          handleChangeText={(e) => setPassword(e)}
+        />
+
+        <FormInput
+          label="Xác Nhận Mật khẩu"
+          placeholder="Xác Nhận Mật khẩu"
+          value={setRePassword}
+          handleChangeText={(e) => setRePassword(e)}
         />
       </View>
     </View>

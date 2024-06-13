@@ -12,8 +12,9 @@ import rolebg from "../assets/images/rolebg.png";
 import avatar2 from "../assets/images/avatar2.jpg";
 import coin from "../assets/images/coin.png";
 import map from "../assets/images/map.png";
-
 import financial from "../assets/images/financial.png";
+import logo1 from "../assets/images/logo1.png";
+import logo2 from "../assets/images/logo2.png";
 export default {
   vnpay,
   momo,
@@ -30,4 +31,6 @@ export default {
   coin,
   map,
   financial,
+  logo1,
+  logo2,
 };
