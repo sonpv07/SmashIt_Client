@@ -40,6 +40,7 @@ import RewardDetail from "../screens/User/Settings/RewardDetail";
 import RewardHistory from "../screens/User/Settings/RewardHistory";
 import MyVoucherDetail from "../screens/User/Settings/MyVoucherDetail";
 import CourtRating from "../screens/Notification/notification-detail/CourtRating";
+import CreateFinancialActivities from "../screens/CourtOwner/RevenueExpenditure/CreateFinancialActivities";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -302,6 +303,15 @@ export default function Navigation() {
           <Stack.Screen
             name="FinancialBook"
             component={FinancialBook}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="CreateFinancialActivities"
+            component={CreateFinancialActivities}
             options={{
               title: "",
               animation: "slide_from_right",
