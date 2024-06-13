@@ -29,33 +29,32 @@ const styles = StyleSheet.create({
     aspectRatio: 7,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: COLORS.darkGreenText,
+    borderColor: COLORS.orangeText,
     display: "flex",
     flexDirection: "row",
     // alignItems: 'center',
-
   },
   inputOutline: {
-    height: '100%',
-    borderTopLeftRadius: 10, 
+    height: "100%",
+    borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     aspectRatio: 6,
-    justifyContent: 'center',
-    paddingHorizontal: 12
+    justifyContent: "center",
+    paddingHorizontal: 12,
   },
   input: {
-    fontFamily: 'quicksand-bold',
+    fontFamily: "quicksand-bold",
     fontSize: SIZE.size_14,
   },
   search: {
     height: "100%",
     aspectRatio: 1.21,
-    borderTopRightRadius: 12, 
+    borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.darkGreenText
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.orangeText,
   },
 });
 

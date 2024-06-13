@@ -15,6 +15,7 @@ import map from "../assets/images/map.png";
 import financial from "../assets/images/financial.png";
 import logo1 from "../assets/images/logo1.png";
 import logo2 from "../assets/images/logo2.png";
+import logoCourt from "../assets/images/logoCourt.png";
 export default {
   vnpay,
   momo,
@@ -33,4 +34,5 @@ export default {
   financial,
   logo1,
   logo2,
+  logoCourt,
 };

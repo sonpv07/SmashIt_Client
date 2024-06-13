@@ -192,10 +192,7 @@ export default function RegisterCourt({ navigation, route }) {
           >
             <StepDot quantity={5} currentStep={step} />
             <Pressable
-              style={({ pressed }) => [
-                styles.button,
-                pressed && { backgroundColor: COLORS.orangeText },
-              ]}
+              style={({ pressed }) => [styles.button]}
               onPress={handlePress}
             >
               <Text style={styles.buttonText}>
@@ -226,7 +223,7 @@ const styles = StyleSheet.create({
 
   button: {
     width: "100%",
-    backgroundColor: COLORS.darkGreenText,
+    backgroundColor: COLORS.orangeText,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,

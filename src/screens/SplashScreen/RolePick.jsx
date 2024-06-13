@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import images from "../../constants/images";
 import CustomButton from "../../components/Atoms/CustomButton";
 import { AuthContext } from "../../context/AuthContext";
+import { COLORS } from "../../theme/colors";
 
 const roleList = [
   {
@@ -34,9 +35,12 @@ const RolePick = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.bgContainer}>
+      {/* <View style={styles.bgContainer}>
         <Image source={images.rolebg} style={styles.rolebg} />
-      </View>
+      </View> */}
+
+      <Image source={images.logo1} style={styles.rolebg} />
+
       <View style={styles.roleContainer}>
         <View style={styles.textContainer}>
           <Text style={styles.semibold}>
@@ -72,7 +76,9 @@ const RolePick = ({ navigation }) => {
       <View style={styles.roleButton}>
         <CustomButton
           title={"Bắt đầu"}
-          backgroundColor={chosenRole ? "#2A9083" : "rgba(42,144,131,0.2)"}
+          backgroundColor={
+            chosenRole ? COLORS.orangeText : COLORS.orangeBackground
+          }
           color={"white"}
           width={360}
           height={52}
@@ -87,18 +93,20 @@ export default RolePick;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    width: "100%",
     position: "relative",
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: "rgba(255, 138, 0, 0.2)",
   },
   bgContainer: {
     width: "100%",
     height: 535,
   },
   rolebg: {
-    width: "100%",
-    height: "100%",
+    position: "absolute",
+    width: 300,
+    height: 400,
+    top: 10,
   },
   roleContainer: {
     position: "absolute",

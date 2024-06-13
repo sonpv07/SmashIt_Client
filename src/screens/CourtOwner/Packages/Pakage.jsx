@@ -18,7 +18,11 @@ export default function Pakage({ navigation, router }) {
       name: "Khám phá ưu đãi",
       component: <PackageList navigation={navigation} />,
     },
-    { id: 2, name: "Ưu đãi của tôi", component: <MyPackage /> },
+    {
+      id: 2,
+      name: "Ưu đãi của tôi",
+      component: <MyPackage navigation={navigation} />,
+    },
   ];
 
   return (
@@ -33,6 +37,7 @@ export default function Pakage({ navigation, router }) {
         currentTab={tab}
         setTab={setTab}
         fontSize={SIZE.size_16}
+        tabBarStyle={{ justifyContent: "space-around" }}
       />
       {tabItem.map(
         (item) =>

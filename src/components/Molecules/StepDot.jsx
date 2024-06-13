@@ -13,7 +13,7 @@ export default function StepDot({ quantity, currentStep, isRemarkable }) {
             style={[
               styles.dot,
               currentStep === index + 1 && {
-                backgroundColor: COLORS.darkGreenText,
+                backgroundColor: COLORS.orangeText,
               },
 
               currentStep === index + 1 &&

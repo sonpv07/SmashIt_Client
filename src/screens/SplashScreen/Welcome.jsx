@@ -12,7 +12,11 @@ const Welcome = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image source={images.logo1} style={styles.logo} resizeMode="contain" />
+        <Image
+          source={images.logoCourt}
+          style={styles.logo}
+          resizeMode="contain"
+        />
       </View>
       {/* <View style={styles.blobContainer}>
         <Image source={images.blob} style={styles.blob} resizeMode="contain" />
@@ -27,7 +31,7 @@ const Welcome = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <CustomButton
           title={"Bắt Đầu"}
-          backgroundColor={"#2A9083"}
+          backgroundColor={COLORS.orangeText}
           color={"white"}
           height={60}
           handlePress={() => navigation.navigate("RolePick")}
@@ -51,7 +55,8 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     width: "100%",
-    backgroundColor: "rgba(42, 144, 131, 0.38)",
+    // backgroundColor: "rgba(42, 144, 131, 0.38)",
+    backgroundColor: "rgba(255, 138, 0, 0.2)",
     flex: 1,
   },
   logoContainer: {

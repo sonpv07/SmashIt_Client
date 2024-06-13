@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
 
   tabItemActive: {
-    borderBottomColor: COLORS.darkGreenText,
+    borderBottomColor: COLORS.orangeText,
     borderBottomWidth: 1,
   },
 
@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
 
   tabTextActive: {
     fontFamily: "quicksand-bold",
-    color: COLORS.darkGreenText,
+    color: COLORS.orangeText,
   },
 });

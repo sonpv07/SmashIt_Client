@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   account: {
     width: "100%",
     aspectRatio: 2.5,
-    backgroundColor: COLORS.darkGreenText,
+    backgroundColor: COLORS.orangeText,
     display: "flex",
     alignItems: "center",
     flexDirection: "row",

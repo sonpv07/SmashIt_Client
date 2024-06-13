@@ -51,7 +51,7 @@ const Login = ({ navigation }) => {
           <View style={styles.buttonSpacing}>
             <CustomButton
               title={"Đăng nhập"}
-              backgroundColor={"#2A9083"}
+              backgroundColor={COLORS.orangeText}
               height={52}
               width={"100%"}
               color="white"
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     alignItems: "center",
-    backgroundColor: "rgba(42, 144, 131, 0.38)",
+    backgroundColor: "rgba(255, 138, 0, 0.2)",
   },
   imageContainer: {
     position: "absolute",
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: SIZE.size_16,
     fontFamily: "quicksand-semibold",
-    color: "#2A9083",
+    color: COLORS.orangeText,
   },
   welcomeDesc: {
     fontSize: SIZE.size_16,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   forgotPass: {
     fontSize: SIZE.size_14,
     fontFamily: "quicksand-semibold",
-    color: "#2A9083",
+    color: COLORS.orangeText,
   },
   divider: {
     width: "100%",
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   regNow: {
     fontSize: SIZE.size_14,
     fontFamily: "quicksand-semibold",
-    color: "#2A9083",
+    color: COLORS.orangeText,
     textDecorationLine: "underline",
   },
 });

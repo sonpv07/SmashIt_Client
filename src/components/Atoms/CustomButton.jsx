@@ -26,10 +26,10 @@ const CustomButton = ({
   isDisable,
 }) => {
   return (
-    <Pressable
+    <TouchableOpacity
       activeOpacity={0.7}
       onPress={handlePress}
-      style={({ pressed }) => [
+      style={[
         styles.buttonContainer,
         {
           width: width,
@@ -40,8 +40,6 @@ const CustomButton = ({
           paddingHorizontal: px,
           paddingVertical: py,
         },
-
-        pressed && { backgroundColor: COLORS.orangeText },
       ]}
     >
       {icon && <Image source={icon} resizeMode="contain" style={styles.icon} />}
@@ -56,7 +54,7 @@ const CustomButton = ({
       >
         {title}
       </Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 

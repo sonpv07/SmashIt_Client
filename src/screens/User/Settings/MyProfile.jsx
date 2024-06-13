@@ -21,6 +21,7 @@ import { set } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import { COLORS } from "../../../theme/colors";
 
 export default function MyProfile() {
   const { signOut } = useContext(AuthContext);
@@ -66,7 +67,7 @@ export default function MyProfile() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <View style={styles.greenBg}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -197,7 +198,7 @@ export default function MyProfile() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   greenBg: {
-    backgroundColor: "#2A9083",
+    backgroundColor: COLORS.orangeText,
     paddingHorizontal: 15,
     paddingTop: 12,
     paddingBottom: 90,
