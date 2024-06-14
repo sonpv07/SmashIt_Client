@@ -14,6 +14,9 @@ import CustomButton from "../../components/Atoms/CustomButton";
 import { Checkbox } from "native-base";
 import { AuthContext } from "../../context/AuthContext";
 import { COLORS } from "../../theme/colors";
+import axios from "axios";
+import { baseURL } from "../../constants/constants";
+import { postRequest } from "../../services";
 
 const Login = ({ navigation }) => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -21,6 +24,25 @@ const Login = ({ navigation }) => {
 
   const { isLogin, setIsLogin, chosenRole, setFirstRegister, firstRegister } =
     useContext(AuthContext);
+
+  const handleLogin = async () => {
+    const body = {
+      email: form.email,
+      password: form.password,
+    };
+
+    try {
+      const res = await postRequest(`${baseURL}/Authentication/logn`, body);
+
+      if (res?.statusCode === 200) {
+        setIsLogin(true);
+      } else {
+        console.log("Login Fail");
+      }
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -56,7 +78,7 @@ const Login = ({ navigation }) => {
               width={"100%"}
               color="white"
               handlePress={() => {
-                setIsLogin(true);
+                handleLogin();
               }}
             />
           </View>
@@ -201,7 +223,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
+    position: "relative",
     bottom: 40,
   },
   notHave: {
