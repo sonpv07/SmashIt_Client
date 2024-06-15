@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const postRequest = async (url, body, token) => {
+export const getRequest = async (url, token) => {
   try {
-    const response = await axios.post(url, body, {
+    const response = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
@@ -16,9 +16,9 @@ export const postRequest = async (url, body, token) => {
   }
 };
 
-export const getRequest = async (url, token) => {
+export const postRequest = async (url, body, token) => {
   try {
-    const response = await axios.get(url, {
+    const response = await axios.post(url, body, {
       headers: {
         "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
@@ -26,7 +26,7 @@ export const getRequest = async (url, token) => {
       withCredentials: !!token,
     });
 
-    return { error: false, data: response.data };
+    return response.data;
   } catch (error) {
     return error;
   }
