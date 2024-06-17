@@ -1,6 +1,8 @@
 import {
   Dimensions,
   Image,
+  KeyboardAvoidingView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,16 +16,14 @@ import CustomButton from "../../components/Atoms/CustomButton";
 import { Checkbox } from "native-base";
 import { AuthContext } from "../../context/AuthContext";
 import { COLORS } from "../../theme/colors";
-import axios from "axios";
-import { baseURL } from "../../constants/constants";
-import { postRequest } from "../../services";
+import { ErrorText } from "../../constants/errors";
 
 const Login = ({ navigation }) => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [toggleRemember, setToggleRemember] = useState(false);
+  const [error, setError] = useState("");
 
-  const { isLogin, setIsLogin, chosenRole, setFirstRegister, firstRegister } =
-    useContext(AuthContext);
+  const { chosenRole, login, setIsLogin } = useContext(AuthContext);
 
   const handleLogin = async () => {
     const body = {
@@ -31,106 +31,119 @@ const Login = ({ navigation }) => {
       password: form.password,
     };
 
-    try {
-      const res = await postRequest(`${baseURL}/Authentication/logn`, body);
+    const res = await login(body);
 
-      if (res?.statusCode === 200) {
-        setIsLogin(true);
-      } else {
-        console.log("Login Fail");
-      }
-    } catch (error) {
-      console.error("error", error);
+    if (res) {
+      setIsLogin(true);
+    } else {
+      setError(ErrorText.VALID_ACCOUNT);
     }
+
+    console.log(res);
   };
 
   return (
-    <View style={styles.container}>
-      {/* <View style={styles.imageContainer}>
+    <KeyboardAvoidingView
+      behavior={"height"}
+      enabled={false}
+      style={{ flex: 1 }}
+    >
+      <View style={styles.container}>
+        {/* <View style={styles.imageContainer}>
         <Image source={images.loginbg} style={styles.image} />
       </View> */}
-      <Image source={images.logo1} style={styles.logo} />
-      <View style={styles.loginContainer}>
-        <View style={styles.welcomeText}>
-          <Text style={styles.welcome}>Chào mừng!</Text>
-          <Text style={styles.welcomeDesc}>Hãy đăng nhập để tiếp tục</Text>
-        </View>
-        <View style={styles.loginForm}>
-          <FormInput
-            label="Địa chỉ email"
-            placeholder="Nhập email"
-            value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
-          />
-          <View style={styles.inputSpacing}>
+        <Image source={images.logo1} style={styles.logo} />
+        <View style={styles.loginContainer}>
+          <View style={styles.welcomeText}>
+            <Text style={styles.welcome}>Chào mừng!</Text>
+            <Text style={styles.welcomeDesc}>Hãy đăng nhập để tiếp tục</Text>
+          </View>
+          <View style={styles.loginForm}>
             <FormInput
-              label="Mật khẩu"
-              placeholder="Nhập mật khẩu"
-              value={form.password}
-              handleChangeText={(e) => setForm({ ...form, password: e })}
+              label="Địa chỉ email"
+              placeholder="Nhập email"
+              value={form.email}
+              handleChangeText={(e) => setForm({ ...form, email: e })}
             />
+            <View style={styles.inputSpacing}>
+              <FormInput
+                label="Mật khẩu"
+                placeholder="Nhập mật khẩu"
+                value={form.password}
+                handleChangeText={(e) => setForm({ ...form, password: e })}
+              />
+              {error && <Text style={styles.errorText}>{error}</Text>}
+            </View>
+            <View style={styles.buttonSpacing}>
+              <CustomButton
+                title={"Đăng nhập"}
+                backgroundColor={COLORS.orangeText}
+                height={52}
+                width={"100%"}
+                color="white"
+                handlePress={() => {
+                  handleLogin();
+                }}
+              />
+            </View>
           </View>
-          <View style={styles.buttonSpacing}>
-            <CustomButton
-              title={"Đăng nhập"}
-              backgroundColor={COLORS.orangeText}
-              height={52}
-              width={"100%"}
-              color="white"
-              handlePress={() => {
-                handleLogin();
-              }}
-            />
+          <View style={styles.savingData}>
+            <Checkbox value="rememberMe" aria-label="Remember me">
+              <Text style={styles.checkboxLabel}>Ghi nhớ mật khẩu</Text>
+            </Checkbox>
+            <Text style={styles.forgotPass}>Quên mật khẩu?</Text>
           </View>
-        </View>
-        <View style={styles.savingData}>
-          <Checkbox value="rememberMe" aria-label="Remember me">
-            <Text style={styles.checkboxLabel}>Ghi nhớ mật khẩu</Text>
-          </Checkbox>
-          <Text style={styles.forgotPass}>Quên mật khẩu?</Text>
-        </View>
-        <View style={styles.divider}>
-          <View style={styles.leftDiv}></View>
-          <Text style={styles.otherOption}>hoặc tiếp tục với</Text>
-          <View style={styles.rightDiv}></View>
-        </View>
-        <CustomButton
-          title={"Google"}
-          backgroundColor={"#F5F5F5"}
-          height={52}
-          width={"100%"}
-          icon={images.google}
-        />
-      </View>
+          <View style={styles.divider}>
+            <View style={styles.leftDiv}></View>
+            <Text style={styles.otherOption}>hoặc tiếp tục với</Text>
+            <View style={styles.rightDiv}></View>
+          </View>
+          <CustomButton
+            title={"Google"}
+            backgroundColor={"#F5F5F5"}
+            height={52}
+            width={"100%"}
+            icon={images.google}
+          />
 
-      <View style={styles.registerLink}>
-        <Text style={styles.notHave}>Chưa có tài khoản?</Text>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => {
-            if (chosenRole === "player") {
-              navigation.navigate("Signup");
-            } else {
-              navigation.navigate("RegisterCourt");
-            }
-            // navigation.navigate("Signup");
-          }}
-        >
-          <Text style={styles.regNow}>Đăng kí ngay</Text>
-        </TouchableOpacity>
+          <View style={styles.registerLink}>
+            <Text style={styles.notHave}>Chưa có tài khoản?</Text>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => {
+                if (chosenRole === "player") {
+                  navigation.navigate("Signup");
+                } else {
+                  navigation.navigate("RegisterCourt");
+                }
+                // navigation.navigate("Signup");
+              }}
+            >
+              <Text style={styles.regNow}>Đăng kí ngay</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 export default Login;
 
 const styles = StyleSheet.create({
+  errorText: {
+    color: COLORS.red,
+    fontFamily: "quicksand-medium",
+    alignSelf: "center",
+    marginTop: 10,
+    fontSize: SIZE.size_16,
+  },
+
   container: {
     position: "relative",
     flex: 1,
-    alignItems: "center",
     backgroundColor: "rgba(255, 138, 0, 0.2)",
+    alignItems: "center",
   },
   imageContainer: {
     position: "absolute",
@@ -144,15 +157,17 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+
   loginContainer: {
     backgroundColor: "white",
-    // borderColor: "red",
-    top: 200,
     width: "100%",
-    borderRadius: 30,
-    height: "100%",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
+    position: "absolute",
+    bottom: 0,
+    height: 620,
   },
   welcomeText: {
     flexDirection: "row",
@@ -221,10 +236,10 @@ const styles = StyleSheet.create({
   },
   registerLink: {
     flexDirection: "row",
-    alignItems: "center",
+    alignSelf: "center",
     justifyContent: "center",
-    position: "relative",
-    bottom: 40,
+    position: "absolute",
+    bottom: 20,
   },
   notHave: {
     marginRight: 10,

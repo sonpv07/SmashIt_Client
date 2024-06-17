@@ -28,7 +28,7 @@ const FormInput = ({
           placeholder={placeholder}
           placeholderTextColor="#BCBCBC"
           onChangeText={handleChangeText}
-          secureTextEntry={label === "Mật khẩu" && !showPassword}
+          secureTextEntry={label.includes("Mật khẩu") && !showPassword}
           style={styles.input}
         />
         {label.includes("khẩu") && (
