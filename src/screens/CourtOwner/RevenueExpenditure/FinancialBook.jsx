@@ -14,6 +14,7 @@ import DatePickerSlider from "../../../components/Organisms/DatePicker";
 import moment from "moment";
 import FinancialActivities from "../../../components/Organisms/FinancialActivities";
 import { METRICS } from "../../../theme/metrics";
+import TimeFilter from "../../../components/Organisms/TimeFilter";
 
 export default function FinancialBook({ navigation }) {
   const [chosenDate, setChosenDate] = useState(new Date());
@@ -38,97 +39,68 @@ export default function FinancialBook({ navigation }) {
     weekdaysShort: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
   });
 
-  // Format the date
-  const formattedDate = moment(chosenDate).format("ddd, DD MMM YYYY");
+  const [chosenFilter, setChosenFilter] = useState(0);
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar
         text={"Sổ thu chi"}
-        type={"dateTime"}
         isGoBack={true}
         goBack={() => navigation.goBack()}
       />
       <View style={styles.container}>
-        <View style={styles.overviewCost}>
-          <View style={styles.overviewItem}>
-            <Text style={[styles.mediumText, { fontSize: SIZE.size_10 }]}>
-              Chi phí
-            </Text>
-            <Text
-              style={[
-                styles.semiboldText,
-                { fontSize: SIZE.size_14, color: "#FF0854" },
-              ]}
-            >
-              {formatNumber(100000)} đ
-            </Text>
-          </View>
-          <View style={styles.overviewItem}>
-            <Text style={[styles.mediumText, { fontSize: SIZE.size_10 }]}>
-              Thu nhập
-            </Text>
-            <Text
-              style={[
-                styles.semiboldText,
-                { fontSize: SIZE.size_14, color: COLORS.darkGreenText },
-              ]}
-            >
-              {formatNumber(100000)}đ
-            </Text>
-          </View>
-          <View style={styles.overviewItem}>
-            <Text style={[styles.mediumText, { fontSize: SIZE.size_10 }]}>
-              Số dư
-            </Text>
-            <Text style={[styles.semiboldText, { fontSize: SIZE.size_14 }]}>
-              {formatNumber(100000)}đ
-            </Text>
-          </View>
-        </View>
-
-        <DatePickerSlider
-          chosenDate={chosenDate}
-          setChosenDate={setChosenDate}
+        <TimeFilter
+          chosenFilter={chosenFilter}
+          setChosenFilter={setChosenFilter}
         />
 
         <View style={styles.costDetailSection}>
-          <View style={styles.topSection}>
-            <Text style={[styles.semiboldText, { fontSize: SIZE.size_12 }]}>
-              {formattedDate}
-            </Text>
-
-            <View>
-              <Text style={[styles.mediumText, { fontSize: SIZE.size_12 }]}>
-                Chi phí phát sinh
+          <View style={styles.overviewCost}>
+            <View style={styles.overviewItem}>
+              <Text style={[styles.mediumText, { fontSize: SIZE.size_10 }]}>
+                Chi phí
               </Text>
               <Text
                 style={[
                   styles.semiboldText,
-                  { fontSize: SIZE.size_12, color: "#FF0854" },
+                  { fontSize: SIZE.size_14, color: "#FF0854" },
+                ]}
+              >
+                {formatNumber(100000)} đ
+              </Text>
+            </View>
+            <View style={styles.overviewItem}>
+              <Text style={[styles.mediumText, { fontSize: SIZE.size_10 }]}>
+                Thu nhập
+              </Text>
+              <Text
+                style={[
+                  styles.semiboldText,
+                  { fontSize: SIZE.size_14, color: COLORS.darkGreenText },
                 ]}
               >
                 {formatNumber(100000)}đ
               </Text>
             </View>
-
-            <View>
-              <Text style={[styles.mediumText, { fontSize: SIZE.size_12 }]}>
-                Thu nhập cá nhân
+            <View style={styles.overviewItem}>
+              <Text style={[styles.mediumText, { fontSize: SIZE.size_10 }]}>
+                Số dư
               </Text>
-              <Text
-                style={[
-                  styles.semiboldText,
-                  { fontSize: SIZE.size_12, color: COLORS.darkGreenText },
-                ]}
-              >
+              <Text style={[styles.semiboldText, { fontSize: SIZE.size_14 }]}>
                 {formatNumber(100000)}đ
               </Text>
             </View>
           </View>
 
           <FlatList
-            style={{ marginTop: 30, flex: 1 }}
+            style={{
+              marginTop: 30,
+              flex: 1,
+              maxHeight:
+                chosenFilter === 0
+                  ? METRICS.screenHeight * 0.35
+                  : METRICS.screenHeight * 0.48,
+            }}
             data={financialData}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ gap: 30 }}
@@ -139,7 +111,11 @@ export default function FinancialBook({ navigation }) {
         </View>
       </View>
 
-      <TouchableOpacity activeOpacity={0.5} style={styles.button}>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        style={styles.button}
+        onPress={() => navigation.navigate("CreateFinancialActivities")}
+      >
         <Text
           style={[
             styles.semiboldText,
@@ -157,11 +133,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 12,
+    paddingHorizontal: 15,
   },
 
   overviewCost: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     marginBottom: 25,
   },
 
@@ -181,7 +158,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     paddingHorizontal: 15,
     flex: 1,
-    maxHeight: METRICS.screenHeight * 0.58,
   },
 
   topSection: {

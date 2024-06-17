@@ -40,6 +40,8 @@ import RewardDetail from "../screens/User/Settings/RewardDetail";
 import RewardHistory from "../screens/User/Settings/RewardHistory";
 import MyVoucherDetail from "../screens/User/Settings/MyVoucherDetail";
 import CourtRating from "../screens/Notification/notification-detail/CourtRating";
+import CreateFinancialActivities from "../screens/CourtOwner/RevenueExpenditure/CreateFinancialActivities";
+import LogoScreen from "../screens/SplashScreen/LogoScreen";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -55,7 +57,7 @@ export default function Navigation() {
     <NavigationContainer>
       {!isLogin && !firstRegister && (
         <Stack.Navigator
-          initialRouteName="Welcome"
+          initialRouteName="Logo"
           screenOptions={{
             animation: "default",
           }}
@@ -70,6 +72,18 @@ export default function Navigation() {
               animation: "slide_from_right",
             }}
           />
+
+          <Stack.Screen
+            name="Logo"
+            component={LogoScreen}
+            headerBackTitleVisible={true}
+            options={{
+              headerShown: false,
+              title: "",
+              animation: "slide_from_right",
+            }}
+          />
+
           <Stack.Screen
             name="Signup"
             component={Signup}
@@ -302,6 +316,15 @@ export default function Navigation() {
           <Stack.Screen
             name="FinancialBook"
             component={FinancialBook}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="CreateFinancialActivities"
+            component={CreateFinancialActivities}
             options={{
               title: "",
               animation: "slide_from_right",

@@ -1,6 +1,14 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { SIZE } from "../../theme/fonts";
+import { COLORS } from "../../theme/colors";
 
 const CustomButton = ({
   title,

@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
@@ -26,7 +27,7 @@ import { METRICS } from "../../theme/metrics";
 import OwnedCourtCard from "../../components/Organisms/OwnedCourtCard";
 
 export default function Home_CourtOwner() {
-  const fullName = "Ngọc Nghi";
+  const fullName = "Nguyệt Ánh";
   const courtName = "Sân Bình Trưng Tây";
   const courtAddress =
     "41 Đường 41, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh";
@@ -122,7 +123,11 @@ export default function Home_CourtOwner() {
       <View style={styles.contentSection}>
         <View>
           <Title_MoreInfo title={"Quản lý chi tiêu"} />
-          <View style={styles.financial}>
+          <TouchableOpacity
+            style={styles.financial}
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate("FinancialBook")}
+          >
             <Image source={images.financial} />
             <View>
               <Text style={[styles.semiboldText]}>Chi tiêu của bạn</Text>
@@ -135,7 +140,7 @@ export default function Home_CourtOwner() {
             >
               <VectorIcon.AntDesign name="right" size={14} />
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View>

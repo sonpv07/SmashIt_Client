@@ -1,17 +1,24 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import { COLORS } from "../../../theme/colors";
 import InputField from "../../../components/Molecules/InputField";
 import { SIZE } from "../../../theme/fonts";
 import SlotChip from "../../../components/Molecules/SlotChip";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CreateBooking({ navigation }) {
   const [chosenSlot, setChosenSlot] = useState(null);
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar
         text={"Tạo lịch đặt sân"}
         isGoBack={true}
@@ -54,52 +61,52 @@ export default function CreateBooking({ navigation }) {
           </Text>
           <SlotChip chosenSlot={chosenSlot} setChosenSlot={setChosenSlot} />
         </View>
-      </View>
 
-      <View style={styles.buttonSection}>
-        <View style={styles.noteSection}>
-          <View style={styles.noteItem}>
-            <View
-              style={[
-                styles.noteIcon,
-                {
-                  backgroundColor: "rgba(42,144,131,0.1)",
-                },
-              ]}
-            >
-              <VectorIcon.AntDesign
-                name="clockcircleo"
-                size={12}
-                color={COLORS.darkGreenText}
-              />
+        <View style={[styles.buttonSection]}>
+          <View style={styles.noteSection}>
+            <View style={styles.noteItem}>
+              <View
+                style={[
+                  styles.noteIcon,
+                  {
+                    backgroundColor: "rgba(42,144,131,0.1)",
+                  },
+                ]}
+              >
+                <VectorIcon.AntDesign
+                  name="clockcircleo"
+                  size={12}
+                  color={COLORS.darkGreenText}
+                />
+              </View>
+              <Text style={styles.noteText}>Khung giờ còn trống</Text>
             </View>
-            <Text style={styles.noteText}>Khung giờ còn trống</Text>
+
+            <View style={styles.noteItem}>
+              <View
+                style={[
+                  styles.noteIcon,
+                  {
+                    backgroundColor: COLORS.orangeBackground,
+                  },
+                ]}
+              >
+                <VectorIcon.AntDesign
+                  name="clockcircleo"
+                  size={12}
+                  color={COLORS.orangeText}
+                />
+              </View>
+              <Text style={styles.noteText}>Đang đặt</Text>
+            </View>
           </View>
 
-          <View style={styles.noteItem}>
-            <View
-              style={[
-                styles.noteIcon,
-                {
-                  backgroundColor: COLORS.orangeBackground,
-                },
-              ]}
-            >
-              <VectorIcon.AntDesign
-                name="clockcircleo"
-                size={12}
-                color={COLORS.orangeText}
-              />
-            </View>
-            <Text style={styles.noteText}>Đang đặt</Text>
-          </View>
+          <TouchableOpacity style={styles.button} activeOpacity={0.5}>
+            <Text style={styles.buttonText}>Tạo lịch</Text>
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Tạo lịch</Text>
-        </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -109,11 +116,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 15,
     gap: 15,
+    marginBottom: 60,
   },
 
   buttonSection: {
-    position: "relative",
-    bottom: 35,
+    bottom: -30,
     paddingHorizontal: 25,
   },
 

@@ -2,7 +2,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { COLORS } from "../../theme/colors";
 
-export default function TabBar({ tabItem, setTab, currentTab, fontSize }) {
+export default function TabBar({
+  tabItem,
+  setTab,
+  currentTab,
+  fontSize,
+  tabBarStyle,
+}) {
   const handleChangeTab = (value) => {
     if (currentTab === value) {
       console.log("NNN");
@@ -13,18 +19,20 @@ export default function TabBar({ tabItem, setTab, currentTab, fontSize }) {
   };
 
   return (
-    <View style={styles.tabBar}>
+    <View style={[styles.tabBar, tabBarStyle]}>
       {tabItem.map((item) => {
+        const isActive = item.id === currentTab;
         return (
           <TouchableOpacity
-            style={styles.tabItem}
+            style={[styles.tabItem, isActive && styles.tabItemActive]}
             key={item.id}
             onPress={() => handleChangeTab(item.id)}
           >
             <Text
               style={[
                 { fontSize: fontSize },
-                item.id === currentTab ? styles.tabItemActive : styles.tabItem,
+                styles.tabText,
+                isActive && styles.tabTextActive,
               ]}
             >
               {item.name}
@@ -48,15 +56,19 @@ const styles = StyleSheet.create({
   tabItem: {
     paddingVertical: 15,
     paddingHorizontal: 10,
-    fontFamily: "quicksand-semibold",
   },
 
   tabItemActive: {
-    paddingVertical: 15,
-    borderBottomColor: COLORS.darkGreenText,
+    borderBottomColor: COLORS.orangeText,
     borderBottomWidth: 1,
-    paddingHorizontal: 10,
+  },
+
+  tabText: {
+    fontFamily: "quicksand-semibold",
+  },
+
+  tabTextActive: {
     fontFamily: "quicksand-bold",
-    color: COLORS.darkGreenText,
+    color: COLORS.orangeText,
   },
 });

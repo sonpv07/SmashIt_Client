@@ -109,7 +109,7 @@ export default function DatePickerSlider({
                   borderWidth: 1,
                   borderColor:
                     currentIndex === format(day, "d")
-                      ? COLORS.darkGreenText
+                      ? COLORS.orangeText
                       : COLORS.greyBackground,
                   justifyContent: "center",
                   alignItems: "center",
@@ -128,6 +128,12 @@ export default function DatePickerSlider({
                     style={{
                       fontSize: SIZE.size_10,
                       fontFamily: "quicksand-medium",
+                      color:
+                        format(day, "E") === "Sat" ||
+                        format(day, "E") === "Sun" ||
+                        format(day, "d") === format(new Date(), "d")
+                          ? COLORS.orangeText
+                          : COLORS.black,
                     }}
                   >
                     {checkIsToday(day)}
@@ -141,10 +147,10 @@ export default function DatePickerSlider({
                     alignItems: "center",
                     backgroundColor:
                       currentIndex === format(day, "d")
-                        ? COLORS.darkGreenText
+                        ? COLORS.orangeText
                         : format(day, "E") === "Sat" ||
                           format(day, "E") === "Sun"
-                        ? "rgba(42, 144, 131, 0.1)"
+                        ? COLORS.orangeBackground
                         : "#F1F1F1",
                     width: "100%",
                     height: 52.5,
@@ -162,7 +168,7 @@ export default function DatePickerSlider({
                           ? COLORS.white
                           : format(day, "E") === "Sat" ||
                             format(day, "E") === "Sun"
-                          ? COLORS.darkGreenText
+                          ? COLORS.orangeText
                           : COLORS.black,
                     }}
                   >
@@ -177,7 +183,7 @@ export default function DatePickerSlider({
                           ? COLORS.white
                           : format(day, "E") === "Sat" ||
                             format(day, "E") === "Sun"
-                          ? COLORS.darkGreenText
+                          ? COLORS.orangeText
                           : COLORS.black,
                     }}
                   >

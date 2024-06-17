@@ -16,7 +16,7 @@ import images from "../../../constants/images";
 
 const CreatePost = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.stack}>
         <View style={styles.title}>
           <TouchableOpacity
@@ -55,7 +55,7 @@ const CreatePost = ({ navigation }) => {
           <Image source={icons.uploadVideo} style={styles.actionIcon} />
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

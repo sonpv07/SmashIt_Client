@@ -13,6 +13,10 @@ import FormInput from "../../components/Atoms/FormInput";
 import CustomButton from "../../components/Atoms/CustomButton";
 import { Checkbox } from "native-base";
 import { AuthContext } from "../../context/AuthContext";
+import { COLORS } from "../../theme/colors";
+import axios from "axios";
+import { baseURL } from "../../constants/constants";
+import { postRequest } from "../../services";
 
 const Login = ({ navigation }) => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -21,12 +25,31 @@ const Login = ({ navigation }) => {
   const { isLogin, setIsLogin, chosenRole, setFirstRegister, firstRegister } =
     useContext(AuthContext);
 
+  const handleLogin = async () => {
+    const body = {
+      email: form.email,
+      password: form.password,
+    };
+
+    try {
+      const res = await postRequest(`${baseURL}/Authentication/logn`, body);
+
+      if (res?.statusCode === 200) {
+        setIsLogin(true);
+      } else {
+        console.log("Login Fail");
+      }
+    } catch (error) {
+      console.error("error", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
+      {/* <View style={styles.imageContainer}>
         <Image source={images.loginbg} style={styles.image} />
-      </View>
-      <Image source={images.applogo} style={styles.logo} />
+      </View> */}
+      <Image source={images.logo1} style={styles.logo} />
       <View style={styles.loginContainer}>
         <View style={styles.welcomeText}>
           <Text style={styles.welcome}>Chào mừng!</Text>
@@ -50,12 +73,12 @@ const Login = ({ navigation }) => {
           <View style={styles.buttonSpacing}>
             <CustomButton
               title={"Đăng nhập"}
-              backgroundColor={"#2A9083"}
+              backgroundColor={COLORS.orangeText}
               height={52}
               width={"100%"}
               color="white"
               handlePress={() => {
-                setIsLogin(true);
+                handleLogin();
               }}
             />
           </View>
@@ -90,6 +113,7 @@ const Login = ({ navigation }) => {
             } else {
               navigation.navigate("RegisterCourt");
             }
+            // navigation.navigate("Signup");
           }}
         >
           <Text style={styles.regNow}>Đăng kí ngay</Text>
@@ -106,6 +130,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     alignItems: "center",
+    backgroundColor: "rgba(255, 138, 0, 0.2)",
   },
   imageContainer: {
     position: "absolute",
@@ -116,14 +141,12 @@ const styles = StyleSheet.create({
   },
   logo: {
     position: "absolute",
-    top: 50,
-    width: 98,
-    height: 52,
+    width: 200,
+    height: 200,
   },
   loginContainer: {
     backgroundColor: "white",
     // borderColor: "red",
-    borderWidth: 1,
     top: 200,
     width: "100%",
     borderRadius: 30,
@@ -139,7 +162,7 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: SIZE.size_16,
     fontFamily: "quicksand-semibold",
-    color: "#2A9083",
+    color: COLORS.orangeText,
   },
   welcomeDesc: {
     fontSize: SIZE.size_16,
@@ -168,7 +191,7 @@ const styles = StyleSheet.create({
   forgotPass: {
     fontSize: SIZE.size_14,
     fontFamily: "quicksand-semibold",
-    color: "#2A9083",
+    color: COLORS.orangeText,
   },
   divider: {
     width: "100%",
@@ -200,7 +223,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
+    position: "relative",
     bottom: 40,
   },
   notHave: {
@@ -211,7 +234,7 @@ const styles = StyleSheet.create({
   regNow: {
     fontSize: SIZE.size_14,
     fontFamily: "quicksand-semibold",
-    color: "#2A9083",
+    color: COLORS.orangeText,
     textDecorationLine: "underline",
   },
 });

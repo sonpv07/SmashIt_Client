@@ -20,6 +20,7 @@ import { AuthContext } from "../context/AuthContext";
 import Settings from "../screens/User/Settings/Settings";
 import BookingCourt from "../screens/User/Booking/BookingCourt";
 import Home_CourtOwner from "../screens/CourtOwner/Home_CourtOwner";
+import { COLORS } from "../theme/colors";
 
 export default function BottomTabs() {
   const Tab = createBottomTabNavigator();
@@ -43,12 +44,12 @@ export default function BottomTabs() {
               <Feather
                 name="home"
                 size={22}
-                color={focused ? "#2C9889" : "#676767"}
+                color={focused ? COLORS.orangeText : "#676767"}
               />
               <Text
                 style={[
                   styles.text,
-                  focused ? { color: "#2C9889" } : { color: "#676767" },
+                  focused ? { color: COLORS.orangeText } : { color: "#676767" },
                 ]}
               >
                 Trang chủ
@@ -68,12 +69,12 @@ export default function BottomTabs() {
               <Ionicons
                 name="storefront-outline"
                 size={22}
-                color={focused ? "#2C9889" : "#676767"}
+                color={focused ?  COLORS.orangeText : "#676767"}
               />
               <Text
                 style={[
                   styles.text,
-                  focused ? { color: "#2C9889" } : { color: "#676767" },
+                  focused ? { color:  COLORS.orangeText } : { color: "#676767" },
                 ]}
               >
                 Trao đổi
@@ -95,12 +96,14 @@ export default function BottomTabs() {
                 <FontAwesome
                   name="calendar-minus-o"
                   size={22}
-                  color={focused ? "#2C9889" : "#676767"}
+                  color={focused ? COLORS.orangeText : "#676767"}
                 />
                 <Text
                   style={[
                     styles.text,
-                    focused ? { color: "#2C9889" } : { color: "#676767" },
+                    focused
+                      ? { color: COLORS.orangeText }
+                      : { color: "#676767" },
                   ]}
                 >
                   Đặt sân
@@ -123,12 +126,14 @@ export default function BottomTabs() {
                 <FontAwesome
                   name="calendar-minus-o"
                   size={22}
-                  color={focused ? "#2C9889" : "#676767"}
+                  color={focused ? COLORS.orangeText : "#676767"}
                 />
                 <Text
                   style={[
                     styles.text,
-                    focused ? { color: "#2C9889" } : { color: "#676767" },
+                    focused
+                      ? { color: COLORS.orangeText }
+                      : { color: "#676767" },
                   ]}
                 >
                   Quản lí sân
@@ -150,12 +155,12 @@ export default function BottomTabs() {
               <Ionicons
                 name="notifications-outline"
                 size={22}
-                color={focused ? "#2C9889" : "#676767"}
+                color={focused ? COLORS.orangeText : "#676767"}
               />
               <Text
                 style={[
                   styles.text,
-                  focused ? { color: "#2C9889" } : { color: "#676767" },
+                  focused ? { color: COLORS.orangeText } : { color: "#676767" },
                 ]}
               >
                 Thông báo
@@ -176,12 +181,12 @@ export default function BottomTabs() {
               <FontAwesome
                 name="user-o"
                 size={22}
-                color={focused ? "#2C9889" : "#676767"}
+                color={focused ? COLORS.orangeText : "#676767"}
               />
               <Text
                 style={[
                   styles.text,
-                  focused ? { color: "#2C9889" } : { color: "#676767" },
+                  focused ? { color: COLORS.orangeText } : { color: "#676767" },
                 ]}
               >
                 Tài khoản

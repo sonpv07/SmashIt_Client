@@ -143,11 +143,8 @@ const Payment = () => {
             <Text style={styles.content_SemiBold}>
               Nhập mã "NGUOICHOIMOI" để giảm 50% cho lần đầu đặt sân
             </Text>
-            <View>
-              <TextInput
-                style={styles.voucherInput}
-                placeholder="NGUOICHOIMOI"
-              />
+            <View style={styles.voucherInput}>
+              <TextInput placeholder="NGUOICHOIMOI" />
               <View style={styles.voucherButton}>
                 <TouchableOpacity style={styles.voucherBtn}>
                   <Text
@@ -164,9 +161,22 @@ const Payment = () => {
       <View style={styles.bottom}>
         <View style={styles.total}>
           <Text style={styles.title}>Tổng tiền</Text>
-          <Text style={{color: COLORS.darkGreenText, fontFamily: 'quicksand-bold', fontSize: SIZE.size_18}}>360.000đ</Text>
+          <Text
+            style={{
+              color: COLORS.darkGreenText,
+              fontFamily: "quicksand-bold",
+              fontSize: SIZE.size_18,
+            }}
+          >
+            360.000đ
+          </Text>
         </View>
-        <TouchableOpacity style={styles.confirmPayment} onPress={() => {navigation.navigate("")}}>
+        <TouchableOpacity
+          style={styles.confirmPayment}
+          onPress={() => {
+            navigation.navigate("");
+          }}
+        >
           <Text style={styles.confirmPayment_Text}>Xác nhận thanh toán</Text>
         </TouchableOpacity>
       </View>
@@ -258,6 +268,7 @@ const styles = StyleSheet.create({
   bookingInfo: {
     paddingHorizontal: 12,
     width: "80%",
+    gap: 10,
   },
   time: {
     width: "100%",
@@ -267,7 +278,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     gap: 20,
     paddingVertical: 10,
-    height: '30%',
+    height: "30%",
     paddingBottom: 150,
   },
   voucherCode: {
@@ -281,16 +292,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F9FA",
     padding: 10,
     borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
     position: "relative",
+    justifyContent: "center",
   },
   voucherButton: {
     position: "absolute",
     right: 10,
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   voucherBtn: {
     backgroundColor: COLORS.darkGreenText,
@@ -313,23 +322,23 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   total: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   confirmPayment: {
     backgroundColor: COLORS.orangeText,
     paddingHorizontal: 10,
     paddingVertical: 12,
-    alignContent: 'center',
-    alignItems: 'center',
+    alignContent: "center",
+    alignItems: "center",
     borderRadius: 10,
   },
   confirmPayment_Text: {
-    alignContent: 'center',
-    fontFamily: 'quicksand-bold',
+    alignContent: "center",
+    fontFamily: "quicksand-bold",
     color: COLORS.white,
     fontSize: SIZE.size_16,
-  }
+  },
 });
 
 export default Payment;

@@ -20,7 +20,7 @@ export default function CourtLocation({ courtAddress, setCourtAddress }) {
           iconFamily={"Feather"}
           iconName={"map"}
           iconSize={20}
-          iconBackgroundColor={COLORS.darkGreenText}
+          iconBackgroundColor={COLORS.orangeText}
           iconColor={COLORS.white}
           primaryText={"Địa điểm kinh doanh"}
           placeholderText={"Địa điểm sân"}

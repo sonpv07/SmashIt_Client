@@ -1,6 +1,8 @@
 import VectorIcon from "../components/Atoms/VectorIcon";
 import moment from "moment";
 import "moment/locale/vi";
+import * as Device from "expo-device";
+import { Platform } from "react-native";
 
 export const getIconFamily = (family, name, size, color) => {
   switch (family) {
@@ -62,4 +64,15 @@ export const formatDate = (date) => {
     formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
   return capitalizedDate;
+};
+
+export const getBaseURL = () => {
+  if (Platform.OS === "android") {
+    const isEmulator = !Device.isDevice;
+    return isEmulator
+      ? "https://10.0.2.2:7006/api"
+      : "https://localhost:7006/api";
+  } else {
+    return "https://localhost:7006/api";
+  }
 };

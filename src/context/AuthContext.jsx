@@ -23,17 +23,20 @@ export const AuthProvider = ({ children }) => {
   //     await AsyncStorage.setItem("user", JSON.stringify(userData));
   //   };
 
-  //   const signOut = async () => {
-  //     setUser(null);
-  //     await AsyncStorage.removeItem("user");
-  //   };
+  const signOut = async () => {
+    setUser(null);
+    setIsLogin(false);
+    setFirstRegister(false);
+    setChosenRole("");
+    // await AsyncStorage.removeItem("user");
+  };
 
   return (
     <AuthContext.Provider
       value={{
         user,
         // signIn,
-        // signOut,
+        signOut,
         isLogin,
         setIsLogin,
         firstRegister,

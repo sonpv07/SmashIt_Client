@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Switch,
   ScrollView,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useCallback, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,8 +19,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { set } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import { COLORS } from "../../../theme/colors";
 
 export default function MyProfile() {
+  const { signOut } = useContext(AuthContext);
+
   const [accountInfo, setAccountInfo] = useState({
     fullName: "Do dang phuc Anh",
     phoneNumber: "0123456789",
@@ -61,7 +67,7 @@ export default function MyProfile() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <View style={styles.greenBg}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -187,10 +193,12 @@ export default function MyProfile() {
             <VectorIcon.FontAwesome5 name="chevron-right" size={15} />
           </View>
           <View style={styles.divider}></View>
-          <Text style={styles.logout}>Đăng xuất</Text>
+          <TouchableOpacity activeOpacity={0.5} onPress={signOut}>
+            <Text style={styles.logout}>Đăng xuất</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -200,7 +208,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   greenBg: {
-    backgroundColor: "#2A9083",
+    backgroundColor: COLORS.orangeText,
     paddingHorizontal: 15,
     paddingTop: 12,
     paddingBottom: 90,

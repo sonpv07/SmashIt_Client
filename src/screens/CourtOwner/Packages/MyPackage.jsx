@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import PackageItem from "../../../components/Organisms/PackageItem";
 
-export default function MyPackage() {
+export default function MyPackage({ navigation }) {
   const pakageList = [
     {
       id: 1,
@@ -49,6 +49,7 @@ export default function MyPackage() {
               isBought={true}
               usePercent={item.usePercent}
               ribbonText={item.ribbonText}
+              navigation={navigation}
             />
           );
         }}

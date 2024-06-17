@@ -10,6 +10,7 @@ import Notification from "./Notification";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NewsFeed from "./NewsFeed";
 import { SIZE } from "../../theme/fonts";
+import { COLORS } from "../../theme/colors";
 
 const tabs = [
   {
@@ -31,7 +32,7 @@ const NotificationLayout = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* <ScrollView> */}
       <View style={styles.container}>
         <Text style={styles.title}>Thông báo</Text>
@@ -60,7 +61,7 @@ const NotificationLayout = ({ navigation }) => {
         </View>
       </View>
       {/* </ScrollView> */}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 160,
     borderRadius: 20,
-    backgroundColor: "rgba(42,144,131,0.1)",
+    backgroundColor: COLORS.orangeBackground,
     paddingVertical: 7,
   },
   activeTab: {
@@ -91,13 +92,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 180,
     borderRadius: 20,
-    backgroundColor: "#2A9083",
+    backgroundColor: COLORS.orangeText,
     paddingVertical: 7,
   },
   text: {
     fontSize: SIZE.size_16,
     fontFamily: "quicksand-bold",
-    color: "#2A9083",
+    color: COLORS.orangeText,
   },
   activeText: {
     fontSize: SIZE.size_16,

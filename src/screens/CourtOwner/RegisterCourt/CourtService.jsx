@@ -39,7 +39,7 @@ export default function CourtService({
           inputType={"icon"}
           primaryText={"Thêm dịch vụ tiện ích"}
           placeholderText={"Dịch vụ"}
-          iconBackgroundColor={COLORS.darkGreenText}
+          iconBackgroundColor={COLORS.orangeText}
           iconFamily={"AntDesign"}
           iconName={"plus"}
           iconColor={COLORS.white}

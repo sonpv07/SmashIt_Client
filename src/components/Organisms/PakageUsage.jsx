@@ -31,7 +31,7 @@ export default function PakageUsage() {
           borderRadius={10}
           borderColor="white"
           unfilledColor="#D9D9D9"
-          color={COLORS.darkGreenText}
+          color={COLORS.orangeText}
         />
 
         <View style={styles.dataSection}>
@@ -61,7 +61,7 @@ export default function PakageUsage() {
           borderRadius={10}
           borderColor="white"
           unfilledColor="#D9D9D9"
-          color={COLORS.darkGreenText}
+          color={COLORS.orangeText}
         />
 
         <View style={styles.dataSection}>
@@ -91,7 +91,7 @@ export default function PakageUsage() {
           borderRadius={10}
           borderColor="white"
           unfilledColor="#D9D9D9"
-          color={COLORS.darkGreenText}
+          color={COLORS.orangeText}
         />
 
         <View style={styles.dataSection}>

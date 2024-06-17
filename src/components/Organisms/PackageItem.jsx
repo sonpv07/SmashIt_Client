@@ -68,7 +68,7 @@ export default function PackageItem({
                   styles.progessText,
                   {
                     fontFamily: "quicksand-semibold",
-                    color: COLORS.darkGreenText,
+                    color: COLORS.orangeText,
                   },
                 ]}
               >
@@ -82,7 +82,7 @@ export default function PackageItem({
               borderRadius={10}
               borderColor="white"
               unfilledColor="#D9D9D9"
-              color={COLORS.darkGreenText}
+              color={COLORS.orangeText}
             />
           </View>
         ) : (

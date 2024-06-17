@@ -1,4 +1,11 @@
-import { LogBox, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  LogBox,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import FontLoader from "./src/components/FontLoader";
 import Navigation from "./src/navigation/Navigation";
@@ -18,6 +25,7 @@ import RewardDetail from "./src/screens/User/Settings/RewardDetail";
 import RewardHistory from "./src/screens/User/Settings/RewardHistory";
 import Languages from "./src/screens/User/Settings/Languages";
 import CourtRating from "./src/screens/Notification/notification-detail/CourtRating";
+import { baseURL } from "./src/constants/constants";
 
 export default function App() {
   LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
@@ -27,14 +35,14 @@ export default function App() {
     <NativeBaseProvider>
       <AuthProvider>
         <FontLoader>
-          <View style={styles.safeContainer}>
-            <TopContent />
+          <SafeAreaView style={styles.safeContainer}>
+            {/* <TopContent /> */}
             {/* <CourtCodeManagement /> */}
             <Navigation />
             {/* <Package /> */}
             {/* <PackageDetail /> */}
-            <StatusBar hidden />
-          </View>
+            <StatusBar />
+          </SafeAreaView>
         </FontLoader>
       </AuthProvider>
     </NativeBaseProvider>
@@ -44,7 +52,7 @@ export default function App() {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.black,
     // marginTop: 50,
     // paddingHorizontal: 10
     // marginTop: 50,

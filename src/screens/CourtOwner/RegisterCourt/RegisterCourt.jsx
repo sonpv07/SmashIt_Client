@@ -1,5 +1,6 @@
 import {
   Keyboard,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -34,6 +35,10 @@ export default function RegisterCourt({ navigation, route }) {
   const [phone, setPhone] = useState("");
 
   const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [rePassword, setRePassword] = useState("");
 
   const [courtAddress, setCourtAddress] = useState("");
 
@@ -138,6 +143,10 @@ export default function RegisterCourt({ navigation, route }) {
                 setEmail={setEmail}
                 phone={phone}
                 setPhone={setPhone}
+                password={password}
+                setPassword={setPassword}
+                rePassword={rePassword}
+                setRePassword={setRePassword}
               />
             )}
             {step === 2 && (
@@ -182,11 +191,14 @@ export default function RegisterCourt({ navigation, route }) {
             ]}
           >
             <StepDot quantity={5} currentStep={step} />
-            <TouchableOpacity style={styles.button} onPress={handlePress}>
+            <Pressable
+              style={({ pressed }) => [styles.button]}
+              onPress={handlePress}
+            >
               <Text style={styles.buttonText}>
                 {step < 5 ? "Tiếp tục" : "Hoàn thành"}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </ScrollView>
       </View>
@@ -211,7 +223,7 @@ const styles = StyleSheet.create({
 
   button: {
     width: "100%",
-    backgroundColor: COLORS.darkGreenText,
+    backgroundColor: COLORS.orangeText,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
