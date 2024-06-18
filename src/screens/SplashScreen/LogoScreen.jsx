@@ -1,8 +1,11 @@
 import { Animated, Image, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import images from "../../constants/images";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function LogoScreen({ navigation }) {
+  const { setIsShowLogo, setIsLogin, loadUser } = useContext(AuthContext);
+
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -10,8 +13,14 @@ export default function LogoScreen({ navigation }) {
       toValue: 1,
       duration: 3000,
       useNativeDriver: true,
-    }).start(() => {
-      navigation.replace("Welcome");
+    }).start(async () => {
+      const user = await loadUser();
+      if (user) {
+        setIsShowLogo(false);
+        setIsLogin(true);
+      } else {
+        setIsShowLogo(false);
+      }
     });
   }, [fadeAnim, navigation]);
 

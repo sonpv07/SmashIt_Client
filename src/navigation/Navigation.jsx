@@ -47,15 +47,14 @@ export default function Navigation() {
 
   // const isLogin = false;
 
-  const { isLogin, firstRegister, chosenRole } = useContext(AuthContext);
-
-  console.log(isLogin);
+  const { isLogin, firstRegister, chosenRole, isShowLogo } =
+    useContext(AuthContext);
 
   return (
     // NOT LOGIN SCREEN
 
     <NavigationContainer>
-      {!isLogin && !firstRegister && (
+      {isShowLogo && (
         <Stack.Navigator
           initialRouteName="Logo"
           screenOptions={{
@@ -63,8 +62,8 @@ export default function Navigation() {
           }}
         >
           <Stack.Screen
-            name="Login"
-            component={Login}
+            name="Logo"
+            component={LogoScreen}
             headerBackTitleVisible={true}
             options={{
               headerShown: false,
@@ -72,10 +71,19 @@ export default function Navigation() {
               animation: "slide_from_right",
             }}
           />
+        </Stack.Navigator>
+      )}
 
+      {!isLogin && !firstRegister && !isShowLogo && (
+        <Stack.Navigator
+          initialRouteName="Welcome"
+          screenOptions={{
+            animation: "default",
+          }}
+        >
           <Stack.Screen
-            name="Logo"
-            component={LogoScreen}
+            name="Login"
+            component={Login}
             headerBackTitleVisible={true}
             options={{
               headerShown: false,
@@ -128,7 +136,7 @@ export default function Navigation() {
 
       {/* ALREADY LOGIN SCREEN */}
 
-      {isLogin && !firstRegister && (
+      {isLogin && !firstRegister && !isShowLogo && (
         <Stack.Navigator
           initialRouteName="BottomTab"
           screenOptions={{
@@ -409,7 +417,7 @@ export default function Navigation() {
         </Stack.Navigator>
       )}
 
-      {firstRegister && (
+      {firstRegister && !isShowLogo && (
         <Stack.Navigator
           initialRouteName={
             chosenRole === "player"

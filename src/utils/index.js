@@ -70,9 +70,26 @@ export const getBaseURL = () => {
   if (Platform.OS === "android") {
     const isEmulator = !Device.isDevice;
     return isEmulator
-      ? "https://10.0.2.2:7006/api"
-      : "https://localhost:7006/api";
+      ? "http://10.0.2.2:5036/api"
+      : "http://localhost:5036/api";
   } else {
-    return "https://localhost:7006/api";
+    return "http://localhost:5036/api";
+  }
+};
+
+export const convertRole = (roleID) => {
+  switch (roleID) {
+    case 1: {
+      return "player";
+    }
+    case 2: {
+      return "courtOwner";
+    }
+    case 3: {
+      return "admin";
+    }
+
+    default:
+      return "player";
   }
 };
