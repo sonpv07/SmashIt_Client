@@ -15,8 +15,10 @@ import { Checkbox } from "native-base";
 import { AuthContext } from "../../context/AuthContext";
 import { COLORS } from "../../theme/colors";
 import axios from "axios";
-import { baseURL } from "../../constants/constants";
 import { postRequest } from "../../services";
+
+import API_URL_ENV from "../../configs/api"
+const API_URL = API_URL_ENV + "/api/Authentication";
 
 const Login = ({ navigation }) => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -32,7 +34,8 @@ const Login = ({ navigation }) => {
     };
 
     try {
-      const res = await postRequest(`${baseURL}/Authentication/logn`, body);
+      const res = await postRequest(`${API_URL}/login`, body);
+      console.log(res);
 
       if (res?.statusCode === 200) {
         setIsLogin(true);

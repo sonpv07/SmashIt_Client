@@ -26,7 +26,7 @@ export const getRequest = async (url, token) => {
       withCredentials: !!token,
     });
 
-    return { error: false, data: response.data };
+    return response.data;
   } catch (error) {
     return error;
   }
