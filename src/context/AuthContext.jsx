@@ -3,6 +3,7 @@ import * as SecureStore from "expo-secure-store";
 import { baseURL } from "../constants/constants";
 import { getRequest, postRequest } from "../services";
 import { convertRole } from "../utils";
+import API_URL_ENV from "../configs/api";
 
 export const AuthContext = createContext();
 
@@ -42,10 +43,19 @@ export const AuthProvider = ({ children }) => {
 
   const getUserProfile = async (accessToken) => {
     try {
-      const res = await getRequest(`${baseURL}/User/get-profile`, accessToken);
+      const res = await getRequest(
+        `${API_URL_ENV}/api/User/get-profile`,
+        accessToken
+      );
+
+      console.log(res);
 
       if (res?.statusCode >= 200 && res?.statusCode < 300) {
-        const isValidRole = checkUserRole(convertRole(res.data.roleId));
+        let isValidRole = true;
+
+        if (chosenRole) {
+          isValidRole = checkUserRole(convertRole(res.data.roleId));
+        }
 
         if (isValidRole) {
           setUser(res.data);
@@ -67,7 +77,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (body) => {
     try {
       const res = await postRequest(
-        `${baseURL}/Authentication/login`,
+        `${API_URL_ENV}/api/Authentication/login`,
         body,
         null
       );

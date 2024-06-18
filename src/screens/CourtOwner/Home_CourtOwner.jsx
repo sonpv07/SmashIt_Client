@@ -167,7 +167,6 @@ export default function Home_CourtOwner() {
             }}
             sliderWidth={sliderWidth}
             itemWidth={itemWidth}
-            style={{}}
           />
         </View>
 

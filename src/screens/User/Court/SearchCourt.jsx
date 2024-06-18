@@ -6,8 +6,8 @@ import { COLORS } from "../../../theme/colors";
 import { SIZE } from "../../../theme/fonts";
 import ChipList from "../../../components/Molecules/ChipList";
 import CourtItem from "../../../components/Organisms/CourtItem";
-import CourtService from "../../../services/CourtService";
 import { useIsFocused } from "@react-navigation/native";
+import CourtService from "../../../services/court.service";
 
 export default function SearchCourt({ navigation }) {
   const searchCourt = [1, 2, 3, 4, 5];
@@ -40,6 +40,8 @@ export default function SearchCourt({ navigation }) {
 
     fetchData();
   }, [isFocus]);
+
+  console.log(courtList);
 
   return (
     <View style={styles.container}>

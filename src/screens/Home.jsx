@@ -63,7 +63,7 @@ export default function Home() {
         <Text style={[styles.title, { marginTop: 50 }]}>
           Ưu đãi hấp dẫn
         </Text>
-        <Carousel />
+        {/* <Carousel /> */}
       </View>
       <View style={styles.suggest}>
         <Title_MoreInfo title={"Đề xuất dành cho bạn"} />

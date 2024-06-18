@@ -16,6 +16,11 @@ import CustomButton from "../../components/Atoms/CustomButton";
 import { Checkbox } from "native-base";
 import { AuthContext } from "../../context/AuthContext";
 import { COLORS } from "../../theme/colors";
+import axios from "axios";
+import { postRequest } from "../../services";
+
+import API_URL_ENV from "../../configs/api"
+const API_URL = API_URL_ENV + "/api/Authentication";
 import { ErrorText } from "../../constants/errors";
 
 const Login = ({ navigation }) => {

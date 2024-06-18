@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Dimensions, FlatList, StyleSheet, View } from "react-native";
 import ImageComponent from "../Atoms/Image";
-import {COLORS} from "../../theme/colors"
+import { COLORS } from "../../theme/colors";
 
 const { height, width } = Dimensions.get("window");
 
@@ -22,12 +22,11 @@ const Carousel = () => {
           data={data}
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{gap: 20}}
+          contentContainerStyle={{ gap: 20 }}
           onScroll={(e) => {
             const x = e.nativeEvent.contentOffset.x;
             setCurrentIndex((x / width).toFixed(0));
           }}
-          style={styles.roll}
           renderItem={({ item, index }) => {
             return (
               <View
@@ -55,7 +54,8 @@ const Carousel = () => {
                 width: currentIndex == index ? 10 : 8,
                 height: currentIndex == index ? 10 : 8,
                 borderRadius: currentIndex == index ? 5 : 4,
-                backgroundColor: currentIndex == index ? COLORS.orangeText : COLORS.greyText,
+                backgroundColor:
+                  currentIndex == index ? COLORS.orangeText : COLORS.greyText,
                 marginLeft: 5,
               }}
             ></View>
@@ -68,11 +68,11 @@ const Carousel = () => {
 const styles = StyleSheet.create({
   layout: {
     backgroundColor: "#fff",
-    width: '100%',
-    height: undefined,
+    width: "100%",
+    // height: undefined,
     aspectRatio: 1.6,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   outline: {
     // backgroundColor: "pink",
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   dots: {
     flexDirection: "row",
-    width: '100%',
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 10,
