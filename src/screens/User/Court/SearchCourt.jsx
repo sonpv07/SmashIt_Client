@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SearchInput from "../../../components/Atoms/SearchInput";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import { COLORS } from "../../../theme/colors";
@@ -8,6 +8,7 @@ import ChipList from "../../../components/Molecules/ChipList";
 import CourtItem from "../../../components/Organisms/CourtItem";
 import { useIsFocused } from "@react-navigation/native";
 import CourtService from "../../../services/court.service";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function SearchCourt({ navigation }) {
   const searchCourt = [1, 2, 3, 4, 5];
@@ -27,11 +28,11 @@ export default function SearchCourt({ navigation }) {
 
   const [courtList, setCourtList] = useState([]);
 
+  const { token } = useContext(AuthContext);
+
   useEffect(() => {
     const fetchData = async () => {
-      const res = await CourtService.getAllCourt();
-
-      console.log("res", res);
+      const res = await CourtService.getAllCourt(token);
 
       if (res && res.length > 0) {
         setCourtList(res);

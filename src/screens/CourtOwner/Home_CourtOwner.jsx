@@ -8,29 +8,28 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useContext, useEffect } from "react";
 import backgroundHomeImage from "../../assets/images/HomeHeaderCourtOwner.png";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import { useNavigation } from "@react-navigation/native";
 import Title_MoreInfo from "../../components/Atoms/Title_MoreInfo";
 import { COLORS } from "../../theme/colors";
 import { SIZE } from "../../theme/fonts";
-import CourtBackground from "../../components/Organisms/CourtBackground";
-import InputIcon from "../../components/Atoms/InputIcon";
-import PackageItem from "../../components/Organisms/PackageItem";
 import OfferCard from "../../components/Organisms/OfferCard";
 import images from "../../constants/images";
 import VectorIcon from "../../components/Atoms/VectorIcon";
 import Carousel from "react-native-snap-carousel";
 import { METRICS } from "../../theme/metrics";
 import OwnedCourtCard from "../../components/Organisms/OwnedCourtCard";
+import { AuthContext } from "../../context/AuthContext";
+import { CourtOwnerContext } from "../../context/CourtOwnerContext";
+import CourtService from "../../services/court.service";
 
 export default function Home_CourtOwner() {
-  const fullName = "Nguyệt Ánh";
-  const courtName = "Sân Bình Trưng Tây";
-  const courtAddress =
-    "41 Đường 41, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh";
+  const { user, token } = useContext(AuthContext);
+
+  const { courtInfo, setCourtInfo } = useContext(CourtOwnerContext);
+
   const courtList = [
     {
       id: 1,
@@ -56,12 +55,20 @@ export default function Home_CourtOwner() {
   ];
   const navigation = useNavigation();
 
-  const handlePress = () => {
-    navigation.navigate("Search");
-  };
-
   const sliderWidth = METRICS.screenWidth;
   const itemWidth = METRICS.screenWidth * 0.85;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await CourtService.getCourtByOwner(user?.id, token);
+
+      if (res) {
+        setCourtInfo(res);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -80,19 +87,19 @@ export default function Home_CourtOwner() {
             />
             <View>
               <Text style={[styles.header_Text, { fontSize: SIZE.size_14 }]}>
-                {courtName}
+                {courtInfo?.courtName}
               </Text>
               <Text
                 style={[styles.header_Text, { fontFamily: "quicksand-medium" }]}
               >
-                {courtAddress}
+                {courtInfo?.address}
               </Text>
             </View>
           </View>
 
           <View style={{ gap: 10 }}>
             <Text style={[styles.header_Text, { fontSize: SIZE.size_20 }]}>
-              Ngày mới tốt lành! {fullName}
+              Ngày mới tốt lành! {user?.fullName}
             </Text>
 
             <View

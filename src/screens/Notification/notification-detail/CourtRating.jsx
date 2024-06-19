@@ -38,7 +38,7 @@ const CourtRating = () => {
   const [star, setStar] = useState(0);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.hLeft}>
           <TouchableOpacity
@@ -116,7 +116,7 @@ const CourtRating = () => {
           </View>
         </View>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

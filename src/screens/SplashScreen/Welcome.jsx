@@ -10,13 +10,9 @@ import { COLORS } from "../../theme/colors";
 const Welcome = ({ navigation }) => {
   const [isNew, setIsNew] = useState(false);
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image
-          source={images.logoCourt}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <Image source={images.logo1} style={styles.logo} resizeMode="contain" />
       </View>
       {/* <View style={styles.blobContainer}>
         <Image source={images.blob} style={styles.blob} resizeMode="contain" />
@@ -45,7 +41,7 @@ const Welcome = ({ navigation }) => {
           />
         </View> */}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

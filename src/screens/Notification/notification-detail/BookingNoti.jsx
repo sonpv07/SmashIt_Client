@@ -23,7 +23,7 @@ const bookings = [
 
 const BookingNoti = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -34,7 +34,7 @@ const BookingNoti = ({ navigation }) => {
         <Text style={styles.title}>Thông tin đặt sân</Text>
       </View>
       <NotificationInfo list={bookings} icon={icons.booking} />
-    </SafeAreaView>
+    </View>
   );
 };
 

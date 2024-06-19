@@ -13,11 +13,12 @@ import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../../context/AuthContext";
 import Divider from "../../../components/Atoms/Divider";
+import { convertRole } from "../../../utils";
 
 export default function Settings() {
   const navigation = useNavigation();
 
-  const { chosenRole } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const directoryPlayer = [
     {
@@ -118,7 +119,7 @@ export default function Settings() {
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.account}>
-          <Text style={styles.name}>Nguyễn Minh Anh</Text>
+          <Text style={styles.name}>{user?.fullName}</Text>
           <TouchableOpacity
             style={styles.avatar}
             onPress={() => navigation.navigate("MyProfile")}
@@ -130,7 +131,7 @@ export default function Settings() {
           </TouchableOpacity>
         </View>
         <View>
-          {chosenRole === "player" &&
+          {convertRole(user?.roleId) === "player" &&
             directoryPlayer.map((section, index) => {
               return (
                 <View key={index} style={styles.container}>
@@ -206,7 +207,7 @@ export default function Settings() {
               );
             })}
 
-          {chosenRole === "courtOwner" &&
+          {convertRole(user?.roleId) === "courtOwner" &&
             directoryCourtOwner.map((section, index) => {
               return (
                 <View key={index} style={styles.container}>

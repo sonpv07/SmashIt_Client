@@ -61,7 +61,7 @@ const Rewards = ({}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { width } = useWindowDimensions();
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <View style={styles.greenBg}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -171,7 +171,7 @@ const Rewards = ({}) => {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

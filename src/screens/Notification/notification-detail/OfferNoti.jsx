@@ -22,7 +22,7 @@ const offers = [
 
 const OfferNoti = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -33,7 +33,7 @@ const OfferNoti = ({ navigation }) => {
         <Text style={styles.title}>Khuyến mãi</Text>
       </View>
       <NotificationInfo list={offers} icon={icons.voucher} />
-    </SafeAreaView>
+    </View>
   );
 };
 
