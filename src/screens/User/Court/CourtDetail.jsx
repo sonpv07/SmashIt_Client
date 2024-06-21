@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -15,20 +15,37 @@ import Comment from "../../../components/Organisms/Comment";
 import StarRating from "react-native-star-rating-widget";
 import ChipList from "../../../components/Molecules/ChipList";
 import StepDot from "../../../components/Molecules/StepDot";
-import { useNavigation } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
+import CourtService from "../../../services/court.service";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
+import { AuthContext } from "../../../context/AuthContext";
 
 const CourtDetail = () => {
+  const route = useRoute();
+  const courtId = Number(route.params.badmintonCourtId);
+  const [court, setCourt] = useState({});
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  const { token } = useContext(AuthContext); // Retrieve token from AuthContext
 
-  const serviceList = [
-    "Wi-fi",
-    "Tổ chức giải đấu",
-    "Giữ xe miễn phí",
-    "Quầy giữ đồ",
-    "Chăm sóc y tế",
-    "Canteen",
-  ];
+  useEffect(() => {
+    const fetchCourt = async () => {
+      const res = await CourtService.getCourtById(token, courtId);
+      if (res) {
+        setCourt(res);
+      } else {
+        navigation.navigate("Search");
+      }
+    };
+    if (isFocused) {
+      fetchCourt();
+    }
+  }, [isFocused, token, courtId, navigation]);
+
 
   const commentList = [
     {
@@ -107,10 +124,10 @@ const CourtDetail = () => {
         <View style={styles.courtDetail}>
           <View>
             <VectorIcon.AntDesign />
-            <Text style={styles.title}>Sân cầu lông Quân Đội</Text>
+            <Text style={styles.title}>Sân cầu lông {court.courtName}</Text>
           </View>
           <Text style={styles.mediumText}>
-            606/16 Nguyễn Xiển, Long Thạnh Mỹ, Thủ Đức, Thành phố Hồ Chí Minh
+            {court.address}
           </Text>
           <View style={styles.courtMoreDetail}>
             <View style={styles.rating}>
@@ -164,9 +181,9 @@ const CourtDetail = () => {
             </View>
             <View style={{ gap: 5 }}>
               <Text style={{ fontFamily: "quicksand-semibold" }}>
-                Nguyễn Văn A (Chủ sân)
+                {court.owner}
               </Text>
-              <Text style={styles.content}>098764321</Text>
+              <Text style={styles.content}>{court.phoneNumber}</Text>
             </View>
           </View>
         </View>
@@ -174,7 +191,7 @@ const CourtDetail = () => {
           <Text style={styles.title}>Cơ sở vật chất</Text>
           <View style={styles.chip}>
             <ChipList
-              dataList={serviceList}
+              dataList={court.serviceCourts? court.serviceCourts : []}
               borderColor={"#D9D9D9"}
               textFamily={"quicksand-regular"}
             />
@@ -215,10 +232,10 @@ const CourtDetail = () => {
       <View style={styles.bottomTab}>
         <View style={styles.bookingInfo}>
           <Text style={styles.price}>
-            <Text style={styles.oldPrice}>110.000đ</Text>{" "}
-            <Text style={styles.newPrice}>90.000đ</Text>/giờ
+            {/* <Text style={styles.oldPrice}>110.000đ</Text>{" "} */}
+            <Text style={styles.newPrice}>{court.pricePerHour}đ</Text>/giờ
           </Text>
-          <Text style={styles.voucher}>Đã áp dụng voucher</Text>
+          {/* <Text style={styles.voucher}>Đã áp dụng voucher</Text> */}
         </View>
         <View style={styles.bookingButton}>
           <TouchableOpacity

@@ -7,10 +7,25 @@ import { COLORS } from "../../theme/colors";
 import { useNavigation } from "@react-navigation/native";
 
 
-export default function CourtBackground() {
+export default function CourtBackground({
+  // navigation,
+  id,
+  profileImage,
+  courtName,
+  numberOfCourt,
+  hourStart,
+  minuteStart,
+  hourEnd,
+  minuteEnd,
+  pricePerHour,
+  priceAtWeekend,
+  priceAtHoliday,
+  address,
+  accountId
+}) {
   const navigation = useNavigation();
   const handlePress = () => {
-    navigation.navigate("CourtDetail");
+    navigation.navigate("CourtDetail", { badmintonCourtId : id });
   }
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
@@ -28,7 +43,7 @@ export default function CourtBackground() {
 
         <View style={styles.courtSection}>
           <View style={styles.topSection}>
-            <Text style={styles.primaryText}>Sân Cầu lông Quân Đội</Text>
+            <Text style={styles.primaryText}>Sân Cầu lông {courtName}</Text>
             <View style={styles.rating}>
               <AntDesign
                 name="star"
@@ -42,7 +57,7 @@ export default function CourtBackground() {
 
           <View style={styles.bottomSection}>
             <View style={styles.ribbon}>
-              <Text style={styles.primaryText}>6 sân trống</Text>
+              <Text style={styles.primaryText}>{numberOfCourt} sân trống</Text>
             </View>
             <Text
               style={[
@@ -52,7 +67,7 @@ export default function CourtBackground() {
             >
               Cách 5.0km
             </Text>
-            <Text style={styles.primaryText}>89.000đ/giờ</Text>
+            <Text style={styles.primaryText}>{pricePerHour}đ/giờ</Text>
           </View>
         </View>
       </View>
