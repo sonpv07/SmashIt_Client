@@ -22,6 +22,7 @@ export default function InputIcon({
   inputData,
   setInputData,
 }) {
+  console.log(typeof inputData);
   return (
     <View style={[styles.outline]}>
       {inputType === "number" && (
@@ -29,7 +30,7 @@ export default function InputIcon({
           inputMode="numeric"
           style={[styles.input, { fontSize: SIZE.size_16 }]}
           placeholder={placeholder}
-          value={inputData}
+          value={inputData.toString()}
           onChangeText={(value) =>
             isNaN(parseInt(value))
               ? setInputData(0)
