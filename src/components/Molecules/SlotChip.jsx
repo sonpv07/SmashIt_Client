@@ -24,16 +24,17 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
         setChosenSlot(null);
       }
     } else {
-      const updatedSlots = timeSlots.map((slot) =>
-        slot.start === choice.start && slot.end === choice.end
-          ? { ...slot, isChoose: !slot.isChoose }
-          : slot
-      );
-      setTimeSlots(updatedSlots);
+      setChosenSlot((prevChosenSlots) => {
+        if (prevChosenSlots.includes(choice)) {
+          return prevChosenSlots.filter((slot) => slot !== choice);
+        } else {
+          return [...prevChosenSlots, choice];
+        }
+      });
     }
   };
 
-  console.log(chosenSlot);
+  console.log(slotList);
 
   // const generateTimeIntervals = (startTime, endTime) => {
   //   const intervals = [];
@@ -111,7 +112,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
                     chosenSlot?.end === slot.end &&
                     slot.isOccupied
                       ? COLORS.darkGreyBorder
-                      : COLORS.darkGreenText,
+                      : COLORS.lightGreenText,
                 },
               ]}
             >
@@ -130,7 +131,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
             </TouchableOpacity>
           ))} */}
 
-          {slotList?.map((slot) => (
+          {slotList?.timeFrame?.map((slot) => (
             <TouchableOpacity
               onPress={() => handleChooseSlot(slot)}
               activeOpacity={0.7}
@@ -138,18 +139,18 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
               style={[
                 styles.slot,
                 {
-                  backgroundColor: slot.isOccupied
+                  backgroundColor: slot?.isOccupied
                     ? "rgba(117,117,117,0.1)"
                     : slot.isChoose
                     ? COLORS.orangeBackground
                     : "rgba(42,144,131,0.1)",
 
-                  borderWidth: chosenSlot?.id === slot.id ? 1 : 0,
+                  borderWidth: chosenSlot === slot ? 1 : 0,
 
                   borderColor:
-                    chosenSlot?.id === slot.id && slot.isOccupied
+                    chosenSlot === slot && slot.isOccupied
                       ? COLORS.darkGreyBorder
-                      : COLORS.darkGreenText,
+                      : COLORS.lightGreenText,
                 },
               ]}
             >
@@ -165,7 +166,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
                   },
                 ]}
               >
-                {slot.timeFrame}
+                {slot}
               </Text>
             </TouchableOpacity>
           ))}
