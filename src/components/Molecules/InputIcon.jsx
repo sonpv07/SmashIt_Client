@@ -30,7 +30,7 @@ export default function InputIcon({
           inputMode="numeric"
           style={[styles.input, { fontSize: SIZE.size_16 }]}
           placeholder={placeholder}
-          value={inputData.toString()}
+          value={inputData?.toString()}
           onChangeText={(value) =>
             isNaN(parseInt(value))
               ? setInputData(0)

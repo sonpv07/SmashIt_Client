@@ -32,7 +32,7 @@ export default function OwnedCourtCard({
       style={styles.container}
       activeOpacity={0.5}
       onPress={() =>
-        navigation.navigate("CourtCodeManagement", { courtCode: courtId })
+        navigation.navigate("CourtCodeManagement", { courtCode: courtCode })
       }
     >
       <View style={styles.upperSection}>
