@@ -78,7 +78,8 @@ const MyVoucherDetail = () => {
 
       <TouchableOpacity
         style={[styles.footerButton, { width: width - 40 }]}
-        activeOpacity={1}
+        activeOpacity={0.5}
+        onPress={() => navigate.navigate("Search")}
       >
         <Text style={styles.footerButtonText}>Sử dụng ngay</Text>
       </TouchableOpacity>

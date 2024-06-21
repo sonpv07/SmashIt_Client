@@ -59,12 +59,11 @@ export default function InputImage({ style, data, setData, allowMultiple }) {
       <TouchableOpacity
         style={[styles.imagePicker, style]}
         onPress={() => {
-          StatusBar.setHidden(true);
           setIsModalOpen(true);
         }}
       >
-        {image ? (
-          <Image source={{ uri: image }} style={styles.image} />
+        {data && !allowMultiple && data.length > 0 ? (
+          <Image source={{ uri: data[0] }} style={styles.image} />
         ) : (
           <View style={{ alignItems: "center", gap: 7 }}>
             <VectorIcon.Entypo name="images" size={20} />

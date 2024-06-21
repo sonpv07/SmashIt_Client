@@ -19,6 +19,7 @@ const FormInput = ({
   width,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+
   return (
     <View style={[styles.container, { marginTop: marginTop }]}>
       <Text style={styles.label}>{label}</Text>
@@ -28,7 +29,7 @@ const FormInput = ({
           placeholder={placeholder}
           placeholderTextColor="#BCBCBC"
           onChangeText={handleChangeText}
-          secureTextEntry={label.includes("Mật khẩu") && !showPassword}
+          secureTextEntry={label.includes("khẩu") && !showPassword}
           style={styles.input}
         />
         {label.includes("khẩu") && (

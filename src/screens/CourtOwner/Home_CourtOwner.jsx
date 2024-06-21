@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   ScrollView,
@@ -8,60 +9,105 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useContext, useEffect, useState } from "react";
 import backgroundHomeImage from "../../assets/images/HomeHeaderCourtOwner.png";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import { useNavigation } from "@react-navigation/native";
 import Title_MoreInfo from "../../components/Atoms/Title_MoreInfo";
 import { COLORS } from "../../theme/colors";
 import { SIZE } from "../../theme/fonts";
-import CourtBackground from "../../components/Organisms/CourtBackground";
-import InputIcon from "../../components/Atoms/InputIcon";
-import PackageItem from "../../components/Organisms/PackageItem";
 import OfferCard from "../../components/Organisms/OfferCard";
 import images from "../../constants/images";
 import VectorIcon from "../../components/Atoms/VectorIcon";
 import Carousel from "react-native-snap-carousel";
 import { METRICS } from "../../theme/metrics";
 import OwnedCourtCard from "../../components/Organisms/OwnedCourtCard";
+import { AuthContext } from "../../context/AuthContext";
+import { CourtOwnerContext } from "../../context/CourtOwnerContext";
+import CourtService from "../../services/court.service";
+import CourtCodeService from "../../services/court-code.service";
+import SlotService from "../../services/slot.service";
+import Loading from "../../components/Molecules/Loading";
 
 export default function Home_CourtOwner() {
-  const fullName = "Nguyệt Ánh";
-  const courtName = "Sân Bình Trưng Tây";
-  const courtAddress =
-    "41 Đường 41, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh";
-  const courtList = [
-    {
-      id: 1,
-      isActive: true,
-      revenue: 12000000,
-      bookedSlot: 12,
-      totalSlot: 20,
-    },
-    {
-      id: 2,
-      isActive: false,
-      revenue: 4000000,
-      bookedSlot: 12,
-      totalSlot: 20,
-    },
-    {
-      id: 3,
-      isActive: true,
-      revenue: 17112003,
-      bookedSlot: 12,
-      totalSlot: 25,
-    },
-  ];
-  const navigation = useNavigation();
+  const { user, token } = useContext(AuthContext);
 
-  const handlePress = () => {
-    navigation.navigate("Search");
-  };
+  const [isLoadCourtCode, setIsLoadCourtCode] = useState(true);
+
+  const {
+    courtInfo,
+    setCourtInfo,
+    courtCodeList,
+    setCourtCodeList,
+    totalSlot,
+    setTotalSlot,
+  } = useContext(CourtOwnerContext);
+
+  console.log(isLoadCourtCode);
+
+  // const courtList = [
+  //   {
+  //     id: 1,
+  //     isActive: true,
+  //     revenue: 12000000,
+  //     bookedSlot: 12,
+  //     totalSlot: 20,
+  //   },
+  //   {
+  //     id: 2,
+  //     isActive: false,
+  //     revenue: 4000000,
+  //     bookedSlot: 12,
+  //     totalSlot: 20,
+  //   },
+  //   {
+  //     id: 3,
+  //     isActive: true,
+  //     revenue: 17112003,
+  //     bookedSlot: 12,
+  //     totalSlot: 25,
+  //   },
+  // ];
+  const navigation = useNavigation();
 
   const sliderWidth = METRICS.screenWidth;
   const itemWidth = METRICS.screenWidth * 0.85;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoadCourtCode(true);
+
+      const courtData = await CourtService.getCourtByOwner(user?.id, token);
+
+      if (courtData) {
+        setCourtInfo(courtData);
+
+        const courtCodeData =
+          await CourtCodeService.getCourtCodeByBadmintonCourt(
+            courtData?.id,
+            token
+          );
+
+        if (courtCodeData) {
+          setCourtCodeList(courtCodeData);
+
+          const res = await SlotService.getSlotListByCourtCodeId(
+            courtCodeData[0]?.id,
+            token
+          );
+
+          console.log(res);
+
+          if (res) {
+            setTotalSlot(res.length);
+            setIsLoadCourtCode(false);
+          }
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -80,19 +126,19 @@ export default function Home_CourtOwner() {
             />
             <View>
               <Text style={[styles.header_Text, { fontSize: SIZE.size_14 }]}>
-                {courtName}
+                {courtInfo?.courtName}
               </Text>
               <Text
                 style={[styles.header_Text, { fontFamily: "quicksand-medium" }]}
               >
-                {courtAddress}
+                {courtInfo?.address}
               </Text>
             </View>
           </View>
 
           <View style={{ gap: 10 }}>
             <Text style={[styles.header_Text, { fontSize: SIZE.size_20 }]}>
-              Ngày mới tốt lành! {fullName}
+              Ngày mới tốt lành! {user?.fullName}
             </Text>
 
             <View
@@ -113,7 +159,7 @@ export default function Home_CourtOwner() {
                   { fontFamily: "quicksand-semibold" },
                 ]}
               >
-                Bạn có 2 lượt đặt sân mới
+                tôi có 2 lượt đặt sân mới
               </Text>
             </View>
           </View>
@@ -130,9 +176,9 @@ export default function Home_CourtOwner() {
           >
             <Image source={images.financial} />
             <View>
-              <Text style={[styles.semiboldText]}>Chi tiêu của bạn</Text>
+              <Text style={[styles.semiboldText]}>Sô thu chi của tôi</Text>
               <Text style={styles.regularText}>
-                Theo dõi và thống kê chi tiêu của bạn
+                Theo dõi và thống kê chi tiêu của tôi
               </Text>
             </View>
             <View
@@ -144,30 +190,39 @@ export default function Home_CourtOwner() {
         </View>
 
         <View>
-          <Title_MoreInfo title={"Sân của tôi"} navigation={"AB"} />
+          {!isLoadCourtCode ? (
+            <>
+              <Title_MoreInfo
+                title={"Sân của tôi"}
+                navigation={() => navigation.navigate("BookingManagement")}
+              />
 
-          <Carousel
-            layout="default"
-            firstItem={0}
-            contentContainerCustomStyle={{
-              paddingLeft: 0, // Ensure the first item starts at the left of the screen
-            }}
-            data={courtList}
-            renderItem={({ item }) => {
-              return (
-                <OwnedCourtCard
-                  isActive={item.isActive}
-                  revenue={item.revenue}
-                  bookedSlot={item.bookedSlot}
-                  totalSlot={item.totalSlot}
-                  courtCode={item.id}
-                  navigation={navigation}
-                />
-              );
-            }}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-          />
+              <Carousel
+                layout="default"
+                firstItem={0}
+                contentContainerCustomStyle={{
+                  paddingLeft: 0, // Ensure the first item starts at the left of the screen
+                }}
+                data={courtCodeList}
+                renderItem={({ item }) => {
+                  return (
+                    <OwnedCourtCard
+                      isActive={item?.isActive}
+                      revenue={item?.revenue}
+                      bookedSlot={item?.bookedSlot}
+                      courtCode={item?.courtCode}
+                      navigation={navigation}
+                      courtId={item?.id}
+                    />
+                  );
+                }}
+                sliderWidth={sliderWidth}
+                itemWidth={itemWidth}
+              />
+            </>
+          ) : (
+            <Loading />
+          )}
         </View>
 
         <View style={styles.suggest}>

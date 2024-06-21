@@ -28,7 +28,7 @@ const RewardDetail = () => {
   const { width } = useWindowDimensions();
   const navigate = useNavigation();
   return (
-    <SafeAreaView>
+    <View>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <HeaderBar
           text={"Thông tin ưu đãi"}
@@ -102,7 +102,7 @@ const RewardDetail = () => {
           <Text style={styles.cText}>1.000</Text>
         </View>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 

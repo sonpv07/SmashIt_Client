@@ -5,61 +5,62 @@ import NotificationInfo from "../../../components/Organisms/NotificationInfo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../../theme/fonts";
 import icons from "../../../constants/icons";
+import Oops from "../../../components/Organisms/Oops";
 
 const ratings = [
-  {
-    title: "Trải nghiệm chơi của bạn như thế nào?",
-    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
-    timeStamp: "02 Th4, 16:10",
-    id: 1,
-  },
-  {
-    title: "Trải nghiệm chơi của bạn như thế nào?",
-    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
-    timeStamp: "02 Th4, 16:10",
-    id: 2,
-  },
-  {
-    title: "Trải nghiệm chơi của bạn như thế nào?",
-    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
-    timeStamp: "02 Th4, 16:10",
-    id: 3,
-  },
-  {
-    title: "Trải nghiệm chơi của bạn như thế nào?",
-    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
-    timeStamp: "02 Th4, 16:10",
-    id: 4,
-  },
-  {
-    title: "Trải nghiệm chơi của bạn như thế nào?",
-    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
-    timeStamp: "02 Th4, 16:10",
-    id: 5,
-  },
-  {
-    title: "Trải nghiệm chơi của bạn như thế nào?",
-    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
-    timeStamp: "02 Th4, 16:10",
-    id: 6,
-  },
-  {
-    title: "Trải nghiệm chơi của bạn như thế nào?",
-    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
-    timeStamp: "02 Th4, 16:10",
-    id: 7,
-  },
-  {
-    title: "Trải nghiệm chơi của bạn như thế nào?",
-    desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
-    timeStamp: "02 Th4, 16:10",
-    id: 8,
-  },
+  // {
+  //   title: "Trải nghiệm chơi của bạn như thế nào?",
+  //   desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 1,
+  // },
+  // {
+  //   title: "Trải nghiệm chơi của bạn như thế nào?",
+  //   desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 2,
+  // },
+  // {
+  //   title: "Trải nghiệm chơi của bạn như thế nào?",
+  //   desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 3,
+  // },
+  // {
+  //   title: "Trải nghiệm chơi của bạn như thế nào?",
+  //   desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 4,
+  // },
+  // {
+  //   title: "Trải nghiệm chơi của bạn như thế nào?",
+  //   desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 5,
+  // },
+  // {
+  //   title: "Trải nghiệm chơi của bạn như thế nào?",
+  //   desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 6,
+  // },
+  // {
+  //   title: "Trải nghiệm chơi của bạn như thế nào?",
+  //   desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 7,
+  // },
+  // {
+  //   title: "Trải nghiệm chơi của bạn như thế nào?",
+  //   desc: "Do Dang ơi! Hãy đánh giá Sân cầu lông Sơn Tạ sau trải nghiệm chơi để chủ sân có thể hiểu rõ nhu cầu của người chơi hơn",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 8,
+  // },
 ];
 
 const RatingNoti = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -69,12 +70,17 @@ const RatingNoti = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.title}>Đánh giá</Text>
       </View>
-      <NotificationInfo
-        list={ratings}
-        icon={icons.rating}
-        navigateTo={"CourtRating"}
-      />
-    </SafeAreaView>
+
+      {ratings?.length <= 0 ? (
+        <Oops text={"Oops, hãy đặt sân và đánh giá để tích điêm nhé !"} />
+      ) : (
+        <NotificationInfo
+          list={ratings}
+          icon={icons.rating}
+          navigateTo={"CourtRating"}
+        />
+      )}
+    </View>
   );
 };
 

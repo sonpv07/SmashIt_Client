@@ -22,10 +22,9 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import CourtService from "../services/court.service";
 import { AuthContext } from "../context/AuthContext";
 
-
 export default function Home() {
   const isFocus = useIsFocused();
-  const {token} = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   console.log(token);
 
@@ -35,7 +34,7 @@ export default function Home() {
 
   const handlePress = () => {
     navigation.navigate("Search");
-  }
+  };
 
   const [courtList, setCourtList] = useState([]);
 
@@ -69,33 +68,41 @@ export default function Home() {
             Xin chào {fullName}, hãy tìm sân yêu thích của bạn
           </Text>
 
-          <Pressable onPress={() => {handlePress()}} style={styles.searchInput}>
+          <Pressable
+            onPress={() => {
+              handlePress();
+            }}
+            style={styles.searchInput}
+          >
             <InputIcon
               icon={"search"}
               iconColor={COLORS.orangeText}
               placeholder={"Search here..."}
               backgroundColor={"white"}
-              
             />
           </Pressable>
         </View>
       </View>
       <View style={styles.discount}>
-        <Text style={[styles.title, { marginTop: 50 }]}>
-          Ưu đãi hấp dẫn
-        </Text>
+        <Text style={[styles.title, { marginTop: 50 }]}>Ưu đãi hấp dẫn</Text>
         {/* <Carousel /> */}
       </View>
       <View style={styles.suggest}>
         <Title_MoreInfo title={"Đề xuất dành cho bạn"} />
-        <ScrollView > 
-          {
-            courtList.map((court, index) => {
-              return (
-                <View key={index} style={styles.suggestCourts}><CourtBackground courtName={court.courtName} numberOfCourt={court.numberOfCourt} id={court.id} key={court.id} pricePerHour={court.pricePerHour}  /></View>
-              )
-            })
-          }
+        <ScrollView>
+          {courtList.map((court, index) => {
+            return (
+              <View key={index} style={styles.suggestCourts}>
+                <CourtBackground
+                  courtName={court.courtName}
+                  numberOfCourt={court.numberOfCourt}
+                  id={court.id}
+                  key={court.id}
+                  pricePerHour={court.pricePerHour}
+                />
+              </View>
+            );
+          })}
         </ScrollView>
       </View>
     </ScrollView>
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
   },
   header: {
     position: "absolute",
-    top: '10%',
+    top: "10%",
     padding: 12,
     height: "106%",
     display: "flex",
@@ -164,5 +171,5 @@ const styles = StyleSheet.create({
   suggestCourts: {
     gap: 20,
     marginTop: 10,
-  }
+  },
 });

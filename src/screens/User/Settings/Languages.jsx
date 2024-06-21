@@ -12,7 +12,7 @@ const languages = [
 const Languages = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   return (
-    <SafeAreaView>
+    <View>
       <HeaderBar text={"Cài đặt ngôn ngữ"} isGoBack={true} />
       <VStack space={4} alignItems="flex-start" p={4}>
         <Radio.Group
@@ -33,7 +33,7 @@ const Languages = () => {
           </Radio>
         </Radio.Group>
       </VStack>
-    </SafeAreaView>
+    </View>
   );
 };
 

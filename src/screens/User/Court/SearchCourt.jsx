@@ -13,7 +13,7 @@ import { AuthContext } from "../../../context/AuthContext";
 export default function SearchCourt({ navigation }) {
   const isFocus = useIsFocused();
 
-  const {token} = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   // console.log(token);
 
   const dataAddress = [
@@ -42,7 +42,6 @@ export default function SearchCourt({ navigation }) {
 
     fetchData();
   }, [isFocus]);
-
 
   return (
     <View style={styles.container}>
@@ -94,7 +93,16 @@ export default function SearchCourt({ navigation }) {
           {courtList.map((court, index) => {
             return (
               <View key={index} style={styles.court}>
-                <CourtItem id={court.id} courtName={court.courtName} numberOfCourt={court.numberOfCourt} address={court.address} pricePerHour={court.pricePerHour} priceAtWeekend={court.priceAtWeekend} priceAtHoliday={court.priceAtHoliday}  navigation={navigation} />
+                <CourtItem
+                  id={court.id}
+                  courtName={court.courtName}
+                  numberOfCourt={court.numberOfCourt}
+                  address={court.address}
+                  pricePerHour={court.pricePerHour}
+                  priceAtWeekend={court.priceAtWeekend}
+                  priceAtHoliday={court.priceAtHoliday}
+                  navigation={navigation}
+                />
                 <View style={styles.hr} />
               </View>
             );

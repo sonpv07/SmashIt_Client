@@ -1,5 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TurboModuleRegistry,
+  View,
+} from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import DatePickerSlider from "../../../components/Organisms/DatePicker";
 import CourtCodeCard from "../../../components/Organisms/CourtCodeCard";
@@ -12,8 +19,20 @@ import moment from "moment";
 import "moment/locale/vi";
 import Chip from "../../../components/Atoms/Chip";
 import Divider from "../../../components/Atoms/Divider";
+import { AuthContext } from "../../../context/AuthContext";
+import CourtCodeService from "../../../services/court-code.service";
+import SlotService from "../../../services/slot.service";
+import Loading from "../../../components/Molecules/Loading";
 
-export default function CourtCodeManagement({ navigation }) {
+export default function CourtCodeManagement({ navigation, route }) {
+  const { courtCode } = route.params;
+
+  const [isSlotLoading, setIsSlotLoading] = useState(TurboModuleRegistry);
+
+  const { token } = useContext(AuthContext);
+
+  const [slotList, setSlotList] = useState([]);
+
   const [isShowDetail, setIsShowDetail] = useState(false);
 
   const [chosenSlot, setChosenSlot] = useState(null);
@@ -28,6 +47,19 @@ export default function CourtCodeManagement({ navigation }) {
 
     return capitalizedDate;
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await SlotService.getSlotListByCourtCodeId(courtCode, token);
+
+      if (res) {
+        setSlotList(res);
+        setIsSlotLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -44,14 +76,20 @@ export default function CourtCodeManagement({ navigation }) {
       </View>
 
       <View style={styles.container}>
-        <CourtCodeCard />
-        <SlotChip
-          chosenSlot={chosenSlot}
-          isCourtOwner={true}
-          setChosenSlot={setChosenSlot}
-        />
+        <CourtCodeCard courtCode={courtCode} />
 
-        {!chosenSlot && (
+        {isSlotLoading ? (
+          <Loading />
+        ) : (
+          <SlotChip
+            chosenSlot={chosenSlot}
+            isCourtOwner={true}
+            setChosenSlot={setChosenSlot}
+            slotList={slotList}
+          />
+        )}
+
+        {!chosenSlot && !isSlotLoading && (
           <View style={styles.noteSection}>
             <View style={styles.noteItem}>
               <View
@@ -117,7 +155,9 @@ export default function CourtCodeManagement({ navigation }) {
                       : "#2A9083",
                   },
                 ]}
-              >{`${chosenSlot.start} - ${chosenSlot.end}`}</Text>
+              >
+                {chosenSlot.timeFrame}
+              </Text>
             </View>
           </View>
           <Divider
@@ -172,30 +212,56 @@ export default function CourtCodeManagement({ navigation }) {
           )}
 
           {chosenSlot.isOccupied && (
-            <View style={styles.buttonSection}>
-              <TouchableOpacity
-                style={[
-                  styles.button,
-                  { borderColor: COLORS.orangeText, width: "35%" },
-                ]}
-              >
-                <Text style={[styles.buttonText, { color: COLORS.orangeText }]}>
-                  Xóa lịch đặt
-                </Text>
-              </TouchableOpacity>
+            <View
+              style={{
+                paddingHorizontal: 20,
+              }}
+            >
+              <View style={styles.buttonSection}>
+                <TouchableOpacity
+                  style={[
+                    styles.button,
+                    { borderColor: COLORS.orangeText, width: "35%" },
+                  ]}
+                >
+                  <Text
+                    style={[styles.buttonText, { color: COLORS.orangeText }]}
+                  >
+                    Xóa lịch đặt
+                  </Text>
+                </TouchableOpacity>
 
+                <TouchableOpacity
+                  style={[
+                    styles.button,
+                    {
+                      borderColor: COLORS.orangeText,
+                      backgroundColor: COLORS.orangeText,
+                      width: "60%",
+                    },
+                  ]}
+                >
+                  <Text style={[styles.buttonText, { color: COLORS.white }]}>
+                    Khách đã tới
+                  </Text>
+                </TouchableOpacity>
+              </View>
               <TouchableOpacity
+                onPress={() => {
+                  setChosenSlot(null);
+                }}
                 style={[
                   styles.button,
                   {
+                    backgroundColor: "transparent",
+                    marginTop: 15,
                     borderColor: COLORS.orangeText,
-                    backgroundColor: COLORS.orangeText,
-                    width: "60%",
+                    borderWidth: 1,
                   },
                 ]}
               >
-                <Text style={[styles.buttonText, { color: COLORS.white }]}>
-                  Khách đã tới
+                <Text style={[styles.buttonText, { color: COLORS.orangeText }]}>
+                  Đóng
                 </Text>
               </TouchableOpacity>
             </View>
@@ -219,6 +285,24 @@ export default function CourtCodeManagement({ navigation }) {
               >
                 <Text style={[styles.buttonText, { color: COLORS.white }]}>
                   Tạo lịch đặt
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setChosenSlot(null);
+                }}
+                style={[
+                  styles.button,
+                  {
+                    backgroundColor: "transparent",
+                    marginTop: 15,
+                    borderColor: COLORS.orangeText,
+                    borderWidth: 1,
+                  },
+                ]}
+              >
+                <Text style={[styles.buttonText, { color: COLORS.orangeText }]}>
+                  Đóng
                 </Text>
               </TouchableOpacity>
             </View>
@@ -332,7 +416,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
   },
 
   button: {

@@ -1,9 +1,10 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useState } from "react";
 import images from "../../constants/images";
 import CustomButton from "../../components/Atoms/CustomButton";
 import { AuthContext } from "../../context/AuthContext";
 import { COLORS } from "../../theme/colors";
+import { transform } from "lodash";
 
 const roleList = [
   {
@@ -34,12 +35,15 @@ const RolePick = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={images.courtLogo}
+      style={[styles.container, { position: "relative" }]}
+    >
       {/* <View style={styles.bgContainer}>
         <Image source={images.rolebg} style={styles.rolebg} />
       </View> */}
 
-      <Image source={images.logo1} style={styles.rolebg} />
+      {/* <Image source={images.logo1} style={styles.rolebg} /> */}
 
       <View style={styles.roleContainer}>
         <View style={styles.textContainer}>
@@ -85,7 +89,7 @@ const RolePick = ({ navigation }) => {
           handlePress={() => handleNavigate()}
         />
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     alignItems: "center",
-    backgroundColor: "rgba(255, 138, 0, 0.2)",
+    backgroundColor: COLORS.lightGreenText,
   },
   bgContainer: {
     width: "100%",

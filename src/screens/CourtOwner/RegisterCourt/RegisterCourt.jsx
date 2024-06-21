@@ -19,14 +19,17 @@ import PaymentMethod from "./PaymentMethod";
 import StepDot from "../../../components/Molecules/StepDot";
 import { SIZE } from "../../../theme/fonts";
 import { AuthContext } from "../../../context/AuthContext";
+import { postRequest } from "../../../services";
+import { baseURL, emailRegex } from "../../../constants/constants";
+import { ErrorText } from "../../../constants/errors";
+import { uploadImage } from "../../../utils";
 
 export default function RegisterCourt({ navigation, route }) {
   const [step, setStep] = useState(1);
 
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
-  const { isLogin, setIsLogin, setFirstRegister, firstRegister } =
-    useContext(AuthContext);
+  const { setIsLogin, setFirstRegister, signupOwner } = useContext(AuthContext);
 
   // Form Data Start
 
@@ -59,14 +62,28 @@ export default function RegisterCourt({ navigation, route }) {
   const [courtPriceHoliday, setCourtPriceHoliday] = useState(null);
 
   const [courtServiceList, setCourtServiceList] = useState([]);
+
+  const [bank, setBank] = useState("");
+
+  const [cardNumber, setCardNumber] = useState("");
   // Form Data End
 
-  const handlePress = () => {
+  // Error Data Start
+
+  const [errorText, setErrorText] = useState("");
+
+  // Error Data End
+
+  const handlePress = async () => {
     if (step < 5) {
-      setStep(step + 1);
+      const isError = handleCheckError();
+
+      if (!isError) {
+        setErrorText("");
+        setStep(step + 1);
+      }
     } else {
-      setFirstRegister(false);
-      setIsLogin(true);
+      await handleRegister();
     }
   };
 
@@ -78,25 +95,119 @@ export default function RegisterCourt({ navigation, route }) {
     }
   };
 
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
-        setKeyboardVisible(true);
-      }
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        setKeyboardVisible(false);
-      }
-    );
+  const handleCheckError = () => {
+    switch (step) {
+      case 1: {
+        if (!name || !phone || !password || !rePassword || !email) {
+          setErrorText(ErrorText.EMPTY_INPUT);
+          return true;
+        }
 
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
+        if (!emailRegex.test(email)) {
+          setErrorText(ErrorText.INVALID_EMAIL);
+          return true;
+        }
+
+        if (phone.length < 9 || phone.length > 11) {
+          setErrorText(ErrorText.INVALID_PHONENUMBER);
+          return true;
+        }
+
+        if (password?.length < 8) {
+          setErrorText(ErrorText.INVALID_PASSWORD);
+          return true;
+        }
+
+        if (password !== rePassword) {
+          setErrorText(ErrorText.INVALID_REPASSWORD);
+          return true;
+        }
+
+        return false;
+      }
+
+      case 2: {
+        if (!courtAddress) {
+          setErrorText(ErrorText.EMPTY_INPUT);
+          return true;
+        }
+
+        return false;
+      }
+
+      case 3: {
+        if (
+          !courtName ||
+          !courtOpenTime ||
+          !courtCloseTime ||
+          courtQuantity === 0 ||
+          !courtPrice ||
+          courtImage?.length <= 0
+        ) {
+          setErrorText(ErrorText.EMPTY_INPUT);
+          return true;
+        }
+
+        return false;
+      }
+
+      case 4: {
+        if (courtServiceList.length <= 0) {
+          setErrorText(ErrorText.EMPTY_INPUT);
+          return true;
+        }
+
+        return false;
+      }
+
+      default:
+        return false;
+    }
+  };
+
+  const handleRegister = async () => {
+    let body = {
+      fullName: name.trim(),
+      email: email.trim(),
+      password: password,
+      bank: bank,
+      cardNumber: cardNumber.trim(),
+      phoneNumber: phone,
+      courtName: courtName.trim(),
+      numberOfCourt: courtQuantity,
+      hourStart: courtOpenTime?.split(":")[0],
+      minuteStart: courtOpenTime?.split(":")[1],
+      hourEnd: courtCloseTime?.split(":")[0],
+      minuteEnd: courtCloseTime?.split(":")[1],
+      pricePerHour: courtPrice,
+      priceAtWeekend: courtPriceWeekend,
+      address: courtAddress.trim(),
+      services: courtServiceList,
     };
-  }, []);
+
+    try {
+      const imageURL = await uploadImage(courtImage[0]);
+
+      if (imageURL) {
+        body.profileImage = imageURL;
+
+        console.log(body);
+
+        const res = await signupOwner(body);
+
+        console.log(res);
+
+        if (res) {
+          setFirstRegister(true);
+          setIsLogin(true);
+        }
+      } else {
+        console.log("Upload Image Fail");
+      }
+    } catch (error) {
+      console.error("Error while register court", error);
+    }
+  };
 
   const getHeaderText = () => {
     switch (step) {
@@ -125,8 +236,9 @@ export default function RegisterCourt({ navigation, route }) {
       }
     }
   };
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar text={getHeaderText()} goBack={handleGoBack} isGoBack={true} />
       <View style={styles.container}>
         <ScrollView
@@ -181,7 +293,16 @@ export default function RegisterCourt({ navigation, route }) {
                 setCourtServiceList={setCourtServiceList}
               />
             )}
-            {step === 5 && <PaymentMethod />}
+            {step === 5 && (
+              <PaymentMethod
+                bank={bank}
+                setBank={setBank}
+                cardNumber={cardNumber}
+                setCardNumber={setCardNumber}
+              />
+            )}
+
+            {errorText && <Text style={styles.errorText}>{errorText}</Text>}
           </View>
 
           <View
@@ -191,18 +312,19 @@ export default function RegisterCourt({ navigation, route }) {
             ]}
           >
             <StepDot quantity={5} currentStep={step} />
-            <Pressable
-              style={({ pressed }) => [styles.button]}
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={[styles.button]}
               onPress={handlePress}
             >
               <Text style={styles.buttonText}>
                 {step < 5 ? "Tiếp tục" : "Hoàn thành"}
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -234,5 +356,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: SIZE.size_16,
     fontFamily: "quicksand-semibold",
+  },
+
+  errorText: {
+    color: COLORS.red,
+    fontFamily: "quicksand-medium",
+    alignSelf: "center",
+    marginTop: 10,
+    fontSize: SIZE.size_16,
   },
 });

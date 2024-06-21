@@ -7,14 +7,18 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import React from "react";
+import React, { useContext } from "react";
 // import { TextField } from "native-base";
 import icons from "../../../constants/icons";
 import CustomButton from "../../../components/Atoms/CustomButton";
 import { SIZE } from "../../../theme/fonts";
 import images from "../../../constants/images";
+import { AuthContext } from "../../../context/AuthContext";
+import { COLORS } from "../../../theme/colors";
 
 const CreatePost = ({ navigation }) => {
+  const { user } = useContext(AuthContext);
+
   return (
     <View style={styles.container}>
       <View style={styles.stack}>
@@ -29,7 +33,7 @@ const CreatePost = ({ navigation }) => {
         </View>
         <CustomButton
           title={"Đăng bài"}
-          backgroundColor={"#2A9083"}
+          backgroundColor={COLORS.orangeText}
           px={28}
           py={10}
           color={"white"}
@@ -41,7 +45,7 @@ const CreatePost = ({ navigation }) => {
         <View style={styles.header}>
           <View style={styles.userInfo}>
             <Image source={images.avatar} style={styles.avatar} />
-            <Text style={styles.userName}>anhddp</Text>
+            <Text style={styles.userName}>{user?.fullName}</Text>
           </View>
           <Text>0/100</Text>
         </View>

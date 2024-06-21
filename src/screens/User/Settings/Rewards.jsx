@@ -61,13 +61,13 @@ const Rewards = ({}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { width } = useWindowDimensions();
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <View style={styles.greenBg}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={icons.goback_white} style={styles.goback} />
           </TouchableOpacity>
-          <Text style={styles.title}>Ưu đãi tiết kiệm</Text>
+          <Text style={styles.title}>Tích điểm: Sân của Si</Text>
         </View>
         <View style={styles.pointPadding}>
           <TouchableOpacity
@@ -85,8 +85,8 @@ const Rewards = ({}) => {
               </View>
 
               <View>
-                <Text style={styles.mpTitle}>SmashIt Point của bạn</Text>
-                <Text style={styles.mpPoint}>50 điểm</Text>
+                <Text style={styles.mpTitle}>Sân của Si</Text>
+                <Text style={styles.mpPoint}>50 Bé Si</Text>
               </View>
             </View>
             <VectorIcon.FontAwesome5 name="chevron-right" size={15} />
@@ -171,7 +171,7 @@ const Rewards = ({}) => {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

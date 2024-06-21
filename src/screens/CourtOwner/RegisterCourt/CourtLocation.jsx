@@ -24,6 +24,8 @@ export default function CourtLocation({ courtAddress, setCourtAddress }) {
           iconColor={COLORS.white}
           primaryText={"Địa điểm kinh doanh"}
           placeholderText={"Địa điểm sân"}
+          inputData={courtAddress}
+          setInputData={setCourtAddress}
         />
       </View>
 

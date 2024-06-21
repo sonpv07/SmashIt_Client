@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { SIZE } from "../../../theme/fonts";
 import Divider from "../../../components/Atoms/Divider";
 // import ChipList from "../../../components/Organisms/ChipList";
@@ -9,17 +9,15 @@ import { formatNumber } from "../../../utils";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { useIsFocused } from "@react-navigation/native";
 import { useRef } from "react";
+import ServiceCourtService from "../../../services/court-service.service";
+import { CourtOwnerContext } from "../../../context/CourtOwnerContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function CourtOverview() {
-  const serviceList = [
-    "Wi-fi",
-    "Canteen",
-    "Canteen",
-    "Giữ xe miễn phí",
-    "Quầy giữ đồ",
-    "Chăm sóc y tế",
-    "Tổ chức giải đấu",
-  ];
+  const { courtInfo, courtService, setCourtService } =
+    useContext(CourtOwnerContext);
+
+  const { token } = useContext(AuthContext);
 
   const conditionList = [
     "Đặt sân theo giờ cố định và thông báo trước để tránh xung đột về thời gian.",
@@ -27,6 +25,17 @@ export default function CourtOverview() {
     "Mặc trang phục thích hợp và giày thể thao không làm hỏng bề mặt sân.",
     "Giữ sân sạch sẽ và không làm hỏng hạng mục cầu lông hoặc cơ sở vật chất.",
   ];
+
+  const fetchServiceList = async () => {
+    const res = await ServiceCourtService.getCourtServiceByCourtId(
+      courtInfo?.id,
+      token
+    );
+
+    if (res) {
+      setCourtService(res.services);
+    }
+  };
 
   const isFocus = useIsFocused();
   const scrollViewRef = useRef(null);
@@ -39,6 +48,10 @@ export default function CourtOverview() {
     }
   }, [isFocus]);
 
+  useEffect(() => {
+    fetchServiceList();
+  }, []);
+
   return (
     <ScrollView
       ref={scrollViewRef}
@@ -49,12 +62,10 @@ export default function CourtOverview() {
     >
       <View style={styles.section}>
         <Text style={[styles.title, { marginBottom: 10 }]}>
-          Sân cầu lông Quân Đội
+          Sân cầu lông {courtInfo?.courtName}
         </Text>
 
-        <Text style={styles.address}>
-          41 Đường 41, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh
-        </Text>
+        <Text style={styles.address}>{courtInfo?.address}</Text>
       </View>
 
       <Divider color={"#E8E8E8"} orientation={"horizontal"} />
@@ -71,18 +82,25 @@ export default function CourtOverview() {
         <View style={styles.courtInfoItem}>
           <Text style={styles.itemSecondaryText}>Ngày thường</Text>
           <Text style={styles.itemPrimaryText}>
-            {formatNumber(100000)}đ{" "}
+            {formatNumber(courtInfo?.pricePerHour)}đ{" "}
             <Text style={{ color: "#5B5B5B" }}>/ giờ</Text>
           </Text>
         </View>
         <View style={styles.courtInfoItem}>
-          <Text style={styles.itemSecondaryText}>Ngày lễ, cuối tuần</Text>
+          <Text style={styles.itemSecondaryText}>Cuối tuần</Text>
           <Text style={styles.itemPrimaryText}>
-            {formatNumber(150000)}đ{" "}
+            {formatNumber(courtInfo.priceAtWeekend)}đ{" "}
             <Text style={{ color: "#5B5B5B" }}>/ giờ</Text>
           </Text>
         </View>
         <View style={styles.courtInfoItem}>
+          <Text style={styles.itemSecondaryText}>Ngày lễ</Text>
+          <Text style={styles.itemPrimaryText}>
+            {formatNumber(courtInfo.priceAtHoliday)}đ{" "}
+            <Text style={{ color: "#5B5B5B" }}>/ giờ</Text>
+          </Text>
+        </View>
+        {/* <View style={styles.courtInfoItem}>
           <Text style={styles.itemSecondaryText}>Lượt đánh giá</Text>
           <View style={styles.ratingSection}>
             <VectorIcon.AntDesign name="star" color={"#F49831"} size={16} />
@@ -90,7 +108,7 @@ export default function CourtOverview() {
               5.0 <Text style={{ color: "#5B5B5B" }}>(1711)</Text>
             </Text>
           </View>
-        </View>
+        </View> */}
       </View>
 
       <Divider color={"#E8E8E8"} orientation={"horizontal"} />
@@ -98,7 +116,7 @@ export default function CourtOverview() {
       <View style={styles.section}>
         <Text style={[styles.title, { marginBottom: 15 }]}>Cơ sở vật chất</Text>
         <ChipList
-          dataList={serviceList}
+          dataList={courtService}
           borderColor={"rgba(217, 217, 217, 0.5)"}
           backgroundColor={COLORS.white}
           textFamily={"quicksand-regular"}
@@ -172,6 +190,6 @@ const styles = StyleSheet.create({
   ratingSection: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: 5,
   },
 });

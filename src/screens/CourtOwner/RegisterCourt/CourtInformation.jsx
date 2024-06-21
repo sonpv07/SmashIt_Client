@@ -30,7 +30,12 @@ export default function CourtInformation({
       </Text>
 
       <View style={{ gap: 20 }}>
-        <InputField inputType={"image"} primaryText={"Ảnh đại diện sân"} />
+        <InputField
+          inputType={"image"}
+          primaryText={"Ảnh đại diện sân"}
+          inputData={courtImage}
+          setInputData={setCourtImage}
+        />
         <InputField
           inputType={"normal"}
           primaryText={"Tên sân"}

@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     gap: 20,
     backgroundColor: "white",
     flex: 1,
+    paddingTop: 30,
   },
   imageOutline: {
     width: "100%",
@@ -138,13 +139,13 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     objectFit: "cover",
+    marginTop: 10,
   },
   title: {
     fontFamily: "quicksand-bold",
     textAlign: "center",
-    fontSize: 32,
+    fontSize: 36,
     paddingHorizontal: 15,
-    letterSpacing: -0.3,
   },
   content: {
     fontFamily: "quicksand-medium",

@@ -3,6 +3,9 @@ import moment from "moment";
 import "moment/locale/vi";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
+import * as FileSystem from "expo-file-system";
+import { baseURL } from "../constants/constants";
+import API_URL_ENV from "../configs/api";
 
 export const getIconFamily = (family, name, size, color) => {
   switch (family) {
@@ -92,4 +95,37 @@ export const convertRole = (roleID) => {
     default:
       return "player";
   }
+};
+
+export const uploadImage = async (imageURI) => {
+  try {
+    console.log(imageURI);
+    const result = await FileSystem.uploadAsync(
+      `${API_URL_ENV}/api/Image/upload`,
+      imageURI,
+      {
+        httpMethod: "POST",
+        uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+        fieldName: "file",
+      }
+    );
+    const image = JSON.parse(result.body);
+    return image.data.link;
+  } catch (error) {
+    console.log("Error upload image", error);
+  }
+};
+
+export const convertToTime = (hour, minute) => {
+  let tempHour = hour;
+  let tempMinute = minute;
+
+  if (hour < 10) {
+    tempHour = "0" + hour;
+  }
+  if (minute < 10) {
+    tempMinute = "0" + minute;
+  }
+
+  return `${tempHour}:${tempMinute}`;
 };

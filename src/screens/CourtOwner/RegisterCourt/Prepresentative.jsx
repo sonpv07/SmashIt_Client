@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SIZE } from "../../../theme/fonts";
 import InputField from "../../../components/Molecules/InputField";
 import StepDot from "../../../components/Molecules/StepDot";
@@ -60,7 +60,7 @@ export default function Prepresentative({
         <FormInput
           label="Xác Nhận Mật khẩu"
           placeholder="Xác Nhận Mật khẩu"
-          value={setRePassword}
+          value={rePassword}
           handleChangeText={(e) => setRePassword(e)}
         />
       </View>

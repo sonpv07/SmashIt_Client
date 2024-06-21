@@ -22,7 +22,7 @@ export default function CourtService({
 
   const handleAddService = () => {
     if (inputText) {
-      setCourtServiceList((prev) => [...prev, inputText]);
+      setCourtServiceList((prev) => [...prev, { serviceName: inputText }]);
     } else {
       console.log("Input First");
     }
@@ -110,13 +110,13 @@ export default function CourtService({
               <View key={index}>
                 <Chip
                   borderColor={COLORS.orangeText}
-                  text={item}
+                  text={item.serviceName}
                   backgroundColor={COLORS.orangeText}
                   textFamily={"quicksand-medium"}
                   textColor={"white"}
                   action={() =>
                     setCourtServiceList((prev) =>
-                      prev.filter((data) => data !== item)
+                      prev.filter((data) => data.serviceName !== item)
                     )
                   }
                 />

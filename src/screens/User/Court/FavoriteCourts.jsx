@@ -1,10 +1,13 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import { useNavigation } from "@react-navigation/native";
 import FavoriteCourt from "../../../components/Organisms/FavoriteCourt";
 import courtImage from "../../../assets/images/courtImages.jpg";
+import images from "../../../constants/images";
+import { SIZE } from "../../../theme/fonts";
+import Oops from "../../../components/Organisms/Oops";
 
 const FavoriteCourts = () => {
   const navigation = useNavigation();
@@ -17,7 +20,7 @@ const FavoriteCourts = () => {
     distance: "1.1",
     price: "89.000",
   };
-  const favoriteList = [court, court, court, court, court, court, court, court];
+  const favoriteList = [];
   return (
     <View style={styles.container}>
       <HeaderBar
@@ -27,22 +30,27 @@ const FavoriteCourts = () => {
         }}
         isGoBack={true}
       />
-      <ScrollView style={styles.favoriteList}>
-        {favoriteList.map((court, index) => {
-          return (
-            <View key={index}>
-              <FavoriteCourt
-                courtName={court.name}
-                courtImage={court.image}
-                courtAddress={court.address}
-                courtDistance={court.distance}
-                courtPrice={court.price}
-                isFavorite={true}
-              />
-            </View>
-          );
-        })}
-      </ScrollView>
+
+      {favoriteList?.length <= 0 ? (
+        <Oops text={"Oops, hãy đặt sân ngay nhé !"} />
+      ) : (
+        <ScrollView style={styles.favoriteList}>
+          {favoriteList.map((court, index) => {
+            return (
+              <View key={index}>
+                <FavoriteCourt
+                  courtName={court.name}
+                  courtImage={court.image}
+                  courtAddress={court.address}
+                  courtDistance={court.distance}
+                  courtPrice={court.price}
+                  isFavorite={true}
+                />
+              </View>
+            );
+          })}
+        </ScrollView>
+      )}
     </View>
   );
 };
