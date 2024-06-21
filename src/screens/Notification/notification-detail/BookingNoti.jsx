@@ -5,20 +5,21 @@ import NotificationInfo from "../../../components/Organisms/NotificationInfo";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../../theme/fonts";
 import icons from "../../../constants/icons";
+import Oops from "../../../components/Organisms/Oops";
 
 const bookings = [
-  {
-    title: "Đã đặt sân thành công!",
-    desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
-    timeStamp: "02 Th4, 16:10",
-    id: 1,
-  },
-  {
-    title: "Đã đặt sân thành công!",
-    desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
-    timeStamp: "02 Th4, 16:10",
-    id: 2,
-  },
+  // {
+  //   title: "Đã đặt sân thành công!",
+  //   desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 1,
+  // },
+  // {
+  //   title: "Đã đặt sân thành công!",
+  //   desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
+  //   timeStamp: "02 Th4, 16:10",
+  //   id: 2,
+  // },
 ];
 
 const BookingNoti = ({ navigation }) => {
@@ -33,7 +34,11 @@ const BookingNoti = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.title}>Thông tin đặt sân</Text>
       </View>
-      <NotificationInfo list={bookings} icon={icons.booking} />
+      {bookings?.length <= 0 ? (
+        <Oops text={"Oops, bạn chưa có lịch sử đặt sân !"} />
+      ) : (
+        <NotificationInfo list={bookings} icon={icons.voucher} />
+      )}
     </View>
   );
 };

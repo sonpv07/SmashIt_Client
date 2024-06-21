@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import images from "../../constants/images";
 import CustomButton from "../../components/Atoms/CustomButton";
@@ -10,18 +10,28 @@ import { COLORS } from "../../theme/colors";
 const Welcome = ({ navigation }) => {
   const [isNew, setIsNew] = useState(false);
   return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
+    <ImageBackground source={images.courtLogo} style={styles.container}>
+      {/* <View style={styles.logoContainer}>
         <Image source={images.logo1} style={styles.logo} resizeMode="contain" />
-      </View>
+      </View> */}
       {/* <View style={styles.blobContainer}>
         <Image source={images.blob} style={styles.blob} resizeMode="contain" />
       </View> */}
       <View style={styles.textContainer}>
-        <Text style={styles.welcomeText}>Chào mừng bạn đến với Smash It</Text>
-        <Text style={styles.welcomeDesc}>Ứng dụng số một cho người</Text>
+        <Image
+          source={images.logo1}
+          style={{
+            alignSelf: "center",
+            width: 350,
+            height: 600,
+            marginTop: -150,
+            // marginBottom: 100,
+          }}
+        />
+        {/* <Text style={styles.welcomeText}>Chào mừng bạn đến với Smash It !</Text> */}
+        <Text style={styles.welcomeDesc}>Ứng dụng số 1 cho người</Text>
         <Text style={styles.welcomeDesc}>
-          có sở thích về cầu lông và hơn thế nữa
+          có đam mê cầu lông và hơn thế nữa !
         </Text>
       </View>
       <View style={styles.buttonContainer}>
@@ -41,7 +51,7 @@ const Welcome = ({ navigation }) => {
           />
         </View> */}
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -51,6 +61,7 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     width: "100%",
+    justifyContent: "center",
     // backgroundColor: "rgba(42, 144, 131, 0.38)",
     backgroundColor: "rgba(255, 138, 0, 0.2)",
     flex: 1,
@@ -83,14 +94,16 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   welcomeText: {
-    fontSize: SIZE.size_20,
+    color: COLORS.white,
+    fontSize: 32,
     fontFamily: "quicksand-bold",
+    textAlign: "center",
     marginBottom: 10,
   },
   welcomeDesc: {
-    fontSize: SIZE.size_16,
-    fontFamily: "quicksand-medium",
-    color: "#666666",
+    fontSize: 20,
+    fontFamily: "quicksand-semibold",
+    color: "white",
   },
   buttonSpacing: {
     marginTop: 20,

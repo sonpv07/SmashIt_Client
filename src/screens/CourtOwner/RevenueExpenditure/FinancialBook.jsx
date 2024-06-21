@@ -15,11 +15,12 @@ import moment from "moment";
 import FinancialActivities from "../../../components/Organisms/FinancialActivities";
 import { METRICS } from "../../../theme/metrics";
 import TimeFilter from "../../../components/Organisms/TimeFilter";
+import Oops from "../../../components/Organisms/Oops";
 
 export default function FinancialBook({ navigation }) {
   const [chosenDate, setChosenDate] = useState(new Date());
 
-  const financialData = [1, 1, 1, 1, 1, 1, 1];
+  const financialData = [];
 
   moment.updateLocale("en", {
     monthsShort: [
@@ -92,22 +93,28 @@ export default function FinancialBook({ navigation }) {
             </View>
           </View>
 
-          <FlatList
-            style={{
-              marginTop: 30,
-              flex: 1,
-              maxHeight:
-                chosenFilter === 0
-                  ? METRICS.screenHeight * 0.35
-                  : METRICS.screenHeight * 0.48,
-            }}
-            data={financialData}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ gap: 30 }}
-            renderItem={({ item }) => {
-              return <FinancialActivities />;
-            }}
-          />
+          {financialData?.length <= 0 ? (
+            <View style={{ flex: 1, paddingBottom: 30 }}>
+              <Oops text={"Oops, chưa có thống kê !"} />
+            </View>
+          ) : (
+            <FlatList
+              style={{
+                marginTop: 30,
+                flex: 1,
+                maxHeight:
+                  chosenFilter === 0
+                    ? METRICS.screenHeight * 0.35
+                    : METRICS.screenHeight * 0.48,
+              }}
+              data={financialData}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ gap: 30 }}
+              renderItem={({ item }) => {
+                return <FinancialActivities />;
+              }}
+            />
+          )}
         </View>
       </View>
 

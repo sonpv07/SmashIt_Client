@@ -4,21 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../../theme/fonts";
 import icons from "../../../constants/icons";
 import NotificationInfo from "../../../components/Organisms/NotificationInfo";
+import Oops from "../../../components/Organisms/Oops";
 
-const offers = [
-  {
-    title: "Cơ hội nhận 50% giảm giá đặt sân",
-    desc: "Do Dang ơi! Nhớ điền đầy đủ thông tin để nhận ưu đãi về phiếu giảm giá đặt sân 50% nhé ",
-    timeStamp: "02 Th4, 16:10",
-    id: 1,
-  },
-  {
-    title: "Cơ hội nhận 50% giảm giá đặt sân",
-    desc: "Do Dang ơi! Nhớ điền đầy đủ thông tin để nhận ưu đãi về phiếu giảm giá đặt sân 50% nhé ",
-    timeStamp: "02 Th4, 16:10",
-    id: 2,
-  },
-];
+const offers = [];
 
 const OfferNoti = ({ navigation }) => {
   return (
@@ -32,7 +20,12 @@ const OfferNoti = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.title}>Khuyến mãi</Text>
       </View>
-      <NotificationInfo list={offers} icon={icons.voucher} />
+
+      {offers?.length <= 0 ? (
+        <Oops text={"Oops, chờ chúng mình ra khuyến mãi xíu nhé !"} />
+      ) : (
+        <NotificationInfo list={offers} icon={icons.voucher} />
+      )}
     </View>
   );
 };

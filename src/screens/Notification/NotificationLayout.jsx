@@ -12,31 +12,31 @@ import NewsFeed from "./NewsFeed";
 import { SIZE } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
 
-const tabs = [
-  {
-    name: "Bảng tin",
-    component: NewsFeed,
-  },
-  {
-    name: "Thông báo",
-    component: Notification,
-  },
-];
+// const tabs = [
+//   {
+//     name: "Bảng tin",
+//     component: NewsFeed,
+//   },
+//   {
+//     name: "Thông báo",
+//     component: Notification,
+//   },
+// ];
 
 const NotificationLayout = ({ navigation }) => {
-  const [activeTab, setActiveTab] = useState(tabs[1]);
+  // const [activeTab, setActiveTab] = useState(tabs[1]);
 
-  const handleChangeTab = (name) => {
-    const selectedTab = tabs.find((item) => item.name === name);
-    setActiveTab(selectedTab);
-  };
+  // const handleChangeTab = (name) => {
+  //   const selectedTab = tabs.find((item) => item.name === name);
+  //   setActiveTab(selectedTab);
+  // };
 
   return (
     <View style={styles.container}>
       {/* <ScrollView> */}
       <View style={styles.container}>
         <Text style={styles.title}>Thông báo</Text>
-        <View style={styles.tabContainer}>
+        {/* <View style={styles.tabContainer}>
           {tabs.map((item) => (
             <TouchableOpacity
               style={
@@ -55,9 +55,9 @@ const NotificationLayout = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
           ))}
-        </View>
+        </View> */}
         <View style={styles.contentContainer}>
-          {React.createElement(activeTab.component, { navigation })}
+          <Notification navigation={navigation} />
         </View>
       </View>
       {/* </ScrollView> */}
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     fontFamily: "quicksand-bold",
     color: "black",
     marginLeft: 20,
-    marginBottom: 20,
+    marginBottom: 30,
     marginTop: 20,
   },
 });

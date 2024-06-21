@@ -1,6 +1,7 @@
 import {
   Dimensions,
   Image,
+  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
@@ -87,7 +88,7 @@ const Signup = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={images.courtLogo} style={styles.container}>
       {/* Uncomment if you want to show images */}
       {/* <View style={styles.imageContainer}>
         <Image source={images.loginbg} style={styles.image} />
@@ -193,7 +194,7 @@ const Signup = ({ navigation }) => {
           </View>
         </View>
       </KeyboardAwareScrollView>
-    </View>
+    </ImageBackground>
   );
 };
 

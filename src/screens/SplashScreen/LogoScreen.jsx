@@ -1,4 +1,11 @@
-import { Animated, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Animated,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useContext, useEffect, useRef } from "react";
 import images from "../../constants/images";
 import { AuthContext } from "../../context/AuthContext";
@@ -25,11 +32,11 @@ export default function LogoScreen({ navigation }) {
   }, [fadeAnim, navigation]);
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={images.courtLogo} style={styles.container}>
       <Animated.View style={{ ...styles.logoContainer, opacity: fadeAnim }}>
         <Image source={images.logo1} style={{ width: 500, height: 500 }} />
       </Animated.View>
-    </View>
+    </ImageBackground>
   );
 }
 

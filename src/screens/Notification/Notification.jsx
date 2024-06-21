@@ -94,7 +94,7 @@ const Notification = ({ navigation }) => {
         </View>
         <Image source={icons.more} style={styles.more} />
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.notificationContainer}
         onPress={() => handleNavigateToDetail("BlogNoti")}
       >
@@ -106,7 +106,7 @@ const Notification = ({ navigation }) => {
           </Text>
         </View>
         <Image source={icons.more} style={styles.more} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         style={styles.notificationContainer}
         onPress={() => handleNavigateToDetail("RatingNoti")}

@@ -38,7 +38,7 @@ export default function MyCourt({ navigation, route }) {
         />
       ),
     },
-    { id: 3, name: "Nhận xét", component: <CourtFeedback /> },
+    { id: 3, name: "Đánh giá", component: <CourtFeedback /> },
   ];
 
   useEffect(() => {

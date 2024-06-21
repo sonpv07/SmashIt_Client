@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../../context/AuthContext";
 import Divider from "../../../components/Atoms/Divider";
 import { convertRole } from "../../../utils";
+import images from "../../../constants/images";
 
 export default function Settings() {
   const navigation = useNavigation();
@@ -24,7 +25,12 @@ export default function Settings() {
     {
       title: "Ưu đãi tiết kiệm",
       data: [
-        { navigate: "Rewards", icon: "award", name: "Tích điểm", isNew: true },
+        {
+          navigate: "Rewards",
+          icon: "award",
+          name: "Tích điểm: Sân của Si",
+          isNew: true,
+        },
         { navigate: "", icon: "tag", name: "Kho voucher", isNew: true },
       ],
     },
@@ -44,7 +50,7 @@ export default function Settings() {
           name: "Lịch sử đặt sân",
           isNew: false,
         },
-        { navigate: "", icon: "box", name: "Quản lý sản phẩm", isNew: true },
+        // { navigate: "", icon: "box", name: "Quản lý sản phẩm", isNew: true },
       ],
     },
     {
@@ -65,7 +71,12 @@ export default function Settings() {
     {
       title: "Ưu đãi tiết kiệm",
       data: [
-        { navigate: "Pakage", icon: "tag", name: "Gói dịch vụ", isNew: true },
+        {
+          navigate: "",
+          icon: "tag",
+          name: "Gói dịch vụ (Sắp ra mắt)",
+          isNew: true,
+        },
       ],
     },
     {
@@ -83,12 +94,12 @@ export default function Settings() {
           name: "Quản lí doanh thu sân",
           isNew: true,
         },
-        {
-          navigate: "",
-          icon: "box",
-          name: "Quản lí sản phẩm",
-          isNew: false,
-        },
+        // {
+        //   navigate: "",
+        //   icon: "box",
+        //   name: "Quản lí sản phẩm",
+        //   isNew: false,
+        // },
         {
           navigate: "FinancialBook",
           icon: "box",
@@ -124,10 +135,7 @@ export default function Settings() {
             style={styles.avatar}
             onPress={() => navigation.navigate("MyProfile")}
           >
-            <Image
-              style={styles.avatarImage}
-              source={{ uri: "https://avatar.iran.liara.run/public/boy" }}
-            />
+            <Image style={styles.avatarImage} source={images.avatar2} />
           </TouchableOpacity>
         </View>
         <View>
@@ -305,13 +313,13 @@ const styles = StyleSheet.create({
   avatar: {
     height: "50%",
     aspectRatio: 1,
-    borderWidth: 3,
-    borderColor: COLORS.white,
-    borderRadius: 100,
   },
   avatarImage: {
     height: "100%",
     width: "100%",
+    borderWidth: 3,
+    borderColor: COLORS.white,
+    borderRadius: 100,
   },
   container: {
     backgroundColor: COLORS.white,

@@ -1,6 +1,7 @@
 import {
   Dimensions,
   Image,
+  ImageBackground,
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
@@ -54,11 +55,11 @@ const Login = ({ navigation }) => {
       enabled={false}
       style={{ flex: 1 }}
     >
-      <View style={styles.container}>
+      <ImageBackground style={styles.container}>
         {/* <View style={styles.imageContainer}>
         <Image source={images.loginbg} style={styles.image} />
       </View> */}
-        <Image source={images.logo1} style={styles.logo} />
+        {/* <Image source={images.logo1} style={styles.logo} /> */}
         <View style={styles.loginContainer}>
           <View style={styles.welcomeText}>
             <Text style={styles.welcome}>Chào mừng!</Text>
@@ -133,7 +134,7 @@ const Login = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     flex: 1,
-    backgroundColor: "rgba(255, 138, 0, 0.2)",
+    backgroundColor: COLORS.lightGreenText,
     alignItems: "center",
   },
   imageContainer: {
