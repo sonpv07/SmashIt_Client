@@ -11,9 +11,10 @@ import CourtService from "../../../services/court.service";
 import { AuthContext } from "../../../context/AuthContext";
 
 export default function SearchCourt({ navigation }) {
-  const searchCourt = [1, 2, 3, 4, 5];
-
   const isFocus = useIsFocused();
+
+  const { token } = useContext(AuthContext);
+  // console.log(token);
 
   const dataAddress = [
     "Long Thạnh Mỹ",
@@ -28,11 +29,11 @@ export default function SearchCourt({ navigation }) {
 
   const [courtList, setCourtList] = useState([]);
 
-  const { token } = useContext(AuthContext);
-
   useEffect(() => {
     const fetchData = async () => {
-      const res = await CourtService.getAllCourt(token);
+      const res = await CourtService.getAllCourts(token);
+
+      // console.log("res", res);
 
       if (res && res.length > 0) {
         setCourtList(res);
@@ -41,8 +42,6 @@ export default function SearchCourt({ navigation }) {
 
     fetchData();
   }, [isFocus]);
-
-  console.log(courtList);
 
   return (
     <View style={styles.container}>
@@ -91,10 +90,19 @@ export default function SearchCourt({ navigation }) {
           style={styles.result}
           showsVerticalScrollIndicator={false}
         >
-          {searchCourt.map((court, index) => {
+          {courtList.map((court, index) => {
             return (
               <View key={index} style={styles.court}>
-                <CourtItem navigation={navigation} />
+                <CourtItem
+                  id={court.id}
+                  courtName={court.courtName}
+                  numberOfCourt={court.numberOfCourt}
+                  address={court.address}
+                  pricePerHour={court.pricePerHour}
+                  priceAtWeekend={court.priceAtWeekend}
+                  priceAtHoliday={court.priceAtHoliday}
+                  navigation={navigation}
+                />
                 <View style={styles.hr} />
               </View>
             );
