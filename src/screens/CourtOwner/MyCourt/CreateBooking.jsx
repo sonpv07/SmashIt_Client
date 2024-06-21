@@ -18,7 +18,7 @@ export default function CreateBooking({ navigation }) {
   const [chosenSlot, setChosenSlot] = useState(null);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar
         text={"Tạo lịch đặt sân"}
         isGoBack={true}
@@ -106,7 +106,7 @@ export default function CreateBooking({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
