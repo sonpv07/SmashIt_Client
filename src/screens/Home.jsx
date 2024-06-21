@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { COLORS } from "../theme/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HeaderBar from "../components/Atoms/HeaderBar";
@@ -18,17 +18,38 @@ import { SIZE } from "../theme/fonts";
 import Carousel from "../components/Organisms/Carousel";
 import Title_MoreInfo from "../components/Atoms/Title_MoreInfo";
 import CourtBackground from "../components/Organisms/CourtBackground";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import CourtService from "../services/court.service";
+import { AuthContext } from "../context/AuthContext";
 
 
 export default function Home() {
+  const isFocus = useIsFocused();
+  const {token} = useContext(AuthContext);
+
+  console.log(token);
+
   const fullName = "Minh Anh";
-  const suggestCourt = [1,2,3,5];
+
   const navigation = useNavigation();
 
   const handlePress = () => {
     navigation.navigate("Search");
   }
+
+  const [courtList, setCourtList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await CourtService.getAllCourts(token);
+
+      if (res && res.length > 0) {
+        setCourtList(res);
+      }
+    };
+
+    fetchData();
+  }, [isFocus]);
 
   return (
     <ScrollView style={styles.container}>
@@ -69,9 +90,9 @@ export default function Home() {
         <Title_MoreInfo title={"Đề xuất dành cho bạn"} />
         <ScrollView > 
           {
-            suggestCourt.map((court, index) => {
+            courtList.map((court, index) => {
               return (
-                <View key={index} style={styles.suggestCourts}><CourtBackground /></View>
+                <View key={index} style={styles.suggestCourts}><CourtBackground courtName={court.courtName} numberOfCourt={court.numberOfCourt} id={court.id} key={court.id} pricePerHour={court.pricePerHour}  /></View>
               )
             })
           }
