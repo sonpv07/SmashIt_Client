@@ -1,14 +1,14 @@
 {
   "expo": {
     "name": "SmashIt_Client",
-    "scheme": "Smash-It",
+    "scheme": "smashit",
     "slug": "SmashIt_Client",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logoCourt.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,17 +17,21 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logoCourt.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logoCourt.png"
     },
-    "plugins": [
-      "expo-font",
-      "expo-router",
-      "expo-secure-store"
-    ]
+    "plugins": ["expo-font", "expo-router", "expo-secure-store"],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e9a313d7-80e7-4452-9cb0-fe7d4a669a7e"
+      }
+    }
   }
 }
