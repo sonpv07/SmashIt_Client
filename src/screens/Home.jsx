@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { COLORS } from "../theme/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import HeaderBar from "../components/Atoms/HeaderBar";
@@ -19,16 +19,20 @@ import Carousel from "../components/Organisms/Carousel";
 import Title_MoreInfo from "../components/Atoms/Title_MoreInfo";
 import CourtBackground from "../components/Organisms/CourtBackground";
 import { useNavigation } from "@react-navigation/native";
-
+import { AuthContext } from "../context/AuthContext";
 
 export default function Home() {
+  const { user } = useContext(AuthContext);
+
+  console.log(user);
+
   const fullName = "Minh Anh";
-  const suggestCourt = [1,2,3,5];
+  const suggestCourt = [1, 2, 3, 5];
   const navigation = useNavigation();
 
   const handlePress = () => {
     navigation.navigate("Search");
-  }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -48,33 +52,35 @@ export default function Home() {
             Xin chào {fullName}, hãy tìm sân yêu thích của bạn
           </Text>
 
-          <Pressable onPress={() => {handlePress()}} style={styles.searchInput}>
+          <Pressable
+            onPress={() => {
+              handlePress();
+            }}
+            style={styles.searchInput}
+          >
             <InputIcon
               icon={"search"}
               iconColor={COLORS.orangeText}
               placeholder={"Search here..."}
               backgroundColor={"white"}
-              
             />
           </Pressable>
         </View>
       </View>
       <View style={styles.discount}>
-        <Text style={[styles.title, { marginTop: 50 }]}>
-          Ưu đãi hấp dẫn
-        </Text>
+        <Text style={[styles.title, { marginTop: 50 }]}>Ưu đãi hấp dẫn</Text>
         {/* <Carousel /> */}
       </View>
       <View style={styles.suggest}>
         <Title_MoreInfo title={"Đề xuất dành cho bạn"} />
-        <ScrollView > 
-          {
-            suggestCourt.map((court, index) => {
-              return (
-                <View key={index} style={styles.suggestCourts}><CourtBackground /></View>
-              )
-            })
-          }
+        <ScrollView>
+          {suggestCourt.map((court, index) => {
+            return (
+              <View key={index} style={styles.suggestCourts}>
+                <CourtBackground />
+              </View>
+            );
+          })}
         </ScrollView>
       </View>
     </ScrollView>
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
   },
   header: {
     position: "absolute",
-    top: '10%',
+    top: "10%",
     padding: 12,
     height: "106%",
     display: "flex",
@@ -143,5 +149,5 @@ const styles = StyleSheet.create({
   suggestCourts: {
     gap: 20,
     marginTop: 10,
-  }
+  },
 });

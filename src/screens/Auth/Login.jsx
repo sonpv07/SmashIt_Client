@@ -19,20 +19,23 @@ import { COLORS } from "../../theme/colors";
 import axios from "axios";
 import { postRequest } from "../../services";
 
-import API_URL_ENV from "../../configs/api"
+import API_URL_ENV from "../../configs/api";
 const API_URL = API_URL_ENV + "/api/Authentication";
 import { ErrorText } from "../../constants/errors";
+import { LoadingContext } from "../../context/LoadingContext";
 
 const Login = ({ navigation }) => {
   const [form, setForm] = useState({ email: "", password: "" });
-  const [toggleRemember, setToggleRemember] = useState(false);
   const [error, setError] = useState("");
 
-  const { chosenRole, login, setIsLogin } = useContext(AuthContext);
+  const { setIsLoading } = useContext(LoadingContext);
+
+  const { chosenRole, login, setIsLogin, isRemember, setIsRemember } =
+    useContext(AuthContext);
 
   const handleLogin = async () => {
     const body = {
-      email: form.email,
+      email: form.email.trim(),
       password: form.password,
     };
 
@@ -43,8 +46,6 @@ const Login = ({ navigation }) => {
     } else {
       setError(ErrorText.VALID_ACCOUNT);
     }
-
-    console.log(res);
   };
 
   return (
@@ -93,7 +94,11 @@ const Login = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.savingData}>
-            <Checkbox value="rememberMe" aria-label="Remember me">
+            <Checkbox
+              value="rememberMe"
+              aria-label="Remember me"
+              onChange={() => setIsRemember(!isRemember)}
+            >
               <Text style={styles.checkboxLabel}>Ghi nhớ mật khẩu</Text>
             </Checkbox>
             <Text style={styles.forgotPass}>Quên mật khẩu?</Text>
