@@ -200,7 +200,7 @@ export const AuthProvider = ({ children }) => {
 
           if (timeInBackground >= 300 && !isRemember) {
             await signOut();
-          } else {
+          } else if (timeInBackground >= 300 && isRemember) {
             setIsShowLogo(true);
             setUser(null);
             setToken(null);
