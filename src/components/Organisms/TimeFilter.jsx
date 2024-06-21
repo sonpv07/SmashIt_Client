@@ -15,6 +15,7 @@ import Divider from "../Atoms/Divider";
 import { METRICS } from "../../theme/metrics";
 import { eachYearOfInterval, getDaysInMonth } from "date-fns";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import VectorIcon from "../Atoms/VectorIcon";
 
@@ -63,22 +64,19 @@ export default function TimeFilter({ chosenFilter, setChosenFilter }) {
     }
   };
 
-  const handlePickTime = (value, isStart) => {
+  const handlePickTime = (date, isStart) => {
     if (isStart) {
       setIsOpenStart(false);
     } else {
       setIsOpenEnd(false);
     }
 
-    if (value.type === "set") {
-      const date = new Date(value.nativeEvent.timestamp);
-      const updatedTime = moment.utc(date).add(7, "hours");
+    const updatedTime = moment.utc(date).add(7, "hours").toDate();
 
-      if (isStart) {
-        setStartDate(date);
-      } else {
-        setEndDate(date);
-      }
+    if (isStart) {
+      setStartDate(updatedTime);
+    } else {
+      setEndDate(updatedTime);
     }
   };
 
@@ -497,6 +495,8 @@ export default function TimeFilter({ chosenFilter, setChosenFilter }) {
     );
   };
 
+  console.log(startDate, isOpenEnd);
+
   return (
     <View style={styles.container}>
       <View style={styles.titleSection}>
@@ -629,6 +629,7 @@ export default function TimeFilter({ chosenFilter, setChosenFilter }) {
             ]}
             onPress={() => {
               if (startDate) {
+                console.log("abcd");
                 setIsOpenEnd(true);
               }
             }}
@@ -648,19 +649,26 @@ export default function TimeFilter({ chosenFilter, setChosenFilter }) {
             />
           </TouchableOpacity>
 
-          {isOpenStart && (
-            <RNDateTimePicker
-              value={new Date()}
-              onChange={(value) => handlePickTime(value, true)}
-            />
-          )}
+          <DateTimePickerModal
+            locale="vi"
+            isVisible={isOpenStart}
+            mode="date"
+            onConfirm={(value) => handlePickTime(value, true)}
+            onCancel={() => setIsOpenStart(false)}
+            cancelTextIOS="Hủy"
+            confirmTextIOS="Xác nhận"
+          />
 
-          {isOpenEnd && startDate && (
-            <RNDateTimePicker
-              value={new Date()}
-              onChange={(value) => handlePickTime(value, false)}
-            />
-          )}
+          <DateTimePickerModal
+            locale="vi"
+            minimumDate={startDate}
+            isVisible={isOpenEnd}
+            mode="date"
+            onConfirm={(value) => handlePickTime(value, false)}
+            onCancel={() => setIsOpenEnd(false)}
+            cancelTextIOS="Hủy"
+            confirmTextIOS="Xác nhận"
+          />
         </View>
       )}
 
@@ -681,8 +689,8 @@ export default function TimeFilter({ chosenFilter, setChosenFilter }) {
       {chosenFilter === 1 && (
         <View style={{ alignItems: "center", marginTop: 15 }}>
           <Text style={styles.title}>
-            Thống kê {startDate ? `từ ${formatDate(startDate)} ` : ""}
-            {endDate ? `đến ${formatDate(endDate)}` : ""}
+            Thống kê {startDate ? `từ ngày ${formatDate(startDate)} ` : ""}
+            {endDate ? `đến ngày ${formatDate(endDate)}` : ""}
           </Text>
         </View>
       )}
