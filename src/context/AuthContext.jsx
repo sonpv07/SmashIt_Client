@@ -2,8 +2,9 @@ import React, { createContext, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { baseURL } from "../constants/constants";
 import { getRequest, postRequest } from "../services";
-import { convertRole } from "../utils";
 import API_URL_ENV from "../configs/api";
+import { convertRole, uploadImage } from "../utils";
+import { AppState } from "react-native";
 
 export const AuthContext = createContext();
 
@@ -15,26 +16,40 @@ export const AuthProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [firstRegister, setFirstRegister] = useState(false);
   const [chosenRole, setChosenRole] = useState("");
+  const [isRemember, setIsRemember] = useState(false);
+
+  const [appState, setAppState] = useState(AppState.currentState);
+  const [backgroundTime, setBackgroundTime] = useState(null);
 
   const loadUser = async () => {
     try {
-      const storedToken = await SecureStore.getItem("token");
+      const storedIsRemember = await SecureStore.getItem("isRemember");
 
-      if (storedToken) {
-        const userData = await getUserProfile(storedToken);
+      console.log(storedIsRemember);
 
-        if (userData) {
-          setChosenRole(convertRole(userData.roleId));
-          setToken(storedToken);
-          setUser(userData);
-          return userData;
+      setIsRemember(storedIsRemember === "true" ? true : false);
+
+      if (storedIsRemember === "true") {
+        const storedToken = await SecureStore.getItem("token");
+
+        if (storedToken) {
+          const userData = await getUserProfile(storedToken);
+
+          if (userData) {
+            setChosenRole(convertRole(userData.roleId));
+            setToken(storedToken);
+            setUser(userData);
+            return userData;
+          }
+
+          return null;
+        } else {
+          console.log("Token Not Valid");
+          return null;
         }
-
-        return null;
-      } else {
-        console.log("Token Not Valid");
-        return null;
       }
+
+      return null;
     } catch (error) {
       console.error("Failed to load user", error);
       return null;
@@ -48,13 +63,11 @@ export const AuthProvider = ({ children }) => {
         accessToken
       );
 
-      console.log(res);
-
       if (res?.statusCode >= 200 && res?.statusCode < 300) {
         let isValidRole = true;
 
         if (chosenRole) {
-          isValidRole = checkUserRole(convertRole(res.data.roleId));
+          isValidRole = checkUserRole(convertRole(res?.data?.roleId));
         }
 
         if (isValidRole) {
@@ -88,6 +101,8 @@ export const AuthProvider = ({ children }) => {
         if (userData) {
           setToken(res.data);
           await SecureStore.setItem("token", res.data);
+          await SecureStore.setItem("isRemember", isRemember.toString());
+
           return res.data;
         } else {
           return null;
@@ -96,7 +111,62 @@ export const AuthProvider = ({ children }) => {
         console.log("Login Fail");
       }
     } catch (error) {
-      console.error("error", error);
+      console.error("error login", error);
+    }
+  };
+
+  const signup = async (body) => {
+    try {
+      const res = await postRequest(
+        `${API_URL_ENV}/api/Authentication/player-register`,
+        body,
+        null
+      );
+
+      console.log(body);
+
+      if (res?.statusCode >= 200 && res?.statusCode < 300) {
+        const userData = await getUserProfile(res.data);
+
+        if (userData) {
+          setToken(res.data);
+          await SecureStore.setItem("token", res.data);
+          return res.data;
+        } else {
+          return null;
+        }
+      } else {
+        console.log("Register Fail", res);
+      }
+    } catch (error) {
+      console.error("error register", error);
+    }
+  };
+
+  const signupOwner = async (body) => {
+    try {
+      const res = await postRequest(
+        `${API_URL_ENV}/api/Authentication/owner-register`,
+        body,
+        null
+      );
+
+      if (res?.statusCode >= 200 && res.statusCode < 300) {
+        console.log("Success", res.data);
+        const userData = await getUserProfile(res.data);
+
+        if (userData) {
+          setToken(res.data);
+          await SecureStore.setItem("token", res.data);
+          return res.data;
+        } else {
+          return null;
+        }
+      } else {
+        console.log("Register Fail", res);
+      }
+    } catch (error) {
+      console.error("error register", error);
     }
   };
 
@@ -109,20 +179,67 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signOut = async () => {
+    setIsShowLogo(true);
     setUser(null);
     setToken(null);
     setIsLogin(false);
     setFirstRegister(false);
     setChosenRole("");
+    setIsRemember(false);
     await SecureStore.deleteItemAsync("user");
     await SecureStore.deleteItemAsync("token");
+    await SecureStore.deleteItemAsync("isRemember");
   };
+
+  useEffect(() => {
+    const handleAppStateChange = async (nextAppState) => {
+      if (appState.match(/inactive|background/) && nextAppState === "active") {
+        console.log("App has come to the foreground!");
+        if (backgroundTime) {
+          const timeInBackground = (Date.now() - backgroundTime) / 1000;
+
+          if (timeInBackground >= 300 && !isRemember) {
+            await signOut();
+          } else {
+            setIsShowLogo(true);
+            setUser(null);
+            setToken(null);
+            setIsLogin(false);
+            setChosenRole("");
+          }
+
+          console.log(
+            `App was in the background for ${timeInBackground} seconds.`
+          );
+        }
+        setBackgroundTime(null);
+      }
+
+      if (nextAppState === "background") {
+        console.log("App has gone to the background!");
+        setBackgroundTime(Date.now());
+      }
+
+      setAppState(nextAppState);
+    };
+
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, [appState, backgroundTime]);
 
   return (
     <AuthContext.Provider
       value={{
         user,
         login,
+        signup,
+        signupOwner,
         signOut,
         isLogin,
         setIsLogin,
@@ -134,6 +251,8 @@ export const AuthProvider = ({ children }) => {
         setToken,
         isShowLogo,
         setIsShowLogo,
+        isRemember,
+        setIsRemember,
         loadUser,
       }}
     >
