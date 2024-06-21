@@ -4,11 +4,26 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { SIZE, WEIGHT } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
 
-const CourtItem = ({ navigation }) => {
+const CourtItem = ({ 
+  navigation,
+  id,
+  profileImage,
+  courtName,
+  numberOfCourt,
+  hourStart,
+  minuteStart,
+  hourEnd,
+  minuteEnd,
+  pricePerHour,
+  priceAtWeekend,
+  priceAtHoliday,
+  address,
+  accountId
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("CourtDetail");
+        navigation.navigate("CourtDetail", { badmintonCourtId : id});
       }}
       style={styles.outline}
     >
@@ -22,13 +37,13 @@ const CourtItem = ({ navigation }) => {
           />
         </View>
         <View style={styles.courtNo}>
-          <Text style={styles.courtNo_Text}>03 sân trống</Text>
+          <Text style={styles.courtNo_Text}>{numberOfCourt} sân trống</Text>
         </View>
       </View>
       <View style={styles.courtInfo}>
         <View style={styles.courtTitle}>
           <View>
-            <Text style={styles.courtName}>Sân cầu lông Quân Đội</Text>
+            <Text style={styles.courtName}>Sân cầu lông {courtName}</Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
@@ -43,15 +58,15 @@ const CourtItem = ({ navigation }) => {
         </View>
         <View>
           <Text style={styles.courtAddress}>
-            41 Đường 41, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh
+            {address}
           </Text>
         </View>
         <View style={styles.courtDetails}>
           <Text style={styles.courtDetails_Text}>6.0 km</Text>
           <View style={styles.hr} />
-          <Text style={styles.courtDetails_Text}>10 sân</Text>
+          <Text style={styles.courtDetails_Text}>{numberOfCourt} sân</Text>
           <View style={styles.hr} />
-          <Text style={styles.courtDetails_Text}>89.000đ/giờ</Text>
+          <Text style={styles.courtDetails_Text}>{pricePerHour}đ/giờ</Text>
         </View>
       </View>
     </TouchableOpacity>
