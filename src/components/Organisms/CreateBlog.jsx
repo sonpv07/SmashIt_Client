@@ -6,14 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import icons from "../../constants/icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SIZE } from "../../theme/fonts";
 import images from "../../constants/images";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../context/AuthContext";
 
 const CreateBlog = ({}) => {
+  const { user } = useContext(AuthContext);
+
   const navigation = useNavigation();
   return (
     <>
@@ -25,7 +28,7 @@ const CreateBlog = ({}) => {
           <View style={styles.postHeader}>
             <View style={styles.userInfo}>
               <Image source={images.avatar} style={styles.avatar} />
-              <Text style={styles.username}>anhddp</Text>
+              <Text style={styles.username}>{user?.fullName}</Text>
             </View>
           </View>
           <Text style={styles.write}>Hãy viết cảm nghĩ của bạn...</Text>

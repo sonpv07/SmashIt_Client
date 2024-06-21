@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import { COLORS } from "../../../theme/colors";
 import { SIZE } from "../../../theme/fonts";
@@ -17,18 +17,26 @@ import CourtFeedback from "./CourtFeedback";
 import { ScrollView } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import TabBar from "../../../components/Molecules/TabBar";
+import { CourtOwnerContext } from "../../../context/CourtOwnerContext";
 
-export default function MyCourt({ navigation, router }) {
+export default function MyCourt({ navigation, route }) {
   const isFocus = useIsFocused();
 
   const [tab, setTab] = useState(1);
+
+  const { courtCodeList } = useContext(CourtOwnerContext);
 
   const tabItem = [
     { id: 1, name: "Tổng quan", component: <CourtOverview /> },
     {
       id: 2,
       name: "Các sân",
-      component: <CourtsManagement navigation={navigation} />,
+      component: (
+        <CourtsManagement
+          navigation={navigation}
+          courtCodeList={courtCodeList}
+        />
+      ),
     },
     { id: 3, name: "Nhận xét", component: <CourtFeedback /> },
   ];

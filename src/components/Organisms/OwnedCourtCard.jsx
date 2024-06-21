@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { SIZE, WEIGHT } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
 import { useFonts } from "expo-font";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { formatNumber } from "../../utils";
+import { CourtOwnerContext } from "../../context/CourtOwnerContext";
 
 // TODO: Wait For API than continue
 
@@ -19,16 +20,20 @@ export default function OwnedCourtCard({
   navigation,
   courtCode,
   isActive,
+  courtId,
   revenue,
   bookedSlot,
-  totalSlot,
   action,
 }) {
+  const { totalSlot } = useContext(CourtOwnerContext);
+
   return (
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.5}
-      onPress={() => navigation.navigate("CourtCodeManagement")}
+      onPress={() =>
+        navigation.navigate("CourtCodeManagement", { courtCode: courtId })
+      }
     >
       <View style={styles.upperSection}>
         <Image
@@ -61,14 +66,15 @@ export default function OwnedCourtCard({
           <View style={[styles.inforItem, { marginBottom: 10 }]}>
             <Text style={styles.normalText}>Doanh thu</Text>
             <Text style={[styles.normalText, { color: COLORS.darkGreenText }]}>
-              {formatNumber(revenue)}d
+              {/* {formatNumber(revenue)}d */}
+              {formatNumber(100000)}d
             </Text>
           </View>
 
           <View style={styles.inforItem}>
             <Text style={styles.normalText}>Khung giờ đã đặt </Text>
             <Text style={[styles.normalText, { color: COLORS.darkGreenText }]}>
-              {bookedSlot}/{totalSlot}
+              {0}/{totalSlot}
             </Text>
           </View>
         </View>

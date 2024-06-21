@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import backgroundHomeImage from "../../assets/images/HomeHeaderCourtOwner.png";
 import Icon from "react-native-vector-icons/FontAwesome6";
 import { useNavigation } from "@react-navigation/native";
@@ -24,35 +24,44 @@ import OwnedCourtCard from "../../components/Organisms/OwnedCourtCard";
 import { AuthContext } from "../../context/AuthContext";
 import { CourtOwnerContext } from "../../context/CourtOwnerContext";
 import CourtService from "../../services/court.service";
+import CourtCodeService from "../../services/court-code.service";
+import SlotService from "../../services/slot.service";
 
 export default function Home_CourtOwner() {
   const { user, token } = useContext(AuthContext);
 
-  const { courtInfo, setCourtInfo } = useContext(CourtOwnerContext);
+  const {
+    courtInfo,
+    setCourtInfo,
+    courtCodeList,
+    setCourtCodeList,
+    totalSlot,
+    setTotalSlot,
+  } = useContext(CourtOwnerContext);
 
-  const courtList = [
-    {
-      id: 1,
-      isActive: true,
-      revenue: 12000000,
-      bookedSlot: 12,
-      totalSlot: 20,
-    },
-    {
-      id: 2,
-      isActive: false,
-      revenue: 4000000,
-      bookedSlot: 12,
-      totalSlot: 20,
-    },
-    {
-      id: 3,
-      isActive: true,
-      revenue: 17112003,
-      bookedSlot: 12,
-      totalSlot: 25,
-    },
-  ];
+  // const courtList = [
+  //   {
+  //     id: 1,
+  //     isActive: true,
+  //     revenue: 12000000,
+  //     bookedSlot: 12,
+  //     totalSlot: 20,
+  //   },
+  //   {
+  //     id: 2,
+  //     isActive: false,
+  //     revenue: 4000000,
+  //     bookedSlot: 12,
+  //     totalSlot: 20,
+  //   },
+  //   {
+  //     id: 3,
+  //     isActive: true,
+  //     revenue: 17112003,
+  //     bookedSlot: 12,
+  //     totalSlot: 25,
+  //   },
+  // ];
   const navigation = useNavigation();
 
   const sliderWidth = METRICS.screenWidth;
@@ -60,10 +69,33 @@ export default function Home_CourtOwner() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await CourtService.getCourtByOwner(user?.id, token);
+      const courtData = await CourtService.getCourtByOwner(user?.id, token);
 
-      if (res) {
-        setCourtInfo(res);
+      if (courtData) {
+        setCourtInfo(courtData);
+
+        const courtCodeData =
+          await CourtCodeService.getCourtCodeByBadmintonCourt(
+            courtData?.id,
+            token
+          );
+
+        if (courtCodeData) {
+          setCourtCodeList(courtCodeData);
+
+          console.log(courtCodeData[0]);
+
+          const res = await SlotService.getSlotListByCourtCodeId(
+            courtCodeData[0]?.id,
+            token
+          );
+
+          console.log(res);
+
+          if (res) {
+            setTotalSlot(res.length);
+          }
+        }
       }
     };
 
@@ -151,7 +183,10 @@ export default function Home_CourtOwner() {
         </View>
 
         <View>
-          <Title_MoreInfo title={"Sân của tôi"} navigation={"AB"} />
+          <Title_MoreInfo
+            title={"Sân của tôi"}
+            navigation={() => navigation.navigate("BookingManagement")}
+          />
 
           <Carousel
             layout="default"
@@ -159,16 +194,16 @@ export default function Home_CourtOwner() {
             contentContainerCustomStyle={{
               paddingLeft: 0, // Ensure the first item starts at the left of the screen
             }}
-            data={courtList}
+            data={courtCodeList}
             renderItem={({ item }) => {
               return (
                 <OwnedCourtCard
-                  isActive={item.isActive}
-                  revenue={item.revenue}
-                  bookedSlot={item.bookedSlot}
-                  totalSlot={item.totalSlot}
-                  courtCode={item.id}
+                  isActive={item?.isActive}
+                  revenue={item?.revenue}
+                  bookedSlot={item?.bookedSlot}
+                  courtCode={item?.courtCode}
                   navigation={navigation}
+                  courtId={item?.id}
                 />
               );
             }}
