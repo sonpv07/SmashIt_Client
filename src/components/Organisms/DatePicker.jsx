@@ -28,11 +28,16 @@ export default function DatePickerSlider({
   chosenDate,
 }) {
   const [currentIndex, setCurrentIndex] = React.useState(
-    format(chosenDate, "d")
+    `${format(chosenDate, "d")}/${format(chosenDate, "M")}`
   );
 
+  console.log(currentIndex);
+
   const checkIsToday = (day) => {
-    if (format(day, "d") === format(new Date(), "d")) {
+    if (
+      format(day, "d") === format(new Date(), "d") &&
+      format(day, "M") === format(new Date(), "M")
+    ) {
       return "H.nay";
     } else {
       return formatDayOfWeek(format(day, "E"));
@@ -99,7 +104,7 @@ export default function DatePickerSlider({
               <TouchableOpacity
                 key={format(day, "d")}
                 onPress={() => {
-                  getIndex(format(day, "d"));
+                  getIndex(`${format(day, "d")}/${format(day, "M")}`);
                   // action(day.toISOString());
                   setChosenDate(day.toISOString());
                 }}
@@ -108,7 +113,7 @@ export default function DatePickerSlider({
                   height: 75,
                   borderWidth: 1,
                   borderColor:
-                    currentIndex === format(day, "d")
+                    currentIndex === `${format(day, "d")}/${format(day, "M")}`
                       ? COLORS.orangeText
                       : COLORS.greyBackground,
                   justifyContent: "center",
@@ -146,7 +151,7 @@ export default function DatePickerSlider({
                     justifyContent: "center",
                     alignItems: "center",
                     backgroundColor:
-                      currentIndex === format(day, "d")
+                      currentIndex === `${format(day, "d")}/${format(day, "M")}`
                         ? COLORS.orangeText
                         : format(day, "E") === "Sat" ||
                           format(day, "E") === "Sun"
@@ -164,7 +169,8 @@ export default function DatePickerSlider({
                       // backgroundColor: 'pink',
                       justifyContent: "center",
                       color:
-                        currentIndex === format(day, "d")
+                        currentIndex ===
+                        `${format(day, "d")}/${format(day, "M")}`
                           ? COLORS.white
                           : format(day, "E") === "Sat" ||
                             format(day, "E") === "Sun"
@@ -179,7 +185,8 @@ export default function DatePickerSlider({
                       fontSize: SIZE.size_10,
                       fontFamily: "quicksand-medium",
                       color:
-                        currentIndex === format(day, "d")
+                        currentIndex ===
+                        `${format(day, "d")}/${format(day, "M")}`
                           ? COLORS.white
                           : format(day, "E") === "Sat" ||
                             format(day, "E") === "Sun"
