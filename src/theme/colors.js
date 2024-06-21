@@ -1,18 +1,19 @@
 export const COLORS = {
   black: "#000000",
-  white: "#FFFFFF",
+  white: "#F9F9Fa",
   red: "#FF0000",
+  blue: "#094978",
 
   // GREEN
-  darkGreenText: "#2A9083",
+  darkGreenText: "#00564C",
   darkGreenBackground: "rgba(42, 144, 131, 0.25)",
   chipGreenBackGround: "rgba(0, 210, 132, 0.13)",
   chipGreenText: "#00D284",
-  lightGreenText: "#03AF00",
+  lightGreenText: "#2A9083",
   lightGreenBackground: "#E0F5E0",
 
   // ORANGE
-  orangeText: "#FF8A00",
+  orangeText: "#F37148",
   orangeBackground: "rgba(255, 138, 0, 0.1)",
   lightOrange: "#FFDCB2",
 
