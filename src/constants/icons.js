@@ -27,6 +27,7 @@ import court from "../assets/icons/court.png";
 import tournament from "../assets/icons/tournament.png";
 import water from "../assets/icons/water.png";
 import ads from "../assets/icons/ads.png";
+import ads2 from "../assets/icons/ads2.png";
 
 export default {
   cash,
@@ -58,4 +59,5 @@ export default {
   ads,
   court,
   water,
+  ads2,
 };
