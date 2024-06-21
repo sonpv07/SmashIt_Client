@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Image,
   Pressable,
   ScrollView,
@@ -26,9 +27,12 @@ import { CourtOwnerContext } from "../../context/CourtOwnerContext";
 import CourtService from "../../services/court.service";
 import CourtCodeService from "../../services/court-code.service";
 import SlotService from "../../services/slot.service";
+import Loading from "../../components/Molecules/Loading";
 
 export default function Home_CourtOwner() {
   const { user, token } = useContext(AuthContext);
+
+  const [isLoadCourtCode, setIsLoadCourtCode] = useState(true);
 
   const {
     courtInfo,
@@ -38,6 +42,8 @@ export default function Home_CourtOwner() {
     totalSlot,
     setTotalSlot,
   } = useContext(CourtOwnerContext);
+
+  console.log(isLoadCourtCode);
 
   // const courtList = [
   //   {
@@ -69,6 +75,8 @@ export default function Home_CourtOwner() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoadCourtCode(true);
+
       const courtData = await CourtService.getCourtByOwner(user?.id, token);
 
       if (courtData) {
@@ -83,8 +91,6 @@ export default function Home_CourtOwner() {
         if (courtCodeData) {
           setCourtCodeList(courtCodeData);
 
-          console.log(courtCodeData[0]);
-
           const res = await SlotService.getSlotListByCourtCodeId(
             courtCodeData[0]?.id,
             token
@@ -94,6 +100,7 @@ export default function Home_CourtOwner() {
 
           if (res) {
             setTotalSlot(res.length);
+            setIsLoadCourtCode(false);
           }
         }
       }
@@ -152,7 +159,7 @@ export default function Home_CourtOwner() {
                   { fontFamily: "quicksand-semibold" },
                 ]}
               >
-                Bạn có 2 lượt đặt sân mới
+                tôi có 2 lượt đặt sân mới
               </Text>
             </View>
           </View>
@@ -169,9 +176,9 @@ export default function Home_CourtOwner() {
           >
             <Image source={images.financial} />
             <View>
-              <Text style={[styles.semiboldText]}>Chi tiêu của bạn</Text>
+              <Text style={[styles.semiboldText]}>Sô thu chi của tôi</Text>
               <Text style={styles.regularText}>
-                Theo dõi và thống kê chi tiêu của bạn
+                Theo dõi và thống kê chi tiêu của tôi
               </Text>
             </View>
             <View
@@ -183,33 +190,39 @@ export default function Home_CourtOwner() {
         </View>
 
         <View>
-          <Title_MoreInfo
-            title={"Sân của tôi"}
-            navigation={() => navigation.navigate("BookingManagement")}
-          />
+          {!isLoadCourtCode ? (
+            <>
+              <Title_MoreInfo
+                title={"Sân của tôi"}
+                navigation={() => navigation.navigate("BookingManagement")}
+              />
 
-          <Carousel
-            layout="default"
-            firstItem={0}
-            contentContainerCustomStyle={{
-              paddingLeft: 0, // Ensure the first item starts at the left of the screen
-            }}
-            data={courtCodeList}
-            renderItem={({ item }) => {
-              return (
-                <OwnedCourtCard
-                  isActive={item?.isActive}
-                  revenue={item?.revenue}
-                  bookedSlot={item?.bookedSlot}
-                  courtCode={item?.courtCode}
-                  navigation={navigation}
-                  courtId={item?.id}
-                />
-              );
-            }}
-            sliderWidth={sliderWidth}
-            itemWidth={itemWidth}
-          />
+              <Carousel
+                layout="default"
+                firstItem={0}
+                contentContainerCustomStyle={{
+                  paddingLeft: 0, // Ensure the first item starts at the left of the screen
+                }}
+                data={courtCodeList}
+                renderItem={({ item }) => {
+                  return (
+                    <OwnedCourtCard
+                      isActive={item?.isActive}
+                      revenue={item?.revenue}
+                      bookedSlot={item?.bookedSlot}
+                      courtCode={item?.courtCode}
+                      navigation={navigation}
+                      courtId={item?.id}
+                    />
+                  );
+                }}
+                sliderWidth={sliderWidth}
+                itemWidth={itemWidth}
+              />
+            </>
+          ) : (
+            <Loading />
+          )}
         </View>
 
         <View style={styles.suggest}>

@@ -1,4 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TurboModuleRegistry,
+  View,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import DatePickerSlider from "../../../components/Organisms/DatePicker";
@@ -15,9 +22,12 @@ import Divider from "../../../components/Atoms/Divider";
 import { AuthContext } from "../../../context/AuthContext";
 import CourtCodeService from "../../../services/court-code.service";
 import SlotService from "../../../services/slot.service";
+import Loading from "../../../components/Molecules/Loading";
 
 export default function CourtCodeManagement({ navigation, route }) {
   const { courtCode } = route.params;
+
+  const [isSlotLoading, setIsSlotLoading] = useState(TurboModuleRegistry);
 
   const { token } = useContext(AuthContext);
 
@@ -44,6 +54,7 @@ export default function CourtCodeManagement({ navigation, route }) {
 
       if (res) {
         setSlotList(res);
+        setIsSlotLoading(false);
       }
     };
 
@@ -66,14 +77,19 @@ export default function CourtCodeManagement({ navigation, route }) {
 
       <View style={styles.container}>
         <CourtCodeCard courtCode={courtCode} />
-        <SlotChip
-          chosenSlot={chosenSlot}
-          isCourtOwner={true}
-          setChosenSlot={setChosenSlot}
-          slotList={slotList}
-        />
 
-        {!chosenSlot && (
+        {isSlotLoading ? (
+          <Loading />
+        ) : (
+          <SlotChip
+            chosenSlot={chosenSlot}
+            isCourtOwner={true}
+            setChosenSlot={setChosenSlot}
+            slotList={slotList}
+          />
+        )}
+
+        {!chosenSlot && !isSlotLoading && (
           <View style={styles.noteSection}>
             <View style={styles.noteItem}>
               <View
@@ -139,7 +155,9 @@ export default function CourtCodeManagement({ navigation, route }) {
                       : "#2A9083",
                   },
                 ]}
-              >{`${chosenSlot.start} - ${chosenSlot.end}`}</Text>
+              >
+                {chosenSlot.timeFrame}
+              </Text>
             </View>
           </View>
           <Divider
