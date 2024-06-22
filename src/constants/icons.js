@@ -22,6 +22,10 @@ import book from "../assets/icons/book.png";
 import rates from "../assets/icons/rates.png";
 import bad_white from "../assets/icons/bad_white.png";
 import badIcon from "../assets/icons/badIcon.png";
+import increase from "../assets/icons/increase.png";
+import withdrawn from "../assets/icons/withdrawn.png";
+import add from "../assets/icons/add.png";
+import translog from "../assets/icons/translog.png";
 
 export default {
   cash,
@@ -48,4 +52,8 @@ export default {
   rates,
   bad_white,
   badIcon,
+  increase,
+  withdrawn,
+  add,
+  translog,
 };

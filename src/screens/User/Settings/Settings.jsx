@@ -41,14 +41,23 @@ export default function Settings() {
           name: "Địa điểm yêu thích",
           isNew: false,
         },
-        { navigate: "", icon: "map-pin", name: "Đã đặt trước", isNew: true },
+        {
+          navigate: "",
+          icon: "map-pin",
+          name: "Đã đặt trước",
+          isNew: true,
+        },
         {
           navigate: "BookedHistory",
           icon: "calendar",
           name: "Lịch sử đặt sân",
           isNew: false,
         },
-        { navigate: "", icon: "box", name: "Quản lý sản phẩm", isNew: true },
+        {
+          navigate: "MyWallet",
+          icon: "credit-card",
+          name: "Ví của tôi",
+        },
       ],
     },
     {
