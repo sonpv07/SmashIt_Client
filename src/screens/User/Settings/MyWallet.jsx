@@ -6,6 +6,7 @@ import HeaderBar from "../../../components/Atoms/HeaderBar";
 import icons from "../../../constants/icons";
 import { SIZE } from "../../../theme/fonts";
 import { add } from "date-fns";
+import { useNavigation } from "@react-navigation/native";
 
 const transactionLog = [
   {
@@ -46,6 +47,7 @@ const transactionLog = [
 ];
 
 const MyWallet = () => {
+  const navigate = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <HeaderBar
