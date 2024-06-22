@@ -103,6 +103,11 @@ export default function Settings() {
           isNew: false,
         },
         { navigate: "", icon: "box", name: "Sổ thu chi", isNew: true },
+        {
+          navigate: "MyWallet",
+          icon: "credit-card",
+          name: "Ví của tôi",
+        },
       ],
     },
     {
