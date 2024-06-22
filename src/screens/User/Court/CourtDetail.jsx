@@ -30,7 +30,7 @@ const CourtDetail = () => {
   const [court, setCourt] = useState({});
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  const { token } = useContext(AuthContext); // Retrieve token from AuthContext
+  const { token } = useContext(AuthContext); 
 
   useEffect(() => {
     const fetchCourt = async () => {
@@ -240,7 +240,7 @@ const CourtDetail = () => {
         <View style={styles.bookingButton}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("BookingCourt");
+              navigation.navigate("BookingCourt", {badmintonCourtId : court.id});
             }}
             style={styles.button}
           >

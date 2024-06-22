@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import DatePickerSlider from "../../../components/Organisms/DatePicker";
 import CourtCodeCard from "../../../components/Organisms/CourtCodeCard";
@@ -20,17 +20,29 @@ import Divider from "../../../components/Atoms/Divider";
 import { METRICS } from "../../../theme/metrics";
 import StepDot from "../../../components/Molecules/StepDot";
 import CourtInfo from "../../../components/Organisms/CourtInfo";
-import { useNavigation } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
+import CourtService from "../../../services/court.service";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function BookingCourt() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const isFocused = useIsFocused();
 
+  const { token } = useContext(AuthContext);
+  const courtId = Number(route.params.badmintonCourtId);
+
+  const [court, setCourt] = useState({});
+  const [courtSlot, setCourtSlot] = useState([]);
   const [isShowDetail, setIsShowDetail] = useState(false);
-
   const [chosenSlot, setChosenSlot] = useState(0);
-
   const [chosenDate, setChosenDate] = useState(new Date());
   const [chosenCourt, setChosenCourt] = useState(0);
+
 
   const formatDate = (date) => {
     const formattedDate = moment(date).locale("vi").format("dddd, DD/MM/YYYY");
@@ -40,9 +52,32 @@ export default function BookingCourt() {
 
     return capitalizedDate;
   };
+
   const numberOfCourt = [1, 2, 3, 4];
   const [currentCourt, setCurrentCourt] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(10 );
+  const [totalPrice, setTotalPrice] = useState(10);
+  const [date, setDate] = useState(""); 
+
+  useEffect(() => {
+    const fetchCourt = async () => {
+      const res = await CourtService.getCourtById(token, courtId);
+      if (res) {
+        setCourt(res);
+      }
+    };
+    const fetchGenerateSlot = async () => {
+
+      const res = await CourtService.generateSlotByDate(token, courtId,chosenDate.toISOString());
+
+      if (res) {
+        setCourtSlot(res.generateSlotResponses);
+      }
+    }
+    fetchCourt();
+    fetchGenerateSlot();
+  }, [isFocused, token, courtId, chosenDate]);
+
+
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -53,7 +88,7 @@ export default function BookingCourt() {
       />
       <ScrollView style={{ flex: 1, marginBottom: 135 }}>
         <View style={{ paddingHorizontal: 15, marginTop: 20 }}>
-          <CourtInfo />
+          <CourtInfo courtName={court.courtName} address={court.address} />
         </View>
 
         <View style={{ marginTop: 20, marginBottom: 20 }}>
@@ -73,7 +108,7 @@ export default function BookingCourt() {
                 setCurrentCourt(
                   Number((x / METRICS.screenWidth).toFixed(0)) + 1
                 );
-                // console.log(currentCourt);
+
               }}
               style={
                 {
@@ -81,10 +116,13 @@ export default function BookingCourt() {
                 }
               }
             >
-              {numberOfCourt.map((court, index) => {
+              {numberOfCourt.map((item, index) => {
                 return (
                   <View key={index} style={{ width: METRICS.screenWidth - 30 }}>
-                    <CourtCodeCard />
+                    <CourtCodeCard
+                      name={index + 1}
+                      pricePerHour={court.pricePerHour}
+                    />
                   </View>
                 );
               })}
@@ -181,7 +219,7 @@ export default function BookingCourt() {
               <View
                 style={{ alignItems: "center", flexDirection: "row", gap: 15 }}
               >
-                <View style={{ alignItems: "center", flexDirection: "row"}}>
+                <View style={{ alignItems: "center", flexDirection: "row" }}>
                   <VectorIcon.Entypo
                     name="dot-single"
                     size={20}
@@ -189,7 +227,7 @@ export default function BookingCourt() {
                   />
                   <Text>{chosenCourt} sân</Text>
                 </View>
-                <View style={{ alignItems: "center", flexDirection: "row"}}>
+                <View style={{ alignItems: "center", flexDirection: "row" }}>
                   <VectorIcon.Entypo
                     name="dot-single"
                     size={20}

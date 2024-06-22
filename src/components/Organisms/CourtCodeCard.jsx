@@ -3,7 +3,10 @@ import React from "react";
 import { COLORS } from "../../theme/colors";
 import { formatNumber } from "../../utils";
 
-export default function CourtCodeCard() {
+export default function CourtCodeCard({
+  name,
+  pricePerHour,
+}) {
   return (
     <View style={styles.container}>
       <View style={styles.upperSection}>
@@ -13,13 +16,13 @@ export default function CourtCodeCard() {
         />
         <View style={styles.upperSectionInfor}>
           <View style={styles.inforItem}>
-            <Text style={styles.normalText}>Số sân: </Text>
-            <Text style={[styles.boldText]}>Sân 1</Text>
+            <Text style={styles.normalText}>Sân: </Text>
+            <Text style={[styles.boldText]}>Sân {name}</Text>
           </View>
 
           <View style={[styles.inforItem]}>
-            <Text style={styles.normalText}>Doanh thu</Text>
-            <Text style={[styles.boldText]}>{formatNumber(200000)}đ</Text>
+            <Text style={styles.normalText}>Giá: </Text>
+            <Text style={[styles.boldText]}>{formatNumber(pricePerHour)}đ</Text>
           </View>
 
           <View style={styles.inforItem}>

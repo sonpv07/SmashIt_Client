@@ -20,6 +20,7 @@ const CourtItem = ({
   address,
   accountId
 }) => {
+
   return (
     <TouchableOpacity
       onPress={() => {

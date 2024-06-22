@@ -71,6 +71,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot }) => {
 
   const handleGenerateSlots = () => {
     const slots = generateTimeIntervals(timeRange.start, timeRange.end);
+    // console.log(slots);
     setTimeSlots(slots);
   };
 

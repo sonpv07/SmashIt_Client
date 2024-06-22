@@ -15,6 +15,7 @@ const BookedHistory = () => {
   const [tab, setTab] = useState(1);
 
   const courts = {
+    id: 1,
     name: "Sân cầu lông Quân Đội",
     numOfCourt: "1",
     numOfSlot: "2",
@@ -22,25 +23,11 @@ const BookedHistory = () => {
     price: "100.000",
     paymentMethod: "Thanh toán tại sân",
   };
-  const tabItems = [
-    {
-      id: 1,
-      name: "Đã đặt trước",
-      component: reserve,
-    },
-    {
-      id: 2,
-      name: "Lịch sử đặt sân",
-      component: historyBooked,
-    },
-  ];
 
-  const reserve = () => {
-    return (
-      <FlatList 
-        data={reserveCourts}
-        renderItem={({item}) => {
-          <View key={item}>
+  const Reserve = () => {
+    return bookedHistory.map((court, index) => {
+      return (
+        <View key={index}>
           <HistoryCourt
             name={courts.name}
             numOfCourt={courts.numOfCourt}
@@ -51,45 +38,39 @@ const BookedHistory = () => {
           />
           <View style={styles.hr} />
         </View>
-        }}
-      />
-    )
-    // return reserveCourts.map((court, index) => {
-    //   return (
-    //     <View key={index}>
-    //       <HistoryCourt
-    //         name={courts.name}
-    //         numOfCourt={courts.numOfCourt}
-    //         numOfSlot={courts.numOfSlot}
-    //         bookingTime={courts.bookingTime}
-    //         price={courts.price}
-    //         paymentMethod={courts.paymentMethod}
-    //       />
-    //       <View style={styles.hr} />
-    //     </View>
-    //   );
-    }
-  // );
-  // };
+      );
+    });
+  };
 
-  const historyBooked = () => {
+  const HistoryBooked = () => {
     return reserveCourts.map((court, index) => {
       return (
         <View key={index}>
           <HistoryCourt
-            name={court.name}
-            numOfCourt={court.numOfCourt}
-            numOfSlot={court.numOfSlot}
-            bookingTime={court.bookingTime}
-            price={court.price}
-            paymentMethod={court.paymentMethod}
+            name={courts.name}
+            numOfCourt={courts.numOfCourt}
+            numOfSlot={courts.numOfSlot}
+            bookingTime={courts.bookingTime}
+            price={courts.price}
+            paymentMethod={courts.paymentMethod}
           />
           <View style={styles.hr} />
         </View>
-      )
+      );
     });
   };
-
+  const tabItems = [
+    {
+      id: 1,
+      name: "Đã đặt trước",
+      component: <Reserve />,
+    },
+    {
+      id: 2,
+      name: "Lịch sử đặt sân",
+      component: <HistoryBooked />,
+    },
+  ];
   return (
     <View style={{ flex: 1 }}>
       <HeaderBar
@@ -97,32 +78,23 @@ const BookedHistory = () => {
         goBack={() => navigation.goBack()}
         text={"Lịch sử đặt sân"}
       />
-      <View style={{backgroundColor: 'white', marginVertical: 3}}>
-        <TabBar tabItem={tabItems} fontSize={SIZE.size_14} setTab={setTab} currentTab={tab}/>
+      <View style={{ backgroundColor: "white", marginVertical: 3 }}>
+        <TabBar
+          tabItem={tabItems}
+          fontSize={SIZE.size_14}
+          setTab={setTab}
+          currentTab={tab}
+        />
       </View>
       <ScrollView style={styles.bookedCourt}>
-        {tabItems.map((item, index) => 
-          item.id === tab && (
-            <View style={{height: 500, width: '100%'}}>
-              {item.component}
-            </View>
-          )
-        // {
-        //   return (
-        //     <View key={index}>
-        //       <HistoryCourt
-        //         name={courts.name}
-        //         numOfCourt={courts.numOfCourt}
-        //         numOfSlot={courts.numOfSlot}
-        //         bookingTime={courts.bookingTime}
-        //         price={courts.price}
-        //         paymentMethod={courts.paymentMethod}
-        //       />
-        //       <View style={styles.hr} />
-        //     </View>
-        //   );
-        // }
-      )}
+        {tabItems.map(
+          (item, index) =>
+            item.id === tab && (
+              <View key={item.id} style={{ flex: 1, width: "100%" }}>
+                {item.component}
+              </View>
+            )
+        )}
       </ScrollView>
       <View></View>
     </View>
