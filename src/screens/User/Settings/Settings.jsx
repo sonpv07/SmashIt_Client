@@ -63,12 +63,15 @@ export default function Settings() {
     {
       title: "Tổng quát",
       data: [
-        { navigate: "", icon: "globe", name: "Ngôn ngữ", isNew: true },
+        {
+          navigate: "HelpCenter",
+          icon: "help-circle",
+          name: "Trung tâm trợ giúp",
+        },
         {
           navigate: "FeedBack",
           icon: "message-circle",
           name: "Chia sẻ phản hồi",
-          isNew: true,
         },
       ],
     },
