@@ -9,14 +9,52 @@ import React, { useEffect, useState } from "react";
 import { SIZE } from "../../theme/fonts";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../../theme/colors";
+import { toZonedTime, format } from "date-fns-tz";
 
-const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
+const SlotChip = ({
+  chosenDate,
+  courtId,
+  isCourtOwner,
+  setChosenSlot,
+  chosenSlot,
+  slotList,
+  // bookingSlot,
+  setBookingSlotList,
+}) => {
   // const [timeRange, setTimeRange] = useState({ start: "6:00", end: "23:00" });
   const [timeSlots, setTimeSlots] = useState([]);
+  console.log("sdfdsf", courtId);
+
+  const vietnamTimeZone = "Asia/Ho_Chi_Minh";
+
+  const getCurrentDateTimeInVietnam = (chosenDate) => {
+    const zonedDate = toZonedTime(chosenDate, vietnamTimeZone);
+    return format(zonedDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
+      timeZone: "UTC",
+    });
+  };
+
+  const [slotDetail, setSlotDetail] = useState({
+    courtId: courtId,
+    timeFrames: [],
+    date: getCurrentDateTimeInVietnam(chosenDate),
+  });
+
+  const [bookingSlot, setBookingSlot] = useState([]);
+
+  useEffect(() => {
+    if (courtId) {
+      setSlotDetail({ ...slotDetail, courtId: courtId });
+    }
+  }, [courtId]);
+
+  console.log("Detail:", slotDetail);
+
+  const filterCourt = (arr, courtId) => {
+    return arr.find((court) => court.courtId === courtId);
+  };
 
   const handleChooseSlot = (choice) => {
-    console.log(choice);
-
     if (isCourtOwner) {
       if (!chosenSlot || chosenSlot !== choice) {
         setChosenSlot(choice);
@@ -24,17 +62,55 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
         setChosenSlot(null);
       }
     } else {
-      setChosenSlot((prevChosenSlots) => {
-        if (prevChosenSlots.includes(choice)) {
-          return prevChosenSlots.filter((slot) => slot !== choice);
+      let newTimeFrames = [...slotDetail.timeFrames];
+
+      // Check if slotDetail for the courtId exists in bookingSlot
+      const existingSlot = filterCourt(bookingSlot, courtId);
+
+      if (existingSlot) {
+        // Update timeFrames of the existing slotDetail
+        if (!existingSlot.timeFrames.includes(choice)) {
+          existingSlot.timeFrames.push(choice);
         } else {
-          return [...prevChosenSlots, choice];
+          existingSlot.timeFrames = existingSlot.timeFrames.filter(
+            (slot) => slot !== choice
+          );
         }
+        setBookingSlot(
+          bookingSlot.map((slot) =>
+            slot.courtId === courtId ? existingSlot : slot
+          )
+        );
+      } else {
+        // Add new slotDetail to bookingSlot
+        if (!newTimeFrames.includes(choice)) {
+          newTimeFrames.push(choice);
+        }
+        setBookingSlot([
+          ...bookingSlot,
+          { ...slotDetail, timeFrames: newTimeFrames },
+        ]);
+      }
+
+      // Update the slotDetail state with the new timeFrames array
+      setSlotDetail({
+        ...slotDetail,
+        timeFrames: newTimeFrames,
       });
     }
+    setBookingSlotList([...bookingSlot]);
   };
 
-  console.log(slotList);
+  console.log(bookingSlot);
+  console.log("asd", bookingSlot[0]?.timeFrames);
+
+  const handleGenerateSlots = () => {
+    const slots = generateTimeIntervals(timeRange.start, timeRange.end);
+    // console.log(slots);
+    setTimeSlots(slots);
+  };
+
+  // console.log(slotList);
 
   // const generateTimeIntervals = (startTime, endTime) => {
   //   const intervals = [];
@@ -131,7 +207,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
             </TouchableOpacity>
           ))} */}
 
-          {slotList?.timeFrame?.map((slot) => (
+          {slotList?.slotWithStatusResponses?.map((slot) => (
             <TouchableOpacity
               onPress={() => handleChooseSlot(slot)}
               activeOpacity={0.7}
@@ -141,7 +217,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
                 {
                   backgroundColor: slot?.isOccupied
                     ? "rgba(117,117,117,0.1)"
-                    : slot.isChoose
+                    : chosenSlot?.includes(slot)
                     ? COLORS.orangeBackground
                     : "rgba(42,144,131,0.1)",
 
@@ -166,7 +242,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
                   },
                 ]}
               >
-                {slot}
+                {slot.timeFrame}
               </Text>
             </TouchableOpacity>
           ))}

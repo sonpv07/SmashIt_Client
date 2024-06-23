@@ -23,6 +23,7 @@ import {
 import CourtService from "../../../services/court.service";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { AuthContext } from "../../../context/AuthContext";
+import { formatNumber } from "../../../utils";
 
 const CourtDetail = () => {
   const route = useRoute();
@@ -30,7 +31,7 @@ const CourtDetail = () => {
   const [court, setCourt] = useState({});
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  const { token } = useContext(AuthContext); // Retrieve token from AuthContext
+  const { token } = useContext(AuthContext); 
 
   useEffect(() => {
     const fetchCourt = async () => {
@@ -233,14 +234,14 @@ const CourtDetail = () => {
         <View style={styles.bookingInfo}>
           <Text style={styles.price}>
             {/* <Text style={styles.oldPrice}>110.000đ</Text>{" "} */}
-            <Text style={styles.newPrice}>{court.pricePerHour}đ</Text>/giờ
+            <Text style={styles.newPrice}>{formatNumber(court.pricePerHour)}đ</Text>/giờ
           </Text>
           {/* <Text style={styles.voucher}>Đã áp dụng voucher</Text> */}
         </View>
         <View style={styles.bookingButton}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("BookingCourt");
+              navigation.navigate("BookingCourt", {badmintonCourtId : court.id});
             }}
             style={styles.button}
           >

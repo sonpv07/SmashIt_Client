@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }) => {
           return null;
         }
       } else {
-        console.log("Login Fail");
+        console.log("Login Fail" + res);
       }
     } catch (error) {
       console.error("error login", error);

@@ -17,36 +17,69 @@ const ChipList = ({
   borderRadius,
   chipStyle,
 }) => {
-  // console.log(dataList);
-  return (
-    <ScrollView
-      showsHorizontalScrollIndicator={false}
-      showsVerticalScrollIndicator={false}
-      horizontal={isHorizontal}
-      contentContainerStyle={[
-        isHorizontal ? styles.horizontal : styles.vertical,
-        listStyle,
-      ]}
-    >
-      {dataList.map((item, index) => (
-        <View key={index}>
-          <Chip
-            borderColor={borderColor}
-            text={item}
-            backgroundColor={backgroundColor}
-            textFamily={textFamily}
-            textColor={textColor}
-            borderRadius={borderRadius}
-            action={action}
-            chipType={chipType}
-            chosenData={chosenData}
-            setChosenData={setChosenData}
-            chipStyle={chipStyle}
-          />
-        </View>
-      ))}
-    </ScrollView>
-  );
+  console.log("dudoug", dataList);
+
+  if (dataList[0] !== "string") {
+    return (
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        horizontal={isHorizontal}
+        contentContainerStyle={[
+          isHorizontal ? styles.horizontal : styles.vertical,
+          listStyle,
+        ]}
+      >
+        {dataList.map((item, index) => (
+          <View key={index}>
+            <Chip
+              borderColor={borderColor}
+              text={item.timeFrame}
+              backgroundColor={backgroundColor}
+              textFamily={textFamily}
+              textColor={textColor}
+              borderRadius={borderRadius}
+              action={action}
+              chipType={chipType}
+              chosenData={chosenData}
+              setChosenData={setChosenData}
+              chipStyle={chipStyle}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    );
+  } else {
+    return (
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        horizontal={isHorizontal}
+        contentContainerStyle={[
+          isHorizontal ? styles.horizontal : styles.vertical,
+          listStyle,
+        ]}
+      >
+        {dataList.map((item, index) => (
+          <View key={index}>
+            <Chip
+              borderColor={borderColor}
+              text={item}
+              backgroundColor={backgroundColor}
+              textFamily={textFamily}
+              textColor={textColor}
+              borderRadius={borderRadius}
+              action={action}
+              chipType={chipType}
+              chosenData={chosenData}
+              setChosenData={setChosenData}
+              chipStyle={chipStyle}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
