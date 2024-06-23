@@ -42,6 +42,9 @@ import MyVoucherDetail from "../screens/User/Settings/MyVoucherDetail";
 import CourtRating from "../screens/Notification/notification-detail/CourtRating";
 import CreateFinancialActivities from "../screens/CourtOwner/RevenueExpenditure/CreateFinancialActivities";
 import LogoScreen from "../screens/SplashScreen/LogoScreen";
+import PaymentInvoice from "../screens/User/Payment/PaymentInvoice";
+import QRCode from "../screens/User/Payment/QRCode";
+import ConfirmPayment from "../screens/User/Payment/ConfirmPayment";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -242,6 +245,33 @@ export default function Navigation() {
           <Stack.Screen
             name="Payment"
             component={Payment}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="PaymentInvoice"
+            component={PaymentInvoice}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="QRCode"
+            component={QRCode}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ConfirmPayment"
+            component={ConfirmPayment}
             options={{
               title: "",
               animation: "slide_from_right",

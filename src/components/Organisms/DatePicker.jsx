@@ -31,8 +31,7 @@ export default function DatePickerSlider({
     `${format(chosenDate, "d")}/${format(chosenDate, "M")}`
   );
 
-  console.log(currentIndex);
-
+  console.log("Data Picker", currentIndex);
 
   const checkIsToday = (day) => {
     if (

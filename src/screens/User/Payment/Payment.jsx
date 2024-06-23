@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Image,
   ScrollView,
@@ -21,16 +21,25 @@ import courtImage from "../../../assets/images/courtImages.jpg";
 import Chip from "../../../components/Atoms/Chip";
 import ChipList from "../../../components/Molecules/ChipList";
 import { formatNumber } from "../../../utils";
+import BookingService from "../../../services/booking.service";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Payment = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const {token} = useContext(AuthContext);
 
   const booking = route.params.booking;
   const badmintonCourt = route.params.badmintonCourt;
-  console.log("payment  ", badmintonCourt);
+  console.log("payment  ", booking);
+  console.log("date ", booking?.createBookingSlotRequests[0]?.date);
 
 
+  const handleBooking = async (e) => {
+    e.preventDefault();
+    await BookingService.createBooking(token, booking);
+    // navigation.navigate("PaymentInvoice", {status : 1, condition : 1, amount: booking.priceTotal});
+  }
 
 
   const paymentMethod = [
@@ -46,22 +55,6 @@ const Payment = () => {
       icon: MomoImage,
       method: "Ví MoMo",
     },
-  ];
-  const timeSlots1 = [
-    "06:00 - 08:00",
-    "09:00 - 10:00",
-    "10:30 - 12:30",
-    "16:00 - 17:00",
-    "18:00 - 19:00",
-    "20:00 - 20:30",
-  ];
-  const timeSlots2 = [
-    "06:00 - 08:00",
-    "09:00 - 10:00",
-    "10:30 - 12:30",
-    "16:00 - 17:00",
-    "18:00 - 19:00",
-    "20:00 - 20:30",
   ];
 
   return (
@@ -213,8 +206,8 @@ const Payment = () => {
         </View>
         <TouchableOpacity
           style={styles.confirmPayment}
-          onPress={() => {
-            navigation.navigate("");
+          onPress={(e) => {
+            handleBooking(e)
           }}
         >
           <Text style={styles.confirmPayment_Text}>Xác nhận thanh toán</Text>

@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { SIZE } from "../../theme/fonts";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../../theme/colors";
+import { toZonedTime, format } from "date-fns-tz";
 
 const SlotChip = ({
   chosenDate,
@@ -18,15 +19,25 @@ const SlotChip = ({
   chosenSlot,
   slotList,
   // bookingSlot,
-  setBookingSlotList
+  setBookingSlotList,
 }) => {
   // const [timeRange, setTimeRange] = useState({ start: "6:00", end: "23:00" });
   const [timeSlots, setTimeSlots] = useState([]);
   console.log("sdfdsf", courtId);
+
+  const vietnamTimeZone = "Asia/Ho_Chi_Minh";
+
+  const getCurrentDateTimeInVietnam = (chosenDate) => {
+    const zonedDate = toZonedTime(chosenDate, vietnamTimeZone);
+    return format(zonedDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", {
+      timeZone: "UTC",
+    });
+  };
+
   const [slotDetail, setSlotDetail] = useState({
     courtId: courtId,
     timeFrames: [],
-    date: chosenDate
+    date: getCurrentDateTimeInVietnam(chosenDate),
   });
 
   const [bookingSlot, setBookingSlot] = useState([]);
@@ -37,7 +48,7 @@ const SlotChip = ({
     }
   }, [courtId]);
 
-  console.log(slotDetail);
+  console.log("Detail:", slotDetail);
 
   const filterCourt = (arr, courtId) => {
     return arr.find((court) => court.courtId === courtId);
@@ -61,16 +72,24 @@ const SlotChip = ({
         if (!existingSlot.timeFrames.includes(choice)) {
           existingSlot.timeFrames.push(choice);
         } else {
-          existingSlot.timeFrames = existingSlot.timeFrames.filter((slot) => slot !== choice);
+          existingSlot.timeFrames = existingSlot.timeFrames.filter(
+            (slot) => slot !== choice
+          );
         }
-        setBookingSlot(bookingSlot.map(slot => slot.courtId === courtId ? existingSlot : slot));
+        setBookingSlot(
+          bookingSlot.map((slot) =>
+            slot.courtId === courtId ? existingSlot : slot
+          )
+        );
       } else {
         // Add new slotDetail to bookingSlot
         if (!newTimeFrames.includes(choice)) {
           newTimeFrames.push(choice);
         }
-        setBookingSlot([...bookingSlot, { ...slotDetail, timeFrames: newTimeFrames }]);
-
+        setBookingSlot([
+          ...bookingSlot,
+          { ...slotDetail, timeFrames: newTimeFrames },
+        ]);
       }
 
       // Update the slotDetail state with the new timeFrames array
@@ -78,14 +97,12 @@ const SlotChip = ({
         ...slotDetail,
         timeFrames: newTimeFrames,
       });
-
-      
     }
-    setBookingSlotList([...bookingSlot])
+    setBookingSlotList([...bookingSlot]);
   };
 
-console.log(bookingSlot);
-      console.log("asd", bookingSlot[0]?.timeFrames);
+  console.log(bookingSlot);
+  console.log("asd", bookingSlot[0]?.timeFrames);
 
   const handleGenerateSlots = () => {
     const slots = generateTimeIntervals(timeRange.start, timeRange.end);
