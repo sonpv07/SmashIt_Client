@@ -4,7 +4,14 @@ import { COLORS } from "../../theme/colors";
 
 export default function Loading() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: COLORS.white,
+      }}
+    >
       <ActivityIndicator color={COLORS.orangeText} size={"large"} />
     </View>
   );

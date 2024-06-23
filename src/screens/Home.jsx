@@ -24,9 +24,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function Home() {
   const isFocus = useIsFocused();
-  const { token } = useContext(AuthContext);
-
-  console.log(token);
+  const { token, user } = useContext(AuthContext);
 
   const fullName = "Minh Anh";
 
@@ -65,7 +63,7 @@ export default function Home() {
             </Text>
           </View>
           <Text style={[styles.header_Text, { fontSize: SIZE.size_20 }]}>
-            Xin chào {fullName}, hãy tìm sân yêu thích của bạn
+            Xin chào {user?.fullName}, hãy tìm sân yêu thích của bạn
           </Text>
 
           <Pressable

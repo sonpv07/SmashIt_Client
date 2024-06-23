@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SIZE } from "../../../theme/fonts";
 import Divider from "../../../components/Atoms/Divider";
 // import ChipList from "../../../components/Organisms/ChipList";
@@ -12,12 +12,15 @@ import { useRef } from "react";
 import ServiceCourtService from "../../../services/court-service.service";
 import { CourtOwnerContext } from "../../../context/CourtOwnerContext";
 import { AuthContext } from "../../../context/AuthContext";
+import Loading from "../../../components/Molecules/Loading";
 
 export default function CourtOverview() {
   const { courtInfo, courtService, setCourtService } =
     useContext(CourtOwnerContext);
 
   const { token } = useContext(AuthContext);
+
+  const [isLoadingService, setIsLoadingService] = useState(true);
 
   const conditionList = [
     "Đặt sân theo giờ cố định và thông báo trước để tránh xung đột về thời gian.",
@@ -34,6 +37,7 @@ export default function CourtOverview() {
 
     if (res) {
       setCourtService(res.services);
+      setIsLoadingService(false);
     }
   };
 
@@ -115,13 +119,18 @@ export default function CourtOverview() {
 
       <View style={styles.section}>
         <Text style={[styles.title, { marginBottom: 15 }]}>Cơ sở vật chất</Text>
-        <ChipList
-          dataList={courtService}
-          borderColor={"rgba(217, 217, 217, 0.5)"}
-          backgroundColor={COLORS.white}
-          textFamily={"quicksand-regular"}
-          chipStyle={{ paddingVertical: 10, paddingHorizontal: 12 }}
-        />
+
+        {isLoadingService ? (
+          <Loading />
+        ) : (
+          <ChipList
+            dataList={courtService}
+            borderColor={"rgba(217, 217, 217, 0.5)"}
+            backgroundColor={COLORS.white}
+            textFamily={"quicksand-regular"}
+            chipStyle={{ paddingVertical: 10, paddingHorizontal: 12 }}
+          />
+        )}
       </View>
 
       <Divider color={"#E8E8E8"} orientation={"horizontal"} />

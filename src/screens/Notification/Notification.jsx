@@ -15,26 +15,27 @@ import icons from "../../constants/icons";
 import HeaderBar from "../../components/Atoms/HeaderBar";
 import { SIZE } from "../../theme/fonts";
 import TabBar from "../../components/Molecules/TabBar";
+import Oops from "../../components/Organisms/Oops";
 
 const latestNews = [
-  {
-    type: "feed",
-    title: "anhddp đã thích bài viết của bạn",
-    desc: "Nếu bạn thích cầu lông và muốn gặp gỡ những người đồng đội mới, hãy tham gia ngay!...",
-    timeStamp: "02 Th4, 16:10",
-  },
-  {
-    type: "book",
-    title: "Đã đặt sân thành công!",
-    desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
-    timeStamp: "02 Th4, 16:10",
-  },
-  {
-    type: "rating",
-    title: "Đã đặt sân thành công!",
-    desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
-    timeStamp: "02 Th4, 16:10",
-  },
+  // {
+  //   type: "feed",
+  //   title: "anhddp đã thích bài viết của bạn",
+  //   desc: "Nếu bạn thích cầu lông và muốn gặp gỡ những người đồng đội mới, hãy tham gia ngay!...",
+  //   timeStamp: "02 Th4, 16:10",
+  // },
+  // {
+  //   type: "book",
+  //   title: "Đã đặt sân thành công!",
+  //   desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
+  //   timeStamp: "02 Th4, 16:10",
+  // },
+  // {
+  //   type: "rating",
+  //   title: "Đã đặt sân thành công!",
+  //   desc: "Chúc mừng bạn đã đặt sân thành công tại Sân cầu lông Sơn Tạ, hãy kiểm tra lại thông tin trước khi check-in nhé! ",
+  //   timeStamp: "02 Th4, 16:10",
+  // },
 ];
 
 const notificationIcons = [
@@ -74,10 +75,10 @@ const Notification = ({ navigation }) => {
         <Image source={icons.voucher} style={styles.icon} />
         <View style={styles.notiContent}>
           <Text style={styles.title}>Khuyến mãi</Text>
-          <Text style={styles.body} numberOfLines={1} ellipsizeMode="tail">
+          {/* <Text style={styles.body} numberOfLines={1} ellipsizeMode="tail">
             Do Dang ơi! Nhớ điền đầy đủ thông tin để nhận hàng ngàn ưu đãii hàng
             ngàn ưu đãiihàng ngàn ưu đãiihàng ngàn ưu đãii
-          </Text>
+          </Text> */}
         </View>
         <Image source={icons.more} style={styles.more} />
       </TouchableOpacity>
@@ -88,9 +89,9 @@ const Notification = ({ navigation }) => {
         <Image source={icons.booking} style={styles.icon} />
         <View style={styles.notiContent}>
           <Text style={styles.title}>Thông tin đặt sân</Text>
-          <Text style={styles.body} numberOfLines={1} ellipsizeMode="tail">
+          {/* <Text style={styles.body} numberOfLines={1} ellipsizeMode="tail">
             Bạn đã đặt sân thành công tại sân Quân Đội
-          </Text>
+          </Text> */}
         </View>
         <Image source={icons.more} style={styles.more} />
       </TouchableOpacity>
@@ -114,35 +115,42 @@ const Notification = ({ navigation }) => {
         <Image source={icons.rating} style={styles.icon} />
         <View style={styles.notiContent}>
           <Text style={styles.title}>Đánh giá</Text>
-          <Text style={styles.body} numberOfLines={1} ellipsizeMode="tail">
+          {/* <Text style={styles.body} numberOfLines={1} ellipsizeMode="tail">
             Hãy đánh giá trải nghiệm của bạn tại sân Cầu lông Quân Đội
-          </Text>
+          </Text> */}
         </View>
         <Image source={icons.more} style={styles.more} />
       </TouchableOpacity>
       <View style={styles.latestNotification}>
         <Text style={styles.recent}>Thông báo gần đây</Text>
-        <View style={styles.recentContainer}>
-          {latestNews.map((item, index) => (
-            <View style={styles.recentView} key={index}>
-              <Image
-                source={getNotificationIcon(item.type)}
-                style={styles.icon}
-              />
-              <View style={styles.recentContent}>
-                <Text style={styles.recentTitle}>{item.title}</Text>
-                <Text
-                  style={styles.recentBody}
-                  numberOfLines={3}
-                  ellipsizeMode="tail"
-                >
-                  {item.desc}
-                </Text>
-                <Text style={styles.timeStamp}>{item.timeStamp}</Text>
+
+        {latestNews.length <= 0 ? (
+          <View style={{ marginTop: 120 }}>
+            <Oops text={"Oops, hiện tại chưa có thông báo !"} />
+          </View>
+        ) : (
+          <View style={styles.recentContainer}>
+            {latestNews.map((item, index) => (
+              <View style={styles.recentView} key={index}>
+                <Image
+                  source={getNotificationIcon(item.type)}
+                  style={styles.icon}
+                />
+                <View style={styles.recentContent}>
+                  <Text style={styles.recentTitle}>{item.title}</Text>
+                  <Text
+                    style={styles.recentBody}
+                    numberOfLines={3}
+                    ellipsizeMode="tail"
+                  >
+                    {item.desc}
+                  </Text>
+                  <Text style={styles.timeStamp}>{item.timeStamp}</Text>
+                </View>
               </View>
-            </View>
-          ))}
-        </View>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -152,7 +160,7 @@ export default Notification;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: "white",
     // paddingBottom: 30,
   },
@@ -178,6 +186,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   latestNotification: {
+    flex: 1,
     marginTop: 10,
   },
   recentContainer: {

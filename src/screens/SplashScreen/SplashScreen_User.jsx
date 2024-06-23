@@ -74,7 +74,7 @@ const SplashScreen_User = ({ navigation }) => {
             width: "100%",
             alignItems: "center",
             justifyContent: "center",
-            paddingVertical: 53,
+            paddingVertical: 40,
           }}
         >
           <StepDot currentStep={step} isRemarkable={true} quantity={3} />
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     fontFamily: "quicksand-bold",
     textAlign: "center",
     fontSize: 36,
-    paddingHorizontal: 15,
+    paddingHorizontal: 12,
   },
   content: {
     fontFamily: "quicksand-medium",

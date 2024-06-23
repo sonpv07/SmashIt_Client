@@ -34,8 +34,6 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
     }
   };
 
-  console.log(slotList);
-
   // const generateTimeIntervals = (startTime, endTime) => {
   //   const intervals = [];
   //   let [startHours, startMinutes] = startTime.split(":").map(Number);
@@ -131,7 +129,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
             </TouchableOpacity>
           ))} */}
 
-          {slotList?.timeFrame?.map((slot) => (
+          {slotList?.map((slot) => (
             <TouchableOpacity
               onPress={() => handleChooseSlot(slot)}
               activeOpacity={0.7}
@@ -139,7 +137,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
               style={[
                 styles.slot,
                 {
-                  backgroundColor: slot?.isOccupied
+                  backgroundColor: slot?.isBooked
                     ? "rgba(117,117,117,0.1)"
                     : slot.isChoose
                     ? COLORS.orangeBackground
@@ -148,7 +146,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
                   borderWidth: chosenSlot === slot ? 1 : 0,
 
                   borderColor:
-                    chosenSlot === slot && slot.isOccupied
+                    chosenSlot === slot && slot?.isBooked
                       ? COLORS.darkGreyBorder
                       : COLORS.lightGreenText,
                 },
@@ -158,7 +156,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
                 style={[
                   styles.slotText,
                   {
-                    color: slot.isOccupied
+                    color: slot?.isBooked
                       ? "#757575"
                       : slot.isChoose
                       ? COLORS.orangeText
@@ -166,7 +164,7 @@ const SlotChip = ({ isCourtOwner, setChosenSlot, chosenSlot, slotList }) => {
                   },
                 ]}
               >
-                {slot}
+                {slot.timeFrame}
               </Text>
             </TouchableOpacity>
           ))}

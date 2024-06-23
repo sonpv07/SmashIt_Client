@@ -174,7 +174,7 @@ const Payment = () => {
         <TouchableOpacity
           style={styles.confirmPayment}
           onPress={() => {
-            navigation.navigate("");
+            navigation.navigate("ConfirmPayment");
           }}
         >
           <Text style={styles.confirmPayment_Text}>Xác nhận thanh toán</Text>

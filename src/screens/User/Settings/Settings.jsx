@@ -29,9 +29,9 @@ export default function Settings() {
           navigate: "Rewards",
           icon: "award",
           name: "Tích điểm: Sân của Si",
-          isNew: true,
+          isNew: false,
         },
-        { navigate: "", icon: "tag", name: "Kho voucher", isNew: true },
+        { navigate: "", icon: "tag", name: "Kho voucher", isNew: false },
       ],
     },
     {
@@ -43,25 +43,31 @@ export default function Settings() {
           name: "Địa điểm yêu thích",
           isNew: false,
         },
-        { navigate: "", icon: "map-pin", name: "Đã đặt trước", isNew: true },
+        {
+          navigate: "MyWallet",
+          icon: "credit-card",
+          name: "Ví của tôi",
+          isNew: false,
+        },
+        { navigate: "", icon: "map-pin", name: "Đã đặt trước", isNew: false },
         {
           navigate: "BookedHistory",
           icon: "calendar",
           name: "Lịch sử đặt sân",
           isNew: false,
         },
-        // { navigate: "", icon: "box", name: "Quản lý sản phẩm", isNew: true },
+        // { navigate: "", icon: "box", name: "Quản lý sản phẩm", isNew: false },
       ],
     },
     {
       title: "Tổng quát",
       data: [
-        { navigate: "", icon: "globe", name: "Ngôn ngữ", isNew: true },
+        // { navigate: "", icon: "globe", name: "Ngôn ngữ", isNew: false },
         {
-          navigate: "",
+          navigate: "ShareCenter",
           icon: "message-circle",
           name: "Chia sẻ phản hồi",
-          isNew: true,
+          isNew: false,
         },
       ],
     },
@@ -75,7 +81,7 @@ export default function Settings() {
           navigate: "",
           icon: "tag",
           name: "Gói dịch vụ (Sắp ra mắt)",
-          isNew: true,
+          isNew: false,
         },
       ],
     },
@@ -83,16 +89,23 @@ export default function Settings() {
       title: "Tài khoản của tôi",
       data: [
         {
+          navigate: "MyWallet",
+          icon: "credit-card",
+          name: "Ví của tôi",
+          isNew: false,
+        },
+        {
           navigate: "BookingManagement",
           icon: "heart",
           name: "Địa điểm của tôi",
           isNew: false,
         },
+
         {
           navigate: "CourtRevenue",
           icon: "map-pin",
           name: "Quản lí doanh thu sân",
-          isNew: true,
+          isNew: false,
         },
         // {
         //   navigate: "",
@@ -104,16 +117,16 @@ export default function Settings() {
           navigate: "FinancialBook",
           icon: "box",
           name: "Sổ thu chi",
-          isNew: true,
+          isNew: false,
         },
       ],
     },
     {
       title: "Tổng quát",
       data: [
-        { navigate: "", icon: "globe", name: "Ngôn ngữ", isNew: false },
+        // { navigate: "", icon: "globe", name: "Ngôn ngữ", isNew: false },
         {
-          navigate: "",
+          navigate: "ShareCenter",
           icon: "message-circle",
           name: "Chia sẻ phản hồi",
           isNew: false,

@@ -22,9 +22,11 @@ import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { COLORS } from "../../../theme/colors";
+import UserService from "../../../services/user.service";
+import Loading from "../../../components/Molecules/Loading";
 
 export default function MyProfile() {
-  const { user, signOut } = useContext(AuthContext);
+  const { user, signOut, token, setUser } = useContext(AuthContext);
 
   const [accountInfo, setAccountInfo] = useState({
     fullName: "",
@@ -33,6 +35,8 @@ export default function MyProfile() {
     gender: "",
     googleAccount: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [focus, setFocus] = useState({
     fullName: false,
@@ -50,8 +54,13 @@ export default function MyProfile() {
 
   const textInputRef = useRef(null);
 
-  const handlePress = () => {
-    setEditMode((prevMode) => !prevMode);
+  const handlePress = async () => {
+    if (!editMode) {
+      setEditMode((prevMode) => !prevMode);
+    } else {
+      await handleEditUser();
+      setEditMode(false);
+    }
   };
 
   const handleFocus = (field) => {
@@ -66,16 +75,44 @@ export default function MyProfile() {
     setAccountInfo((prevInfo) => ({ ...prevInfo, [field]: value }));
   };
 
+  const handleEditUser = async () => {
+    const body = {
+      fullName: accountInfo.fullName,
+      phoneNumber: accountInfo.phoneNumber,
+      email: accountInfo.email,
+      gender: accountInfo.gender,
+    };
+
+    console.log(body);
+
+    setIsLoading(true);
+
+    try {
+      const res = await UserService.editUserProfile(body, token);
+
+      if (res === 200) {
+        setUser(body);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       setAccountInfo({
         fullName: user.fullName,
         email: user.email,
         phoneNumber: user.phoneNumber,
-        gender: "Male",
+        gender: user?.gender ? user?.gender : "Chưa có",
       });
     }
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <View style={styles.container}>

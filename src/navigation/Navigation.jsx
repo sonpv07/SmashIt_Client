@@ -42,6 +42,11 @@ import MyVoucherDetail from "../screens/User/Settings/MyVoucherDetail";
 import CourtRating from "../screens/Notification/notification-detail/CourtRating";
 import CreateFinancialActivities from "../screens/CourtOwner/RevenueExpenditure/CreateFinancialActivities";
 import LogoScreen from "../screens/SplashScreen/LogoScreen";
+import PaymentInvoice from "../screens/User/Payment/PaymentInvoice";
+import ConfirmPayment from "../screens/User/Payment/ConfirmPayment";
+import MyWallet from "../screens/User/Settings/MyWallet";
+import QRCode from "../screens/User/Payment/QRCode";
+import ShareCenter from "../screens/User/Settings/ShareCenter";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -206,6 +211,16 @@ export default function Navigation() {
           <Stack.Screen
             name="CreateBooking"
             component={CreateBooking}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="ShareCenter"
+            component={ShareCenter}
             options={{
               title: "",
               animation: "slide_from_right",
@@ -379,6 +394,42 @@ export default function Navigation() {
           <Stack.Screen
             name="MyVoucherDetail"
             component={MyVoucherDetail}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="PaymentInvoice"
+            component={PaymentInvoice}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="MyWallet"
+            component={MyWallet}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="QRCode"
+            component={QRCode}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ConfirmPayment"
+            component={ConfirmPayment}
             options={{
               title: "",
               animation: "slide_from_right",

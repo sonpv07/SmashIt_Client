@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   vertical: {
     flexDirection: "row",
     flexWrap: "wrap",
-    columnGap: 5,
+    columnGap: 4,
     rowGap: 10,
   },
   horizontal: {
