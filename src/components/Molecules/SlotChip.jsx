@@ -37,7 +37,7 @@ const SlotChip = ({
   const [slotDetail, setSlotDetail] = useState({
     courtId: courtId,
     timeFrames: [],
-    date: getCurrentDateTimeInVietnam(chosenDate),
+    date: chosenDate,
   });
 
   const [bookingSlot, setBookingSlot] = useState([]);

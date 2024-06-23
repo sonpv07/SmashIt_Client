@@ -281,15 +281,6 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
-          <Stack.Screen
-            name="ConfirmPayment"
-            component={ConfirmPayment}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
 
           <Stack.Screen
             name="BlogNoti"
@@ -427,15 +418,7 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
-          <Stack.Screen
-            name="PaymentInvoice"
-            component={PaymentInvoice}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
+
           <Stack.Screen
             name="MyWallet"
             component={MyWallet}
@@ -445,15 +428,7 @@ export default function Navigation() {
               headerShown: false,
             }}
           />
-          <Stack.Screen
-            name="QRCode"
-            component={QRCode}
-            options={{
-              title: "",
-              animation: "slide_from_right",
-              headerShown: false,
-            }}
-          />
+
           <Stack.Screen
             name="ConfirmPayment"
             component={ConfirmPayment}

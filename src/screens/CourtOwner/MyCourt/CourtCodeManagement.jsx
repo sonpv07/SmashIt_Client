@@ -68,7 +68,7 @@ export default function CourtCodeManagement({ navigation, route }) {
 
       console.log("res", res);
 
-      setSlotList(res.slotWithStatusResponses);
+      setSlotList(res);
     } catch (error) {
       console.error(error);
     }

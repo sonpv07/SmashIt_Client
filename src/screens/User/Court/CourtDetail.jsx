@@ -24,14 +24,28 @@ import CourtService from "../../../services/court.service";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { AuthContext } from "../../../context/AuthContext";
 import { formatNumber } from "../../../utils";
+import ServiceCourtService from "../../../services/court-service.service";
 
 const CourtDetail = () => {
   const route = useRoute();
   const courtId = Number(route.params.badmintonCourtId);
   const [court, setCourt] = useState({});
+  const [courtService, setCourtService] = useState({});
   const navigation = useNavigation();
   const isFocused = useIsFocused();
   const { token } = useContext(AuthContext);
+
+  const fetchServiceList = async () => {
+    const res = await ServiceCourtService.getCourtServiceByCourtId(
+      courtId,
+      token
+    );
+
+    if (res) {
+      setCourtService(res.services);
+      setIsLoadingService(false);
+    }
+  };
 
   useEffect(() => {
     const fetchCourt = async () => {

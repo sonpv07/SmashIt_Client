@@ -28,7 +28,10 @@ import CourtRating from "./src/screens/Notification/notification-detail/CourtRat
 import { baseURL } from "./src/constants/constants";
 import { CourtOwnerProvider } from "./src/context/CourtOwnerContext";
 import { LoadingProvider } from "./src/context/LoadingContext";
-
+import PaymentInvoice from "./src/screens/User/Payment/PaymentInvoice";
+import ConfirmPayment from "./src/screens/User/Payment/ConfirmPayment";
+import QRCode from "./src/screens/User/Payment/QRCode";
+import SplashScreen_User from "./src/screens/SplashScreen/SplashScreen_User";
 export default function App() {
   LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
   LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -43,6 +46,10 @@ export default function App() {
                 {/* <TopContent /> */}
                 {/* <CourtCodeManagement /> */}
                 <Navigation />
+                {/* <CourtOwner /> */}
+                {/* <SplashScreen_User /> */}
+                {/* <QRCode /> */}
+                {/* <ConfirmPayment /> */}
                 {/* <Package /> */}
                 {/* <PackageDetail /> */}
                 <StatusBar />
