@@ -1,6 +1,7 @@
 import {
   Dimensions,
   Image,
+  ImageBackground,
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
@@ -19,21 +20,24 @@ import { COLORS } from "../../theme/colors";
 import axios from "axios";
 import { postRequest } from "../../services";
 
-import API_URL_ENV from "../../configs/api"
+import API_URL_ENV from "../../configs/api";
 const API_URL = API_URL_ENV + "/api/Authentication";
 import { ErrorText } from "../../constants/errors";
+import { LoadingContext } from "../../context/LoadingContext";
 
 const Login = ({ navigation }) => {
   const [form, setForm] = useState({ email: "", password: "" });
-  const [toggleRemember, setToggleRemember] = useState(false);
   const [error, setError] = useState("");
 
-  const { chosenRole, login, setIsLogin } = useContext(AuthContext);
+  const { setIsLoading } = useContext(LoadingContext);
+
+  const { chosenRole, login, setIsLogin, isRemember, setIsRemember } =
+    useContext(AuthContext);
 
 
   const handleLogin = async () => {
     const body = {
-      email: form.email,
+      email: form.email.trim(),
       password: form.password,
     };
 
@@ -44,8 +48,6 @@ const Login = ({ navigation }) => {
     } else {
       setError(ErrorText.VALID_ACCOUNT);
     }
-
-    console.log(res);
   };
 
   return (
@@ -54,11 +56,11 @@ const Login = ({ navigation }) => {
       enabled={false}
       style={{ flex: 1 }}
     >
-      <View style={styles.container}>
+      <ImageBackground style={styles.container}>
         {/* <View style={styles.imageContainer}>
         <Image source={images.loginbg} style={styles.image} />
       </View> */}
-        <Image source={images.logo1} style={styles.logo} />
+        {/* <Image source={images.logo1} style={styles.logo} /> */}
         <View style={styles.loginContainer}>
           <View style={styles.welcomeText}>
             <Text style={styles.welcome}>Chào mừng!</Text>
@@ -94,7 +96,11 @@ const Login = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.savingData}>
-            <Checkbox value="rememberMe" aria-label="Remember me">
+            <Checkbox
+              value="rememberMe"
+              aria-label="Remember me"
+              onChange={() => setIsRemember(!isRemember)}
+            >
               <Text style={styles.checkboxLabel}>Ghi nhớ mật khẩu</Text>
             </Checkbox>
             <Text style={styles.forgotPass}>Quên mật khẩu?</Text>
@@ -129,7 +135,7 @@ const Login = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
@@ -148,7 +154,7 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     flex: 1,
-    backgroundColor: "rgba(255, 138, 0, 0.2)",
+    backgroundColor: COLORS.lightGreenText,
     alignItems: "center",
   },
   imageContainer: {

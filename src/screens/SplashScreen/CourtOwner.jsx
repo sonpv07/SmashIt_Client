@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -19,8 +19,12 @@ import { useNavigation } from "@react-navigation/native";
 import images from "../../constants/images";
 import { LinearGradient } from "expo-linear-gradient";
 import StepDot from "../../components/Molecules/StepDot";
+import { AuthContext } from "../../context/AuthContext";
 
 const CourtOwner = ({ navigation }) => {
+  const { isLogin, setIsLogin, setFirstRegister, firstRegister } =
+    useContext(AuthContext);
+
   const [step, setStep] = useState(1);
   const navigate = useNavigation();
 
@@ -63,7 +67,8 @@ const CourtOwner = ({ navigation }) => {
     if (step < 4) {
       setStep(step + 1);
     } else {
-      navigation.navigate("RegisterCourt");
+      setFirstRegister(false);
+      setIsLogin(true);
     }
   };
 

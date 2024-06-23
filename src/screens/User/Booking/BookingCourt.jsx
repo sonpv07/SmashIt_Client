@@ -27,6 +27,7 @@ import {
 } from "@react-navigation/native";
 import CourtService from "../../../services/court.service";
 import { AuthContext } from "../../../context/AuthContext";
+import { formatNumber } from "../../../utils";
 
 export default function BookingCourt() {
   const navigation = useNavigation();
@@ -34,50 +35,88 @@ export default function BookingCourt() {
   const isFocused = useIsFocused();
 
   const { token } = useContext(AuthContext);
-  const courtId = Number(route.params.badmintonCourtId);
+  const badmintonCourtId = Number(route.params.badmintonCourtId);
 
   const [court, setCourt] = useState({});
   const [courtSlot, setCourtSlot] = useState([]);
+
   const [isShowDetail, setIsShowDetail] = useState(false);
-  const [chosenSlot, setChosenSlot] = useState(0);
+  const [chosenSlot, setChosenSlot] = useState([]);
   const [chosenDate, setChosenDate] = useState(new Date());
   const [chosenCourt, setChosenCourt] = useState(0);
 
+  const [bookingSlotList, setBookingSlotList] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const [booking, setBooking] = useState({
+    badmintonCourtId: badmintonCourtId,
+    createBookingSlotRequests: bookingSlotList,
+    priceTotal: 0,
+  });
 
   const formatDate = (date) => {
     const formattedDate = moment(date).locale("vi").format("dddd, DD/MM/YYYY");
-
     const capitalizedDate =
       formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-
     return capitalizedDate;
   };
 
   const numberOfCourt = [1, 2, 3, 4];
   const [currentCourt, setCurrentCourt] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(10);
-  const [date, setDate] = useState(""); 
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     const fetchCourt = async () => {
-      const res = await CourtService.getCourtById(token, courtId);
+      const res = await CourtService.getCourtById(token, badmintonCourtId);
       if (res) {
         setCourt(res);
       }
     };
     const fetchGenerateSlot = async () => {
-
-      const res = await CourtService.generateSlotByDate(token, courtId,chosenDate.toISOString());
-
+      const res = await CourtService.generateSlotByDate(
+        token,
+        badmintonCourtId,
+        chosenDate.toISOString()
+      );
       if (res) {
         setCourtSlot(res.generateSlotResponses);
       }
-    }
+    };
     fetchCourt();
     fetchGenerateSlot();
-  }, [isFocused, token, courtId, chosenDate]);
+  }, [isFocused, token, badmintonCourtId, chosenDate]);
 
+  const calculateTotalPrice = (pricePerHour, bookingSlotList) => {
+    if (pricePerHour && bookingSlotList.length > 0) {
+      const total = (pricePerHour / 2) * countChosenSlot(bookingSlotList);
+      return total;
+    } else {
+      return 0;
+    }
+  };
 
+  useEffect(() => {
+    const total = calculateTotalPrice(court.pricePerHour, bookingSlotList);
+    setTotalPrice(total);
+    setBooking({ ...booking, createBookingSlotRequests: bookingSlotList, priceTotal: total });
+  }, [bookingSlotList, court.pricePerHour]);
+
+  console.log("1234123", booking);
+
+  const countChosenSlot = (bookingSlotList) => {
+    let totalCount = 0;
+    bookingSlotList.forEach((item) => {
+      totalCount += item.timeFrames.length;
+    });
+    return totalCount;
+  };
+
+  const filterByCourtCode = (courtSlot, currentCourt) => {
+    const slotList = courtSlot.filter((item) => {
+      return item.courtCode === currentCourt.toString();
+    });
+    if (slotList.length > 0) return slotList[0];
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -108,15 +147,10 @@ export default function BookingCourt() {
                 setCurrentCourt(
                   Number((x / METRICS.screenWidth).toFixed(0)) + 1
                 );
-
               }}
-              style={
-                {
-                  // backgroundColor: 'cyan',
-                }
-              }
+              style={{}}
             >
-              {numberOfCourt.map((item, index) => {
+              {courtSlot.map((item, index) => {
                 return (
                   <View key={index} style={{ width: METRICS.screenWidth - 30 }}>
                     <CourtCodeCard
@@ -134,17 +168,18 @@ export default function BookingCourt() {
                 marginTop: 20,
               }}
             >
-              <StepDot
-                currentStep={currentCourt}
-                quantity={numberOfCourt.length}
-              />
+              <StepDot currentStep={currentCourt} quantity={courtSlot.length} />
             </View>
           </View>
 
           <SlotChip
             chosenSlot={chosenSlot}
-            isCourtOwner={true}
+            isCourtOwner={false}
             setChosenSlot={setChosenSlot}
+            slotList={filterByCourtCode(courtSlot, currentCourt)}
+            chosenDate={chosenDate}
+            courtId={filterByCourtCode(courtSlot, currentCourt)?.id}
+            setBookingSlotList={setBookingSlotList}
           />
         </View>
       </ScrollView>
@@ -213,7 +248,9 @@ export default function BookingCourt() {
               style={{ alignItems: "center", flexDirection: "row", gap: 15 }}
             >
               <Text style={styles.noteText}>Tạm tính:</Text>
-              <Text style={styles.totalPrice}>{totalPrice} đ</Text>
+              <Text style={styles.totalPrice}>
+                {formatNumber(totalPrice)} đ
+              </Text>
             </View>
             {totalPrice !== 0 && (
               <View
@@ -233,7 +270,7 @@ export default function BookingCourt() {
                     size={20}
                     color={COLORS.darkGreenText}
                   />
-                  <Text>{chosenSlot} khung giờ</Text>
+                  <Text>{countChosenSlot(bookingSlotList)} khung giờ</Text>
                 </View>
               </View>
             )}
@@ -243,7 +280,8 @@ export default function BookingCourt() {
             <TouchableOpacity
               disabled={totalPrice === 0}
               onPress={() => {
-                navigation.navigate("Payment");
+                console.log(booking);
+                navigation.navigate("Payment", { booking: booking, badmintonCourt : court });
               }}
               style={[
                 {
@@ -277,7 +315,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    // backgroundColor: 'pink',
     marginTop: 20,
     paddingHorizontal: 15,
     gap: 30,

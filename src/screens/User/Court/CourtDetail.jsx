@@ -23,6 +23,7 @@ import {
 import CourtService from "../../../services/court.service";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { AuthContext } from "../../../context/AuthContext";
+import { formatNumber } from "../../../utils";
 
 const CourtDetail = () => {
   const route = useRoute();
@@ -233,7 +234,7 @@ const CourtDetail = () => {
         <View style={styles.bookingInfo}>
           <Text style={styles.price}>
             {/* <Text style={styles.oldPrice}>110.000đ</Text>{" "} */}
-            <Text style={styles.newPrice}>{court.pricePerHour}đ</Text>/giờ
+            <Text style={styles.newPrice}>{formatNumber(court.pricePerHour)}đ</Text>/giờ
           </Text>
           {/* <Text style={styles.voucher}>Đã áp dụng voucher</Text> */}
         </View>

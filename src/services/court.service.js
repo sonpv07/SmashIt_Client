@@ -1,10 +1,8 @@
 import axios from "axios";
 import API_URL_ENV from "../configs/api";
+import { getRequest } from ".";
 
 const API_URL = API_URL_ENV + "/api/BadmintonCourt";
-const headers = {
-  "Content-Type": "application/json",
-};
 
 class CourtService {
   static async getAllCourts(token) {
@@ -79,6 +77,23 @@ class CourtService {
       }
     } catch (error) {
       console.error("Error fetching generate slot by date: ", error);
+    }
+  }
+
+  static async getCourtByOwner(ownerId, token) {
+    try {
+      const response = await getRequest(
+        `${API_URL}/get-with-owner?ownerId=${ownerId}`,
+        token
+      );
+
+      if (response.statusCode === 200) {
+        return response.data;
+      } else {
+        console.error("fetching court by owner fail:", response);
+      }
+    } catch (error) {
+      console.log("Error fetching court by owner", error);
     }
   }
 }

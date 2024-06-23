@@ -6,29 +6,47 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SIZE } from "../../../theme/fonts";
 import InputField from "../../../components/Molecules/InputField";
 import { COLORS } from "../../../theme/colors";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import images from "../../../constants/images";
 import InputImage from "../../../components/Molecules/InputImage";
+import { CourtOwnerContext } from "../../../context/CourtOwnerContext";
+import { convertToTime } from "../../../utils";
 
 export default function UpdateCourt({ navigation }) {
-  const [courtPriceHoliday, setCourtPriceHoliday] = useState("");
-  const [courtPriceWeekend, setCourtPriceWeekend] = useState("");
-  const [courtPrice, setCourtPrice] = useState("");
-  const [courtQuantity, setCourtQuantity] = useState(0);
-  const [courtName, setCourtName] = useState("");
-  const [courtImage, setCourtImage] = useState([
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwQixkqKT16kdk-WPMwfp7z-_WifdRgREfkg&s",
-  ]);
-  const [courtCloseTime, setCourtCloseTime] = useState("");
-  const [courtOpenTime, setCourtOpenTime] = useState("");
+  const { courtInfo } = useContext(CourtOwnerContext);
 
-  const [imageQuantity, setImageQuantity] = useState(1);
+  console.log(courtInfo);
+
+  const [courtPriceHoliday, setCourtPriceHoliday] = useState(
+    courtInfo?.priceAtHoliday ?? ""
+  );
+  const [courtPriceWeekend, setCourtPriceWeekend] = useState(
+    courtInfo?.priceAtWeekend ?? ""
+  );
+  const [courtPrice, setCourtPrice] = useState(courtInfo?.pricePerHour ?? "");
+  const [courtQuantity, setCourtQuantity] = useState(
+    courtInfo?.numberOfCourt ?? 0
+  );
+  const [courtName, setCourtName] = useState(courtInfo?.courtName ?? "");
+  const [courtImage, setCourtImage] = useState(
+    courtInfo?.profileImage ? [courtInfo?.profileImage] : []
+  );
+  const [courtCloseTime, setCourtCloseTime] = useState(
+    convertToTime(courtInfo.hourEnd, courtInfo.minuteEnd)
+  );
+  const [courtOpenTime, setCourtOpenTime] = useState(
+    convertToTime(courtInfo.hourStart, courtInfo.minuteStart)
+  );
 
   const modifiedImageList = [...courtImage, { type: "input" }];
+
+  const handleSave = () => {
+    navigation.navigate("BookingManagement");
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -42,6 +60,7 @@ export default function UpdateCourt({ navigation }) {
           fontSize: SIZE.size_16,
           color: COLORS.darkGreenText,
         }}
+        action={handleSave}
       />
       <ScrollView style={styles.container}>
         <Text style={styles.descriptionText}>

@@ -79,7 +79,7 @@ const RewardHistory = () => {
     return pointIcons[type] || null;
   };
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <HeaderBar
         isGoBack={true}
         text={"Lịch sử tích điểm"}
@@ -121,7 +121,7 @@ const RewardHistory = () => {
           </>
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import TopContent from "../../../components/Atoms/TopContent";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import HistoryCourt from "../../../components/Organisms/HistoryCourt";
@@ -7,6 +14,7 @@ import { COLORS } from "../../../theme/colors";
 import { useNavigation } from "@react-navigation/native";
 import TabBar from "../../../components/Molecules/TabBar";
 import { SIZE } from "../../../theme/fonts";
+import images from "../../../constants/images";
 
 const BookedHistory = () => {
   const bookedHistory = [1, 2, 3, 4, 5, 6, 7, 8];

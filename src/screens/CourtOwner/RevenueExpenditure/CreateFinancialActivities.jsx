@@ -31,7 +31,7 @@ export default function CreateFinancialActivities({ navigation }) {
     {
       id: 2,
       name: "Quảng cáo",
-      image: icons.ads,
+      image: icons.ads2,
     },
     {
       id: 3,
@@ -91,11 +91,17 @@ export default function CreateFinancialActivities({ navigation }) {
                 >
                   <Image
                     source={item.image}
-                    style={
-                      chosenService === item.name && {
-                        tintColor: COLORS.orangeText,
-                      }
-                    }
+                    style={[
+                      chosenService === item.name
+                        ? {
+                            tintColor: COLORS.orangeText,
+                          }
+                        : {
+                            tintColor: COLORS.lightGreenText,
+                          },
+
+                      item.name === "Quảng cáo" && { width: 32, height: 32 },
+                    ]}
                   />
                 </TouchableOpacity>
 
@@ -112,7 +118,7 @@ export default function CreateFinancialActivities({ navigation }) {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Text style={[styles.semiboldText, { fontSize: SIZE.size_16 }]}>
-              Loại hình chi phí:{" "}
+              Loại hình {tab === 1 ? "thu nhập" : "chi phí"}:{" "}
             </Text>
             <Text style={[styles.semiboldText, { fontSize: SIZE.size_16 }]}>
               {chosenService}
@@ -185,7 +191,7 @@ const styles = StyleSheet.create({
 
   imageContainer: {
     padding: 5,
-    backgroundColor: "#E9E9E9",
+    backgroundColor: COLORS.lightGreenBackground,
     width: 60,
     height: 60,
     borderRadius: 30,

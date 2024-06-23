@@ -2,10 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import { SIZE } from "../../theme/fonts";
 import { TextInput } from "react-native";
-import Entypo from "react-native-vector-icons/Entypo";
 import InputIcon from "./InputIcon";
 import InputNumber from "./InputNumber";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import SelectField from "./SelectField";
 import InputImage from "./InputImage";
 
@@ -28,31 +27,24 @@ export default function InputField({
   action,
   inputData,
   setInputData,
+  setIsOpenDropDown,
 }) {
-  // const [input, setInput] = useState("as");
-
   const [isOpenDatePicker, setIsOpenDatePicker] = useState(false);
 
-  const [tempTime, setTempTime] = useState(new Date());
+  const handlePickTime = (date) => {
+    const options = {
+      timeZone: "Asia/Ho_Chi_Minh",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+    const formattedDate = date.toLocaleString("en-US", options);
 
-  const handlePickTime = (value) => {
+    console.log(formattedDate);
+
+    setInputData(formattedDate);
+
     setIsOpenDatePicker(false);
-
-    if (value.type === "set") {
-      const date = new Date(value.nativeEvent.timestamp);
-
-      setTempTime(date);
-
-      const options = {
-        timeZone: "Asia/Ho_Chi_Minh",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      };
-      const formattedDate = date.toLocaleString("en-US", options);
-
-      setInputData(formattedDate);
-    }
   };
 
   return (
@@ -68,7 +60,9 @@ export default function InputField({
 
       {inputType === "normal" && (
         <TextInput
-          inputMode={valueType === "phone" && "numeric"}
+          inputMode={
+            valueType === "phone" || (valueType === "number" && "numeric")
+          }
           style={[styles.input, { fontSize: SIZE.size_16 }]}
           placeholder={placeholderText}
           placeholderTextColor={"#BCBCBC"}
@@ -77,7 +71,13 @@ export default function InputField({
         />
       )}
 
-      {inputType === "image" && <InputImage />}
+      {inputType === "image" && (
+        <InputImage
+          data={inputData}
+          setData={setInputData}
+          allowMultiple={false}
+        />
+      )}
 
       {inputType === "number" && (
         <InputNumber
@@ -114,6 +114,9 @@ export default function InputField({
           placeholder={placeholderText}
           inputValue={inputData}
           setInputValue={setInputData}
+          action={() => {
+            setIsOpenDropDown(true);
+          }}
         />
       )}
 
@@ -128,18 +131,15 @@ export default function InputField({
             inputValue={inputData}
           />
 
-          {isOpenDatePicker && (
-            <RNDateTimePicker
-              value={tempTime}
-              mode="time"
-              display="spinner"
-              is24Hour={true}
-              style={{ width: "300" }}
-              onChange={(value) => {
-                handlePickTime(value);
-              }}
-            />
-          )}
+          <DateTimePickerModal
+            locale="en_GB"
+            isVisible={isOpenDatePicker}
+            mode="time"
+            onConfirm={handlePickTime}
+            onCancel={() => setIsOpenDatePicker(false)}
+            cancelTextIOS="Hủy"
+            confirmTextIOS="Xác nhận"
+          />
         </>
       )}
       {noteText && <Text style={styles.noteText}>{noteText}</Text>}

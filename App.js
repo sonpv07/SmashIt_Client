@@ -26,6 +26,8 @@ import RewardHistory from "./src/screens/User/Settings/RewardHistory";
 import Languages from "./src/screens/User/Settings/Languages";
 import CourtRating from "./src/screens/Notification/notification-detail/CourtRating";
 import { baseURL } from "./src/constants/constants";
+import { CourtOwnerProvider } from "./src/context/CourtOwnerContext";
+import { LoadingProvider } from "./src/context/LoadingContext";
 
 export default function App() {
   LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
@@ -33,18 +35,22 @@ export default function App() {
 
   return (
     <NativeBaseProvider>
-      <AuthProvider>
-        <FontLoader>
-          <SafeAreaView style={styles.safeContainer}>
-            {/* <TopContent /> */}
-            {/* <CourtCodeManagement /> */}
-            <Navigation />
-            {/* <Package /> */}
-            {/* <PackageDetail /> */}
-            <StatusBar />
-          </SafeAreaView>
-        </FontLoader>
-      </AuthProvider>
+      <LoadingProvider>
+        <AuthProvider>
+          <CourtOwnerProvider>
+            <FontLoader>
+              <SafeAreaView style={styles.safeContainer}>
+                {/* <TopContent /> */}
+                {/* <CourtCodeManagement /> */}
+                <Navigation />
+                {/* <Package /> */}
+                {/* <PackageDetail /> */}
+                <StatusBar />
+              </SafeAreaView>
+            </FontLoader>
+          </CourtOwnerProvider>
+        </AuthProvider>
+      </LoadingProvider>
     </NativeBaseProvider>
   );
 }

@@ -9,7 +9,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from "react-native";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import icons from "../../../constants/icons";
 import images from "../../../constants/images";
@@ -24,14 +24,14 @@ import { AuthContext } from "../../../context/AuthContext";
 import { COLORS } from "../../../theme/colors";
 
 export default function MyProfile() {
-  const { signOut } = useContext(AuthContext);
+  const { user, signOut } = useContext(AuthContext);
 
   const [accountInfo, setAccountInfo] = useState({
-    fullName: "Do dang phuc Anh",
-    phoneNumber: "0123456789",
-    email: "phucanhdodang1211@gmail.com",
-    gender: "Nam",
-    googleAccount: "smashit1901@gmail.com",
+    fullName: "",
+    phoneNumber: "",
+    email: "",
+    gender: "",
+    googleAccount: "",
   });
 
   const [focus, setFocus] = useState({
@@ -65,6 +65,17 @@ export default function MyProfile() {
   const handleChangeText = (field, value) => {
     setAccountInfo((prevInfo) => ({ ...prevInfo, [field]: value }));
   };
+
+  useEffect(() => {
+    if (user) {
+      setAccountInfo({
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        gender: "Male",
+      });
+    }
+  }, []);
 
   return (
     <View style={styles.container}>

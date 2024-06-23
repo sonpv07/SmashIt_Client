@@ -1,12 +1,15 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { COLORS } from "../../theme/colors";
 import { formatNumber } from "../../utils";
+import { CourtOwnerContext } from "../../context/CourtOwnerContext";
+  
 
 export default function CourtCodeCard({
-  name,
+  courtCode,
   pricePerHour,
 }) {
+  const { totalSlot } = useContext(CourtOwnerContext);
   return (
     <View style={styles.container}>
       <View style={styles.upperSection}>
@@ -16,8 +19,8 @@ export default function CourtCodeCard({
         />
         <View style={styles.upperSectionInfor}>
           <View style={styles.inforItem}>
-            <Text style={styles.normalText}>Sân: </Text>
-            <Text style={[styles.boldText]}>Sân {name}</Text>
+            <Text style={styles.normalText}>Số sân: </Text>
+            <Text style={[styles.boldText]}>Sân {courtCode}</Text>
           </View>
 
           <View style={[styles.inforItem]}>
@@ -28,7 +31,7 @@ export default function CourtCodeCard({
           <View style={styles.inforItem}>
             <Text style={styles.normalText}>Khung giờ đã đặt </Text>
             <Text style={[styles.boldText, { color: COLORS.orangeText }]}>
-              100<Text style={{ color: COLORS.black }}>/200</Text>
+              0<Text style={{ color: COLORS.black }}>/{totalSlot}</Text>
             </Text>
           </View>
         </View>

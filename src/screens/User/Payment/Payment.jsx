@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Image,
   ScrollView,
@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { SIZE } from "../../../theme/fonts";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import cashImage from "../../../assets/images/cash.png";
@@ -20,9 +20,19 @@ import CourtInfo from "../../../components/Organisms/CourtInfo";
 import courtImage from "../../../assets/images/courtImages.jpg";
 import Chip from "../../../components/Atoms/Chip";
 import ChipList from "../../../components/Molecules/ChipList";
+import { formatNumber } from "../../../utils";
 
 const Payment = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const booking = route.params.booking;
+  const badmintonCourt = route.params.badmintonCourt;
+  console.log("payment  ", badmintonCourt);
+
+
+
+
   const paymentMethod = [
     {
       icon: cashImage,
@@ -84,11 +94,41 @@ const Payment = () => {
         </View>
         <View style={styles.courtAddress}>
           <Text style={styles.title}>Địa chỉ sân</Text>
-          <CourtInfo />
+          <CourtInfo courtName={badmintonCourt.courtName} address={badmintonCourt.address}/>
         </View>
         <View style={styles.bookingCourt}>
           <Text style={styles.title}>Thông tin đặt sân</Text>
-          <View style={[styles.court]}>
+          {booking.createBookingSlotRequests?.map((court) => {
+            console.log("court", court);
+            return (
+              <View style={[styles.court]}>
+                <View style={styles.courtImage}>
+                  <Image style={styles.image} source={courtImage} />
+                </View>
+                <View style={styles.bookingInfo}>
+                  <Text style={styles.content_SemiBold}>Sân {court.courtId}</Text>
+                  {/* <Text style={styles.content}>{court.date}</Text> */}
+                  <View style={styles.time}>
+                    <Text style={styles.content}>Giờ đặt:</Text>
+                    <View style={{ width: "100%" }}>
+                      <ChipList
+                        dataList={court.timeFrames}
+                        isHorizontal={false}
+                        fontSize={SIZE.size_10}
+                        textColor={COLORS.orangeText}
+                        backgroundColor={COLORS.orangeBackground}
+                        borderRadius={10}
+                        textFamily={"quicksand-semibold"}
+                        borderColor={COLORS.white}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+
+          {/* <View style={[styles.court]}>
             <View style={styles.courtImage}>
               <Image style={styles.image} source={courtImage} />
             </View>
@@ -135,7 +175,7 @@ const Payment = () => {
                 </View>
               </View>
             </View>
-          </View>
+          </View> */}
         </View>
         <View style={styles.voucher}>
           <Text style={styles.title}>Mã khuyến mãi</Text>
@@ -168,7 +208,7 @@ const Payment = () => {
               fontSize: SIZE.size_18,
             }}
           >
-            360.000đ
+            {formatNumber(booking.priceTotal)}đ
           </Text>
         </View>
         <TouchableOpacity
