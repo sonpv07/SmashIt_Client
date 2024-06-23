@@ -26,7 +26,11 @@ export default function Home() {
   const isFocus = useIsFocused();
   const { token, user } = useContext(AuthContext);
 
-  const fullName = "Minh Anh";
+  const fullName = () => {
+    let name = user.fullName.split(/\s/);
+
+    return name[1] + " " + name[2];
+  };
 
   const navigation = useNavigation();
 

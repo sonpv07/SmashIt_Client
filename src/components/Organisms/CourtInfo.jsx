@@ -4,7 +4,12 @@ import { SIZE } from "../../theme/fonts";
 import Icon from "react-native-vector-icons/AntDesign";
 import { COLORS } from "../../theme/colors";
 
-export default function CourtInfo() {
+export default function CourtInfo({
+  courtName,
+  address,
+  rating,
+  
+}) {
   return (
     <View style={styles.container}>
       <Image
@@ -13,9 +18,9 @@ export default function CourtInfo() {
       />
 
       <View style={styles.infoSection}>
-        <Text style={styles.primaryText}>Sân cầu lông Quân Đội</Text>
+        <Text style={styles.primaryText}>Sân cầu lông {courtName}</Text>
         <Text style={styles.secondaryText}>
-          606/16 Nguyễn Xiển, Long Thạnh Mỹ, Thủ Đức, Thành phố Hồ Chí Minh
+          {address}
         </Text>
         <View style={styles.ratingSection}>
           <Icon

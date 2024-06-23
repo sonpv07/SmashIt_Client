@@ -1,4 +1,11 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import SearchInput from "../../../components/Atoms/SearchInput";
 import Icon from "react-native-vector-icons/FontAwesome6";
@@ -9,12 +16,12 @@ import CourtItem from "../../../components/Organisms/CourtItem";
 import { useIsFocused } from "@react-navigation/native";
 import CourtService from "../../../services/court.service";
 import { AuthContext } from "../../../context/AuthContext";
+import VectorIcon from "../../../components/Atoms/VectorIcon";
 
 export default function SearchCourt({ navigation }) {
   const isFocus = useIsFocused();
 
   const { token } = useContext(AuthContext);
-  // console.log(token);
 
   const dataAddress = [
     "Long Thạnh Mỹ",
@@ -25,15 +32,18 @@ export default function SearchCourt({ navigation }) {
     "Tăng Nhơn",
   ];
 
+  const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState("");
   const [chosenData, setChosenData] = useState(null);
 
   const [courtList, setCourtList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await CourtService.getAllCourts(token);
-
-      // console.log("res", res);
+      const res =
+        search === ""
+          ? await CourtService.getAllCourts(token)
+          : await CourtService.searchCourt(token, search);
 
       if (res && res.length > 0) {
         setCourtList(res);
@@ -41,12 +51,69 @@ export default function SearchCourt({ navigation }) {
     };
 
     fetchData();
-  }, [isFocus]);
+  }, [isFocus, token, search]);
+
+  const handleInput = (e) => {
+    setSearchInput(e.nativeEvent.text);
+  };
+
+  const handlePress = (e) => {
+    e.preventDefault();
+    setSearch(searchInput);
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.search}>
-        <SearchInput />
+        <View
+          style={{
+            width: "100%",
+            aspectRatio: 7,
+            borderRadius: 12,
+            borderWidth: 1,
+            borderColor: COLORS.orangeText,
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <View
+            style={{
+              height: "100%",
+              borderTopLeftRadius: 10,
+              borderBottomLeftRadius: 10,
+              aspectRatio: 6,
+              justifyContent: "center",
+              paddingHorizontal: 12,
+            }}
+          >
+            <TextInput
+              style={{ fontFamily: "quicksand-bold", fontSize: SIZE.size_14 }}
+              placeholder="Tìm sân gần đây..."
+              onChange={handleInput}
+              value={searchInput}
+            />
+          </View>
+
+          <TouchableOpacity
+            onPress={handlePress}
+            style={{
+              height: "100%",
+              aspectRatio: 1.21,
+              borderTopRightRadius: 12,
+              borderBottomRightRadius: 12,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: COLORS.orangeText,
+            }}
+          >
+            <VectorIcon.AntDesign
+              name="search1"
+              size={24}
+              color={COLORS.white}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.suggestLocation}>
         <View style={styles.suggestLocation_Title}>
@@ -54,7 +121,7 @@ export default function SearchCourt({ navigation }) {
             Gợi ý vị trí gần bạn
           </Text>
           <View style={styles.location}>
-            <Icon
+            <VectorIcon.FontAwesome
               name="location-arrow"
               size={13}
               color={COLORS.darkGreenText}

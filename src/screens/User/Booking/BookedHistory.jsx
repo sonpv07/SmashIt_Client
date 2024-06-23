@@ -23,6 +23,7 @@ const BookedHistory = () => {
   const [tab, setTab] = useState(1);
 
   const courts = {
+    id: 1,
     name: "Sân cầu lông Quân Đội",
     numOfCourt: "1",
     numOfSlot: "2",
@@ -31,52 +32,17 @@ const BookedHistory = () => {
     paymentMethod: "Thanh toán tại sân",
   };
 
-  const reserve = () => {
-    return (
-      <FlatList
-        data={reserveCourts}
-        renderItem={({ item }) => {
-          <View key={item}>
-            <HistoryCourt
-              name={courts.name}
-              numOfCourt={courts.numOfCourt}
-              numOfSlot={courts.numOfSlot}
-              bookingTime={courts.bookingTime}
-              price={courts.price}
-              paymentMethod={courts.paymentMethod}
-            />
-            <View style={styles.hr} />
-          </View>;
-        }}
-      />
-    );
-    // return reserveCourts.map((court, index) => {
-    //   return (
-    //     <View key={index}>
-    //       <HistoryCourt
-    //         name={courts.name}
-    //         numOfCourt={courts.numOfCourt}
-    //         numOfSlot={courts.numOfSlot}
-    //         bookingTime={courts.bookingTime}
-    //         price={courts.price}
-    //         paymentMethod={courts.paymentMethod}
-    //       />
-    //       <View style={styles.hr} />
-    //     </View>
-    //   );
-  };
-
-  const historyBooked = () => {
-    return reserveCourts.map((court, index) => {
+  const Reserve = () => {
+    return bookedHistory.map((court, index) => {
       return (
         <View key={index}>
           <HistoryCourt
-            name={court.name}
-            numOfCourt={court.numOfCourt}
-            numOfSlot={court.numOfSlot}
-            bookingTime={court.bookingTime}
-            price={court.price}
-            paymentMethod={court.paymentMethod}
+            name={courts.name}
+            numOfCourt={courts.numOfCourt}
+            numOfSlot={courts.numOfSlot}
+            bookingTime={courts.bookingTime}
+            price={courts.price}
+            paymentMethod={courts.paymentMethod}
           />
           <View style={styles.hr} />
         </View>
@@ -84,22 +50,35 @@ const BookedHistory = () => {
     });
   };
 
+  const HistoryBooked = () => {
+    return reserveCourts.map((court, index) => {
+      return (
+        <View key={index}>
+          <HistoryCourt
+            name={courts.name}
+            numOfCourt={courts.numOfCourt}
+            numOfSlot={courts.numOfSlot}
+            bookingTime={courts.bookingTime}
+            price={courts.price}
+            paymentMethod={courts.paymentMethod}
+          />
+          <View style={styles.hr} />
+        </View>
+      );
+    });
+  };
   const tabItems = [
     {
       id: 1,
       name: "Đã đặt trước",
-      component: reserve(),
+      component: <Reserve />,
     },
     {
       id: 2,
       name: "Lịch sử đặt sân",
-      component: historyBooked(),
+      component: <HistoryBooked />,
     },
   ];
-
-  // );
-  // };
-
   return (
     <View style={{ flex: 1 }}>
       <HeaderBar
@@ -115,52 +94,17 @@ const BookedHistory = () => {
           currentTab={tab}
         />
       </View>
-
-      <View
-        style={{
-          flex: 1,
-          alignItems: "center",
-          gap: 10,
-          justifyContent: "center",
-        }}
-      >
-        <Image
-          source={images.embarrassed}
-          style={{ width: 120, height: 120 }}
-        />
-        <Text
-          style={{ fontFamily: "quicksand-medium", fontSize: SIZE.size_16 }}
-        >
-          Oops, bạn chưa có lịch sử đặt sân !
-        </Text>
-      </View>
-
-      {/* <View style={styles.bookedCourt}>
+      <ScrollView style={styles.bookedCourt}>
         {tabItems.map(
           (item, index) =>
             item.id === tab && (
-              <View style={{ height: 500, width: "100%" }}>
+              <View key={item.id} style={{ flex: 1, width: "100%" }}>
                 {item.component}
               </View>
             )
-          // {
-          //   return (
-          //     <View key={index}>
-          //       <HistoryCourt
-          //         name={courts.name}
-          //         numOfCourt={courts.numOfCourt}
-          //         numOfSlot={courts.numOfSlot}
-          //         bookingTime={courts.bookingTime}
-          //         price={courts.price}
-          //         paymentMethod={courts.paymentMethod}
-          //       />
-          //       <View style={styles.hr} />
-          //     </View>
-          //   );
-          // }
         )}
-      </View>
-      <View></View> */}
+      </ScrollView>
+      <View></View>
     </View>
   );
 };

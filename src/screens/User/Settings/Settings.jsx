@@ -19,7 +19,7 @@ import images from "../../../constants/images";
 export default function Settings() {
   const navigation = useNavigation();
 
-  const { user } = useContext(AuthContext);
+  const { chosenRole, user } = useContext(AuthContext);
 
   const directoryPlayer = [
     {
@@ -53,7 +53,7 @@ export default function Settings() {
         {
           navigate: "BookedHistory",
           icon: "calendar",
-          name: "Lịch sử đặt sân",
+          name: "Sân đã đặt",
           isNew: false,
         },
         // { navigate: "", icon: "box", name: "Quản lý sản phẩm", isNew: false },
@@ -138,12 +138,11 @@ export default function Settings() {
   const handleNavigate = (linkTo) => {
     navigation.navigate(linkTo);
   };
-  const setting = () => {};
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.account}>
-          <Text style={styles.name}>{user?.fullName}</Text>
+          <Text style={styles.name}>{user.fullName}</Text>
           <TouchableOpacity
             style={styles.avatar}
             onPress={() => navigation.navigate("MyProfile")}

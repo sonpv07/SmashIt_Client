@@ -4,7 +4,7 @@ import { COLORS } from "../../theme/colors";
 import { formatNumber } from "../../utils";
 import { CourtOwnerContext } from "../../context/CourtOwnerContext";
 
-export default function CourtCodeCard({ courtCode }) {
+export default function CourtCodeCard({ courtCode, pricePerHour }) {
   const { totalSlot } = useContext(CourtOwnerContext);
 
   const handleGenerateTotalSlot = () => {
@@ -45,8 +45,8 @@ export default function CourtCodeCard({ courtCode }) {
           </View>
 
           <View style={[styles.inforItem]}>
-            <Text style={styles.normalText}>Doanh thu</Text>
-            <Text style={[styles.boldText]}>{formatNumber(200000)}đ</Text>
+            <Text style={styles.normalText}>Giá: </Text>
+            <Text style={[styles.boldText]}>{formatNumber(pricePerHour)}đ</Text>
           </View>
 
           <View style={styles.inforItem}>
