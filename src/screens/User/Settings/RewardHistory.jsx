@@ -84,6 +84,8 @@ const RewardHistory = () => {
         isGoBack={true}
         text={"Lịch sử tích điểm"}
         goBack={() => navigation.goBack()}
+        endIcon={"questioncircleo"}
+        endIconNavigate={() => navigation.navigate("PointPolicies")}
       />
       <ScrollView contentContainerStyle={styles.historyContainer}>
         {history.map((item, index) => (

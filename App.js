@@ -20,6 +20,7 @@ import RewardHistory from "./src/screens/User/Settings/RewardHistory";
 import Languages from "./src/screens/User/Settings/Languages";
 import CourtRating from "./src/screens/Notification/notification-detail/CourtRating";
 import MyVouchers from "./src/screens/User/Settings/MyVouchers";
+import PointPolicies from "./src/screens/User/Settings/PointPolicies";
 
 export default function App() {
   return (
@@ -30,7 +31,7 @@ export default function App() {
             {/* <TopContent /> */}
             {/* <CourtCodeManagement /> */}
             <Navigation />
-            {/* <Signup /> */}
+            {/* <PointPolicies /> */}
             {/* <NotificationDetail /> */}
             {/* <CourtOwner /> */}
             {/* <MyProfile /> */}

@@ -40,6 +40,7 @@ import MyVouchers from "../screens/User/Settings/MyVouchers";
 import MyWallet from "../screens/User/Settings/MyWallet";
 import FeedBack from "../screens/User/Settings/FeedBack";
 import HelpCenter from "../screens/User/Settings/HelpCenter";
+import PointPolicies from "../screens/User/Settings/PointPolicies";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -363,6 +364,15 @@ export default function Navigation() {
           <Stack.Screen
             name="HelpCenter"
             component={HelpCenter}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="PointPolicies"
+            component={PointPolicies}
             options={{
               title: "",
               animation: "slide_from_right",

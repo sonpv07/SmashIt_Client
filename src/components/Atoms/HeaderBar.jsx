@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import React from "react";
 import { COLORS } from "../../theme/colors";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -6,7 +12,14 @@ import { SIZE } from "../../theme/fonts";
 import TopContent from "./TopContent";
 import VectorIcon from "./VectorIcon";
 
-export default function HeaderBar({ text, goBack, isGoBack, type }) {
+export default function HeaderBar({
+  text,
+  goBack,
+  isGoBack,
+  type,
+  endIcon,
+  endIconNavigate,
+}) {
   return (
     <View>
       {type === "dateTime" ? (
@@ -41,6 +54,13 @@ export default function HeaderBar({ text, goBack, isGoBack, type }) {
             </TouchableWithoutFeedback>
           )}
           <Text style={styles.text}>{text}</Text>
+          <TouchableOpacity
+            onPress={endIconNavigate}
+            style={{ position: "absolute", right: 20 }}
+            activeOpacity={0.7}
+          >
+            <VectorIcon.AntDesign name={endIcon} size={20} />
+          </TouchableOpacity>
         </View>
       )}
     </View>
