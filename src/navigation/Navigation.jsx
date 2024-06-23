@@ -38,6 +38,7 @@ import MyVoucherDetail from "../screens/User/Settings/MyVoucherDetail";
 import CourtRating from "../screens/Notification/notification-detail/CourtRating";
 import MyVouchers from "../screens/User/Settings/MyVouchers";
 import MyWallet from "../screens/User/Settings/MyWallet";
+import FeedBack from "../screens/User/Settings/FeedBack";
 export default function Navigation() {
   const Stack = createNativeStackNavigator();
 
@@ -343,6 +344,15 @@ export default function Navigation() {
           <Stack.Screen
             name="MyWallet"
             component={MyWallet}
+            options={{
+              title: "",
+              animation: "slide_from_right",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="FeedBack"
+            component={FeedBack}
             options={{
               title: "",
               animation: "slide_from_right",

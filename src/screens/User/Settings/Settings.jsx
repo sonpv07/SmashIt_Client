@@ -65,7 +65,7 @@ export default function Settings() {
       data: [
         { navigate: "", icon: "globe", name: "Ngôn ngữ", isNew: true },
         {
-          navigate: "",
+          navigate: "FeedBack",
           icon: "message-circle",
           name: "Chia sẻ phản hồi",
           isNew: true,
@@ -115,7 +115,7 @@ export default function Settings() {
       data: [
         { navigate: "", icon: "globe", name: "Ngôn ngữ", isNew: false },
         {
-          navigate: "",
+          navigate: "FeedBack",
           icon: "message-circle",
           name: "Chia sẻ phản hồi",
           isNew: false,
