@@ -40,7 +40,7 @@ export default function OwnedCourtCard({
 
     // data[0]?.slotWithStatusResponses?.length;
 
-    data.forEach((response) => {
+    data?.forEach((response) => {
       response.slotWithStatusResponses.forEach((slot) => {
         if (slot.isBooked) {
           bookedCount++;

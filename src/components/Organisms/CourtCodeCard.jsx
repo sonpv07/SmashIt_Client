@@ -7,8 +7,10 @@ import { CourtOwnerContext } from "../../context/CourtOwnerContext";
 export default function CourtCodeCard({ courtCode, pricePerHour }) {
   const { totalSlot } = useContext(CourtOwnerContext);
 
+  console.log(totalSlot);
+
   const handleGenerateTotalSlot = () => {
-    const data = totalSlot?.filter((item) => item.courtCode === courtCode);
+    const data = totalSlot?.filter((item) => item.courtCode == courtCode);
 
     return data[0]?.slotWithStatusResponses?.length;
   };
@@ -16,11 +18,11 @@ export default function CourtCodeCard({ courtCode, pricePerHour }) {
   const countBookedSlots = () => {
     let bookedCount = 0;
 
-    const data = totalSlot?.filter((item) => item.courtCode === courtCode);
+    const data = totalSlot?.filter((item) => item.courtCode == courtCode);
 
     // data[0]?.slotWithStatusResponses?.length;
 
-    data.forEach((response) => {
+    data?.forEach((response) => {
       response.slotWithStatusResponses.forEach((slot) => {
         if (slot.isBooked) {
           bookedCount++;
@@ -52,10 +54,8 @@ export default function CourtCodeCard({ courtCode, pricePerHour }) {
           <View style={styles.inforItem}>
             <Text style={styles.normalText}>Khung giờ đã đặt </Text>
             <Text style={[styles.boldText, { color: COLORS.orangeText }]}>
-              {countBookedSlots()}
-              <Text style={{ color: COLORS.black }}>
-                /{handleGenerateTotalSlot()}
-              </Text>
+              {0}
+              <Text style={{ color: COLORS.black }}>/{39}</Text>
             </Text>
           </View>
         </View>

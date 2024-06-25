@@ -141,7 +141,7 @@ export default function PaymentInvoice({ navigation, route }) {
             <TouchableOpacity
               activeOpacity={0.5}
               style={styles.button}
-              onPress={() => navigation.navigate("MyWallet")}
+              onPress={() => navigation.navigate("BottomTab")}
             >
               <Text
                 style={[

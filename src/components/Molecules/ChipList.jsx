@@ -16,10 +16,11 @@ const ChipList = ({
   listStyle,
   borderRadius,
   chipStyle,
+  switchColor,
 }) => {
   console.log("dudoug", dataList);
 
-  if (dataList[0] !== "string") {
+  if (switchColor) {
     return (
       <ScrollView
         showsHorizontalScrollIndicator={false}

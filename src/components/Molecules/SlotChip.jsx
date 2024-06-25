@@ -48,8 +48,6 @@ const SlotChip = ({
     }
   }, [courtId]);
 
-  console.log("Detail:", slotDetail);
-
   const filterCourt = (arr, courtId) => {
     return arr.find((court) => court.courtId === courtId);
   };
@@ -97,9 +95,29 @@ const SlotChip = ({
         ...slotDetail,
         timeFrames: newTimeFrames,
       });
+
+      setBookingSlotList([...bookingSlot]);
     }
-    setBookingSlotList([...bookingSlot]);
   };
+
+  function isTimeFrameMatch(detailsList, choice) {
+    // Loop through each detail object in the list
+    for (let i = 0; i < detailsList.length; i++) {
+      const timeFrames = detailsList[i].timeFrames;
+
+      // Loop through the timeFrames array within the current detail object
+      for (let j = 0; j < timeFrames.length; j++) {
+        if (timeFrames[j].timeFrame === choice) {
+          return true;
+        }
+      }
+    }
+
+    // Return false if no match is found
+    return false;
+  }
+
+  console.log("------------------", bookingSlot);
 
   // const generateTimeIntervals = (startTime, endTime) => {
   //   const intervals = [];
@@ -206,7 +224,8 @@ const SlotChip = ({
                 {
                   backgroundColor: slot?.isBooked
                     ? "rgba(117,117,117,0.1)"
-                    : chosenSlot?.includes(slot)
+                    : bookingSlot?.length > 0 &&
+                      isTimeFrameMatch(bookingSlot, slot.timeFrame)
                     ? COLORS.orangeBackground
                     : "rgba(42,144,131,0.1)",
 
@@ -225,7 +244,8 @@ const SlotChip = ({
                   {
                     color: slot?.isBooked
                       ? "#757575"
-                      : slot.isChoose
+                      : bookingSlot?.length > 0 &&
+                        isTimeFrameMatch(bookingSlot, slot.timeFrame)
                       ? COLORS.orangeText
                       : "#2A9083",
                   },

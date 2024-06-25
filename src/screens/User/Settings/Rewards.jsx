@@ -16,6 +16,7 @@ import icons from "../../../constants/icons";
 import images from "../../../constants/images";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { SIZE } from "../../../theme/fonts";
+import Oops from "../../../components/Organisms/Oops";
 
 const vouchers = [
   {
@@ -60,6 +61,16 @@ const Rewards = ({}) => {
   const navigation = useNavigation();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { width } = useWindowDimensions();
+
+  const loading = false;
+
+  // if (loading) {
+  //   return (
+  //     <View style={{ flex: 1 }}>
+  //     </View>
+  //   );
+  // }
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -69,107 +80,115 @@ const Rewards = ({}) => {
           </TouchableOpacity>
           <Text style={styles.title}>Tích điểm: Sân của Si</Text>
         </View>
-        <View style={styles.pointPadding}>
-          <TouchableOpacity
-            style={styles.pointContainer}
-            onPress={() => navigation.navigate("RewardHistory")}
-            activeOpacity={1}
-          >
-            <View style={styles.pointSide}>
-              <View style={styles.iconBadminton}>
-                <Image
-                  source={icons.bad_white}
-                  style={{ width: 22, height: 22 }}
-                  resizeMode="contain"
-                />
-              </View>
 
-              <View>
-                <Text style={styles.mpTitle}>Sân của Si</Text>
-                <Text style={styles.mpPoint}>50 Bé Si</Text>
-              </View>
-            </View>
-            <VectorIcon.FontAwesome5 name="chevron-right" size={15} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.exchangeContainer}>
-          <Text style={styles.changePoint}>Đổi điểm nhận ưu đãi</Text>
-          <FlatList
-            data={vouchers}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+        {loading ? (
+          <View style={{ marginTop: 300 }}>
+            <Oops text={"Chờ xíu nhé, sắp được tích điểm rồi !"} />
+          </View>
+        ) : (
+          <>
+            <View style={styles.pointPadding}>
               <TouchableOpacity
-                onPress={() => navigation.navigate("RewardDetail")}
-                style={[styles.vchContainer, { width: width - 30 }]}
+                style={styles.pointContainer}
+                onPress={() => navigation.navigate("RewardHistory")}
+                activeOpacity={1}
               >
-                <Image
-                  source={item.image}
-                  style={[styles.vchImage, { width: width - 29 }]}
-                />
-                <Text style={styles.vchTitle}>{item.title}</Text>
-                <View style={styles.pointNeed}>
-                  <Text style={styles.pn}>Điểm cần đạt</Text>
-                  <View style={styles.mp}>
-                    <View style={styles.iconSmall}>
-                      <Image
-                        source={icons.bad_white}
-                        style={{ width: 12, height: 12 }}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <Text style={styles.pnPoints}>{item.points}</Text>
+                <View style={styles.pointSide}>
+                  <View style={styles.iconBadminton}>
+                    <Image
+                      source={icons.bad_white}
+                      style={{ width: 22, height: 22 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+
+                  <View>
+                    <Text style={styles.mpTitle}>Sân của Si</Text>
+                    <Text style={styles.mpPoint}>50 Bé Si</Text>
                   </View>
                 </View>
+                <VectorIcon.FontAwesome5 name="chevron-right" size={15} />
               </TouchableOpacity>
-            )}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            contentContainerStyle={{ marginTop: 20 }}
-            onMomentumScrollEnd={(event) => {
-              const index = Math.round(
-                event.nativeEvent.contentOffset.x / (width - 30)
-              );
-              setSelectedIndex(index); // Update selected index on scroll
-            }}
-          />
-          <View style={styles.circleContainer}>
-            {vouchers.map((item, index) => (
-              <View
-                style={[
-                  styles.circle,
-                  {
-                    backgroundColor:
-                      index === selectedIndex ? "#F0822B" : "#ccc",
-                  },
-                ]}
-              ></View>
-            ))}
-          </View>
-        </View>
-
-        <Text style={styles.mvTitle}>Kho khuyến mãi của tôi</Text>
-        <View style={styles.myVoucher}>
-          {myVouchers.map((item, index) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("MyVoucherDetail")}
-              activeOpacity={1}
-              style={[styles.vchContainer, { width: width - 30 }]}
-            >
-              <Image
-                source={item.image}
-                style={[styles.vchImage, { width: width - 30 }]}
+            </View>
+            <View style={styles.exchangeContainer}>
+              <Text style={styles.changePoint}>Đổi điểm nhận ưu đãi</Text>
+              <FlatList
+                data={vouchers}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("RewardDetail")}
+                    style={[styles.vchContainer, { width: width - 30 }]}
+                  >
+                    <Image
+                      source={item.image}
+                      style={[styles.vchImage, { width: width - 29 }]}
+                    />
+                    <Text style={styles.vchTitle}>{item.title}</Text>
+                    <View style={styles.pointNeed}>
+                      <Text style={styles.pn}>Điểm cần đạt</Text>
+                      <View style={styles.mp}>
+                        <View style={styles.iconSmall}>
+                          <Image
+                            source={icons.bad_white}
+                            style={{ width: 12, height: 12 }}
+                            resizeMode="contain"
+                          />
+                        </View>
+                        <Text style={styles.pnPoints}>{item.points}</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                )}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                pagingEnabled
+                contentContainerStyle={{ marginTop: 20 }}
+                onMomentumScrollEnd={(event) => {
+                  const index = Math.round(
+                    event.nativeEvent.contentOffset.x / (width - 30)
+                  );
+                  setSelectedIndex(index); // Update selected index on scroll
+                }}
               />
-              <Text style={styles.vchTitle}>{item.title}</Text>
-              <View style={styles.pointNeed}>
-                <Text style={styles.pn}>Sẽ hết hạn vào </Text>
-                <View style={styles.mp}>
-                  <Text style={styles.expiryDate}>{item.expiryDate}</Text>
-                </View>
+              <View style={styles.circleContainer}>
+                {vouchers.map((item, index) => (
+                  <View
+                    style={[
+                      styles.circle,
+                      {
+                        backgroundColor:
+                          index === selectedIndex ? "#F0822B" : "#ccc",
+                      },
+                    ]}
+                  ></View>
+                ))}
               </View>
-            </TouchableOpacity>
-          ))}
-        </View>
+            </View>
+            <Text style={styles.mvTitle}>Kho khuyến mãi của tôi</Text>
+            <View style={styles.myVoucher}>
+              {myVouchers.map((item, index) => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("MyVoucherDetail")}
+                  activeOpacity={1}
+                  style={[styles.vchContainer, { width: width - 30 }]}
+                >
+                  <Image
+                    source={item.image}
+                    style={[styles.vchImage, { width: width - 30 }]}
+                  />
+                  <Text style={styles.vchTitle}>{item.title}</Text>
+                  <View style={styles.pointNeed}>
+                    <Text style={styles.pn}>Sẽ hết hạn vào </Text>
+                    <View style={styles.mp}>
+                      <Text style={styles.expiryDate}>{item.expiryDate}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </>
+        )}
       </ScrollView>
     </View>
   );

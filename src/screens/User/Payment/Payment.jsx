@@ -27,7 +27,7 @@ import { AuthContext } from "../../../context/AuthContext";
 const Payment = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { token } = useContext(AuthContext);
+  const { user, token, setUser } = useContext(AuthContext);
 
   const booking = route.params.booking;
   const badmintonCourt = route.params.badmintonCourt;
@@ -36,23 +36,31 @@ const Payment = () => {
 
   const handleBooking = async (e) => {
     e.preventDefault();
-    await BookingService.createBooking(token, booking);
-    // navigation.navigate("PaymentInvoice", {status : 1, condition : 1, amount: booking.priceTotal});
+    await BookingService.createBooking(token, booking, setUser);
+
+    const newBalance = user.balance - booking.priceTotal;
+    setUser((prev) => ({ ...prev, balance: newBalance }));
+
+    navigation.navigate("PaymentInvoice", {
+      status: 1,
+      condition: 1,
+      amount: booking.priceTotal,
+    });
   };
 
   const paymentMethod = [
-    {
-      icon: cashImage,
-      method: "Thanh toán tại sân",
-    },
-    {
-      icon: VNPayImage,
-      method: "Ví VNPay",
-    },
-    {
-      icon: MomoImage,
-      method: "Ví MoMo",
-    },
+    // {
+    //   icon: cashImage,
+    //   method: "Ví Smash It",
+    // },
+    // // {
+    // //   icon: VNPayImage,
+    // //   method: "Ví VNPay",
+    // // },
+    // // {
+    // //   icon: MomoImage,
+    // //   method: "Ví MoMo",
+    // // },
   ];
 
   return (
@@ -63,7 +71,7 @@ const Payment = () => {
           isGoBack={true}
           goBack={() => navigation.goBack()}
         />
-        <View style={styles.payment}>
+        {/* <View style={styles.payment}>
           <Text style={styles.title}>Phương thức thanh toán</Text>
           <ScrollView
             style={styles.paymentMethods}
@@ -82,7 +90,7 @@ const Payment = () => {
               );
             })}
           </ScrollView>
-        </View>
+        </View> */}
         <View style={styles.courtAddress}>
           <Text style={styles.title}>Địa chỉ sân</Text>
           <CourtInfo
@@ -108,6 +116,7 @@ const Payment = () => {
                     <Text style={styles.content}>Giờ đặt:</Text>
                     <View style={{ width: "100%" }}>
                       <ChipList
+                        switchColor={true}
                         dataList={court.timeFrames}
                         isHorizontal={false}
                         fontSize={SIZE.size_10}

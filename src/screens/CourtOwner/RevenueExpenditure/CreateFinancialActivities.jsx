@@ -7,20 +7,34 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { COLORS } from "../../../theme/colors";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import icons from "../../../constants/icons";
 import { SIZE } from "../../../theme/fonts";
 import TabBar from "../../../components/Molecules/TabBar";
 import InputField from "../../../components/Molecules/InputField";
+import * as SecureStore from "expo-secure-store";
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function CreateFinancialActivities({ navigation }) {
   const [tab, setTab] = useState(1);
 
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
+
   const [chosenService, setChosenService] = useState(null);
 
   const [isOpenSheet, setIsOpenSheet] = useState(false);
+
+  const [note, setNote] = useState("");
+  const [date, setDate] = useState("");
+  const [total, setTotal] = useState("");
+
+  const handleCreate = async () => {
+    const data = await SecureStore.getItemAsync("financialActivities");
+    setIsLoading(true);
+    navigation.navigate("FinancialBook");
+  };
 
   const actvitiyList = [
     {
@@ -130,20 +144,26 @@ export default function CreateFinancialActivities({ navigation }) {
               inputType={"normal"}
               primaryText={"Ghi chú"}
               placeholderText={"Nhập ghi chú"}
+              inputData={note}
+              setInputData={setNote}
             />
             <InputField
               inputType={"normal"}
               primaryText={"Ngày tạo"}
               placeholderText={"Chọn ngày tạo"}
+              inputData={date}
+              setInputData={setDate}
             />
             <InputField
               inputType={"normal"}
               primaryText={"Tổng chi phí"}
               placeholderText={"Nhập tổng chi phí"}
+              inputData={total}
+              setInputData={setTotal}
             />
           </View>
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleCreate}>
             <Text
               style={[
                 styles.semiboldText,

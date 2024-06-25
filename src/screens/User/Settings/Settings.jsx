@@ -31,7 +31,7 @@ export default function Settings() {
           name: "Tích điểm: Sân của Si",
           isNew: false,
         },
-        { navigate: "", icon: "tag", name: "Kho voucher", isNew: false },
+        // { navigate: "", icon: "tag", name: "Kho voucher", isNew: false },
       ],
     },
     {

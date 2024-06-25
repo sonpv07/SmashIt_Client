@@ -18,8 +18,8 @@ export default function FinancialActivities({ data }) {
         </View>
 
         <View style={styles.textContainer}>
-          <Text style={styles.primaryText}>Lượt đặt sân</Text>
-          <Text style={styles.secondaryText}>Được thêm tự động</Text>
+          <Text style={styles.primaryText}>Tiền điện</Text>
+          {/* <Text style={styles.secondaryText}>Được thêm tự động</Text> */}
         </View>
       </View>
       <View style={styles.rightSection}>
@@ -29,7 +29,7 @@ export default function FinancialActivities({ data }) {
             { fontFamily: "quicksand-semibold", color: COLORS.red },
           ]}
         >
-          + 100.000d
+          - 100.000d
         </Text>
       </View>
     </View>

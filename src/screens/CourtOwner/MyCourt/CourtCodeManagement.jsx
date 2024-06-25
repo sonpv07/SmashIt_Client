@@ -114,7 +114,7 @@ export default function CourtCodeManagement({ navigation, route }) {
       </View>
 
       <View style={styles.container}>
-        <CourtCodeCard courtCode={courtCode} />
+        <CourtCodeCard courtCode={courtCode} pricePerHour={100000} />
 
         {isSlotLoading ? (
           <Loading />

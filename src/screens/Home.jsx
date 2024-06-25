@@ -26,6 +26,8 @@ export default function Home() {
   const isFocus = useIsFocused();
   const { token, user } = useContext(AuthContext);
 
+  console.log(user);
+
   const fullName = () => {
     let name = user.fullName.split(/\s/);
 

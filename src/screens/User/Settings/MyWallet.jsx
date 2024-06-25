@@ -14,6 +14,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import Oops from "../../../components/Organisms/Oops";
 import { formatNumber } from "../../../utils";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
+import UserService from "../../../services/user.service";
 
 const transactionLog = [
   {
@@ -67,7 +68,11 @@ const MyWallet = () => {
 
   const [cashOut, setCashOut] = useState(null);
 
+  const [balance, setBalance] = useState(null);
+
   const { user, token } = useContext(AuthContext);
+
+  console.log("historyyyyyyy", history);
 
   const handleGetIcon = (status) => {
     switch (status) {
@@ -118,11 +123,23 @@ const MyWallet = () => {
         return "Nạp tiền vào ví";
       case 2:
         return "Rút tiền khỏi ví";
+      case 3:
+        return "Đặt sân cầu lông";
 
       default:
         break;
     }
   };
+
+  const fetchUserWallet = async () => {
+    const res = await UserService.getProfile(token);
+
+    if (res) {
+      setBalance(res.balance);
+    }
+  };
+
+  console.log("Balanceeeeeee", balance);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -132,11 +149,12 @@ const MyWallet = () => {
 
       if (res) {
         setLatestHistory(res[res.length - 1]);
-        setHistory(res);
+        setHistory(res.slice().reverse());
       }
     };
 
     fetchData();
+    fetchUserWallet();
   }, []);
 
   console.log("latestHistory", latestHistory);
@@ -150,13 +168,16 @@ const MyWallet = () => {
       />
       <View style={styles.walletContainer}>
         <Text style={styles.myBalance}>Số dư của bạn</Text>
-        <Text style={styles.balance}>VNĐ {formatNumber(user?.balance)}</Text>
+        <Text style={styles.balance}>VNĐ {formatNumber(balance)}</Text>
         <View style={styles.historyBalance}>
-          {latestHistory?.transactionStatus?.status !== "Verifying" ? (
+          {latestHistory &&
+          latestHistory?.transactionStatus?.status !== "Verifying" ? (
             <>
-              <Image source={icons.increase} />
-              <Text style={styles.amount}>VNĐ {latestHistory?.amount}</Text>
-              <Text style={styles.timeStamp}>15 phút trước</Text>
+              <Text style={styles.amount}>
+                {handleGetTitle(latestHistory?.transactionType.id)}
+              </Text>
+              <Text style={styles.amount}> {latestHistory?.amount}đ</Text>
+              <Text style={styles.timeStamp}>1 phút trước</Text>
             </>
           ) : (
             <Text style={[styles.myBalance, { color: "black" }]}>
@@ -173,6 +194,7 @@ const MyWallet = () => {
           <Image source={icons.ruttien} />
           <Text style={styles.btnText}>Rút tiền</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={() => setIsShowAddModal(true)}
           style={[
@@ -232,13 +254,9 @@ const MyWallet = () => {
                 </View>
                 <View style={styles.transactionDetail}>
                   <Text style={styles.tTile}>
-                    {`${handleGetTitle(item.transactionTypeId)} ${
-                      item.transactionStatus.id === 1
-                        ? "( Đang xử lí )"
-                        : item.transactionStatus.id === 2
-                        ? "(Hoàn tất)"
-                        : "(Thất bại)"
-                    }`}
+                    {item.transactionStatus.id === 1
+                      ? "Đang xử lí giao dịch"
+                      : `${handleGetTitle(item.transactionTypeId)}`}
                   </Text>
                   {/* <Text style={styles.tTime}>{item.timeStamp}</Text> */}
                 </View>

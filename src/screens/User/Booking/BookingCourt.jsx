@@ -96,10 +96,12 @@ export default function BookingCourt() {
 
     const fetchGenerateSlot = async () => {
       const res = await CourtService.generateSlotByDate(
-        token,
         badmintonCourtId,
-        chosenDate.toISOString()
+        chosenDate.toISOString(),
+        token
       );
+      console.log("ressss", res);
+
       if (res) {
         setCourtSlot(res.generateSlotResponses);
       }
@@ -131,7 +133,7 @@ export default function BookingCourt() {
 
   const countChosenSlot = (bookingSlotList) => {
     let totalCount = 0;
-    bookingSlotList.forEach((item) => {
+    bookingSlotList?.forEach((item) => {
       totalCount += item.timeFrames.length;
     });
     return totalCount;
@@ -182,6 +184,7 @@ export default function BookingCourt() {
                     <CourtCodeCard
                       name={index + 1}
                       pricePerHour={court.pricePerHour}
+                      courtCode={currentCourt}
                     />
                   </View>
                 );

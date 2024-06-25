@@ -34,7 +34,6 @@ const Login = ({ navigation }) => {
   const { chosenRole, login, setIsLogin, isRemember, setIsRemember } =
     useContext(AuthContext);
 
-
   const handleLogin = async () => {
     const body = {
       email: form.email.trim(),
@@ -95,6 +94,7 @@ const Login = ({ navigation }) => {
               />
             </View>
           </View>
+
           <View style={styles.savingData}>
             <Checkbox
               value="rememberMe"

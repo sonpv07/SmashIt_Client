@@ -60,7 +60,7 @@ class CourtService {
       console.error("Error fetching search court: ", error);
     }
   }
-  static async generateSlotByDate(token, badmintonCourtId, date) {
+  static async generateSlotByDate(badmintonCourtId, date, token) {
     try {
       const response = await axios.get(
         `${API_URL}/generate-slot-by-date?badmintonCourtId=${badmintonCourtId}&date=${date}`,
