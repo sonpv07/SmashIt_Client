@@ -101,9 +101,6 @@ const SlotChip = ({
     setBookingSlotList([...bookingSlot]);
   };
 
-  console.log(bookingSlot);
-  console.log("asd", bookingSlot[0]?.timeFrames);
-
   const handleGenerateSlots = () => {
     const slots = generateTimeIntervals(timeRange.start, timeRange.end);
     // console.log(slots);
@@ -209,6 +206,7 @@ const SlotChip = ({
 
           {slotList?.slotWithStatusResponses?.map((slot) => (
             <TouchableOpacity
+              
               onPress={() => handleChooseSlot(slot)}
               activeOpacity={0.7}
               key={slot.id}

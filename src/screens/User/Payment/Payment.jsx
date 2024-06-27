@@ -38,7 +38,7 @@ const Payment = () => {
   const handleBooking = async (e) => {
     e.preventDefault();
     await BookingService.createBooking(token, booking);
-    // navigation.navigate("PaymentInvoice", {status : 1, condition : 1, amount: booking.priceTotal});
+    navigation.navigate("PaymentInvoice", {status : 1, condition : 1, amount: booking.priceTotal});
   }
 
 
@@ -113,6 +113,7 @@ const Payment = () => {
                         borderRadius={10}
                         textFamily={"quicksand-semibold"}
                         borderColor={COLORS.white}
+                        switchColor={true}
                       />
                     </View>
                   </View>

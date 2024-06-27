@@ -1,6 +1,6 @@
 //ngrok http 5036
 //port 5036
 //https://2db7-42-112-81-13.ngrok-free.app/swagger/index.html
-API_URL_ENV = "http://api.smashit.com.vn";
+API_URL_ENV = "https://3c2a-171-243-48-126.ngrok-free.app";
 
 export default API_URL_ENV; 
