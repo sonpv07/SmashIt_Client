@@ -145,7 +145,7 @@ const MyWallet = () => {
     const fetchData = async () => {
       const res = await TransactionService.getTransactionById(user?.id, token);
 
-      console.log("res", res[res.length - 1].amount);
+      console.log("res", res);
 
       if (res) {
         setLatestHistory(res[res.length - 1]);
@@ -176,7 +176,9 @@ const MyWallet = () => {
               <Text style={styles.amount}>
                 {handleGetTitle(latestHistory?.transactionType.id)}
               </Text>
-              <Text style={styles.amount}> {latestHistory?.amount}đ</Text>
+              <Text style={styles.amount}>
+                {formatNumber(latestHistory?.amount)}đ
+              </Text>
               <Text style={styles.timeStamp}>1 phút trước</Text>
             </>
           ) : (

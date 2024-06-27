@@ -25,11 +25,15 @@ import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { AuthContext } from "../../../context/AuthContext";
 import { formatNumber } from "../../../utils";
 import ServiceCourtService from "../../../services/court-service.service";
+import Loading from "../../../components/Molecules/Loading";
 
 const CourtDetail = () => {
   const route = useRoute();
   const courtId = Number(route.params.badmintonCourtId);
   const [court, setCourt] = useState({});
+
+  const [isLoading, setIsLoading] = useState(true);
+
   const [courtService, setCourtService] = useState({});
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -55,6 +59,8 @@ const CourtDetail = () => {
       } else {
         navigation.navigate("Search");
       }
+
+      setIsLoading(false);
     };
     if (isFocused) {
       fetchCourt();
@@ -93,6 +99,11 @@ const CourtDetail = () => {
   const heart = favorite === true ? "heart" : "hearto";
   const [step, setStep] = useState(1);
   const navigator = useNavigation();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <View style={{ flex: 1, marginBottom: 20 }}>
       <ScrollView style={styles.container}>

@@ -23,7 +23,6 @@ const SlotChip = ({
 }) => {
   // const [timeRange, setTimeRange] = useState({ start: "6:00", end: "23:00" });
   const [timeSlots, setTimeSlots] = useState([]);
-  console.log("sdfdsf", courtId);
 
   const vietnamTimeZone = "Asia/Ho_Chi_Minh";
 
@@ -60,43 +59,43 @@ const SlotChip = ({
         setChosenSlot(null);
       }
     } else {
-      let newTimeFrames = [...slotDetail.timeFrames];
+      if (!choice.isBooked) {
+        let newTimeFrames = [...slotDetail.timeFrames];
 
-      // Check if slotDetail for the courtId exists in bookingSlot
-      const existingSlot = filterCourt(bookingSlot, courtId);
+        // Check if slotDetail for the courtId exists in bookingSlot
+        const existingSlot = filterCourt(bookingSlot, courtId);
 
-      if (existingSlot) {
-        // Update timeFrames of the existing slotDetail
-        if (!existingSlot.timeFrames.includes(choice)) {
-          existingSlot.timeFrames.push(choice);
-        } else {
-          existingSlot.timeFrames = existingSlot.timeFrames.filter(
-            (slot) => slot !== choice
+        if (existingSlot) {
+          // Update timeFrames of the existing slotDetail
+          if (!existingSlot.timeFrames.includes(choice)) {
+            existingSlot.timeFrames.push(choice);
+          } else {
+            existingSlot.timeFrames = existingSlot.timeFrames.filter(
+              (slot) => slot !== choice
+            );
+          }
+          setBookingSlot(
+            bookingSlot.map((slot) =>
+              slot.courtId === courtId ? existingSlot : slot
+            )
           );
+        } else {
+          // Add new slotDetail to bookingSlot
+          if (!newTimeFrames.includes(choice)) {
+            newTimeFrames.push(choice);
+          }
+          setBookingSlot([
+            ...bookingSlot,
+            { ...slotDetail, timeFrames: newTimeFrames },
+          ]);
         }
-        setBookingSlot(
-          bookingSlot.map((slot) =>
-            slot.courtId === courtId ? existingSlot : slot
-          )
-        );
-      } else {
-        // Add new slotDetail to bookingSlot
-        if (!newTimeFrames.includes(choice)) {
-          newTimeFrames.push(choice);
-        }
-        setBookingSlot([
-          ...bookingSlot,
-          { ...slotDetail, timeFrames: newTimeFrames },
-        ]);
+
+        // Update the slotDetail state with the new timeFrames array
+        setSlotDetail({
+          ...slotDetail,
+          timeFrames: newTimeFrames,
+        });
       }
-
-      // Update the slotDetail state with the new timeFrames array
-      setSlotDetail({
-        ...slotDetail,
-        timeFrames: newTimeFrames,
-      });
-
-      setBookingSlotList([...bookingSlot]);
     }
   };
 
@@ -104,10 +103,16 @@ const SlotChip = ({
     // Loop through each detail object in the list
     for (let i = 0; i < detailsList.length; i++) {
       const timeFrames = detailsList[i].timeFrames;
+      const checkId = detailsList[i].courtId;
+      const checkDate = detailsList[i].date;
 
       // Loop through the timeFrames array within the current detail object
       for (let j = 0; j < timeFrames.length; j++) {
-        if (timeFrames[j].timeFrame === choice) {
+        if (
+          timeFrames[j].timeFrame === choice &&
+          checkId === courtId &&
+          checkDate === chosenDate
+        ) {
           return true;
         }
       }
@@ -117,7 +122,19 @@ const SlotChip = ({
     return false;
   }
 
-  console.log("------------------", bookingSlot);
+  useEffect(() => {
+    if (!isCourtOwner) {
+      setBookingSlotList([...bookingSlot]);
+    }
+  }, [bookingSlot]);
+
+  useEffect(() => {
+    setSlotDetail({
+      courtId: courtId,
+      timeFrames: [],
+      date: chosenDate,
+    });
+  }, [courtId, chosenDate]);
 
   // const generateTimeIntervals = (startTime, endTime) => {
   //   const intervals = [];

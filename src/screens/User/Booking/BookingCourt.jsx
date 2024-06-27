@@ -29,6 +29,7 @@ import CourtService from "../../../services/court.service";
 import { AuthContext } from "../../../context/AuthContext";
 import { formatNumber } from "../../../utils";
 import { toZonedTime, format } from "date-fns-tz";
+import Loading from "../../../components/Molecules/Loading";
 
 export default function BookingCourt() {
   const navigation = useNavigation();
@@ -47,6 +48,8 @@ export default function BookingCourt() {
   const [currentCourt, setCurrentCourt] = useState(1);
   const [bookingSlotList, setBookingSlotList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSlotLoading, setIsSlotLoading] = useState(false);
 
   // const formatDate = (date) => {
   //   const formattedDate = moment(date)
@@ -100,11 +103,12 @@ export default function BookingCourt() {
         chosenDate.toISOString(),
         token
       );
-      console.log("ressss", res);
 
       if (res) {
         setCourtSlot(res.generateSlotResponses);
+        setIsSlotLoading(false);
       }
+      setIsLoading(false);
     };
 
     fetchCourt();
@@ -146,6 +150,10 @@ export default function BookingCourt() {
     if (slotList.length > 0) return slotList[0];
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderBar
@@ -162,6 +170,7 @@ export default function BookingCourt() {
           <DatePickerSlider
             chosenDate={chosenDate}
             setChosenDate={setChosenDate}
+            // action={setIsSlotLoading}
           />
         </View>
         <View style={styles.container}>
@@ -201,15 +210,21 @@ export default function BookingCourt() {
             </View>
           </View>
 
-          <SlotChip
-            chosenSlot={chosenSlot}
-            isCourtOwner={false}
-            setChosenSlot={setChosenSlot}
-            slotList={filterByCourtCode(courtSlot, currentCourt)}
-            chosenDate={chosenDate}
-            courtId={filterByCourtCode(courtSlot, currentCourt)?.id}
-            setBookingSlotList={setBookingSlotList}
-          />
+          {isSlotLoading ? (
+            <View style={{ marginTop: 90 }}>
+              <Loading />
+            </View>
+          ) : (
+            <SlotChip
+              chosenSlot={chosenSlot}
+              isCourtOwner={false}
+              setChosenSlot={setChosenSlot}
+              slotList={filterByCourtCode(courtSlot, currentCourt)}
+              chosenDate={chosenDate}
+              courtId={filterByCourtCode(courtSlot, currentCourt)?.id}
+              setBookingSlotList={setBookingSlotList}
+            />
+          )}
         </View>
       </ScrollView>
 

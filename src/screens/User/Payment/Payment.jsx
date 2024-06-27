@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -23,23 +23,28 @@ import ChipList from "../../../components/Molecules/ChipList";
 import { formatNumber } from "../../../utils";
 import BookingService from "../../../services/booking.service";
 import { AuthContext } from "../../../context/AuthContext";
+import Loading from "../../../components/Molecules/Loading";
 
 const Payment = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { user, token, setUser } = useContext(AuthContext);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const booking = route.params.booking;
   const badmintonCourt = route.params.badmintonCourt;
   console.log("payment  ", booking);
   console.log("date ", booking?.createBookingSlotRequests[0]?.date);
 
-  const handleBooking = async (e) => {
-    e.preventDefault();
+  const handleBooking = async () => {
+    setIsLoading(true);
     await BookingService.createBooking(token, booking, setUser);
 
     const newBalance = user.balance - booking.priceTotal;
     setUser((prev) => ({ ...prev, balance: newBalance }));
+
+    setIsLoading(false);
 
     navigation.navigate("PaymentInvoice", {
       status: 1,
@@ -62,6 +67,10 @@ const Payment = () => {
     // //   method: "Ví MoMo",
     // // },
   ];
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <View>

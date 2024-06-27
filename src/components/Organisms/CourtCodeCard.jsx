@@ -54,8 +54,10 @@ export default function CourtCodeCard({ courtCode, pricePerHour }) {
           <View style={styles.inforItem}>
             <Text style={styles.normalText}>Khung giờ đã đặt </Text>
             <Text style={[styles.boldText, { color: COLORS.orangeText }]}>
-              {0}
-              <Text style={{ color: COLORS.black }}>/{39}</Text>
+              {countBookedSlots()}
+              <Text style={{ color: COLORS.black }}>
+                /{handleGenerateTotalSlot()}
+              </Text>
             </Text>
           </View>
         </View>

@@ -222,7 +222,7 @@ export default function MyProfile() {
               />
             )}
           </View>
-          <Text style={styles.accountLink}>Liên kết tài khoản</Text>
+          {/* <Text style={styles.accountLink}>Liên kết tài khoản</Text>
           <View style={styles.accountOption}>
             <View style={styles.left}>
               <Image source={images.google} style={styles.google} />
@@ -234,7 +234,7 @@ export default function MyProfile() {
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
-          </View>
+          </View> */}
           <Text style={styles.security}>Bảo mật</Text>
           <View style={styles.changePassword}>
             <Text style={styles.changeText}>Thay đổi mật khẩu</Text>

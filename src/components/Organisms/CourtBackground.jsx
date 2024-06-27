@@ -1,11 +1,18 @@
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SIZE } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
 import { useNavigation } from "@react-navigation/native";
-
+import { formatNumber } from "../../utils";
 
 export default function CourtBackground({
   // navigation,
@@ -21,12 +28,12 @@ export default function CourtBackground({
   priceAtWeekend,
   priceAtHoliday,
   address,
-  accountId
+  accountId,
 }) {
   const navigation = useNavigation();
   const handlePress = () => {
-    navigation.navigate("CourtDetail", { badmintonCourtId : id });
-  }
+    navigation.navigate("CourtDetail", { badmintonCourtId: id });
+  };
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
       <View style={styles.imageSection}>
@@ -67,7 +74,9 @@ export default function CourtBackground({
             >
               Cách 5.0km
             </Text>
-            <Text style={styles.primaryText}>{pricePerHour}đ/giờ</Text>
+            <Text style={styles.primaryText}>
+              {formatNumber(pricePerHour)}đ/giờ
+            </Text>
           </View>
         </View>
       </View>

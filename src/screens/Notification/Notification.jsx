@@ -59,7 +59,7 @@ const notificationIcons = [
 
 const Notification = ({ navigation }) => {
   const getNotificationIcon = (type) => {
-    const icon = notificationIcons.find((item) => item.type === type);
+    const icon = notificationIcons.find((item) => item?.type === type);
     return icon ? icon.icon : null;
   };
 
@@ -133,7 +133,7 @@ const Notification = ({ navigation }) => {
             {latestNews.map((item, index) => (
               <View style={styles.recentView} key={index}>
                 <Image
-                  source={getNotificationIcon(item.type)}
+                  source={getNotificationIcon(item?.type)}
                   style={styles.icon}
                 />
                 <View style={styles.recentContent}>

@@ -138,7 +138,7 @@ export default function Home_CourtOwner() {
                   { fontFamily: "quicksand-semibold" },
                 ]}
               >
-                tôi có 2 lượt đặt sân mới
+                Bạn có 2 lượt đặt sân mới
               </Text>
             </View>
           </View>

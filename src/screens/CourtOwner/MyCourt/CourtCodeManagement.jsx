@@ -60,7 +60,10 @@ export default function CourtCodeManagement({ navigation, route }) {
         token
       );
       console.log(courtInfo?.id);
-      console.log("slotList", slotList);
+      console.log(
+        "slotList",
+        slotList.generateSlotResponses[1].slotWithStatusResponses
+      );
 
       const res = slotList?.generateSlotResponses?.find(
         (item) => item.courtCode == courtCode.toString()
@@ -174,7 +177,7 @@ export default function CourtCodeManagement({ navigation, route }) {
               style={[
                 styles.slot,
                 {
-                  backgroundColor: chosenSlot.isOccupied
+                  backgroundColor: chosenSlot.isBooked
                     ? "rgba(117,117,117,0.1)"
                     : chosenSlot.isChoose
                     ? COLORS.orangeBackground
@@ -186,7 +189,7 @@ export default function CourtCodeManagement({ navigation, route }) {
                 style={[
                   styles.slotText,
                   {
-                    color: chosenSlot.isOccupied
+                    color: chosenSlot.isBooked
                       ? "#757575"
                       : chosenSlot.isChoose
                       ? COLORS.orangeText
@@ -235,7 +238,7 @@ export default function CourtCodeManagement({ navigation, route }) {
             </View>
           )}
 
-          {!chosenSlot.isOccupied && (
+          {!chosenSlot.isBooked && (
             <View style={styles.notBookedSection}>
               <View style={{ paddingHorizontal: 20 }}>
                 <View style={styles.notBookedItem}>

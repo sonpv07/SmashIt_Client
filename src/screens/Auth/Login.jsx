@@ -24,12 +24,15 @@ import API_URL_ENV from "../../configs/api";
 const API_URL = API_URL_ENV + "/api/Authentication";
 import { ErrorText } from "../../constants/errors";
 import { LoadingContext } from "../../context/LoadingContext";
+import Loading from "../../components/Molecules/Loading";
 
 const Login = ({ navigation }) => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
-  const { setIsLoading } = useContext(LoadingContext);
+  // const { setIsLoading } = useContext(LoadingContext);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const { chosenRole, login, setIsLogin, isRemember, setIsRemember } =
     useContext(AuthContext);
@@ -40,6 +43,8 @@ const Login = ({ navigation }) => {
       password: form.password,
     };
 
+    setIsLoading(true);
+
     const res = await login(body);
 
     if (res) {
@@ -47,7 +52,13 @@ const Login = ({ navigation }) => {
     } else {
       setError(ErrorText.VALID_ACCOUNT);
     }
+
+    setIsLoading(false);
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <KeyboardAvoidingView
