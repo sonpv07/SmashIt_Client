@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -23,39 +23,54 @@ import ChipList from "../../../components/Molecules/ChipList";
 import { formatNumber } from "../../../utils";
 import BookingService from "../../../services/booking.service";
 import { AuthContext } from "../../../context/AuthContext";
+import Loading from "../../../components/Molecules/Loading";
 
 const Payment = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const {token} = useContext(AuthContext);
+  const { user, token, setUser } = useContext(AuthContext);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const booking = route.params.booking;
   const badmintonCourt = route.params.badmintonCourt;
   console.log("payment  ", booking);
   console.log("date ", booking?.createBookingSlotRequests[0]?.date);
 
+  const handleBooking = async () => {
+    setIsLoading(true);
+    await BookingService.createBooking(token, booking, setUser);
 
-  const handleBooking = async (e) => {
-    e.preventDefault();
-    await BookingService.createBooking(token, booking);
-    // navigation.navigate("PaymentInvoice", {status : 1, condition : 1, amount: booking.priceTotal});
-  }
+    const newBalance = user.balance - booking.priceTotal;
+    setUser((prev) => ({ ...prev, balance: newBalance }));
 
+    setIsLoading(false);
+
+    navigation.navigate("PaymentInvoice", {
+      status: 1,
+      condition: 1,
+      amount: booking.priceTotal,
+    });
+  };
 
   const paymentMethod = [
-    {
-      icon: cashImage,
-      method: "Thanh toán tại sân",
-    },
-    {
-      icon: VNPayImage,
-      method: "Ví VNPay",
-    },
-    {
-      icon: MomoImage,
-      method: "Ví MoMo",
-    },
+    // {
+    //   icon: cashImage,
+    //   method: "Ví Smash It",
+    // },
+    // // {
+    // //   icon: VNPayImage,
+    // //   method: "Ví VNPay",
+    // // },
+    // // {
+    // //   icon: MomoImage,
+    // //   method: "Ví MoMo",
+    // // },
   ];
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <View>
@@ -65,7 +80,7 @@ const Payment = () => {
           isGoBack={true}
           goBack={() => navigation.goBack()}
         />
-        <View style={styles.payment}>
+        {/* <View style={styles.payment}>
           <Text style={styles.title}>Phương thức thanh toán</Text>
           <ScrollView
             style={styles.paymentMethods}
@@ -84,10 +99,13 @@ const Payment = () => {
               );
             })}
           </ScrollView>
-        </View>
+        </View> */}
         <View style={styles.courtAddress}>
           <Text style={styles.title}>Địa chỉ sân</Text>
-          <CourtInfo courtName={badmintonCourt.courtName} address={badmintonCourt.address}/>
+          <CourtInfo
+            courtName={badmintonCourt.courtName}
+            address={badmintonCourt.address}
+          />
         </View>
         <View style={styles.bookingCourt}>
           <Text style={styles.title}>Thông tin đặt sân</Text>
@@ -99,12 +117,15 @@ const Payment = () => {
                   <Image style={styles.image} source={courtImage} />
                 </View>
                 <View style={styles.bookingInfo}>
-                  <Text style={styles.content_SemiBold}>Sân {court.courtId}</Text>
+                  <Text style={styles.content_SemiBold}>
+                    Sân {court.courtId}
+                  </Text>
                   {/* <Text style={styles.content}>{court.date}</Text> */}
                   <View style={styles.time}>
                     <Text style={styles.content}>Giờ đặt:</Text>
                     <View style={{ width: "100%" }}>
                       <ChipList
+                        switchColor={true}
                         dataList={court.timeFrames}
                         isHorizontal={false}
                         fontSize={SIZE.size_10}
@@ -207,7 +228,7 @@ const Payment = () => {
         <TouchableOpacity
           style={styles.confirmPayment}
           onPress={(e) => {
-            handleBooking(e)
+            handleBooking(e);
           }}
         >
           <Text style={styles.confirmPayment_Text}>Xác nhận thanh toán</Text>

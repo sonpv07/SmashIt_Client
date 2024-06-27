@@ -19,6 +19,7 @@ import logo3 from "../assets/images/logo3.png";
 import logoCourt from "../assets/images/logoCourt.png";
 import courtLogo from "../assets/images/courtLogo.png";
 import embarrassed from "../assets/images/embarrassed.png";
+import qr from "../assets/images/QR.jpg";
 export default {
   vnpay,
   momo,
@@ -41,4 +42,5 @@ export default {
   logoCourt,
   courtLogo,
   embarrassed,
+  qr,
 };

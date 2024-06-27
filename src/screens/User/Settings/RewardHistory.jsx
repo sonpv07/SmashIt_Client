@@ -89,7 +89,7 @@ const RewardHistory = () => {
         {history.map((item, index) => (
           <>
             <View key={item.id} style={styles.historyItem}>
-              <Image source={getIcon(item.type)} style={styles.icon} />
+              <Image source={getIcon(item?.type)} style={styles.icon} />
               <View style={styles.textContainer}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.desc}>{item.desc}</Text>

@@ -28,6 +28,10 @@ import tournament from "../assets/icons/tournament.png";
 import water from "../assets/icons/water.png";
 import ads from "../assets/icons/ads.png";
 import ads2 from "../assets/icons/ads2.png";
+import naptien from "../assets/icons/naptien.png";
+import ruttien from "../assets/icons/ruttien.png";
+import translog from "../assets/icons/translog.png";
+import increase from "../assets/icons/increase.png";
 
 export default {
   cash,
@@ -60,4 +64,8 @@ export default {
   court,
   water,
   ads2,
+  naptien,
+  ruttien,
+  translog,
+  increase,
 };

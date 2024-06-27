@@ -108,7 +108,7 @@ export const AuthProvider = ({ children }) => {
           return null;
         }
       } else {
-        console.log("Login Fail" + res);
+        console.log("Login Fail", res);
       }
     } catch (error) {
       console.error("error login", error);
@@ -237,6 +237,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         login,
         signup,
         signupOwner,

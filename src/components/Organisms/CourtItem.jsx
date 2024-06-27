@@ -3,8 +3,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { SIZE, WEIGHT } from "../../theme/fonts";
 import { COLORS } from "../../theme/colors";
+import { formatNumber } from "../../utils";
 
-const CourtItem = ({ 
+const CourtItem = ({
   navigation,
   id,
   profileImage,
@@ -18,13 +19,12 @@ const CourtItem = ({
   priceAtWeekend,
   priceAtHoliday,
   address,
-  accountId
+  accountId,
 }) => {
-
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("CourtDetail", { badmintonCourtId : id});
+        navigation.navigate("CourtDetail", { badmintonCourtId: id });
       }}
       style={styles.outline}
     >
@@ -58,16 +58,18 @@ const CourtItem = ({
           </View>
         </View>
         <View>
-          <Text style={styles.courtAddress}>
-            {address}
-          </Text>
+          <Text style={styles.courtAddress}>{address}</Text>
         </View>
         <View style={styles.courtDetails}>
           <Text style={styles.courtDetails_Text}>6.0 km</Text>
           <View style={styles.hr} />
-          <Text style={styles.courtDetails_Text}>{numberOfCourt} sân</Text>
+          <Text style={styles.courtDetails_Text}>
+            {formatNumber(numberOfCourt)} sân
+          </Text>
           <View style={styles.hr} />
-          <Text style={styles.courtDetails_Text}>{pricePerHour}đ/giờ</Text>
+          <Text style={styles.courtDetails_Text}>
+            {formatNumber(pricePerHour)}đ/giờ
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

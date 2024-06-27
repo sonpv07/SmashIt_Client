@@ -108,7 +108,7 @@ export default function UpdateCourt({ navigation }) {
                   contentContainerStyle={{ gap: 10 }}
                   data={modifiedImageList}
                   renderItem={({ item }) => {
-                    if (item.type === "input" && courtImage.length < 10) {
+                    if (item?.type === "input" && courtImage.length < 10) {
                       return (
                         <View>
                           <InputImage
@@ -125,7 +125,7 @@ export default function UpdateCourt({ navigation }) {
                       );
                     }
 
-                    if (!item.type) {
+                    if (!item?.type) {
                       return (
                         <View>
                           <Image source={{ uri: item }} style={styles.image} />

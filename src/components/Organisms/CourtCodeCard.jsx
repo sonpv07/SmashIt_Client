@@ -3,13 +3,36 @@ import React, { useContext } from "react";
 import { COLORS } from "../../theme/colors";
 import { formatNumber } from "../../utils";
 import { CourtOwnerContext } from "../../context/CourtOwnerContext";
-  
 
-export default function CourtCodeCard({
-  courtCode,
-  pricePerHour,
-}) {
+export default function CourtCodeCard({ courtCode, pricePerHour }) {
   const { totalSlot } = useContext(CourtOwnerContext);
+
+  console.log(totalSlot);
+
+  const handleGenerateTotalSlot = () => {
+    const data = totalSlot?.filter((item) => item.courtCode == courtCode);
+
+    return data[0]?.slotWithStatusResponses?.length;
+  };
+
+  const countBookedSlots = () => {
+    let bookedCount = 0;
+
+    const data = totalSlot?.filter((item) => item.courtCode == courtCode);
+
+    // data[0]?.slotWithStatusResponses?.length;
+
+    data?.forEach((response) => {
+      response.slotWithStatusResponses.forEach((slot) => {
+        if (slot.isBooked) {
+          bookedCount++;
+        }
+      });
+    });
+
+    return bookedCount;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.upperSection}>
@@ -31,7 +54,10 @@ export default function CourtCodeCard({
           <View style={styles.inforItem}>
             <Text style={styles.normalText}>Khung giờ đã đặt </Text>
             <Text style={[styles.boldText, { color: COLORS.orangeText }]}>
-              0<Text style={{ color: COLORS.black }}>/{totalSlot}</Text>
+              {countBookedSlots()}
+              <Text style={{ color: COLORS.black }}>
+                /{handleGenerateTotalSlot()}
+              </Text>
             </Text>
           </View>
         </View>

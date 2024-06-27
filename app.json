@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "SmashIt_Client",
+    "name": "smashit_client",
     "scheme": "smashit",
     "slug": "SmashIt_Client",
     "version": "1.0.0",
@@ -8,9 +8,9 @@
     "icon": "./assets/logoCourt.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/logoCourt.png",
+      "image": "./assets/logo1.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2A9083"
     },
     "ios": {
       "supportsTablet": true

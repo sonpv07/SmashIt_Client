@@ -1,14 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { COLORS } from "../../theme/colors";
 
-export default function StepDot({ quantity, currentStep, isRemarkable }) {
+export default function StepDot({
+  quantity,
+  currentStep,
+  isRemarkable,
+  setStep,
+}) {
   const dots = Array.from({ length: quantity }, (item, index) => index);
   return (
     <View style={styles.container}>
       {dots.map((item, index) => {
         return (
-          <View
+          <TouchableOpacity
+            onPress={() => setStep(index + 1)}
             key={index}
             style={[
               styles.dot,
@@ -22,7 +28,7 @@ export default function StepDot({ quantity, currentStep, isRemarkable }) {
                   height: 10,
                 },
             ]}
-          ></View>
+          ></TouchableOpacity>
         );
       })}
     </View>

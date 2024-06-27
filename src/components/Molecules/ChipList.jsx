@@ -16,10 +16,11 @@ const ChipList = ({
   listStyle,
   borderRadius,
   chipStyle,
+  switchColor,
 }) => {
   console.log("dudoug", dataList);
 
-  if (dataList[0] !== "string") {
+  if (switchColor) {
     return (
       <ScrollView
         showsHorizontalScrollIndicator={false}
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   vertical: {
     flexDirection: "row",
     flexWrap: "wrap",
-    columnGap: 5,
+    columnGap: 4,
     rowGap: 10,
   },
   horizontal: {

@@ -24,14 +24,32 @@ import CourtService from "../../../services/court.service";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { AuthContext } from "../../../context/AuthContext";
 import { formatNumber } from "../../../utils";
+import ServiceCourtService from "../../../services/court-service.service";
+import Loading from "../../../components/Molecules/Loading";
 
 const CourtDetail = () => {
   const route = useRoute();
   const courtId = Number(route.params.badmintonCourtId);
   const [court, setCourt] = useState({});
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [courtService, setCourtService] = useState({});
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  const { token } = useContext(AuthContext); 
+  const { token } = useContext(AuthContext);
+
+  const fetchServiceList = async () => {
+    const res = await ServiceCourtService.getCourtServiceByCourtId(
+      courtId,
+      token
+    );
+
+    if (res) {
+      setCourtService(res.services);
+      setIsLoadingService(false);
+    }
+  };
 
   useEffect(() => {
     const fetchCourt = async () => {
@@ -41,12 +59,13 @@ const CourtDetail = () => {
       } else {
         navigation.navigate("Search");
       }
+
+      setIsLoading(false);
     };
     if (isFocused) {
       fetchCourt();
     }
   }, [isFocused, token, courtId, navigation]);
-
 
   const commentList = [
     {
@@ -80,6 +99,11 @@ const CourtDetail = () => {
   const heart = favorite === true ? "heart" : "hearto";
   const [step, setStep] = useState(1);
   const navigator = useNavigation();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <View style={{ flex: 1, marginBottom: 20 }}>
       <ScrollView style={styles.container}>
@@ -127,9 +151,7 @@ const CourtDetail = () => {
             <VectorIcon.AntDesign />
             <Text style={styles.title}>Sân cầu lông {court.courtName}</Text>
           </View>
-          <Text style={styles.mediumText}>
-            {court.address}
-          </Text>
+          <Text style={styles.mediumText}>{court.address}</Text>
           <View style={styles.courtMoreDetail}>
             <View style={styles.rating}>
               <StarRating
@@ -192,7 +214,7 @@ const CourtDetail = () => {
           <Text style={styles.title}>Cơ sở vật chất</Text>
           <View style={styles.chip}>
             <ChipList
-              dataList={court.serviceCourts? court.serviceCourts : []}
+              dataList={court.serviceCourts ? court.serviceCourts : []}
               borderColor={"#D9D9D9"}
               textFamily={"quicksand-regular"}
             />
@@ -234,14 +256,19 @@ const CourtDetail = () => {
         <View style={styles.bookingInfo}>
           <Text style={styles.price}>
             {/* <Text style={styles.oldPrice}>110.000đ</Text>{" "} */}
-            <Text style={styles.newPrice}>{formatNumber(court.pricePerHour)}đ</Text>/giờ
+            <Text style={styles.newPrice}>
+              {formatNumber(court.pricePerHour)}đ
+            </Text>
+            /giờ
           </Text>
           {/* <Text style={styles.voucher}>Đã áp dụng voucher</Text> */}
         </View>
         <View style={styles.bookingButton}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("BookingCourt", {badmintonCourtId : court.id});
+              navigation.navigate("BookingCourt", {
+                badmintonCourtId: court.id,
+              });
             }}
             style={styles.button}
           >

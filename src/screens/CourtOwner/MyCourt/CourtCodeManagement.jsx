@@ -23,13 +23,17 @@ import { AuthContext } from "../../../context/AuthContext";
 import CourtCodeService from "../../../services/court-code.service";
 import SlotService from "../../../services/slot.service";
 import Loading from "../../../components/Molecules/Loading";
+import { CourtOwnerContext } from "../../../context/CourtOwnerContext";
+import CourtService from "../../../services/court.service";
 
 export default function CourtCodeManagement({ navigation, route }) {
-  const { courtCode } = route.params;
+  const { courtCode, courtCodeId } = route.params;
 
-  const [isSlotLoading, setIsSlotLoading] = useState(TurboModuleRegistry);
+  const [isSlotLoading, setIsSlotLoading] = useState(true);
 
   const { token } = useContext(AuthContext);
+
+  const { courtInfo, totalSlot } = useContext(CourtOwnerContext);
 
   const [slotList, setSlotList] = useState([]);
 
@@ -37,7 +41,7 @@ export default function CourtCodeManagement({ navigation, route }) {
 
   const [chosenSlot, setChosenSlot] = useState(null);
 
-  const [chosenDate, setChosenDate] = useState(new Date());
+  const [chosenDate, setChosenDate] = useState(new Date().toISOString());
 
   const formatDate = (date) => {
     const formattedDate = moment(date).locale("vi").format("dddd, DD/MM/YYYY");
@@ -48,18 +52,54 @@ export default function CourtCodeManagement({ navigation, route }) {
     return capitalizedDate;
   };
 
+  const handleCourtTimeFrame = async () => {
+    try {
+      const slotList = await CourtService.generateSlotByDate(
+        courtInfo?.id,
+        chosenDate,
+        token
+      );
+      console.log(courtInfo?.id);
+      console.log(
+        "slotList",
+        slotList.generateSlotResponses[1].slotWithStatusResponses
+      );
+
+      const res = slotList?.generateSlotResponses?.find(
+        (item) => item.courtCode == courtCode.toString()
+      );
+
+      console.log("res", res);
+
+      setSlotList(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      const res = await SlotService.getSlotListByCourtCodeId(courtCode, token);
+      try {
+        await handleCourtTimeFrame();
 
-      if (res) {
-        setSlotList(res);
+        // const res = await CourtService.generateSlotByDateAndCourtCode(
+        //   courtInfo?.id,
+        //   chosenDate,
+        //   courtCodeId,
+        //   token
+        // );
+        // if (res) {
+        //   setSlotList(res.generateSlotResponse.slotWithStatusResponses);
+        // }
+      } catch (error) {
+        console.log(error);
+      } finally {
         setIsSlotLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [chosenDate]);
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -70,13 +110,14 @@ export default function CourtCodeManagement({ navigation, route }) {
       />
       <View style={{ marginTop: 20, marginBottom: 20 }}>
         <DatePickerSlider
+          action={setIsSlotLoading}
           chosenDate={chosenDate}
           setChosenDate={setChosenDate}
         />
       </View>
 
       <View style={styles.container}>
-        <CourtCodeCard courtCode={courtCode} />
+        <CourtCodeCard courtCode={courtCode} pricePerHour={100000} />
 
         {isSlotLoading ? (
           <Loading />
@@ -136,7 +177,7 @@ export default function CourtCodeManagement({ navigation, route }) {
               style={[
                 styles.slot,
                 {
-                  backgroundColor: chosenSlot.isOccupied
+                  backgroundColor: chosenSlot.isBooked
                     ? "rgba(117,117,117,0.1)"
                     : chosenSlot.isChoose
                     ? COLORS.orangeBackground
@@ -148,7 +189,7 @@ export default function CourtCodeManagement({ navigation, route }) {
                 style={[
                   styles.slotText,
                   {
-                    color: chosenSlot.isOccupied
+                    color: chosenSlot.isBooked
                       ? "#757575"
                       : chosenSlot.isChoose
                       ? COLORS.orangeText
@@ -166,7 +207,7 @@ export default function CourtCodeManagement({ navigation, route }) {
             dividerStyle={{ marginTop: 22 }}
           />
 
-          {chosenSlot.isOccupied && (
+          {chosenSlot.isBooked && (
             <View style={styles.customerInforSection}>
               <Text style={styles.title}>Thông tin khách hàng</Text>
               <View style={styles.inforContainer}>
@@ -197,7 +238,7 @@ export default function CourtCodeManagement({ navigation, route }) {
             </View>
           )}
 
-          {!chosenSlot.isOccupied && (
+          {!chosenSlot.isBooked && (
             <View style={styles.notBookedSection}>
               <View style={{ paddingHorizontal: 20 }}>
                 <View style={styles.notBookedItem}>
@@ -269,9 +310,13 @@ export default function CourtCodeManagement({ navigation, route }) {
 
           {!chosenSlot.isOccupied && (
             <View style={{ paddingHorizontal: 20 }}>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("CreateBooking");
+                  navigation.navigate("CreateBooking", {
+                    chosenDate: chosenDate,
+                    courtCodeId: courtCodeId,
+                    courtCodeNum: courtCode,
+                  });
                 }}
                 activeOpacity={0.5}
                 style={[
@@ -286,7 +331,7 @@ export default function CourtCodeManagement({ navigation, route }) {
                 <Text style={[styles.buttonText, { color: COLORS.white }]}>
                   Tạo lịch đặt
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity
                 onPress={() => {
                   setChosenSlot(null);

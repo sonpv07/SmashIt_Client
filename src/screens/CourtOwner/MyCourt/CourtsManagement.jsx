@@ -6,6 +6,8 @@ import { CourtOwnerContext } from "../../../context/CourtOwnerContext";
 export default function CourtsManagement({ navigation }) {
   const { courtCodeList } = useContext(CourtOwnerContext);
 
+  console.log(courtCodeList);
+
   // const courtList = [
   //   {
   //     id: 1,
@@ -39,7 +41,7 @@ export default function CourtsManagement({ navigation }) {
         renderItem={({ item }) => {
           return (
             <OwnedCourtCard
-              isActive={item?.isActive}
+              isActive={item?.isActive ?? true}
               courtId={item?.id}
               revenue={item?.revenue}
               bookedSlot={item?.bookedSlot}
