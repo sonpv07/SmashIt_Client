@@ -15,6 +15,8 @@ import Oops from "../../../components/Organisms/Oops";
 import { formatNumber } from "../../../utils";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import UserService from "../../../services/user.service";
+import "moment/locale/vi";
+import moment from "moment";
 
 const transactionLog = [
   {
@@ -179,7 +181,9 @@ const MyWallet = () => {
               <Text style={styles.amount}>
                 {formatNumber(latestHistory?.amount)}đ
               </Text>
-              <Text style={styles.timeStamp}>1 phút trước</Text>
+              <Text style={styles.timeStamp}>
+                {moment(latestHistory?.timestamp).fromNow()}
+              </Text>
             </>
           ) : (
             <Text style={[styles.myBalance, { color: "black" }]}>

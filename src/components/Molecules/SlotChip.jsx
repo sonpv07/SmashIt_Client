@@ -183,6 +183,104 @@ const SlotChip = ({
   //   handleGenerateSlots();
   // }, [timeRange]);
 
+  if (isCourtOwner) {
+    return (
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+          <View style={styles.slotContainer}>
+            {/* {timeSlots.map((slot, index) => (
+            <TouchableOpacity
+              onPress={() => handleChooseSlot(slot)}
+              activeOpacity={0.7}
+              key={index}
+              style={[
+                styles.slot,
+                {
+                  backgroundColor: slot.isOccupied
+                    ? "rgba(117,117,117,0.1)"
+                    : slot.isChoose
+                    ? COLORS.orangeBackground
+                    : "rgba(42,144,131,0.1)",
+
+                  borderWidth:
+                    chosenSlot?.start === slot.start &&
+                    chosenSlot?.end === slot.end
+                      ? 1
+                      : 0,
+
+                  borderColor:
+                    chosenSlot?.start === slot.start &&
+                    chosenSlot?.end === slot.end &&
+                    slot.isOccupied
+                      ? COLORS.darkGreyBorder
+                      : COLORS.lightGreenText,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.slotText,
+                  {
+                    color: slot.isOccupied
+                      ? "#757575"
+                      : slot.isChoose
+                      ? COLORS.orangeText
+                      : "#2A9083",
+                  },
+                ]}
+              >{`${slot.start} - ${slot.end}`}</Text>
+            </TouchableOpacity>
+          ))} */}
+
+            {slotList?.generateSlotResponseForOwner?.slotWithStatusResponsesForOwner?.map(
+              (slot) => (
+                <TouchableOpacity
+                  onPress={() => handleChooseSlot(slot)}
+                  activeOpacity={0.7}
+                  key={slot.id}
+                  style={[
+                    styles.slot,
+                    {
+                      backgroundColor: slot?.isBooked
+                        ? "rgba(117,117,117,0.1)"
+                        : bookingSlot?.length > 0 &&
+                          isTimeFrameMatch(bookingSlot, slot.timeFrame)
+                        ? COLORS.orangeBackground
+                        : "rgba(42,144,131,0.1)",
+
+                      borderWidth: chosenSlot === slot ? 1 : 0,
+
+                      borderColor:
+                        chosenSlot === slot && slot?.isBooked
+                          ? COLORS.darkGreyBorder
+                          : COLORS.lightGreenText,
+                    },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.slotText,
+                      {
+                        color: slot?.isBooked
+                          ? "#757575"
+                          : bookingSlot?.length > 0 &&
+                            isTimeFrameMatch(bookingSlot, slot.timeFrame)
+                          ? COLORS.orangeText
+                          : "#2A9083",
+                      },
+                    ]}
+                  >
+                    {slot.timeFrame}
+                  </Text>
+                </TouchableOpacity>
+              )
+            )}
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>

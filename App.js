@@ -13,25 +13,10 @@ import Navigation from "./src/navigation/Navigation";
 import { COLORS } from "./src/theme/colors";
 
 import { NativeBaseProvider } from "native-base";
-import TopContent from "./src/components/Atoms/TopContent";
-import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
-import Login from "./src/screens/Auth/Login";
-import Signup from "./src/screens/Auth/Signup";
-import CourtOwner from "./src/screens/SplashScreen/CourtOwner";
 import { AuthProvider } from "./src/context/AuthContext";
-import MyProfile from "./src/screens/User/Settings/MyProfile";
-import Rewards from "./src/screens/User/Settings/Rewards";
-import RewardDetail from "./src/screens/User/Settings/RewardDetail";
-import RewardHistory from "./src/screens/User/Settings/RewardHistory";
-import Languages from "./src/screens/User/Settings/Languages";
-import CourtRating from "./src/screens/Notification/notification-detail/CourtRating";
-import { baseURL } from "./src/constants/constants";
 import { CourtOwnerProvider } from "./src/context/CourtOwnerContext";
 import { LoadingProvider } from "./src/context/LoadingContext";
-import PaymentInvoice from "./src/screens/User/Payment/PaymentInvoice";
-import ConfirmPayment from "./src/screens/User/Payment/ConfirmPayment";
-import QRCode from "./src/screens/User/Payment/QRCode";
-import SplashScreen_User from "./src/screens/SplashScreen/SplashScreen_User";
+
 export default function App() {
   LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
   LogBox.ignoreAllLogs(); //Ignore all log notifications
