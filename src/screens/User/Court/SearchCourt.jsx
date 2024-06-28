@@ -17,11 +17,14 @@ import { useIsFocused } from "@react-navigation/native";
 import CourtService from "../../../services/court.service";
 import { AuthContext } from "../../../context/AuthContext";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
+import Loading from "../../../components/Molecules/Loading";
 
 export default function SearchCourt({ navigation }) {
   const isFocus = useIsFocused();
 
   const { token } = useContext(AuthContext);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const dataAddress = [
     "Long Thạnh Mỹ",
@@ -48,6 +51,8 @@ export default function SearchCourt({ navigation }) {
       if (res && res.length > 0) {
         setCourtList(res);
       }
+
+      setIsLoading(false);
     };
 
     fetchData();
@@ -115,7 +120,7 @@ export default function SearchCourt({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.suggestLocation}>
+      {/* <View style={styles.suggestLocation}>
         <View style={styles.suggestLocation_Title}>
           <Text style={[styles.title, { fontSize: SIZE.size_16 }]}>
             Gợi ý vị trí gần bạn
@@ -148,35 +153,40 @@ export default function SearchCourt({ navigation }) {
             switchColor={false}
           />
         </View>
-      </View>
-      <View style={styles.searchCourt}>
-        <Text style={[styles.title, { fontSize: SIZE.size_16 }]}>
-          Gợi ý kết quả tìm kiếm
-        </Text>
-        <ScrollView
-          // contentContainerStyle={{gap: 20}}
-          style={styles.result}
-          showsVerticalScrollIndicator={false}
-        >
-          {courtList.map((court, index) => {
-            return (
-              <View key={index} style={styles.court}>
-                <CourtItem
-                  id={court.id}
-                  courtName={court.courtName}
-                  numberOfCourt={court.numberOfCourt}
-                  address={court.address}
-                  pricePerHour={court.pricePerHour}
-                  priceAtWeekend={court.priceAtWeekend}
-                  priceAtHoliday={court.priceAtHoliday}
-                  navigation={navigation}
-                />
-                <View style={styles.hr} />
-              </View>
-            );
-          })}
-        </ScrollView>
-      </View>
+      </View> */}
+
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <View style={styles.searchCourt}>
+          <Text style={[styles.title, { fontSize: SIZE.size_16 }]}>
+            Gợi ý kết quả tìm kiếm
+          </Text>
+          <ScrollView
+            // contentContainerStyle={{gap: 20}}
+            style={styles.result}
+            showsVerticalScrollIndicator={false}
+          >
+            {courtList.map((court, index) => {
+              return (
+                <View key={index} style={styles.court}>
+                  <CourtItem
+                    id={court.id}
+                    courtName={court.courtName}
+                    numberOfCourt={court.numberOfCourt}
+                    address={court.address}
+                    pricePerHour={court.pricePerHour}
+                    priceAtWeekend={court.priceAtWeekend}
+                    priceAtHoliday={court.priceAtHoliday}
+                    navigation={navigation}
+                  />
+                  <View style={styles.hr} />
+                </View>
+              );
+            })}
+          </ScrollView>
+        </View>
+      )}
     </View>
   );
 }

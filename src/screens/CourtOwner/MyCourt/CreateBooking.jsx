@@ -1,11 +1,12 @@
 import {
   Keyboard,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import { COLORS } from "../../../theme/colors";
 import InputField from "../../../components/Molecules/InputField";
@@ -13,9 +14,50 @@ import { SIZE } from "../../../theme/fonts";
 import SlotChip from "../../../components/Molecules/SlotChip";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { CourtOwnerContext } from "../../../context/CourtOwnerContext";
+import { Actionsheet } from "native-base";
+import CourtService from "../../../services/court.service";
 
-export default function CreateBooking({ navigation }) {
+export default function CreateBooking({ navigation, route }) {
+  const { chosenDate, courtCodeId, courtCodeNum } = route.params;
+
+  console.log(chosenDate);
+
+  const { courtCodeList, courtInfo } = useContext(CourtOwnerContext);
+
   const [chosenSlot, setChosenSlot] = useState(null);
+
+  const [slotList, setSlotList] = useState([]);
+
+  const [courtCode, setCourtCode] = useState(`Sân ${courtCodeNum}`);
+
+  const [courtCodeTemp, setCourtCodeTemp] = useState(null);
+
+  const [paymentMethod, setPaymentMethod] = useState(null);
+
+  const [isOpenPaymentMethod, setIsOpenMethod] = useState(false);
+
+  const [isOpenCourtCode, setIsOpenCourtCode] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await CourtService.generateSlotByDateAndCourtCode(
+          courtInfo?.id,
+          chosenDate,
+          courtCodeId,
+          token
+        );
+        if (res) {
+          setSlotList(res.generateSlotResponse.slotWithStatusResponses);
+        }
+      } catch (error) {
+      } finally {
+      }
+    };
+
+    fetchData();
+  }, [chosenDate]);
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -45,8 +87,9 @@ export default function CreateBooking({ navigation }) {
           inputType={"dropdown"}
           placeholderText={"Vị trí sân"}
           primaryText={"Vị trí sân"}
-          inputData={"Sân 1"}
-          setInputData={""}
+          inputData={courtCodeTemp}
+          setInputData={setCourtCodeTemp}
+          setIsOpenDropDown={setIsOpenCourtCode}
         />
 
         <View style={{ flex: 1 }}>
@@ -59,7 +102,11 @@ export default function CreateBooking({ navigation }) {
           >
             Chọn khung giờ đặt
           </Text>
-          <SlotChip chosenSlot={chosenSlot} setChosenSlot={setChosenSlot} />
+          <SlotChip
+            slotList={slotList}
+            chosenSlot={chosenSlot}
+            setChosenSlot={setChosenSlot}
+          />
         </View>
 
         <View style={[styles.buttonSection]}>
@@ -106,6 +153,38 @@ export default function CreateBooking({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
+
+      <Actionsheet
+        isOpen={isOpenCourtCode}
+        onClose={() => setIsOpenCourtCode(false)}
+      >
+        <Actionsheet.Content>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              gap: 15,
+              alignItems: "flex-start",
+            }}
+          >
+            {courtCodeList.length > 0 &&
+              courtCodeList.map((item) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    setCourtCode(item.id);
+                    setCourtCodeTemp(`Sân ${item.courtCode}`);
+                    setIsOpenCourtCode(false);
+                  }}
+                  style={{
+                    borderBottomColor: COLORS.darkGreyBorder,
+                    paddingBottom: 15,
+                  }}
+                >
+                  <Text style={styles.bankText}>Sân {item?.courtCode}</Text>
+                </TouchableOpacity>
+              ))}
+          </ScrollView>
+        </Actionsheet.Content>
+      </Actionsheet>
     </View>
   );
 }
@@ -122,6 +201,12 @@ const styles = StyleSheet.create({
   buttonSection: {
     bottom: -30,
     paddingHorizontal: 25,
+  },
+
+  bankText: {
+    fontSize: SIZE.size_16,
+    fontFamily: "quicksand-medium",
+    textAlign: "left",
   },
 
   button: {

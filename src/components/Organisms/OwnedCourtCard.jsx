@@ -27,12 +27,39 @@ export default function OwnedCourtCard({
 }) {
   const { totalSlot } = useContext(CourtOwnerContext);
 
+  const handleGenerateTotalSlot = () => {
+    const data = totalSlot?.filter((item) => item.courtCode === courtCode);
+
+    return data[0]?.slotWithStatusResponses?.length;
+  };
+
+  const countBookedSlots = () => {
+    let bookedCount = 0;
+
+    const data = totalSlot?.filter((item) => item.courtCode === courtCode);
+
+    // data[0]?.slotWithStatusResponses?.length;
+
+    data?.forEach((response) => {
+      response.slotWithStatusResponses.forEach((slot) => {
+        if (slot.isBooked) {
+          bookedCount++;
+        }
+      });
+    });
+
+    return bookedCount;
+  };
+
   return (
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.5}
       onPress={() =>
-        navigation.navigate("CourtCodeManagement", { courtCode: courtCode })
+        navigation.navigate("CourtCodeManagement", {
+          courtCode: courtCode,
+          courtCodeId: courtId,
+        })
       }
     >
       <View style={styles.upperSection}>
@@ -74,7 +101,7 @@ export default function OwnedCourtCard({
           <View style={styles.inforItem}>
             <Text style={styles.normalText}>Khung giờ đã đặt </Text>
             <Text style={[styles.normalText, { color: COLORS.darkGreenText }]}>
-              {0}/{totalSlot}
+              {countBookedSlots()}/{handleGenerateTotalSlot()}
             </Text>
           </View>
         </View>

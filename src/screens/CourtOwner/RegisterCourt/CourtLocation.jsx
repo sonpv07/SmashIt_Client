@@ -29,7 +29,7 @@ export default function CourtLocation({ courtAddress, setCourtAddress }) {
         />
       </View>
 
-      <View style={styles.locationSection}>
+      {/* <View style={styles.locationSection}>
         <View style={styles.locationItem}>
           <Text style={styles.primaryText}>41 Bình Trưng Tây</Text>
           <Text style={styles.secondayText}>
@@ -48,7 +48,7 @@ export default function CourtLocation({ courtAddress, setCourtAddress }) {
             41 Đường 41, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh
           </Text>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 }

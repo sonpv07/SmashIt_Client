@@ -23,7 +23,6 @@ const SlotChip = ({
 }) => {
   // const [timeRange, setTimeRange] = useState({ start: "6:00", end: "23:00" });
   const [timeSlots, setTimeSlots] = useState([]);
-  console.log("sdfdsf", courtId);
 
   const vietnamTimeZone = "Asia/Ho_Chi_Minh";
 
@@ -37,7 +36,7 @@ const SlotChip = ({
   const [slotDetail, setSlotDetail] = useState({
     courtId: courtId,
     timeFrames: [],
-    date: getCurrentDateTimeInVietnam(chosenDate),
+    date: chosenDate,
   });
 
   const [bookingSlot, setBookingSlot] = useState([]);
@@ -47,8 +46,6 @@ const SlotChip = ({
       setSlotDetail({ ...slotDetail, courtId: courtId });
     }
   }, [courtId]);
-
-  console.log("Detail:", slotDetail);
 
   const filterCourt = (arr, courtId) => {
     return arr.find((court) => court.courtId === courtId);
@@ -62,52 +59,82 @@ const SlotChip = ({
         setChosenSlot(null);
       }
     } else {
-      let newTimeFrames = [...slotDetail.timeFrames];
+      if (!choice.isBooked) {
+        let newTimeFrames = [...slotDetail.timeFrames];
 
-      // Check if slotDetail for the courtId exists in bookingSlot
-      const existingSlot = filterCourt(bookingSlot, courtId);
+        // Check if slotDetail for the courtId exists in bookingSlot
+        const existingSlot = filterCourt(bookingSlot, courtId);
 
-      if (existingSlot) {
-        // Update timeFrames of the existing slotDetail
-        if (!existingSlot.timeFrames.includes(choice)) {
-          existingSlot.timeFrames.push(choice);
-        } else {
-          existingSlot.timeFrames = existingSlot.timeFrames.filter(
-            (slot) => slot !== choice
+        if (existingSlot) {
+          // Update timeFrames of the existing slotDetail
+          if (!existingSlot.timeFrames.includes(choice)) {
+            existingSlot.timeFrames.push(choice);
+          } else {
+            existingSlot.timeFrames = existingSlot.timeFrames.filter(
+              (slot) => slot !== choice
+            );
+          }
+          setBookingSlot(
+            bookingSlot.map((slot) =>
+              slot.courtId === courtId ? existingSlot : slot
+            )
           );
+        } else {
+          // Add new slotDetail to bookingSlot
+          if (!newTimeFrames.includes(choice)) {
+            newTimeFrames.push(choice);
+          }
+          setBookingSlot([
+            ...bookingSlot,
+            { ...slotDetail, timeFrames: newTimeFrames },
+          ]);
         }
-        setBookingSlot(
-          bookingSlot.map((slot) =>
-            slot.courtId === courtId ? existingSlot : slot
-          )
-        );
-      } else {
-        // Add new slotDetail to bookingSlot
-        if (!newTimeFrames.includes(choice)) {
-          newTimeFrames.push(choice);
-        }
-        setBookingSlot([
-          ...bookingSlot,
-          { ...slotDetail, timeFrames: newTimeFrames },
-        ]);
+
+        // Update the slotDetail state with the new timeFrames array
+        setSlotDetail({
+          ...slotDetail,
+          timeFrames: newTimeFrames,
+        });
       }
-
-      // Update the slotDetail state with the new timeFrames array
-      setSlotDetail({
-        ...slotDetail,
-        timeFrames: newTimeFrames,
-      });
     }
-    setBookingSlotList([...bookingSlot]);
   };
 
-  const handleGenerateSlots = () => {
-    const slots = generateTimeIntervals(timeRange.start, timeRange.end);
-    // console.log(slots);
-    setTimeSlots(slots);
-  };
+  function isTimeFrameMatch(detailsList, choice) {
+    // Loop through each detail object in the list
+    for (let i = 0; i < detailsList.length; i++) {
+      const timeFrames = detailsList[i].timeFrames;
+      const checkId = detailsList[i].courtId;
+      const checkDate = detailsList[i].date;
 
-  // console.log(slotList);
+      // Loop through the timeFrames array within the current detail object
+      for (let j = 0; j < timeFrames.length; j++) {
+        if (
+          timeFrames[j].timeFrame === choice &&
+          checkId === courtId &&
+          checkDate === chosenDate
+        ) {
+          return true;
+        }
+      }
+    }
+
+    // Return false if no match is found
+    return false;
+  }
+
+  useEffect(() => {
+    if (!isCourtOwner) {
+      setBookingSlotList([...bookingSlot]);
+    }
+  }, [bookingSlot]);
+
+  useEffect(() => {
+    setSlotDetail({
+      courtId: courtId,
+      timeFrames: [],
+      date: chosenDate,
+    });
+  }, [courtId, chosenDate]);
 
   // const generateTimeIntervals = (startTime, endTime) => {
   //   const intervals = [];
@@ -213,16 +240,17 @@ const SlotChip = ({
               style={[
                 styles.slot,
                 {
-                  backgroundColor: slot?.isOccupied
+                  backgroundColor: slot?.isBooked
                     ? "rgba(117,117,117,0.1)"
-                    : chosenSlot?.includes(slot)
+                    : bookingSlot?.length > 0 &&
+                      isTimeFrameMatch(bookingSlot, slot.timeFrame)
                     ? COLORS.orangeBackground
                     : "rgba(42,144,131,0.1)",
 
                   borderWidth: chosenSlot === slot ? 1 : 0,
 
                   borderColor:
-                    chosenSlot === slot && slot.isOccupied
+                    chosenSlot === slot && slot?.isBooked
                       ? COLORS.darkGreyBorder
                       : COLORS.lightGreenText,
                 },
@@ -232,9 +260,10 @@ const SlotChip = ({
                 style={[
                   styles.slotText,
                   {
-                    color: slot.isOccupied
+                    color: slot?.isBooked
                       ? "#757575"
-                      : slot.isChoose
+                      : bookingSlot?.length > 0 &&
+                        isTimeFrameMatch(bookingSlot, slot.timeFrame)
                       ? COLORS.orangeText
                       : "#2A9083",
                   },

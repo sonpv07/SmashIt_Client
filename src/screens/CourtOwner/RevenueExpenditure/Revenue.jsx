@@ -107,7 +107,7 @@ export default function Revenue({ navigation }) {
           <View style={styles.textItem}>
             <Text style={styles.boldText}>Tổng doanh thu</Text>
             <Text style={[styles.boldText, { color: COLORS.darkGreenText }]}>
-              {formatNumber(1000000)}đ
+              {formatNumber(0)}đ
             </Text>
           </View>
 

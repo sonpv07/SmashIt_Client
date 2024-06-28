@@ -28,6 +28,7 @@ import CourtService from "../../services/court.service";
 import CourtCodeService from "../../services/court-code.service";
 import SlotService from "../../services/slot.service";
 import Loading from "../../components/Molecules/Loading";
+import moment from "moment";
 
 export default function Home_CourtOwner() {
   const { user, token } = useContext(AuthContext);
@@ -43,35 +44,12 @@ export default function Home_CourtOwner() {
     setTotalSlot,
   } = useContext(CourtOwnerContext);
 
-  console.log(isLoadCourtCode);
-
-  // const courtList = [
-  //   {
-  //     id: 1,
-  //     isActive: true,
-  //     revenue: 12000000,
-  //     bookedSlot: 12,
-  //     totalSlot: 20,
-  //   },
-  //   {
-  //     id: 2,
-  //     isActive: false,
-  //     revenue: 4000000,
-  //     bookedSlot: 12,
-  //     totalSlot: 20,
-  //   },
-  //   {
-  //     id: 3,
-  //     isActive: true,
-  //     revenue: 17112003,
-  //     bookedSlot: 12,
-  //     totalSlot: 25,
-  //   },
-  // ];
   const navigation = useNavigation();
 
   const sliderWidth = METRICS.screenWidth;
   const itemWidth = METRICS.screenWidth * 0.85;
+
+  console.log(token);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,6 +60,18 @@ export default function Home_CourtOwner() {
       if (courtData) {
         setCourtInfo(courtData);
 
+        const slotList = await CourtService.generateSlotByDate(
+          courtData.id,
+          new Date().toISOString(),
+          token
+        );
+
+        console.log("Slot List", slotList);
+
+        if (slotList) {
+          setTotalSlot(slotList.generateSlotResponses);
+        }
+
         const courtCodeData =
           await CourtCodeService.getCourtCodeByBadmintonCourt(
             courtData?.id,
@@ -90,18 +80,7 @@ export default function Home_CourtOwner() {
 
         if (courtCodeData) {
           setCourtCodeList(courtCodeData);
-
-          const res = await SlotService.getSlotListByCourtCodeId(
-            courtCodeData[0]?.id,
-            token
-          );
-
-          console.log(res);
-
-          if (res) {
-            setTotalSlot(res.length);
-            setIsLoadCourtCode(false);
-          }
+          setIsLoadCourtCode(false);
         }
       }
     };
@@ -159,7 +138,7 @@ export default function Home_CourtOwner() {
                   { fontFamily: "quicksand-semibold" },
                 ]}
               >
-                tôi có 2 lượt đặt sân mới
+                Bạn có 2 lượt đặt sân mới
               </Text>
             </View>
           </View>
@@ -207,7 +186,7 @@ export default function Home_CourtOwner() {
                 renderItem={({ item }) => {
                   return (
                     <OwnedCourtCard
-                      isActive={item?.isActive}
+                      isActive={item?.isActive ?? true}
                       revenue={item?.revenue}
                       bookedSlot={item?.bookedSlot}
                       courtCode={item?.courtCode}

@@ -31,6 +31,8 @@ const Signup = ({ navigation }) => {
   });
   const [toggleRemember, setToggleRemember] = useState(false);
 
+  const [isAgree, setIsAgree] = useState(false);
+
   const { setIsLogin, signup, setFirstRegister } = useContext(AuthContext);
 
   const [errorText, setErrorText] = useState("");
@@ -170,6 +172,19 @@ const Signup = ({ navigation }) => {
                 handlePress={handleSignUp}
               />
             </View>
+
+            <View style={{ marginTop: 20 }}>
+              <Checkbox
+                value="rememberMe"
+                aria-label="Remember me"
+                onChange={() => setIsAgree(!isAgree)}
+              >
+                <Text style={styles.checkboxLabel}>
+                  Bằng cách chọn ô này, bạn đã đồng ý với mọi điều khoản của
+                  Smash It
+                </Text>
+              </Checkbox>
+            </View>
           </View>
           <View style={styles.divider}>
             <View style={styles.leftDiv}></View>
@@ -207,6 +222,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
     fontSize: SIZE.size_16,
+  },
+
+  checkboxLabel: {
+    fontSize: SIZE.size_14,
+    fontFamily: "quicksand-semibold",
   },
 
   container: {

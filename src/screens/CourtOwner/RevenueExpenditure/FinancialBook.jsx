@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { COLORS } from "../../../theme/colors";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import { formatNumber } from "../../../utils";
@@ -16,11 +16,14 @@ import FinancialActivities from "../../../components/Organisms/FinancialActiviti
 import { METRICS } from "../../../theme/metrics";
 import TimeFilter from "../../../components/Organisms/TimeFilter";
 import Oops from "../../../components/Organisms/Oops";
+import { LoadingContext } from "../../../context/LoadingContext";
 
 export default function FinancialBook({ navigation }) {
   const [chosenDate, setChosenDate] = useState(new Date());
 
-  const financialData = [];
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
+
+  const financialData = [1];
 
   moment.updateLocale("en", {
     monthsShort: [
@@ -67,7 +70,7 @@ export default function FinancialBook({ navigation }) {
                   { fontSize: SIZE.size_14, color: "#FF0854" },
                 ]}
               >
-                {formatNumber(100000)} đ
+                {isLoading ? formatNumber(100000) : formatNumber(0)}đ
               </Text>
             </View>
             <View style={styles.overviewItem}>
@@ -80,7 +83,7 @@ export default function FinancialBook({ navigation }) {
                   { fontSize: SIZE.size_14, color: COLORS.darkGreenText },
                 ]}
               >
-                {formatNumber(100000)}đ
+                {formatNumber(0)}đ
               </Text>
             </View>
             <View style={styles.overviewItem}>
@@ -88,12 +91,12 @@ export default function FinancialBook({ navigation }) {
                 Số dư
               </Text>
               <Text style={[styles.semiboldText, { fontSize: SIZE.size_14 }]}>
-                {formatNumber(100000)}đ
+                {isLoading ? formatNumber(-100000) : formatNumber(0)}đ
               </Text>
             </View>
           </View>
 
-          {financialData?.length <= 0 ? (
+          {!isLoading ? (
             <View style={{ flex: 1, paddingBottom: 30 }}>
               <Oops text={"Oops, chưa có thống kê !"} />
             </View>

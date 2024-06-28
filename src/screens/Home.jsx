@@ -26,7 +26,7 @@ export default function Home() {
   const isFocus = useIsFocused();
   const { token, user } = useContext(AuthContext);
 
-  console.log(token);
+  console.log(user);
 
   const fullName = () => {
     let name = user.fullName.split(/\s/);
@@ -69,7 +69,7 @@ export default function Home() {
             </Text>
           </View>
           <Text style={[styles.header_Text, { fontSize: SIZE.size_20 }]}>
-            Xin chào {fullName()}, hãy tìm sân yêu thích của bạn
+            Xin chào {user?.fullName}, hãy tìm sân yêu thích của bạn
           </Text>
 
           <Pressable

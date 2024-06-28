@@ -26,7 +26,7 @@ const CourtOwner = ({ navigation }) => {
     useContext(AuthContext);
 
   const [step, setStep] = useState(1);
-  const navigate = useNavigation();
+  // const navigate = useNavigation();
 
   const steps = (step) => {
     switch (step) {
@@ -42,7 +42,7 @@ const CourtOwner = ({ navigation }) => {
           images: splash2,
           title: "Thống kê và tối ưu doanh thu",
           content:
-            "Không cần đến sổ sách chi tiêu. Chúng tôi tích hợp bảng thống kê và biểu đồ giúp bạn theo dõi doanh thu hàng tháng",
+            "Chúng tôi tích hợp bảng thống kê và biểu đồ giúp bạn theo dõi doanh thu hàng tháng",
         };
       case 3:
         return {
@@ -54,7 +54,7 @@ const CourtOwner = ({ navigation }) => {
       case 4:
         return {
           images: splash4,
-          title: "Quản lý giải đấu và thu hút người chơi",
+          title: "Quản lý giải đấu và        thu hút người chơi",
           content:
             "Công cụ hỗ trợ tổ chức và quản lý giải đấu lần đầu được ra mắt!",
         };
@@ -84,10 +84,15 @@ const CourtOwner = ({ navigation }) => {
             width: "100%",
             alignItems: "center",
             justifyContent: "center",
-            paddingVertical: 53,
+            paddingVertical: 40,
           }}
         >
-          <StepDot currentStep={step} isRemarkable={true} quantity={4} />
+          <StepDot
+            currentStep={step}
+            isRemarkable={true}
+            quantity={4}
+            setStep={setStep}
+          />
         </View>
 
         <View style={{ gap: 20 }}>
@@ -143,6 +148,7 @@ const styles = StyleSheet.create({
   imageOutline: {
     width: "100%",
     aspectRatio: 1,
+    marginTop: 30,
   },
   image: {
     width: "100%",

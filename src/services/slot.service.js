@@ -5,6 +5,7 @@ const API_URL = API_URL_ENV + "/api/Slot";
 
 class SlotService {
   static async getSlotListByCourtCodeId(courtCodeId, token) {
+    console.log(courtCodeId);
     try {
       const response = await getRequest(
         `${API_URL}/get-all-slots-of-court?courtId=${courtCodeId}`,
