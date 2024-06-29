@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -11,16 +11,22 @@ import TopContent from "../../../components/Atoms/TopContent";
 import HeaderBar from "../../../components/Atoms/HeaderBar";
 import HistoryCourt from "../../../components/Organisms/HistoryCourt";
 import { COLORS } from "../../../theme/colors";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import TabBar from "../../../components/Molecules/TabBar";
 import { SIZE } from "../../../theme/fonts";
 import images from "../../../constants/images";
+import BookingService from "../../../services/booking.service";
+import { AuthContext } from "../../../context/AuthContext";
+import { formatDate } from "../../../utils";
 
 const BookedHistory = () => {
-  const bookedHistory = [1, 2, 3, 4, 5, 6, 7, 8];
-  const reserveCourts = [1, 2, 3];
+  const [bookedHistory, setBookedHistory] = useState([]);
+  const [reserveCourts, setReserveCourts] = useState([]);
+  // const [badmintonCourt, setBadmintonCourt] = useState([]);
   const navigation = useNavigation();
   const [tab, setTab] = useState(1);
+  const { token } = useContext(AuthContext);
+  // const isFocused = 
 
   const courts = {
     id: 1,
@@ -32,17 +38,45 @@ const BookedHistory = () => {
     paymentMethod: "Thanh toán tại sân",
   };
 
+  useEffect(() => {
+    const fetchCourt = async () => {
+      const res = await CourtService.getCourtById(token, badmintonCourtId);
+      if (res) {
+        // setBadmintonCourt(res);
+      }
+    };
+    const fetchBookedHistory = async () => {
+      const res = await BookingService.getAllBookingsByUser(token);
+      if (res) {
+        setBookedHistory(res);
+      }
+      console.log("getAllBookingsByUser", res);
+    };
+    const fetchReserve = async () => {
+      const res = await BookingService.getReserveBooking(token);
+      if (res) {
+        setReserveCourts(res);
+        console.log("wqert", res);
+      }
+      console.log("getReserveBooking", res);
+    };
+    fetchCourt();
+    fetchBookedHistory();
+    fetchReserve();
+  }, [token]);
+
   const Reserve = () => {
-    return bookedHistory.map((court, index) => {
+    // console.log(reserveCourts);
+    return reserveCourts?.map((court, index) => {
       return (
         <View key={index}>
           <HistoryCourt
-            name={courts.name}
-            numOfCourt={courts.numOfCourt}
-            numOfSlot={courts.numOfSlot}
-            bookingTime={courts.bookingTime}
-            price={courts.price}
-            paymentMethod={courts.paymentMethod}
+            name={"Sân cầu lông Vũ Trụ"}
+            numOfCourt={court.numOfCourt}
+            numOfSlot={court.numOfSlot}
+            bookingTime={formatDate(court.dateTime)}
+            price={court.price}
+            paymentMethod={court.paymentMethod}
           />
           <View style={styles.hr} />
         </View>
@@ -51,16 +85,17 @@ const BookedHistory = () => {
   };
 
   const HistoryBooked = () => {
-    return reserveCourts.map((court, index) => {
+    console.log("his", bookedHistory);
+    return bookedHistory?.map((court, index) => {
       return (
         <View key={index}>
           <HistoryCourt
-            name={courts.name}
-            numOfCourt={courts.numOfCourt}
-            numOfSlot={courts.numOfSlot}
-            bookingTime={courts.bookingTime}
-            price={courts.price}
-            paymentMethod={courts.paymentMethod}
+            name={court.name}
+            numOfCourt={court.numOfCourt}
+            numOfSlot={court.numOfSlot}
+            bookingTime={formatDate(court.dateTime)}
+            price={court.price}
+            paymentMethod={court.paymentMethod}
           />
           <View style={styles.hr} />
         </View>

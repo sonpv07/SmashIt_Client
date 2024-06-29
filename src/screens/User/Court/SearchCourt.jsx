@@ -150,6 +150,7 @@ export default function SearchCourt({ navigation }) {
             chosenData={chosenData}
             setChosenData={setChosenData}
             textFamily={"quicksand-regular"}
+            switchColor={false}
           />
         </View>
       </View> */}

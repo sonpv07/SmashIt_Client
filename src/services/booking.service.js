@@ -41,13 +41,66 @@ class BookingService {
         },
       });
       if (response.data.statusCode === 200) {
-        Alert.alert("Success", "Booking created successfully.");
+        // Alert.alert("Success", "Booking created successfully.");
         return response.message;
       } else {
         console.error("Error fetching create booking:");
       }
     } catch (error) {
       console.error("Error fetching  create booking:: ", error);
+    }
+  }
+  static async getAllBookingsByUser(token) {
+    try {
+      const response = await axios.get(`${API_URL}/get-all-by-user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      if (response.data.statusCode === 200) {
+        // Alert.alert("Success", "Booking created successfully.");
+        console.log(res);
+        return response.data.data;
+      } else {
+        console.error("Error fetching get all booking by user:");
+      }
+    } catch (error) {
+      console.error("Error fetching get all booking by user", error);
+    }
+  }
+  static async getBookingDetail(token, bookingId) {
+    try {
+      const response = await axios.get(`${API_URL}/get-booking-detail?bookingId=${bookingId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      if (response.data.statusCode === 200) {
+        // Alert.alert("Success", "Booking get-booking-detail successfully.");
+        return response.data.data;
+      } else {
+        console.error("Error fetching get-booking-detail:");
+      }
+    } catch (error) {
+      console.error("Error fetching get-booking-detail", error);
+    }
+  }
+  static async getReserveBooking(token) {
+    try {
+      const response = await axios.get(`${API_URL}/get-booking-after-now`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      if (response.data.statusCode === 200) {
+        // Alert.alert("Success", "Booking created successfully.");
+        console.log(response);
+        return response.data.data;
+      } else {
+        console.error("Error fetching get all booking by user:");
+      }
+    } catch (error) {
+      console.error("Error fetching get all booking by user", error);
     }
   }
 }

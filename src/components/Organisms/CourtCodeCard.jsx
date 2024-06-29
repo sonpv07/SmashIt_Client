@@ -56,9 +56,9 @@ export default function CourtCodeCard({
           {/* <View style={styles.inforItem}>
             <Text style={styles.normalText}>Khung giờ đã đặt </Text>
             <Text style={[styles.boldText, { color: COLORS.orangeText }]}>
-              {countBookedSlots()}
+              {0}
               <Text style={{ color: COLORS.black }}>
-                /{handleGenerateTotalSlot()}
+                /{0}
               </Text>
             </Text>
           </View> */}

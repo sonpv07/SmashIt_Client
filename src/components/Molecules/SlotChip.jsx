@@ -331,6 +331,7 @@ const SlotChip = ({
 
           {slotList?.slotWithStatusResponses?.map((slot) => (
             <TouchableOpacity
+              
               onPress={() => handleChooseSlot(slot)}
               activeOpacity={0.7}
               key={slot.id}

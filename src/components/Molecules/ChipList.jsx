@@ -16,7 +16,7 @@ const ChipList = ({
   listStyle,
   borderRadius,
   chipStyle,
-  switchColor,
+  switchColor
 }) => {
   console.log("dudoug", dataList);
 
