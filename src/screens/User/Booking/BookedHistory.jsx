@@ -15,9 +15,11 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import TabBar from "../../../components/Molecules/TabBar";
 import { SIZE } from "../../../theme/fonts";
 import images from "../../../constants/images";
-import BookingService from "../../../services/booking.service";
-import { AuthContext } from "../../../context/AuthContext";
 import { formatDate } from "../../../utils";
+import { AuthContext } from "../../../context/AuthContext";
+import CourtService from "../../../services/court.service";
+import BookingService from "../../../services/booking.service";
+import Oops from "../../../components/Organisms/Oops";
 
 const BookedHistory = () => {
   const [bookedHistory, setBookedHistory] = useState([]);
@@ -26,7 +28,7 @@ const BookedHistory = () => {
   const navigation = useNavigation();
   const [tab, setTab] = useState(1);
   const { token } = useContext(AuthContext);
-  // const isFocused = 
+  // const isFocused =
 
   const courts = {
     id: 1,
@@ -39,12 +41,12 @@ const BookedHistory = () => {
   };
 
   useEffect(() => {
-    const fetchCourt = async () => {
-      const res = await CourtService.getCourtById(token, badmintonCourtId);
-      if (res) {
-        // setBadmintonCourt(res);
-      }
-    };
+    // const fetchCourt = async () => {
+    //   const res = await CourtService.getCourtById(token, badmintonCourtId);
+    //   if (res) {
+    //     // setBadmintonCourt(res);
+    //   }
+    // };
     const fetchBookedHistory = async () => {
       const res = await BookingService.getAllBookingsByUser(token);
       if (res) {
@@ -60,12 +62,20 @@ const BookedHistory = () => {
       }
       console.log("getReserveBooking", res);
     };
-    fetchCourt();
+    // fetchCourt();
     fetchBookedHistory();
     fetchReserve();
   }, [token]);
 
   const Reserve = () => {
+    if (reserveCourts.length <= 0) {
+      return (
+        <View style={{ marginTop: 200 }}>
+          <Oops text={"Oops, hiện tại chưa có sân được đặt trước"} />
+        </View>
+      );
+    }
+
     // console.log(reserveCourts);
     return reserveCourts?.map((court, index) => {
       return (
@@ -86,6 +96,15 @@ const BookedHistory = () => {
 
   const HistoryBooked = () => {
     console.log("his", bookedHistory);
+
+    if (bookedHistory.length <= 0) {
+      return (
+        <View style={{ marginTop: 200 }}>
+          <Oops text={"Hãy bắt đầu đặt sân đi nhé"} />{" "}
+        </View>
+      );
+    }
+
     return bookedHistory?.map((court, index) => {
       return (
         <View key={index}>
@@ -127,8 +146,10 @@ const BookedHistory = () => {
           fontSize={SIZE.size_14}
           setTab={setTab}
           currentTab={tab}
+          tabBarStyle={{ justifyContent: "space-around" }}
         />
       </View>
+
       <ScrollView style={styles.bookedCourt}>
         {tabItems.map(
           (item, index) =>
@@ -139,7 +160,6 @@ const BookedHistory = () => {
             )
         )}
       </ScrollView>
-      <View></View>
     </View>
   );
 };
