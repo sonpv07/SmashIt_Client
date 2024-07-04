@@ -34,7 +34,10 @@ export default function LogoScreen({ navigation }) {
   return (
     <ImageBackground source={images.courtLogo} style={styles.container}>
       <Animated.View style={{ ...styles.logoContainer, opacity: fadeAnim }}>
-        <Image source={images.logo1} style={{ width: 500, height: 500 }} />
+        <Image
+          source={images.logo1}
+          style={{ width: 500, height: 620, marginTop: 20 }}
+        />
       </Animated.View>
     </ImageBackground>
   );

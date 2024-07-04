@@ -25,6 +25,7 @@ import SlotService from "../../../services/slot.service";
 import Loading from "../../../components/Molecules/Loading";
 import { CourtOwnerContext } from "../../../context/CourtOwnerContext";
 import CourtService from "../../../services/court.service";
+import { isWeekend } from "date-fns";
 
 export default function CourtCodeManagement({ navigation, route }) {
   const { courtCode, courtCodeId } = route.params;
@@ -52,26 +53,26 @@ export default function CourtCodeManagement({ navigation, route }) {
     return capitalizedDate;
   };
 
+  const checkPrice = () => {
+    if (isWeekend(chosenDate)) {
+      return courtInfo.priceAtWeekend;
+    } else {
+      return courtInfo.pricePerHour;
+    }
+  };
+
   const handleCourtTimeFrame = async () => {
     try {
-      const slotList = await CourtService.generateSlotByDate(
+      const slotList = await CourtService.generateSlotForOwner(
         courtInfo?.id,
         chosenDate,
+        courtCodeId,
         token
       );
-      console.log(courtInfo?.id);
-      console.log(
-        "slotList",
-        slotList.generateSlotResponses[1].slotWithStatusResponses
-      );
 
-      const res = slotList?.generateSlotResponses?.find(
-        (item) => item.courtCode == courtCode.toString()
-      );
+      console.log("abcdefgh", slotList);
 
-      console.log("res", res);
-
-      setSlotList(res);
+      setSlotList(slotList);
     } catch (error) {
       console.error(error);
     }
@@ -110,14 +111,22 @@ export default function CourtCodeManagement({ navigation, route }) {
       />
       <View style={{ marginTop: 20, marginBottom: 20 }}>
         <DatePickerSlider
-          action={setIsSlotLoading}
+          action={() => {
+            setChosenSlot(null);
+            setIsSlotLoading(true);
+          }}
           chosenDate={chosenDate}
           setChosenDate={setChosenDate}
         />
       </View>
 
       <View style={styles.container}>
-        <CourtCodeCard courtCode={courtCode} pricePerHour={100000} />
+        <CourtCodeCard
+          courtCode={courtCode}
+          pricePerHour={checkPrice()}
+          chosenDate={chosenDate}
+          slotList={slotList}
+        />
 
         {isSlotLoading ? (
           <Loading />
@@ -214,7 +223,9 @@ export default function CourtCodeManagement({ navigation, route }) {
                 <View style={styles.inforItem}>
                   <View style={styles.inforItemContent}>
                     <Text style={styles.secondaryText}>Tên tài khoản</Text>
-                    <Text style={styles.primaryText}>Trần Nguyệt Ánh</Text>
+                    <Text style={styles.primaryText}>
+                      {chosenSlot?.userBooked}
+                    </Text>
                   </View>
                   <Divider orientation={"horizontal"} color={"#E8E8E8"} />
                 </View>
@@ -223,14 +234,16 @@ export default function CourtCodeManagement({ navigation, route }) {
                     <Text style={styles.secondaryText}>
                       Phương thức thanh toán
                     </Text>
-                    <Text style={styles.primaryText}>MoMo</Text>
+                    <Text style={styles.primaryText}>Ví Smash It</Text>
                   </View>
                   <Divider orientation={"horizontal"} color={"#E8E8E8"} />
                 </View>
                 <View style={styles.inforItem}>
                   <View style={styles.inforItemContent}>
                     <Text style={styles.secondaryText}>Số điện thoại</Text>
-                    <Text style={styles.primaryText}>0936527365</Text>
+                    <Text style={styles.primaryText}>
+                      {chosenSlot?.phoneNumber}
+                    </Text>
                   </View>
                   <Divider orientation={"horizontal"} color={"#E8E8E8"} />
                 </View>

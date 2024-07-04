@@ -104,7 +104,7 @@ export default function DatePickerSlider({
               <TouchableOpacity
                 key={format(day, "d")}
                 onPress={() => {
-                  action && action(true);
+                  action && action();
                   getIndex(`${format(day, "d")}/${format(day, "M")}`);
                   // action(day.toISOString());
                   setChosenDate(day.toISOString());

@@ -15,6 +15,9 @@ import Oops from "../../../components/Organisms/Oops";
 import { formatNumber } from "../../../utils";
 import VectorIcon from "../../../components/Atoms/VectorIcon";
 import UserService from "../../../services/user.service";
+import "moment/locale/vi";
+import moment from "moment";
+import Loading from "../../../components/Molecules/Loading";
 
 const transactionLog = [
   {
@@ -72,7 +75,7 @@ const MyWallet = () => {
 
   const { user, token } = useContext(AuthContext);
 
-  console.log("historyyyyyyy", history);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetIcon = (status) => {
     switch (status) {
@@ -94,19 +97,26 @@ const MyWallet = () => {
       amount: addMoney,
     };
 
+    setIsLoading(true);
+
     const res = await TransactionService.addMoney(body, token);
 
     if (res >= 200 && res < 300) {
       setIsShowAddModal(false);
+      setIsLoading(false);
+
       navigate.navigate("QRCode", { amount: addMoney });
     }
   };
 
   const handleCashOut = async () => {
+    setIsLoading(true);
+
     const res = await TransactionService.cashOut(cashOut, token);
 
     if (res >= 200 && res < 300) {
       setIsShowCashOutModal(false);
+      setIsLoading(false);
 
       navigate.navigate("PaymentInvoice", {
         status: 3,
@@ -157,7 +167,9 @@ const MyWallet = () => {
     fetchUserWallet();
   }, []);
 
-  console.log("latestHistory", latestHistory);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -179,7 +191,9 @@ const MyWallet = () => {
               <Text style={styles.amount}>
                 {formatNumber(latestHistory?.amount)}đ
               </Text>
-              <Text style={styles.timeStamp}>1 phút trước</Text>
+              <Text style={styles.timeStamp}>
+                {moment(latestHistory?.timestamp).fromNow()}
+              </Text>
             </>
           ) : (
             <Text style={[styles.myBalance, { color: "black" }]}>

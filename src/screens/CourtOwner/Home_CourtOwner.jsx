@@ -19,7 +19,6 @@ import { SIZE } from "../../theme/fonts";
 import OfferCard from "../../components/Organisms/OfferCard";
 import images from "../../constants/images";
 import VectorIcon from "../../components/Atoms/VectorIcon";
-import Carousel from "react-native-snap-carousel";
 import { METRICS } from "../../theme/metrics";
 import OwnedCourtCard from "../../components/Organisms/OwnedCourtCard";
 import { AuthContext } from "../../context/AuthContext";
@@ -176,7 +175,7 @@ export default function Home_CourtOwner() {
                 navigation={() => navigation.navigate("BookingManagement")}
               />
 
-              <Carousel
+              {/* <Carousel
                 layout="default"
                 firstItem={0}
                 contentContainerCustomStyle={{
@@ -197,7 +196,7 @@ export default function Home_CourtOwner() {
                 }}
                 sliderWidth={sliderWidth}
                 itemWidth={itemWidth}
-              />
+              /> */}
             </>
           ) : (
             <Loading />

@@ -122,11 +122,33 @@ class CourtService {
     courtCodeId,
     token
   ) {
-    console.log("-------------", date, badmintonCourtId, courtCodeId);
-
     try {
       const response = await getRequest(
         `${API_URL}/generate-slot-by-date-and-court?badmintonCourtId=${badmintonCourtId}&courtId=${courtCodeId}&date=${date}`,
+        token
+      );
+
+      console.log("response", response);
+
+      if (response.statusCode === 200) {
+        return response.data;
+      } else {
+        console.error("Get Slot List By Court Code fail", response);
+      }
+    } catch (error) {
+      console.error("Error fetching Slot List By Court Code", error);
+    }
+  }
+
+  static async generateSlotForOwner(
+    badmintonCourtId,
+    date,
+    courtCodeId,
+    token
+  ) {
+    try {
+      const response = await getRequest(
+        `${API_URL}/generate-slot-by-date-and-court-for-owner?badmintonCourtId=${badmintonCourtId}&courtId=${courtCodeId}&date=${date}`,
         token
       );
 
